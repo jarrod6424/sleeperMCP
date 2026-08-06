@@ -1,0 +1,13 @@
+# Runtime dependencies. Keep this minimal — it is what Horizon installs.
+
+# Pinned exactly. The server calls @mcp.tool()-decorated functions directly as
+# plain Python functions in ~46 places; that behaviour is version-dependent, so
+# an unpinned range could break the server on a rebuild.
+fastmcp==3.4.2
+
+httpx>=0.27,<1.0
+
+# Only imported when USE_OS_TRUSTSTORE=1 (see server.py). Needed on corporate
+# networks that do TLS inspection with a private root CA, which certifi does
+# not trust. Unnecessary on a cloud host, but harmless and cheap to install.
+truststore>=0.9

@@ -1,0 +1,21 @@
+{
+  "_instructions": "Rate each team's offensive coordinator/play-caller on a 1-5 scale. Use team abbreviations as keys. Tier 5 = elite scheme and player utilization, Tier 1 = poor. Missing teams default to tier 3 (neutral). Update as coaching staffs change.",
+  "_tiers": {
+    "1": "Poor — rigid scheme, misuses personnel, reactive rather than creative",
+    "2": "Below average — inconsistent utilization, limited creativity",
+    "3": "Average — competent but no clear edge in player deployment",
+    "4": "Above average — creative, adapts to personnel strengths, creates advantages",
+    "5": "Elite — maximizes each player's strengths, unpredictable, scheme-driven production"
+  },
+  "SF": {"oc": "Kyle Shanahan", "tier": 5, "notes": "Gold standard for WR/RB utilization, motion-heavy, creates separation by design"},
+  "MIA": {"oc": "Mike McDaniels", "tier": 5, "notes": "Shanahan disciple, elite at using speed and mismatch concepts"},
+  "TEN": {"oc": "Brian Callahan", "tier": 4, "notes": "Strong track record developing skill players in Cincinnati"},
+  "HOU": {"oc": "Bobby Slowik", "tier": 4, "notes": "Shanahan tree, creative usage, Stroud-Diggs connection a key test"},
+  "PHI": {"oc": "Kellen Moore", "tier": 4, "notes": "Pass-heavy, creative route combinations, good TE usage"},
+  "LAR": {"oc": "Mike McVay", "tier": 4, "notes": "HC/de facto OC, motion-heavy west coast, strong TE and RB usage"},
+  "KC": {"oc": "Matt Nagy", "tier": 3, "notes": "Mahomes elevates scheme above its design ceiling"},
+  "BUF": {"oc": "Joe Brady", "tier": 3, "notes": "Pass-heavy, Allen-dependent, limited RB usage"},
+  "DAL": {"oc": "Brian Schottenheimer", "tier": 2, "notes": "Conservative, run-first, limits ceiling of pass catchers"},
+  "NYJ": {"oc": "TBD", "tier": 2, "notes": "Historically poor utilization of skill talent"},
+  "NE": {"oc": "TBD", "tier": 2, "notes": "Post-Belichick era uncertainty"}
+}

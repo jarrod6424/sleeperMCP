@@ -1,0 +1,44 @@
+# Virtual environments (.venv here is ~123 MB — never commit it)
+.venv/
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Secrets and local config. Nothing with a token in it goes to GitHub.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Data caches: player map (~5 MB) and nflverse CSVs (2-7 MB per season).
+# These are regenerated on demand; keep them out of history.
+.cache/
+cache/
+players_*.json
+*.csv.gz
+
+# Golden-test working files. tests/golden.json IS committed on purpose —
+# it is the baseline the refactor is diffed against. These are not.
+tests/_actual.json
+tests/_diff.txt
+
+# Editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+desktop.ini
