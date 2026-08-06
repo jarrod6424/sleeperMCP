@@ -979,42 +979,7 @@ def get_depth_chart(
     abbreviation (BUF, KC, SF, etc). Optionally filter by position.
     Shows depth order for each position group.
     Source: nflverse (MIT licensed)."""
-    season = season or _current_season()
-    rows = _nflverse_csv("depth_charts", f"depth_charts_{season}.csv")
-    if not rows:
-        return {"error": "no depth chart data", "season": season}
-
-    team_up = team.strip().upper()
-    pos_up = position.strip().upper() if position else None
-    matched = [
-        r for r in rows
-        if r.get("club_code", "").upper() == team_up
-        and (pos_up is None or r.get("position", "").upper() == pos_up)
-    ]
-    if not matched:
-        return {"error": "no depth chart found", "team": team, "position": position}
-
-    max_week = max(int(r.get("week") or 0) for r in matched)
-    current = [r for r in matched if int(r.get("week") or 0) == max_week]
-
-    by_pos: dict[str, list] = {}
-    for r in current:
-        entry = {
-            "name": r.get("full_name"),
-            "depth": int(r.get("depth_team") or 99),
-            "formation": r.get("formation") or None,
-        }
-        by_pos.setdefault(r.get("position") or "UNK", []).append(entry)
-    for pos_key in by_pos:
-        by_pos[pos_key].sort(key=lambda e: e["depth"])
-
-    return {
-        "team": team_up,
-        "season": season,
-        "week": max_week,
-        "source": NFLVERSE_SOURCE,
-        "depth_chart": by_pos,
-    }
+    return _stats.depth_chart(team, position, season)
 
 
 @mcp.tool()

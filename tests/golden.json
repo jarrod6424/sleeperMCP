@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "captured_at": "2026-08-05 23:57:37",
+    "captured_at": "2026-08-06 15:52:38",
     "case_count": 62,
     "fixtures": {
       "draft_id": "1312218810626887680",
@@ -151,8 +151,383 @@
       "mode": "strict",
       "tool": "get_depth_chart",
       "value": {
-        "error": "no depth chart found",
-        "position": null,
+        "depth_chart": {
+          "C": [
+            {
+              "depth": 1,
+              "formation": "3WR 1TE",
+              "name": "Cade Mays"
+            },
+            {
+              "depth": 2,
+              "formation": "3WR 1TE",
+              "name": "Michael Niese"
+            },
+            {
+              "depth": 3,
+              "formation": "3WR 1TE",
+              "name": "Seth McLaughlin"
+            }
+          ],
+          "FS": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "Kerby Joseph"
+            },
+            {
+              "depth": 2,
+              "formation": "Base 4-3 D",
+              "name": "Christian Izien"
+            },
+            {
+              "depth": 3,
+              "formation": "Base 4-3 D",
+              "name": "Thomas Harper"
+            },
+            {
+              "depth": 4,
+              "formation": "Base 4-3 D",
+              "name": "Loren Strickland"
+            }
+          ],
+          "H": [
+            {
+              "depth": 1,
+              "formation": "Special Teams",
+              "name": "Jack Fox"
+            }
+          ],
+          "KR": [
+            {
+              "depth": 1,
+              "formation": "Special Teams",
+              "name": "Jacob Saylors"
+            },
+            {
+              "depth": 2,
+              "formation": "Special Teams",
+              "name": "Sione Vaki"
+            }
+          ],
+          "LCB": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "D.J. Reed"
+            },
+            {
+              "depth": 2,
+              "formation": "Base 4-3 D",
+              "name": "Rock Ya-Sin"
+            },
+            {
+              "depth": 3,
+              "formation": "Base 4-3 D",
+              "name": "Nick Whiteside"
+            }
+          ],
+          "LDE": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "Aidan Hutchinson"
+            }
+          ],
+          "LDT": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "Alim McNeill"
+            },
+            {
+              "depth": 2,
+              "formation": "Base 4-3 D",
+              "name": "Tyleik Williams"
+            },
+            {
+              "depth": 3,
+              "formation": "Base 4-3 D",
+              "name": "Mekhi Wingo"
+            }
+          ],
+          "LG": [
+            {
+              "depth": 1,
+              "formation": "3WR 1TE",
+              "name": "Christian Mahogany"
+            },
+            {
+              "depth": 2,
+              "formation": "3WR 1TE",
+              "name": "Juice Scruggs"
+            }
+          ],
+          "LS": [
+            {
+              "depth": 1,
+              "formation": "Special Teams",
+              "name": "Hogan Hatten"
+            }
+          ],
+          "LT": [
+            {
+              "depth": 1,
+              "formation": "3WR 1TE",
+              "name": "Larry Borom"
+            },
+            {
+              "depth": 2,
+              "formation": "3WR 1TE",
+              "name": "Devin Cochran"
+            }
+          ],
+          "MLB": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "Jack Campbell"
+            }
+          ],
+          "NB": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "Ennis Rakestraw Jr."
+            }
+          ],
+          "P": [
+            {
+              "depth": 1,
+              "formation": "Special Teams",
+              "name": "Jack Fox"
+            }
+          ],
+          "PK": [
+            {
+              "depth": 1,
+              "formation": "Special Teams",
+              "name": "Jake Bates"
+            }
+          ],
+          "QB": [
+            {
+              "depth": 1,
+              "formation": "3WR 1TE",
+              "name": "Jared Goff"
+            },
+            {
+              "depth": 2,
+              "formation": "3WR 1TE",
+              "name": "Teddy Bridgewater"
+            }
+          ],
+          "RB": [
+            {
+              "depth": 1,
+              "formation": "3WR 1TE",
+              "name": "Jahmyr Gibbs"
+            },
+            {
+              "depth": 2,
+              "formation": "3WR 1TE",
+              "name": "Isiah Pacheco"
+            },
+            {
+              "depth": 3,
+              "formation": "3WR 1TE",
+              "name": "Sione Vaki"
+            },
+            {
+              "depth": 4,
+              "formation": "3WR 1TE",
+              "name": "Jacob Saylors"
+            },
+            {
+              "depth": 5,
+              "formation": "3WR 1TE",
+              "name": "Jabari Small"
+            },
+            {
+              "depth": 6,
+              "formation": "3WR 1TE",
+              "name": "Kye Robichaux"
+            }
+          ],
+          "RCB": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "Terrion Arnold"
+            },
+            {
+              "depth": 2,
+              "formation": "Base 4-3 D",
+              "name": "Roger McCreary"
+            },
+            {
+              "depth": 3,
+              "formation": "Base 4-3 D",
+              "name": "Khalil Dorsey"
+            }
+          ],
+          "RDE": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "Tyler Lacy"
+            },
+            {
+              "depth": 2,
+              "formation": "Base 4-3 D",
+              "name": "Ahmed Hassanein"
+            }
+          ],
+          "RDT": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "Levi Onwuzurike"
+            },
+            {
+              "depth": 2,
+              "formation": "Base 4-3 D",
+              "name": "Chris Smith"
+            }
+          ],
+          "RG": [
+            {
+              "depth": 1,
+              "formation": "3WR 1TE",
+              "name": "Tate Ratledge"
+            },
+            {
+              "depth": 2,
+              "formation": "3WR 1TE",
+              "name": "Miles Frazier"
+            },
+            {
+              "depth": 3,
+              "formation": "3WR 1TE",
+              "name": "Colby Sorsdal"
+            }
+          ],
+          "RT": [
+            {
+              "depth": 1,
+              "formation": "3WR 1TE",
+              "name": "Penei Sewell"
+            },
+            {
+              "depth": 2,
+              "formation": "3WR 1TE",
+              "name": "Giovanni Manu"
+            },
+            {
+              "depth": 3,
+              "formation": "3WR 1TE",
+              "name": "Mason Miller"
+            }
+          ],
+          "SLB": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "Derrick Barnes"
+            }
+          ],
+          "SS": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "Brian Branch"
+            },
+            {
+              "depth": 2,
+              "formation": "Base 4-3 D",
+              "name": "Dan Jackson"
+            }
+          ],
+          "TE": [
+            {
+              "depth": 1,
+              "formation": "3WR 1TE",
+              "name": "Sam LaPorta"
+            },
+            {
+              "depth": 2,
+              "formation": "3WR 1TE",
+              "name": "Brock Wright"
+            },
+            {
+              "depth": 3,
+              "formation": "3WR 1TE",
+              "name": "Tyler Conklin"
+            },
+            {
+              "depth": 4,
+              "formation": "3WR 1TE",
+              "name": "Zach Horton"
+            },
+            {
+              "depth": 5,
+              "formation": "3WR 1TE",
+              "name": "Thomas Gordon"
+            }
+          ],
+          "WLB": [
+            {
+              "depth": 1,
+              "formation": "Base 4-3 D",
+              "name": "Malcolm Rodriguez"
+            },
+            {
+              "depth": 2,
+              "formation": "Base 4-3 D",
+              "name": "Trevor Nowaske"
+            }
+          ],
+          "WR": [
+            {
+              "depth": 1,
+              "formation": "3WR 1TE",
+              "name": "Amon-Ra St. Brown"
+            },
+            {
+              "depth": 2,
+              "formation": "3WR 1TE",
+              "name": "Jameson Williams"
+            },
+            {
+              "depth": 3,
+              "formation": "3WR 1TE",
+              "name": "Isaac TeSlaa"
+            },
+            {
+              "depth": 4,
+              "formation": "3WR 1TE",
+              "name": "Dominic Lovett"
+            },
+            {
+              "depth": 5,
+              "formation": "3WR 1TE",
+              "name": "Jackson Meeks"
+            },
+            {
+              "depth": 6,
+              "formation": "3WR 1TE",
+              "name": "Malik Cunningham"
+            },
+            {
+              "depth": 7,
+              "formation": "3WR 1TE",
+              "name": "Tom Kennedy"
+            }
+          ]
+        },
+        "schema": "2025+",
+        "season": "2025",
+        "source": "nflverse open data (MIT licensed, github.com/nflverse)",
         "team": "DET"
       }
     },
@@ -165,8 +540,48 @@
       "mode": "strict",
       "tool": "get_depth_chart",
       "value": {
-        "error": "no depth chart found",
-        "position": "WR",
+        "depth_chart": {
+          "WR": [
+            {
+              "depth": 1,
+              "formation": "3WR 1TE",
+              "name": "Amon-Ra St. Brown"
+            },
+            {
+              "depth": 2,
+              "formation": "3WR 1TE",
+              "name": "Jameson Williams"
+            },
+            {
+              "depth": 3,
+              "formation": "3WR 1TE",
+              "name": "Isaac TeSlaa"
+            },
+            {
+              "depth": 4,
+              "formation": "3WR 1TE",
+              "name": "Dominic Lovett"
+            },
+            {
+              "depth": 5,
+              "formation": "3WR 1TE",
+              "name": "Jackson Meeks"
+            },
+            {
+              "depth": 6,
+              "formation": "3WR 1TE",
+              "name": "Malik Cunningham"
+            },
+            {
+              "depth": 7,
+              "formation": "3WR 1TE",
+              "name": "Tom Kennedy"
+            }
+          ]
+        },
+        "schema": "2025+",
+        "season": "2025",
+        "source": "nflverse open data (MIT licensed, github.com/nflverse)",
         "team": "DET"
       }
     },
@@ -7721,7 +8136,7 @@
       "value": {
         "players": [
           {
-            "injury_status": "str",
+            "injury_status": "null",
             "name": "str",
             "player_id": "str",
             "position": "str",
