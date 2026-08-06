@@ -34,15 +34,14 @@ from fastmcp import FastMCP
 from sleeper_core import http as _http
 from sleeper_core import league as _league_mod
 from sleeper_core import players as _players
+from sleeper_core import projections as _proj
+from sleeper_core import values as _values
 from sleeper_core.config import (
-    CACHE_DIR,
     DEFAULT_TEAM_NAME,
     DEFAULT_USERNAME,
-    FC_CACHE_TTL,
     FC_SOURCE,
     NFLVERSE_SOURCE,
     OC_TIERS_FILE,
-    PROJ_CACHE_TTL,
     SPORT,
 )
 
@@ -76,6 +75,18 @@ _current_week = _league_mod.current_week
 _compute_matchups = _league_mod.compute_matchups
 _matchup_for = _league_mod.matchup_for
 _compute_transactions = _league_mod.compute_transactions
+
+_SLOT_ELIGIBILITY = _proj.SLOT_ELIGIBILITY
+_SKIP_SLOTS = _proj.SKIP_SLOTS
+_normalize_projections = _proj.normalize
+_projections_for = _proj.projections_for
+_scoring_field = _proj.scoring_field
+_proj_points = _proj.proj_points
+_optimal_lineup = _proj.optimal_lineup
+
+_league_format = _values.league_format
+_fc_values = _values.fc_values
+_fc_row = _values.fc_row
 
 _OC_TIERS_FILE = OC_TIERS_FILE
 
@@ -458,106 +469,6 @@ def get_user(username_or_id: str) -> dict:
 # --------------------------------------------------------------------------
 
 # Slot eligibility for lineup optimization. Bench-like slots are skipped.
-_SLOT_ELIGIBILITY: dict[str, set] = {
-    "QB": {"QB"},
-    "RB": {"RB"},
-    "WR": {"WR"},
-    "TE": {"TE"},
-    "K": {"K"},
-    "DEF": {"DEF"},
-    "FLEX": {"RB", "WR", "TE"},
-    "WRRB_FLEX": {"RB", "WR"},
-    "REC_FLEX": {"WR", "TE"},
-    "SUPER_FLEX": {"QB", "RB", "WR", "TE"},
-}
-_SKIP_SLOTS = {"BN", "IR", "TAXI", "NA"}
-
-
-def _normalize_projections(raw: Any) -> dict[str, dict]:
-    """Reduce a projections payload to {player_id: stats_dict}. Handles both a
-    list of records and a dict keyed by player_id, since the undocumented shape
-    is not guaranteed."""
-    out: dict[str, dict] = {}
-    if isinstance(raw, list):
-        for item in raw:
-            if not isinstance(item, dict):
-                continue
-            pid = item.get("player_id") or (item.get("player") or {}).get("player_id")
-            if pid is not None:
-                out[str(pid)] = item.get("stats") or {}
-    elif isinstance(raw, dict):
-        for pid, item in raw.items():
-            if isinstance(item, dict):
-                out[str(pid)] = item.get("stats") or item
-    return out
-
-
-def _projections_for(season: str, week: int) -> dict[str, dict]:
-    """Normalized weekly projections, cached on disk for a few hours."""
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    cache_file = CACHE_DIR / f"proj_{SPORT}_{season}_wk{week}.json"
-    if cache_file.exists() and (time.time() - cache_file.stat().st_mtime) < PROJ_CACHE_TTL:
-        try:
-            return json.loads(cache_file.read_text())
-        except json.JSONDecodeError:
-            pass
-
-    params = [("season_type", "regular")]
-    for pos in ("QB", "RB", "WR", "TE", "K", "DEF"):
-        params.append(("position[]", pos))
-    raw = _alt_get(f"/projections/{SPORT}/{season}/{week}", params=params)
-    norm = _normalize_projections(raw)
-    try:
-        cache_file.write_text(json.dumps(norm))
-    except OSError:
-        pass
-    return norm
-
-
-def _scoring_field(lid: str) -> tuple[str, str]:
-    """Pick the projection point field that matches the league's scoring:
-    PPR, half-PPR, or standard, based on points per reception."""
-    league = _get(f"/league/{lid}", cache=True) or {}
-    rec = (league.get("scoring_settings") or {}).get("rec", 0) or 0
-    if rec >= 1:
-        return "pts_ppr", "PPR"
-    if rec >= 0.5:
-        return "pts_half_ppr", "Half-PPR"
-    return "pts_std", "Standard"
-
-
-def _proj_points(pid: str, proj: dict, field: str) -> float:
-    stats = proj.get(str(pid)) or {}
-    val = stats.get(field)
-    if val is None:
-        val = stats.get("pts_ppr") or stats.get("pts_half_ppr") or stats.get("pts_std")
-    return round(float(val), 2) if val is not None else 0.0
-
-
-def _optimal_lineup(slots: list[str], pool: list[dict]) -> list[dict]:
-    """Greedy best-ball lineup: fill the most restrictive slots first, each with
-    the highest-projected eligible player still available. A heuristic, not a
-    provably optimal assignment, but reliable for start/sit guidance."""
-    ranked = sorted(pool, key=lambda p: p["proj"], reverse=True)
-    used: set = set()
-    assigned: list[dict] = []
-    order = sorted(
-        range(len(slots)),
-        key=lambda i: len(_SLOT_ELIGIBILITY.get(slots[i], {slots[i]})),
-    )
-    for i in order:
-        slot = slots[i]
-        elig = _SLOT_ELIGIBILITY.get(slot, {slot})
-        pick = next(
-            (p for p in ranked if p["player_id"] not in used and p["position"] in elig),
-            None,
-        )
-        if pick:
-            used.add(pick["player_id"])
-            assigned.append({"slot": slot, **pick})
-    return assigned
-
-
 @mcp.tool()
 def get_projections(
     week: int | None = None,
@@ -703,71 +614,6 @@ def start_sit_advice(
 # matching. Isolated behind its own client; if FantasyCalc changes, only these
 # tools are affected.
 # --------------------------------------------------------------------------
-
-def _league_format(lid: str) -> dict:
-    """Translate the Sleeper league's settings into FantasyCalc parameters:
-    PPR level, 1QB vs superflex, team count, and dynasty vs redraft."""
-    league = _get(f"/league/{lid}", cache=True) or {}
-    rec = (league.get("scoring_settings") or {}).get("rec", 0) or 0
-    ppr = 1 if rec >= 1 else (0.5 if rec >= 0.5 else 0)
-    positions = league.get("roster_positions") or []
-    num_qbs = 2 if "SUPER_FLEX" in positions else 1
-    num_teams = league.get("total_rosters") or 12
-    is_dynasty = (league.get("settings") or {}).get("type") == 2
-    return {
-        "ppr": ppr,
-        "numQbs": num_qbs,
-        "numTeams": num_teams,
-        "isDynasty": is_dynasty,
-    }
-
-
-def _fc_values(fmt: dict) -> list[dict]:
-    """FantasyCalc values for a league format, cached on disk for a few hours."""
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    key = (
-        f"fc_dyn{int(fmt['isDynasty'])}_qb{fmt['numQbs']}"
-        f"_tm{fmt['numTeams']}_ppr{fmt['ppr']}.json"
-    )
-    cache_file = CACHE_DIR / key
-    if cache_file.exists() and (time.time() - cache_file.stat().st_mtime) < FC_CACHE_TTL:
-        try:
-            return json.loads(cache_file.read_text())
-        except json.JSONDecodeError:
-            pass
-
-    params = [
-        ("isDynasty", str(fmt["isDynasty"]).lower()),
-        ("numQbs", fmt["numQbs"]),
-        ("numTeams", fmt["numTeams"]),
-        ("ppr", fmt["ppr"]),
-    ]
-    raw = _fc_get("/values/current", params=params) or []
-    try:
-        cache_file.write_text(json.dumps(raw))
-    except OSError:
-        pass
-    return raw
-
-
-def _fc_row(v: dict) -> dict:
-    p = v.get("player") or {}
-    return {
-        "name": p.get("name"),
-        "position": p.get("position"),
-        "team": p.get("maybeTeam"),
-        "age": p.get("maybeAge"),
-        "value": v.get("value"),
-        "redraft_value": v.get("redraftValue"),
-        "overall_rank": v.get("overallRank"),
-        "position_rank": v.get("positionRank"),
-        "tier": v.get("maybeTier"),
-        "adp": v.get("maybeAdp"),
-        "trend_30_day": v.get("trend30Day"),
-        "trade_frequency": v.get("maybeTradeFrequency"),
-        "sleeper_id": p.get("sleeperId"),
-    }
-
 
 @mcp.tool()
 def get_trade_values(
