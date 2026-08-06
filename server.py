@@ -32,6 +32,7 @@ if os.environ.get("USE_OS_TRUSTSTORE"):
 from fastmcp import FastMCP
 
 from sleeper_core import http as _http
+from sleeper_core import players as _players
 from sleeper_core.config import (
     CACHE_DIR,
     DEFAULT_LEAGUE_ID,
@@ -41,7 +42,6 @@ from sleeper_core.config import (
     FC_SOURCE,
     NFLVERSE_SOURCE,
     OC_TIERS_FILE,
-    PLAYER_CACHE_TTL,
     PROJ_CACHE_TTL,
     SPORT,
 )
@@ -60,73 +60,15 @@ _alt_get = _http.alt_get
 _fc_get = _http.fc_get
 _nflverse_csv = _http.nflverse_csv
 
-_OC_TIERS_FILE = OC_TIERS_FILE
+_load_players = _players.load_players
+_player_name = _players.player_name
+_enrich_players = _players.enrich_players
 
-# In-memory singleton for the player map (5 MB JSON, expensive to re-parse).
-# Moves to sleeper_core/players.py in the next commit.
-_players_cache: dict[str, Any] | None = None
-_players_cache_ts: float = 0.0
+_OC_TIERS_FILE = OC_TIERS_FILE
 
 
 def _league(league_id: str | None) -> str:
     return league_id or DEFAULT_LEAGUE_ID
-
-
-# --------------------------------------------------------------------------
-# Player map (cached) and enrichment helpers
-# --------------------------------------------------------------------------
-
-
-def _load_players() -> dict[str, Any]:
-    """Return the full player map. Checks an in-memory singleton first, then
-    the on-disk cache, then fetches from the API."""
-    global _players_cache, _players_cache_ts
-    now = time.time()
-    if _players_cache is not None and (now - _players_cache_ts) < PLAYER_CACHE_TTL:
-        return _players_cache
-
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    cache_file = CACHE_DIR / f"players_{SPORT}.json"
-    if cache_file.exists() and (now - cache_file.stat().st_mtime) < PLAYER_CACHE_TTL:
-        try:
-            _players_cache = json.loads(cache_file.read_text())
-            _players_cache_ts = cache_file.stat().st_mtime
-            return _players_cache
-        except json.JSONDecodeError:
-            pass
-
-    players = _get(f"/players/{SPORT}") or {}
-    try:
-        cache_file.write_text(json.dumps(players))
-    except OSError:
-        pass
-    _players_cache = players
-    _players_cache_ts = now
-    return players
-
-
-def _player_name(pid: str, players: dict[str, Any]) -> dict[str, Any]:
-    """Resolve one player_id into a readable record."""
-    info = players.get(pid)
-    if info:
-        first = info.get("first_name") or ""
-        last = info.get("last_name") or ""
-        name = (first + " " + last).strip() or info.get("full_name") or pid
-        return {
-            "player_id": pid,
-            "name": name,
-            "position": info.get("position"),
-            "team": info.get("team"),
-            "injury_status": info.get("injury_status") or None,
-        }
-    # Team defenses are keyed by the team abbreviation (e.g. "DET").
-    if pid.isalpha() and pid.isupper():
-        return {"player_id": pid, "name": f"{pid} D/ST", "position": "DEF", "team": pid}
-    return {"player_id": pid, "name": pid, "position": None, "team": None}
-
-
-def _enrich_players(ids: list[str] | None, players: dict[str, Any]) -> list[dict]:
-    return [_player_name(pid, players) for pid in (ids or [])]
 
 
 def _user_map(league_id: str) -> dict[str, dict]:
