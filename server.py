@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 from typing import Any
 
@@ -1363,5 +1364,44 @@ def score_player(
     return result
 
 
+# --------------------------------------------------------------------------
+# Entrypoint
+# --------------------------------------------------------------------------
+
+
+def _warm_caches() -> None:
+    """Load the ~5 MB player map before serving instead of on first request.
+
+    Without this the first question of the day pays the download cost on the
+    request path, and so does the first pick of a draft. Failures are logged
+    and swallowed: a cold cache is slow, not broken, and the server should
+    still come up if Sleeper is briefly unreachable at boot.
+
+    Logs go to stderr, never stdout — under stdio transport stdout carries the
+    MCP protocol itself and a stray print corrupts the stream.
+    """
+    try:
+        count = _players.warm()
+        print(f"[startup] player map warm: {count} players", file=sys.stderr)
+    except Exception as exc:  # noqa: BLE001 - never block startup
+        print(f"[startup] player map warm failed ({exc}); "
+              f"will load on first use", file=sys.stderr)
+
+
 if __name__ == "__main__":
-    mcp.run()
+    # HTTP transport for remote hosting (Horizon, or a local smoke test).
+    # Streamable HTTP, not SSE — SSE was deprecated in the March 2025 MCP spec.
+    if os.environ.get("MCP_HTTP"):
+        _warm_caches()
+        mcp.run(
+            transport="http",
+            host=os.environ.get("HOST", "0.0.0.0"),
+            port=int(os.environ.get("PORT", "8000")),
+        )
+    else:
+        # stdio for Claude Desktop, unchanged. Warming is opt-in here because
+        # Desktop restarts this process often and a cold 5 MB fetch would sit
+        # in front of every launch.
+        if os.environ.get("MCP_WARM"):
+            _warm_caches()
+        mcp.run()

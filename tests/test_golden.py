@@ -19,8 +19,10 @@ import pytest
 
 from cases import (
     GOLDEN_PATH,
+    SHAPE,
     build_cases,
     find_diffs,
+    mask_volatile,
     normalize,
     run_case,
 )
@@ -54,6 +56,12 @@ def test_tool_output_unchanged(case_id: str) -> None:
     # stored, not the way Python happens to hold them in memory.
     actual = json.loads(json.dumps(actual, sort_keys=True, default=str))
     expected = expected_entry["value"]
+
+    # Applied to both sides so a baseline captured before this existed still
+    # compares correctly — no re-capture needed.
+    if mode == SHAPE:
+        expected = mask_volatile(expected)
+        actual = mask_volatile(actual)
 
     if actual == expected:
         return

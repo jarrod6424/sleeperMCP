@@ -147,6 +147,33 @@ def shape(value):
     return type(value).__name__
 
 
+def mask_volatile(value):
+    """Blank out volatile keys inside a SHAPE result, keeping the key itself.
+
+    strip_volatile handles STRICT mode, where the *values* drift. SHAPE mode
+    has a subtler version of the same problem: the recorded value is a type
+    name, and for a nullable field that type name flips depending on which
+    players happened to land in the sample.
+
+    injury_status is the clear case. A ten-player slice where nobody is banged
+    up records "null"; the same call a day later, with one questionable player
+    in it, records "str". Nothing in the code changed. The baseline already
+    captured available_players as "str" and available_rb as "null" for exactly
+    this reason.
+
+    Masking rather than dropping keeps the useful half of the check: a field
+    that disappears entirely still fails, only its type is ignored.
+    """
+    if isinstance(value, dict):
+        return {
+            k: ("<volatile>" if k in VOLATILE_KEYS else mask_volatile(v))
+            for k, v in value.items()
+        }
+    if isinstance(value, list):
+        return [mask_volatile(v) for v in value]
+    return value
+
+
 def normalize(value, mode: str):
     return shape(value) if mode == SHAPE else strip_volatile(value)
 
