@@ -33,8 +33,10 @@ from fastmcp import FastMCP
 
 from sleeper_core import http as _http
 from sleeper_core import league as _league_mod
+from sleeper_core import offense as _offense
 from sleeper_core import players as _players
 from sleeper_core import projections as _proj
+from sleeper_core import stats as _stats
 from sleeper_core import values as _values
 from sleeper_core.config import (
     DEFAULT_TEAM_NAME,
@@ -87,6 +89,18 @@ _optimal_lineup = _proj.optimal_lineup
 _league_format = _values.league_format
 _fc_values = _values.fc_values
 _fc_row = _values.fc_row
+
+_STAT_KEEP = _stats.STAT_KEEP
+_NUMERIC = _stats.NUMERIC
+_current_season = _stats.current_season
+_coerce = _stats.coerce
+_match_player = _stats.match_player
+
+_load_oc_tiers = _offense.load_oc_tiers
+_stats_season_with_label = _offense.stats_season_with_label
+_safe_float = _offense.safe_float
+_team_skill_rows = _offense.team_skill_rows
+_crowding_analysis = _offense.crowding_analysis
 
 _OC_TIERS_FILE = OC_TIERS_FILE
 
@@ -877,58 +891,6 @@ def get_dynasty_tiers(
 # --------------------------------------------------------------------------
 
 # Columns to keep from the weekly player stats file (115 total — we trim hard).
-_STAT_KEEP = {
-    "player_display_name", "position", "team", "week", "season", "opponent_team",
-    "targets", "receptions", "receiving_yards", "receiving_tds",
-    "receiving_air_yards", "receiving_yards_after_catch",
-    "target_share", "air_yards_share", "wopr", "racr",
-    "carries", "rushing_yards", "rushing_tds",
-    "completions", "attempts", "passing_yards", "passing_tds",
-    "passing_interceptions", "passing_air_yards", "passing_cpoe",
-    "fantasy_points", "fantasy_points_ppr",
-}
-
-_NUMERIC = {
-    "week", "targets", "receptions", "receiving_yards", "receiving_tds",
-    "receiving_air_yards", "receiving_yards_after_catch",
-    "target_share", "air_yards_share", "wopr", "racr",
-    "carries", "rushing_yards", "rushing_tds",
-    "completions", "attempts", "passing_yards", "passing_tds",
-    "passing_interceptions", "passing_air_yards", "passing_cpoe",
-    "fantasy_points", "fantasy_points_ppr",
-    "offense_snaps", "offense_pct", "defense_snaps", "defense_pct",
-    "st_snaps", "st_pct",
-}
-
-
-def _current_season() -> str:
-    state = _get(f"/state/{SPORT}", cache=True) or {}
-    return str(state.get("season") or state.get("league_season") or "2024")
-
-
-def _coerce(row: dict, keep: set[str]) -> dict:
-    """Keep only desired columns and coerce numerics."""
-    out = {}
-    for k, v in row.items():
-        if k not in keep:
-            continue
-        if v in ("", "NA", "NULL", "None"):
-            continue
-        if k in _NUMERIC:
-            try:
-                out[k] = float(v) if "." in str(v) else int(v)
-                continue
-            except (ValueError, TypeError):
-                pass
-        out[k] = v
-    return out
-
-
-def _match_player(rows: list[dict], name: str, name_col: str) -> list[dict]:
-    needle = name.strip().lower()
-    return [r for r in rows if needle in (r.get(name_col) or "").lower()]
-
-
 @mcp.tool()
 def get_player_stats(
     player_name: str,
@@ -1102,116 +1064,6 @@ def get_injuries(
 # --------------------------------------------------------------------------
 # Tools: team offense crowding + composite player scoring
 # --------------------------------------------------------------------------
-
-
-def _load_oc_tiers() -> dict[str, dict]:
-    if _OC_TIERS_FILE.exists():
-        try:
-            data = json.loads(_OC_TIERS_FILE.read_text())
-            return {k: v for k, v in data.items() if not k.startswith("_")}
-        except (json.JSONDecodeError, OSError):
-            pass
-    return {}
-
-
-def _stats_season_with_label() -> tuple[str, str]:
-    """Try the current season; fall back to prior year if no game data exists yet.
-    Returns (season_string, human_readable_label)."""
-    current = _current_season()
-    rows = _nflverse_csv("stats_player", f"stats_player_week_{current}.csv")
-    if rows:
-        return current, f"{current} (current season)"
-    prev = str(int(current) - 1)
-    return prev, f"{prev} (historical — {current} season data not yet available)"
-
-
-def _safe_float(val: Any, default: float = 0.0) -> float:
-    try:
-        return float(val)
-    except (TypeError, ValueError):
-        return default
-
-
-def _team_skill_rows(team: str, season: str) -> list[dict]:
-    """All weekly stat rows for skill positions on a given team."""
-    rows = _nflverse_csv("stats_player", f"stats_player_week_{season}.csv")
-    skill = {"WR", "RB", "TE", "QB"}
-    return [
-        r for r in rows
-        if r.get("team", "").upper() == team.upper()
-        and r.get("position") in skill
-    ]
-
-
-def _crowding_analysis(team: str, season: str) -> dict:
-    """Compute per-player usage consistency and team target concentration."""
-    rows = _team_skill_rows(team, season)
-    if not rows:
-        return {}
-
-    # Build per-player weekly target share and snap pct
-    from collections import defaultdict
-    player_weeks: dict[str, list[dict]] = defaultdict(list)
-    for r in rows:
-        name = r.get("player_display_name") or r.get("player_name") or ""
-        pos = r.get("position") or ""
-        tgt_share = _safe_float(r.get("target_share"))
-        off_pct = _safe_float(r.get("offense_pct"))  # not in this file, that's snap_counts
-        carries = _safe_float(r.get("carries"))
-        targets = _safe_float(r.get("targets"))
-        if targets + carries == 0:
-            continue
-        player_weeks[name].append({
-            "pos": pos,
-            "target_share": tgt_share,
-            "targets": targets,
-            "carries": carries,
-            "week": r.get("week"),
-        })
-
-    import statistics
-    players_out = []
-    for name, weeks in player_weeks.items():
-        if not weeks:
-            continue
-        pos = weeks[0]["pos"]
-        shares = [w["target_share"] for w in weeks if w["target_share"] > 0]
-        avg_share = round(statistics.mean(shares), 3) if shares else 0.0
-        share_std = round(statistics.stdev(shares), 3) if len(shares) > 1 else 0.0
-        avg_targets = round(statistics.mean(w["targets"] for w in weeks), 1)
-        games = len(weeks)
-        # Consistency score: high avg share + low variance = high score (0-100)
-        consistency = max(0.0, min(100.0, round(avg_share * 200 - share_std * 300, 1)))
-        players_out.append({
-            "name": name,
-            "position": pos,
-            "games": games,
-            "avg_target_share": avg_share,
-            "target_share_std": share_std,
-            "avg_targets_per_game": avg_targets,
-            "usage_consistency_score": consistency,
-        })
-
-    # Sort by avg target share descending, assign usage rank
-    players_out.sort(key=lambda p: p["avg_target_share"], reverse=True)
-    for i, p in enumerate(players_out, start=1):
-        p["usage_rank"] = i
-
-    # Team-level HHI: measure of target concentration (lower = more spread)
-    all_shares = [p["avg_target_share"] for p in players_out if p["avg_target_share"] > 0]
-    hhi = round(sum(s ** 2 for s in all_shares), 3) if all_shares else 0.0
-    if hhi > 0.35:
-        concentration = "high — targets concentrated in 1-2 players"
-    elif hhi > 0.20:
-        concentration = "moderate — clear hierarchy but multiple contributors"
-    else:
-        concentration = "distributed — targets spread across many players"
-
-    return {
-        "players": players_out,
-        "team_hhi": hhi,
-        "concentration": concentration,
-    }
 
 
 @mcp.tool()
