@@ -1,0 +1,5194 @@
+{
+  "_meta": {
+    "captured_at": "2026-08-05 23:51:32",
+    "case_count": 44,
+    "fixtures": {
+      "draft_id": "1312218810626887680",
+      "player_id": "9493"
+    },
+    "player_a": "Puka Nacua",
+    "player_b": "Bijan Robinson",
+    "season": "2025",
+    "team": "DET",
+    "week": 10
+  },
+  "cases": {
+    "adp": {
+      "kwargs": {
+        "limit": 25
+      },
+      "mode": "shape",
+      "tool": "get_adp",
+      "value": {
+        "format": {
+          "isDynasty": "bool",
+          "numQbs": "number",
+          "numTeams": "number",
+          "ppr": "number"
+        },
+        "note": "str",
+        "players": [
+          "<empty>"
+        ],
+        "source": "str"
+      }
+    },
+    "analyze_trade": {
+      "kwargs": {
+        "get": [
+          "Puka Nacua"
+        ],
+        "give": [
+          "Bijan Robinson"
+        ]
+      },
+      "mode": "shape",
+      "tool": "analyze_trade",
+      "value": {
+        "difference": "number",
+        "format": {
+          "isDynasty": "bool",
+          "numQbs": "number",
+          "numTeams": "number",
+          "ppr": "number"
+        },
+        "get": [
+          {
+            "adp": "null",
+            "age": "number",
+            "name": "str",
+            "overall_rank": "number",
+            "position": "str",
+            "position_rank": "number",
+            "redraft_value": "number",
+            "sleeper_id": "str",
+            "team": "str",
+            "tier": "number",
+            "trade_frequency": "number",
+            "trend_30_day": "number",
+            "value": "number"
+          }
+        ],
+        "get_total": "number",
+        "give": [
+          {
+            "adp": "null",
+            "age": "number",
+            "name": "str",
+            "overall_rank": "number",
+            "position": "str",
+            "position_rank": "number",
+            "redraft_value": "number",
+            "sleeper_id": "str",
+            "team": "str",
+            "tier": "number",
+            "trade_frequency": "number",
+            "trend_30_day": "number",
+            "value": "number"
+          }
+        ],
+        "give_total": "number",
+        "note": "str",
+        "percent_vs_larger_side": "number",
+        "source": "str",
+        "unmatched": {
+          "get": [
+            "<empty>"
+          ],
+          "give": [
+            "<empty>"
+          ]
+        },
+        "verdict": "str"
+      }
+    },
+    "available_players": {
+      "kwargs": {
+        "limit": 25
+      },
+      "mode": "shape",
+      "tool": "get_available_players",
+      "value": [
+        {
+          "injury_status": "str",
+          "name": "str",
+          "player_id": "str",
+          "position": "str",
+          "search_rank": "number",
+          "status": "str",
+          "team": "str"
+        }
+      ]
+    },
+    "available_rb": {
+      "kwargs": {
+        "limit": 10,
+        "position": "RB"
+      },
+      "mode": "shape",
+      "tool": "get_available_players",
+      "value": [
+        {
+          "injury_status": "null",
+          "name": "str",
+          "player_id": "str",
+          "position": "str",
+          "search_rank": "number",
+          "status": "str",
+          "team": "str"
+        }
+      ]
+    },
+    "depth_chart": {
+      "kwargs": {
+        "season": "2025",
+        "team": "DET"
+      },
+      "mode": "strict",
+      "tool": "get_depth_chart",
+      "value": {
+        "error": "no depth chart found",
+        "position": null,
+        "team": "DET"
+      }
+    },
+    "depth_chart_wr": {
+      "kwargs": {
+        "position": "WR",
+        "season": "2025",
+        "team": "DET"
+      },
+      "mode": "strict",
+      "tool": "get_depth_chart",
+      "value": {
+        "error": "no depth chart found",
+        "position": "WR",
+        "team": "DET"
+      }
+    },
+    "draft": {
+      "kwargs": {
+        "draft_id": "1312218810626887680"
+      },
+      "mode": "strict",
+      "tool": "get_draft",
+      "value": {
+        "created": 1767219853602,
+        "creators": [
+          "337322962594054144",
+          "706026655591768064"
+        ],
+        "draft_id": "1312218810626887680",
+        "draft_order": {
+          "1001284597327486976": 7,
+          "1095429062677401600": 12,
+          "1123490464163901440": 6,
+          "1129466881162821632": 8,
+          "1236055001478987776": 4,
+          "1264287661795840000": 2,
+          "1388020236883623936": 1,
+          "337322962594054144": 10,
+          "706026655591768064": 5,
+          "860618680084574208": 11,
+          "866065736727142400": 9,
+          "941857690488242176": 3
+        },
+        "last_message_id": "1312218810626887680",
+        "last_message_time": 1767219853602,
+        "last_picked": null,
+        "league_id": "1312218810614300672",
+        "metadata": {
+          "description": "",
+          "name": "Gridiron Time Machine",
+          "scoring_type": "dynasty_2qb",
+          "show_team_names": "1"
+        },
+        "season": "2026",
+        "season_type": "regular",
+        "settings": {
+          "alpha_sort": 0,
+          "autopause_enabled": 0,
+          "autopause_end_time": 900,
+          "autopause_start_time": 180,
+          "autostart": 0,
+          "cpu_autopick": 1,
+          "enforce_position_limits": 1,
+          "nomination_timer": 60,
+          "pick_timer": 300,
+          "player_type": 1,
+          "reversal_round": 0,
+          "rounds": 3,
+          "slots_bn": 9,
+          "slots_flex": 2,
+          "slots_qb": 1,
+          "slots_rb": 2,
+          "slots_super_flex": 1,
+          "slots_te": 1,
+          "slots_wr": 2,
+          "teams": 12
+        },
+        "slot_to_roster_id": {
+          "1": 8,
+          "10": 1,
+          "11": 4,
+          "12": 12,
+          "2": 11,
+          "3": 7,
+          "4": 3,
+          "5": 2,
+          "6": 6,
+          "7": 9,
+          "8": 5,
+          "9": 10
+        },
+        "sport": "nfl",
+        "start_time": null,
+        "status": "pre_draft",
+        "type": "linear"
+      }
+    },
+    "draft_picks": {
+      "kwargs": {
+        "draft_id": "1312218810626887680"
+      },
+      "mode": "strict",
+      "tool": "get_draft_picks",
+      "value": []
+    },
+    "draft_traded_picks": {
+      "kwargs": {
+        "draft_id": "1312218810626887680"
+      },
+      "mode": "strict",
+      "tool": "get_draft_traded_picks",
+      "value": [
+        {
+          "owner_id": 5,
+          "previous_owner_id": 3,
+          "roster_id": 1,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 5,
+          "previous_owner_id": 2,
+          "roster_id": 2,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 5,
+          "previous_owner_id": 3,
+          "roster_id": 3,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 1,
+          "previous_owner_id": 3,
+          "roster_id": 3,
+          "round": 2,
+          "season": "2026"
+        },
+        {
+          "owner_id": 1,
+          "previous_owner_id": 3,
+          "roster_id": 8,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 1,
+          "previous_owner_id": 11,
+          "roster_id": 11,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 8,
+          "previous_owner_id": 3,
+          "roster_id": 11,
+          "round": 2,
+          "season": "2026"
+        }
+      ]
+    },
+    "drafts": {
+      "kwargs": {},
+      "mode": "strict",
+      "tool": "get_drafts",
+      "value": [
+        {
+          "created": 1767219853602,
+          "creators": [
+            "337322962594054144",
+            "706026655591768064"
+          ],
+          "draft_id": "1312218810626887680",
+          "draft_order": {
+            "1001284597327486976": 7,
+            "1095429062677401600": 12,
+            "1123490464163901440": 6,
+            "1129466881162821632": 8,
+            "1236055001478987776": 4,
+            "1264287661795840000": 2,
+            "1388020236883623936": 1,
+            "337322962594054144": 10,
+            "706026655591768064": 5,
+            "860618680084574208": 11,
+            "866065736727142400": 9,
+            "941857690488242176": 3
+          },
+          "last_message_id": "1312218810626887680",
+          "last_message_time": 1767219853602,
+          "last_picked": null,
+          "league_id": "1312218810614300672",
+          "metadata": {
+            "description": "",
+            "name": "Gridiron Time Machine",
+            "scoring_type": "dynasty_2qb",
+            "show_team_names": "1"
+          },
+          "season": "2026",
+          "season_type": "regular",
+          "settings": {
+            "alpha_sort": 0,
+            "autopause_enabled": 0,
+            "autopause_end_time": 900,
+            "autopause_start_time": 180,
+            "autostart": 0,
+            "cpu_autopick": 1,
+            "enforce_position_limits": 1,
+            "nomination_timer": 60,
+            "pick_timer": 300,
+            "player_type": 1,
+            "reversal_round": 0,
+            "rounds": 3,
+            "slots_bn": 9,
+            "slots_flex": 2,
+            "slots_qb": 1,
+            "slots_rb": 2,
+            "slots_super_flex": 1,
+            "slots_te": 1,
+            "slots_wr": 2,
+            "teams": 12
+          },
+          "sport": "nfl",
+          "start_time": null,
+          "status": "pre_draft",
+          "type": "linear"
+        }
+      ]
+    },
+    "dynasty_tiers": {
+      "kwargs": {
+        "position": "RB"
+      },
+      "mode": "shape",
+      "tool": "get_dynasty_tiers",
+      "value": {
+        "format": {
+          "isDynasty": "bool",
+          "numQbs": "number",
+          "numTeams": "number",
+          "ppr": "number"
+        },
+        "source": "str",
+        "tiers": [
+          {
+            "players": [
+              {
+                "adp": "null",
+                "age": "number",
+                "name": "str",
+                "overall_rank": "number",
+                "position": "str",
+                "position_rank": "number",
+                "redraft_value": "number",
+                "sleeper_id": "str",
+                "team": "str",
+                "trade_frequency": "number",
+                "trend_30_day": "number",
+                "value": "number"
+              }
+            ],
+            "tier": "number"
+          }
+        ]
+      }
+    },
+    "injuries": {
+      "kwargs": {
+        "season": "2025",
+        "team": "DET"
+      },
+      "mode": "shape",
+      "tool": "get_injuries",
+      "value": {
+        "injuries": [
+          {
+            "full_name": "str",
+            "position": "str",
+            "practice_primary_injury": "str",
+            "practice_status": "str",
+            "report_primary_injury": "str",
+            "report_secondary_injury": "str",
+            "report_status": "str",
+            "team": "str",
+            "week": "number"
+          }
+        ],
+        "season": "str",
+        "source": "str",
+        "team": "str",
+        "week": "number"
+      }
+    },
+    "league": {
+      "kwargs": {},
+      "mode": "strict",
+      "tool": "get_league",
+      "value": {
+        "draft_id": "1312218810626887680",
+        "league_id": "1312218810614300672",
+        "metadata": {
+          "auto_continue": "on",
+          "keeper_deadline": "0"
+        },
+        "name": "Gridiron Time Machine",
+        "previous_league_id": "1235828906838216704",
+        "roster_positions": [
+          "QB",
+          "RB",
+          "RB",
+          "WR",
+          "WR",
+          "TE",
+          "FLEX",
+          "FLEX",
+          "SUPER_FLEX",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN"
+        ],
+        "scoring_settings": {
+          "blk_kick": 2.0,
+          "bonus_rec_te": 0.0,
+          "def_st_ff": 1.0,
+          "def_st_fum_rec": 1.0,
+          "def_st_td": 6.0,
+          "def_td": 6.0,
+          "ff": 1.0,
+          "fgm_0_19": 3.0,
+          "fgm_20_29": 3.0,
+          "fgm_30_39": 3.0,
+          "fgm_40_49": 4.0,
+          "fgm_50_59": 5.0,
+          "fgm_60p": 6.0,
+          "fgmiss": -1.0,
+          "fum": 0.0,
+          "fum_lost": -2.0,
+          "fum_rec": 2.0,
+          "fum_rec_td": 6.0,
+          "int": 2.0,
+          "pass_2pt": 2.0,
+          "pass_int": -1.0,
+          "pass_td": 4.0,
+          "pass_yd": 0.04,
+          "pts_allow_0": 10.0,
+          "pts_allow_14_20": 1.0,
+          "pts_allow_1_6": 7.0,
+          "pts_allow_21_27": 0.0,
+          "pts_allow_28_34": -1.0,
+          "pts_allow_35p": -4.0,
+          "pts_allow_7_13": 4.0,
+          "rec": 1.0,
+          "rec_2pt": 2.0,
+          "rec_td": 6.0,
+          "rec_yd": 0.1,
+          "rush_2pt": 2.0,
+          "rush_td": 6.0,
+          "rush_yd": 0.1,
+          "sack": 1.0,
+          "safe": 2.0,
+          "st_ff": 1.0,
+          "st_fum_rec": 1.0,
+          "st_td": 6.0,
+          "xpm": 1.0,
+          "xpmiss": -1.0
+        },
+        "season": "2026",
+        "season_type": "regular",
+        "settings": {
+          "best_ball": 0,
+          "leg": 1,
+          "max_keepers": 1,
+          "num_teams": 12,
+          "playoff_round_type": 0,
+          "playoff_teams": 6,
+          "playoff_type": 1,
+          "playoff_week_start": 15,
+          "reserve_slots": 0,
+          "taxi_allow_vets": 1,
+          "taxi_slots": 3,
+          "taxi_years": 1,
+          "trade_deadline": 11,
+          "type": 2,
+          "waiver_budget": 100,
+          "waiver_type": 2
+        },
+        "sport": "nfl",
+        "status": "pre_draft",
+        "total_rosters": 12
+      }
+    },
+    "league_full": {
+      "kwargs": {},
+      "mode": "strict",
+      "tool": "get_league_full",
+      "value": {
+        "avatar": null,
+        "bracket_id": null,
+        "bracket_overrides_id": null,
+        "company_id": null,
+        "draft_id": "1312218810626887680",
+        "group_id": null,
+        "last_author_avatar": null,
+        "last_author_display_name": "sys",
+        "last_author_id": "166666666666666666",
+        "last_author_is_bot": true,
+        "last_message_attachment": null,
+        "last_message_id": "1390771994114392064",
+        "last_message_text_map": null,
+        "last_message_time": 1785948391992,
+        "last_pinned_message_id": "1377774357559930880",
+        "last_read_id": null,
+        "league_id": "1312218810614300672",
+        "loser_bracket_id": null,
+        "loser_bracket_overrides_id": null,
+        "metadata": {
+          "auto_continue": "on",
+          "keeper_deadline": "0"
+        },
+        "name": "Gridiron Time Machine",
+        "previous_league_id": "1235828906838216704",
+        "roster_positions": [
+          "QB",
+          "RB",
+          "RB",
+          "WR",
+          "WR",
+          "TE",
+          "FLEX",
+          "FLEX",
+          "SUPER_FLEX",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN"
+        ],
+        "scoring_settings": {
+          "blk_kick": 2.0,
+          "bonus_rec_te": 0.0,
+          "def_st_ff": 1.0,
+          "def_st_fum_rec": 1.0,
+          "def_st_td": 6.0,
+          "def_td": 6.0,
+          "ff": 1.0,
+          "fgm_0_19": 3.0,
+          "fgm_20_29": 3.0,
+          "fgm_30_39": 3.0,
+          "fgm_40_49": 4.0,
+          "fgm_50_59": 5.0,
+          "fgm_60p": 6.0,
+          "fgmiss": -1.0,
+          "fum": 0.0,
+          "fum_lost": -2.0,
+          "fum_rec": 2.0,
+          "fum_rec_td": 6.0,
+          "int": 2.0,
+          "pass_2pt": 2.0,
+          "pass_int": -1.0,
+          "pass_td": 4.0,
+          "pass_yd": 0.04,
+          "pts_allow_0": 10.0,
+          "pts_allow_14_20": 1.0,
+          "pts_allow_1_6": 7.0,
+          "pts_allow_21_27": 0.0,
+          "pts_allow_28_34": -1.0,
+          "pts_allow_35p": -4.0,
+          "pts_allow_7_13": 4.0,
+          "rec": 1.0,
+          "rec_2pt": 2.0,
+          "rec_td": 6.0,
+          "rec_yd": 0.1,
+          "rush_2pt": 2.0,
+          "rush_td": 6.0,
+          "rush_yd": 0.1,
+          "sack": 1.0,
+          "safe": 2.0,
+          "st_ff": 1.0,
+          "st_fum_rec": 1.0,
+          "st_td": 6.0,
+          "xpm": 1.0,
+          "xpmiss": -1.0
+        },
+        "season": "2026",
+        "season_type": "regular",
+        "settings": {
+          "bench_lock": 1,
+          "best_ball": 0,
+          "capacity_override": 0,
+          "commissioner_direct_invite": 0,
+          "daily_waivers": 0,
+          "daily_waivers_days": 5461,
+          "daily_waivers_hour": 0,
+          "disable_adds": 0,
+          "disable_trades": 0,
+          "divisions": 3,
+          "draft_rounds": 3,
+          "faab_suggestions": 1,
+          "league_average_match": 0,
+          "leg": 1,
+          "max_keepers": 1,
+          "max_subs": 2,
+          "num_teams": 12,
+          "offseason_adds": 1,
+          "pick_trading": 1,
+          "playoff_round_type": 0,
+          "playoff_seed_type": 0,
+          "playoff_teams": 6,
+          "playoff_type": 1,
+          "playoff_week_start": 15,
+          "reserve_allow_cov": 0,
+          "reserve_allow_dnr": 0,
+          "reserve_allow_doubtful": 0,
+          "reserve_allow_na": 0,
+          "reserve_allow_out": 0,
+          "reserve_allow_sus": 0,
+          "reserve_slots": 0,
+          "start_week": 1,
+          "sub_lock_if_starter_active": 0,
+          "sub_start_time_eligibility": 1,
+          "taxi_allow_vets": 1,
+          "taxi_deadline": 0,
+          "taxi_slots": 3,
+          "taxi_years": 1,
+          "trade_deadline": 11,
+          "trade_review_days": 1,
+          "type": 2,
+          "veto_auto_poll": 1,
+          "veto_show_votes": 0,
+          "veto_votes_needed": 7,
+          "waiver_bid_min": 0,
+          "waiver_budget": 100,
+          "waiver_clear_days": 2,
+          "waiver_day_of_week": 2,
+          "waiver_type": 2
+        },
+        "shard": 422,
+        "sport": "nfl",
+        "status": "pre_draft",
+        "total_rosters": 12
+      }
+    },
+    "managers": {
+      "kwargs": {},
+      "mode": "strict",
+      "tool": "get_managers",
+      "value": [
+        {
+          "display_name": "JarrodLee",
+          "is_commissioner": true,
+          "team_name": "Pine Bluff Escapees",
+          "user_id": "337322962594054144",
+          "username": null
+        },
+        {
+          "display_name": "darknegan",
+          "is_commissioner": true,
+          "team_name": "Phoenix Firebirds",
+          "user_id": "706026655591768064",
+          "username": null
+        },
+        {
+          "display_name": "zachbrandt51",
+          "is_commissioner": false,
+          "team_name": "New York Yappers",
+          "user_id": "860618680084574208",
+          "username": null
+        },
+        {
+          "display_name": "TheHowlster",
+          "is_commissioner": false,
+          "team_name": "Combs Cavaliers",
+          "user_id": "866065736727142400",
+          "username": null
+        },
+        {
+          "display_name": "XandalfTheGrayt",
+          "is_commissioner": false,
+          "team_name": "B\u00f6seges\u00e4\u00df Schildkr\u00f6ten",
+          "user_id": "941857690488242176",
+          "username": null
+        },
+        {
+          "display_name": "Kyyyy1232",
+          "is_commissioner": false,
+          "team_name": "Honolulu Barracudas",
+          "user_id": "1001284597327486976",
+          "username": null
+        },
+        {
+          "display_name": "scottlviii",
+          "is_commissioner": false,
+          "team_name": "Japton Hilltoppers ",
+          "user_id": "1095429062677401600",
+          "username": null
+        },
+        {
+          "display_name": "tannerfinlay",
+          "is_commissioner": false,
+          "team_name": "Birmingham Boomers",
+          "user_id": "1123490464163901440",
+          "username": null
+        },
+        {
+          "display_name": "Ryanespejo",
+          "is_commissioner": false,
+          "team_name": "Vatican City Hail Marys",
+          "user_id": "1129466881162821632",
+          "username": null
+        },
+        {
+          "display_name": "daedaluswings",
+          "is_commissioner": false,
+          "team_name": "New England Knights",
+          "user_id": "1236055001478987776",
+          "username": null
+        },
+        {
+          "display_name": "PETERPATJEFF",
+          "is_commissioner": false,
+          "team_name": "IDAHO SPUD REAPERS",
+          "user_id": "1264287661795840000",
+          "username": null
+        },
+        {
+          "display_name": "awking1515",
+          "is_commissioner": false,
+          "team_name": "awking1515",
+          "user_id": "1388020236883623936",
+          "username": null
+        }
+      ]
+    },
+    "matchups": {
+      "kwargs": {
+        "week": 10
+      },
+      "mode": "strict",
+      "tool": "get_matchups",
+      "value": {
+        "league_id": "1312218810614300672",
+        "matchups": [],
+        "week": 10
+      }
+    },
+    "my_roster_id": {
+      "kwargs": {},
+      "mode": "strict",
+      "tool": "get_my_roster_id",
+      "value": {
+        "league_id": "1312218810614300672",
+        "manager": "JarrodLee",
+        "matched_by": "username",
+        "roster_id": 1,
+        "team_name": "Pine Bluff Escapees"
+      }
+    },
+    "my_team": {
+      "kwargs": {},
+      "mode": "strict",
+      "tool": "get_my_team",
+      "value": {
+        "bench": [
+          {
+            "name": "Chris Rodriguez",
+            "player_id": "10219",
+            "position": "RB",
+            "team": "JAX"
+          },
+          {
+            "name": "Woody Marks",
+            "player_id": "12474",
+            "position": "RB",
+            "team": "HOU"
+          },
+          {
+            "name": "Oronde Gadsden",
+            "player_id": "12493",
+            "position": "TE",
+            "team": "LAC"
+          },
+          {
+            "name": "Elic Ayomanor",
+            "player_id": "12499",
+            "position": "WR",
+            "team": "TEN"
+          },
+          {
+            "name": "Gunnar Helm",
+            "player_id": "12502",
+            "position": "TE",
+            "team": "TEN"
+          },
+          {
+            "name": "Malik Willis",
+            "player_id": "8161",
+            "position": "QB",
+            "team": "MIA"
+          },
+          {
+            "name": "Chig Okonkwo",
+            "player_id": "8210",
+            "position": "TE",
+            "team": "WAS"
+          },
+          {
+            "name": "Dontayvion Wicks",
+            "player_id": "9486",
+            "position": "WR",
+            "team": "PHI"
+          },
+          {
+            "name": "Kayshon Boutte",
+            "player_id": "9504",
+            "position": "WR",
+            "team": "NE"
+          }
+        ],
+        "losses": 0,
+        "manager": "JarrodLee",
+        "matched_by": "username",
+        "next_week": null,
+        "owner": "Pine Bluff Escapees",
+        "points_against": 0.0,
+        "points_for": 0.0,
+        "rank": 1,
+        "roster_id": 1,
+        "starters": [
+          {
+            "name": "Cam Ward",
+            "player_id": "12522",
+            "position": "QB",
+            "team": "TEN"
+          },
+          {
+            "name": "Chase Brown",
+            "player_id": "9224",
+            "position": "RB",
+            "team": "CIN"
+          },
+          {
+            "name": "Derrick Henry",
+            "player_id": "3198",
+            "position": "RB",
+            "team": "BAL"
+          },
+          {
+            "name": "Emeka Egbuka",
+            "player_id": "12514",
+            "position": "WR",
+            "team": "TB"
+          },
+          {
+            "name": "Courtland Sutton",
+            "player_id": "5045",
+            "position": "WR",
+            "team": "DEN"
+          },
+          {
+            "name": "Trey McBride",
+            "player_id": "8130",
+            "position": "TE",
+            "team": "ARI"
+          },
+          {
+            "name": "Alec Pierce",
+            "player_id": "8142",
+            "position": "WR",
+            "team": "IND"
+          },
+          {
+            "name": "Rico Dowdle",
+            "player_id": "7021",
+            "position": "RB",
+            "team": "PIT"
+          },
+          {
+            "name": "C.J. Stroud",
+            "player_id": "9758",
+            "position": "QB",
+            "team": "HOU"
+          }
+        ],
+        "teams_in_league": 12,
+        "this_week": null,
+        "ties": 0,
+        "waiver_budget_used": 0,
+        "wins": 0
+      }
+    },
+    "nfl_state": {
+      "kwargs": {},
+      "mode": "shape",
+      "tool": "get_nfl_state",
+      "value": {
+        "display_week": "number",
+        "league_create_season": "str",
+        "league_season": "str",
+        "leg": "number",
+        "previous_season": "str",
+        "season": "str",
+        "season_has_scores": "bool",
+        "season_start_date": "str",
+        "season_type": "str",
+        "week": "number"
+      }
+    },
+    "offense_crowding": {
+      "kwargs": {
+        "season": "2025",
+        "team": "DET"
+      },
+      "mode": "strict",
+      "tool": "get_team_offense_crowding",
+      "value": {
+        "oc": {
+          "name": "unknown \u2014 update oc_tiers.json",
+          "notes": "",
+          "tier": 3
+        },
+        "season": "2025",
+        "skill_players": [
+          {
+            "avg_target_share": 0.317,
+            "avg_targets_per_game": 10.1,
+            "games": 17,
+            "name": "Amon-Ra St. Brown",
+            "position": "WR",
+            "target_share_std": 0.112,
+            "usage_consistency_score": 29.8,
+            "usage_rank": 1
+          },
+          {
+            "avg_target_share": 0.186,
+            "avg_targets_per_game": 6.0,
+            "games": 17,
+            "name": "Jameson Williams",
+            "position": "WR",
+            "target_share_std": 0.093,
+            "usage_consistency_score": 9.3,
+            "usage_rank": 2
+          },
+          {
+            "avg_target_share": 0.185,
+            "avg_targets_per_game": 5.4,
+            "games": 9,
+            "name": "Sam LaPorta",
+            "position": "TE",
+            "target_share_std": 0.052,
+            "usage_consistency_score": 21.4,
+            "usage_rank": 3
+          },
+          {
+            "avg_target_share": 0.162,
+            "avg_targets_per_game": 5.5,
+            "games": 17,
+            "name": "Jahmyr Gibbs",
+            "position": "RB",
+            "target_share_std": 0.076,
+            "usage_consistency_score": 9.6,
+            "usage_rank": 4
+          },
+          {
+            "avg_target_share": 0.148,
+            "avg_targets_per_game": 4.0,
+            "games": 1,
+            "name": "Tom Kennedy",
+            "position": "WR",
+            "target_share_std": 0.0,
+            "usage_consistency_score": 29.6,
+            "usage_rank": 5
+          },
+          {
+            "avg_target_share": 0.1,
+            "avg_targets_per_game": 3.1,
+            "games": 7,
+            "name": "Brock Wright",
+            "position": "TE",
+            "target_share_std": 0.058,
+            "usage_consistency_score": 2.6,
+            "usage_rank": 6
+          },
+          {
+            "avg_target_share": 0.096,
+            "avg_targets_per_game": 5.0,
+            "games": 1,
+            "name": "Shane Zylstra",
+            "position": "TE",
+            "target_share_std": 0.0,
+            "usage_consistency_score": 19.2,
+            "usage_rank": 7
+          },
+          {
+            "avg_target_share": 0.075,
+            "avg_targets_per_game": 2.5,
+            "games": 12,
+            "name": "Kalif Raymond",
+            "position": "WR",
+            "target_share_std": 0.034,
+            "usage_consistency_score": 4.8,
+            "usage_rank": 8
+          },
+          {
+            "avg_target_share": 0.058,
+            "avg_targets_per_game": 1.7,
+            "games": 17,
+            "name": "David Montgomery",
+            "position": "RB",
+            "target_share_std": 0.031,
+            "usage_consistency_score": 2.3,
+            "usage_rank": 9
+          },
+          {
+            "avg_target_share": 0.058,
+            "avg_targets_per_game": 1.7,
+            "games": 3,
+            "name": "Ross Dwelley",
+            "position": "TE",
+            "target_share_std": 0.046,
+            "usage_consistency_score": 0.0,
+            "usage_rank": 10
+          },
+          {
+            "avg_target_share": 0.057,
+            "avg_targets_per_game": 1.9,
+            "games": 14,
+            "name": "Isaac TeSlaa",
+            "position": "WR",
+            "target_share_std": 0.04,
+            "usage_consistency_score": 0.0,
+            "usage_rank": 11
+          },
+          {
+            "avg_target_share": 0.053,
+            "avg_targets_per_game": 2.0,
+            "games": 5,
+            "name": "Anthony Firkser",
+            "position": "TE",
+            "target_share_std": 0.025,
+            "usage_consistency_score": 3.1,
+            "usage_rank": 12
+          },
+          {
+            "avg_target_share": 0.034,
+            "avg_targets_per_game": 1.0,
+            "games": 1,
+            "name": "Giovanni Ricci",
+            "position": "TE",
+            "target_share_std": 0.0,
+            "usage_consistency_score": 6.8,
+            "usage_rank": 13
+          },
+          {
+            "avg_target_share": 0.0,
+            "avg_targets_per_game": 0.0,
+            "games": 11,
+            "name": "Jared Goff",
+            "position": "QB",
+            "target_share_std": 0.0,
+            "usage_consistency_score": 0.0,
+            "usage_rank": 14
+          },
+          {
+            "avg_target_share": 0.0,
+            "avg_targets_per_game": 0.0,
+            "games": 1,
+            "name": "Craig Reynolds",
+            "position": "RB",
+            "target_share_std": 0.0,
+            "usage_consistency_score": 0.0,
+            "usage_rank": 15
+          },
+          {
+            "avg_target_share": 0.0,
+            "avg_targets_per_game": 0.0,
+            "games": 2,
+            "name": "Kyle Allen",
+            "position": "QB",
+            "target_share_std": 0.0,
+            "usage_consistency_score": 0.0,
+            "usage_rank": 16
+          },
+          {
+            "avg_target_share": 0.0,
+            "avg_targets_per_game": 0.0,
+            "games": 1,
+            "name": "Jacob Saylors",
+            "position": "RB",
+            "target_share_std": 0.0,
+            "usage_consistency_score": 0.0,
+            "usage_rank": 17
+          },
+          {
+            "avg_target_share": 0.0,
+            "avg_targets_per_game": 0.0,
+            "games": 1,
+            "name": "Sione Vaki",
+            "position": "RB",
+            "target_share_std": 0.0,
+            "usage_consistency_score": 0.0,
+            "usage_rank": 18
+          },
+          {
+            "avg_target_share": 0.0,
+            "avg_targets_per_game": 0.0,
+            "games": 1,
+            "name": "Malik Cunningham",
+            "position": "WR",
+            "target_share_std": 0.0,
+            "usage_consistency_score": 0.0,
+            "usage_rank": 19
+          }
+        ],
+        "source": "nflverse open data (MIT licensed, github.com/nflverse) + oc_tiers.json",
+        "team": "DET",
+        "team_concentration": {
+          "hhi": 0.256,
+          "interpretation": "moderate \u2014 clear hierarchy but multiple contributors"
+        }
+      }
+    },
+    "player": {
+      "kwargs": {
+        "player_id": "9493"
+      },
+      "mode": "strict",
+      "tool": "get_player",
+      "value": {
+        "active": true,
+        "age": 25,
+        "birth_city": null,
+        "birth_country": null,
+        "birth_date": "2001-05-29",
+        "birth_state": null,
+        "college": "BYU",
+        "competitions": [],
+        "depth_chart_order": 1,
+        "depth_chart_position": "RWR",
+        "espn_id": null,
+        "fantasy_data_id": 24172,
+        "fantasy_positions": [
+          "WR"
+        ],
+        "first_name": "Puka",
+        "full_name": "Puka Nacua",
+        "gsis_id": null,
+        "hashtag": "#pukanacua-NFL-LAR-12",
+        "height": "74",
+        "high_school": "Orem (UT)",
+        "kalshi_id": "cb929005-e9bc-4830-ac0f-f7cf5b48bfc5",
+        "last_name": "Nacua",
+        "metadata": {
+          "channel_id": "1113708701430083584",
+          "genius_id": "1399238",
+          "rookie_year": "2023"
+        },
+        "number": 12,
+        "oddsjam_id": "3EFD62DFAF78",
+        "opta_id": null,
+        "pandascore_id": null,
+        "player_id": "9493",
+        "player_shard": "7",
+        "position": "WR",
+        "rotowire_id": 16790,
+        "rotoworld_id": null,
+        "search_first_name": "puka",
+        "search_full_name": "pukanacua",
+        "search_last_name": "nacua",
+        "sport": "nfl",
+        "sportradar_id": "111be44d-7bc2-4cad-934d-c9e946293b2f",
+        "stats_id": null,
+        "status": "Active",
+        "swish_id": 1162128,
+        "team": "LAR",
+        "team_abbr": null,
+        "team_changed_at": null,
+        "weight": "216",
+        "yahoo_id": null,
+        "years_exp": 3
+      }
+    },
+    "player_stats": {
+      "kwargs": {
+        "last_n_weeks": 8,
+        "player_name": "Puka Nacua",
+        "season": "2025"
+      },
+      "mode": "strict",
+      "tool": "get_player_stats",
+      "value": {
+        "player": "Puka Nacua",
+        "position": "WR",
+        "season": "2025",
+        "source": "nflverse open data (MIT licensed, github.com/nflverse)",
+        "stats": [
+          {
+            "air_yards_share": 0.654708520179372,
+            "attempts": 0,
+            "carries": 0,
+            "completions": 0,
+            "fantasy_points": 28.7,
+            "fantasy_points_ppr": 35.7,
+            "opponent_team": "ARI",
+            "passing_air_yards": 0,
+            "passing_interceptions": 0,
+            "passing_tds": 0,
+            "passing_yards": 0,
+            "player_display_name": "Puka Nacua",
+            "position": "WR",
+            "racr": 1.14383561643836,
+            "receiving_air_yards": 146,
+            "receiving_tds": 2,
+            "receiving_yards": 167,
+            "receiving_yards_after_catch": 35,
+            "receptions": 7,
+            "rushing_tds": 0,
+            "rushing_yards": 0,
+            "season": "2025",
+            "target_share": 0.354838709677419,
+            "targets": 11,
+            "team": "LA",
+            "week": 14,
+            "wopr": 0.99055402864169
+          },
+          {
+            "air_yards_share": 0.314225053078556,
+            "attempts": 0,
+            "carries": 2,
+            "completions": 0,
+            "fantasy_points": 18.9,
+            "fantasy_points_ppr": 27.9,
+            "opponent_team": "DET",
+            "passing_air_yards": 0,
+            "passing_interceptions": 0,
+            "passing_tds": 0,
+            "passing_yards": 0,
+            "player_display_name": "Puka Nacua",
+            "position": "WR",
+            "racr": 1.22297297297297,
+            "receiving_air_yards": 148,
+            "receiving_tds": 0,
+            "receiving_yards": 181,
+            "receiving_yards_after_catch": 55,
+            "receptions": 9,
+            "rushing_tds": 0,
+            "rushing_yards": 8,
+            "season": "2025",
+            "target_share": 0.289473684210526,
+            "targets": 11,
+            "team": "LA",
+            "week": 15,
+            "wopr": 0.654168063470779
+          },
+          {
+            "air_yards_share": 0.358490566037736,
+            "attempts": 0,
+            "carries": 0,
+            "completions": 0,
+            "fantasy_points": 34.5,
+            "fantasy_points_ppr": 46.5,
+            "opponent_team": "SEA",
+            "passing_air_yards": 0,
+            "passing_interceptions": 0,
+            "passing_tds": 0,
+            "passing_yards": 0,
+            "player_display_name": "Puka Nacua",
+            "position": "WR",
+            "racr": 1.31578947368421,
+            "receiving_air_yards": 171,
+            "receiving_tds": 2,
+            "receiving_yards": 225,
+            "receiving_yards_after_catch": 124,
+            "receptions": 12,
+            "rushing_tds": 0,
+            "rushing_yards": 0,
+            "season": "2025",
+            "target_share": 0.333333333333333,
+            "targets": 16,
+            "team": "LA",
+            "week": 16,
+            "wopr": 0.750943396226415
+          },
+          {
+            "air_yards_share": 0.231968810916179,
+            "attempts": 0,
+            "carries": 0,
+            "completions": 0,
+            "fantasy_points": 10.7,
+            "fantasy_points_ppr": 15.7,
+            "opponent_team": "ATL",
+            "passing_air_yards": 0,
+            "passing_interceptions": 0,
+            "passing_tds": 0,
+            "passing_yards": 0,
+            "player_display_name": "Puka Nacua",
+            "position": "WR",
+            "racr": 0.394957983193277,
+            "receiving_air_yards": 119,
+            "receiving_tds": 1,
+            "receiving_yards": 47,
+            "receiving_yards_after_catch": 24,
+            "receptions": 5,
+            "rushing_tds": 0,
+            "rushing_yards": 0,
+            "season": "2025",
+            "target_share": 0.277777777777778,
+            "targets": 10,
+            "team": "LA",
+            "week": 17,
+            "wopr": 0.579044834307992
+          },
+          {
+            "air_yards_share": 0.122562674094708,
+            "attempts": 0,
+            "carries": 2,
+            "completions": 0,
+            "fantasy_points": 16,
+            "fantasy_points_ppr": 26,
+            "opponent_team": "ARI",
+            "passing_air_yards": 0,
+            "passing_interceptions": 0,
+            "passing_tds": 0,
+            "passing_yards": 0,
+            "player_display_name": "Puka Nacua",
+            "position": "WR",
+            "racr": 1.72727272727273,
+            "receiving_air_yards": 44,
+            "receiving_tds": 1,
+            "receiving_yards": 76,
+            "receiving_yards_after_catch": 31,
+            "receptions": 10,
+            "rushing_tds": 0,
+            "rushing_yards": 24,
+            "season": "2025",
+            "target_share": 0.297297297297297,
+            "targets": 11,
+            "team": "LA",
+            "week": 18,
+            "wopr": 0.531739817812241
+          },
+          {
+            "air_yards_share": 0.465863453815261,
+            "attempts": 0,
+            "carries": 3,
+            "completions": 0,
+            "fantasy_points": 24.5,
+            "fantasy_points_ppr": 34.5,
+            "opponent_team": "CAR",
+            "passing_air_yards": 0,
+            "passing_interceptions": 0,
+            "passing_tds": 0,
+            "passing_yards": 0,
+            "player_display_name": "Puka Nacua",
+            "position": "WR",
+            "racr": 0.478448275862069,
+            "receiving_air_yards": 232,
+            "receiving_tds": 1,
+            "receiving_yards": 111,
+            "receiving_yards_after_catch": 38,
+            "receptions": 10,
+            "rushing_tds": 1,
+            "rushing_yards": 14,
+            "season": "2025",
+            "target_share": 0.428571428571429,
+            "targets": 18,
+            "team": "LA",
+            "week": 19,
+            "wopr": 0.968961560527825
+          },
+          {
+            "air_yards_share": 0.228571428571429,
+            "attempts": 0,
+            "carries": 2,
+            "completions": 0,
+            "fantasy_points": 6.2,
+            "fantasy_points_ppr": 11.2,
+            "opponent_team": "CHI",
+            "passing_air_yards": 0,
+            "passing_interceptions": 0,
+            "passing_tds": 0,
+            "passing_yards": 0,
+            "player_display_name": "Puka Nacua",
+            "position": "WR",
+            "racr": 0.583333333333333,
+            "receiving_air_yards": 96,
+            "receiving_tds": 0,
+            "receiving_yards": 56,
+            "receiving_yards_after_catch": 32,
+            "receptions": 5,
+            "rushing_tds": 0,
+            "rushing_yards": 6,
+            "season": "2025",
+            "target_share": 0.25,
+            "targets": 10,
+            "team": "LA",
+            "week": 20,
+            "wopr": 0.535
+          },
+          {
+            "air_yards_share": 0.481395348837209,
+            "attempts": 0,
+            "carries": 1,
+            "completions": 0,
+            "fantasy_points": 22.9,
+            "fantasy_points_ppr": 31.9,
+            "opponent_team": "SEA",
+            "passing_air_yards": 0,
+            "passing_interceptions": 0,
+            "passing_tds": 0,
+            "passing_yards": 0,
+            "player_display_name": "Puka Nacua",
+            "position": "WR",
+            "racr": 0.797101449275362,
+            "receiving_air_yards": 207,
+            "receiving_tds": 1,
+            "receiving_yards": 165,
+            "receiving_yards_after_catch": 24,
+            "receptions": 9,
+            "rushing_tds": 0,
+            "rushing_yards": 4,
+            "season": "2025",
+            "target_share": 0.411764705882353,
+            "targets": 14,
+            "team": "LA",
+            "week": 21,
+            "wopr": 0.954623803009576
+          }
+        ],
+        "team": "LA",
+        "weeks_shown": 8
+      }
+    },
+    "playoff_bracket_l": {
+      "kwargs": {
+        "bracket": "losers"
+      },
+      "mode": "strict",
+      "tool": "get_playoff_bracket",
+      "value": [
+        {
+          "l": null,
+          "m": 1,
+          "r": 1,
+          "t1": 1,
+          "t2": 9,
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 2,
+          "r": 1,
+          "t1": 3,
+          "t2": 8,
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 3,
+          "r": 2,
+          "t1": 7,
+          "t2": null,
+          "t2_from": {
+            "w": 1
+          },
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 4,
+          "r": 2,
+          "t1": 5,
+          "t2": null,
+          "t2_from": {
+            "w": 2
+          },
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 5,
+          "p": 5,
+          "r": 2,
+          "t1": null,
+          "t1_from": {
+            "l": 1
+          },
+          "t2": null,
+          "t2_from": {
+            "l": 2
+          },
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 6,
+          "p": 1,
+          "r": 3,
+          "t1": null,
+          "t1_from": {
+            "w": 3
+          },
+          "t2": null,
+          "t2_from": {
+            "w": 4
+          },
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 7,
+          "p": 3,
+          "r": 3,
+          "t1": null,
+          "t1_from": {
+            "l": 3
+          },
+          "t2": null,
+          "t2_from": {
+            "l": 4
+          },
+          "w": null
+        }
+      ]
+    },
+    "playoff_bracket_w": {
+      "kwargs": {
+        "bracket": "winners"
+      },
+      "mode": "strict",
+      "tool": "get_playoff_bracket",
+      "value": [
+        {
+          "l": null,
+          "m": 1,
+          "r": 1,
+          "t1": 11,
+          "t2": 10,
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 2,
+          "r": 1,
+          "t1": 2,
+          "t2": 6,
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 3,
+          "r": 2,
+          "t1": 4,
+          "t2": null,
+          "t2_from": {
+            "w": 1
+          },
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 4,
+          "r": 2,
+          "t1": 12,
+          "t2": null,
+          "t2_from": {
+            "w": 2
+          },
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 5,
+          "p": 5,
+          "r": 2,
+          "t1": null,
+          "t1_from": {
+            "l": 1
+          },
+          "t2": null,
+          "t2_from": {
+            "l": 2
+          },
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 6,
+          "p": 1,
+          "r": 3,
+          "t1": null,
+          "t1_from": {
+            "w": 3
+          },
+          "t2": null,
+          "t2_from": {
+            "w": 4
+          },
+          "w": null
+        },
+        {
+          "l": null,
+          "m": 7,
+          "p": 3,
+          "r": 3,
+          "t1": null,
+          "t1_from": {
+            "l": 3
+          },
+          "t2": null,
+          "t2_from": {
+            "l": 4
+          },
+          "w": null
+        }
+      ]
+    },
+    "projections": {
+      "kwargs": {
+        "limit": 25,
+        "week": 10
+      },
+      "mode": "shape",
+      "tool": "get_projections",
+      "value": {
+        "players": [
+          {
+            "injury_status": "str",
+            "name": "str",
+            "player_id": "str",
+            "position": "str",
+            "projected_points": "number",
+            "team": "str"
+          }
+        ],
+        "scoring_format": "str",
+        "season": "str",
+        "source": "str",
+        "week": "number"
+      }
+    },
+    "projections_wr": {
+      "kwargs": {
+        "limit": 10,
+        "position": "WR",
+        "week": 10
+      },
+      "mode": "shape",
+      "tool": "get_projections",
+      "value": {
+        "players": [
+          {
+            "injury_status": "str",
+            "name": "str",
+            "player_id": "str",
+            "position": "str",
+            "projected_points": "number",
+            "team": "str"
+          }
+        ],
+        "scoring_format": "str",
+        "season": "str",
+        "source": "str",
+        "week": "number"
+      }
+    },
+    "recent_moves": {
+      "kwargs": {
+        "weeks": 3
+      },
+      "mode": "strict",
+      "tool": "recent_moves",
+      "value": [
+        {
+          "adds": [
+            {
+              "name": "Dontayvion Wicks",
+              "player_id": "9486",
+              "position": "WR",
+              "team": "PHI",
+              "to_team": "Pine Bluff Escapees"
+            }
+          ],
+          "created": 1785948391949,
+          "draft_picks": [],
+          "drops": [],
+          "roster_ids": [
+            1
+          ],
+          "status": "complete",
+          "teams": [
+            "Pine Bluff Escapees"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1785356636409,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Phoenix Firebirds",
+              "name": "Trey Benson",
+              "player_id": "11589",
+              "position": "RB",
+              "team": "ARI"
+            }
+          ],
+          "roster_ids": [
+            2
+          ],
+          "status": "complete",
+          "teams": [
+            "Phoenix Firebirds"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1785356629210,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Phoenix Firebirds",
+              "name": "Jalen Royals",
+              "player_id": "12505",
+              "position": "WR",
+              "team": "KC"
+            }
+          ],
+          "roster_ids": [
+            2
+          ],
+          "status": "complete",
+          "teams": [
+            "Phoenix Firebirds"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1785356622817,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Phoenix Firebirds",
+              "name": "Tahj Brooks",
+              "player_id": "12543",
+              "position": "RB",
+              "team": "CIN"
+            }
+          ],
+          "roster_ids": [
+            2
+          ],
+          "status": "complete",
+          "teams": [
+            "Phoenix Firebirds"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Chig Okonkwo",
+              "player_id": "8210",
+              "position": "TE",
+              "team": "WAS",
+              "to_team": "Pine Bluff Escapees"
+            }
+          ],
+          "created": 1783829953612,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Pine Bluff Escapees",
+              "name": "Cade Otton",
+              "player_id": "8111",
+              "position": "TE",
+              "team": "TB"
+            }
+          ],
+          "roster_ids": [
+            1
+          ],
+          "status": "complete",
+          "teams": [
+            "Pine Bluff Escapees"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1782933507862,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Vatican City Hail Marys",
+              "name": "Jimmy Garoppolo",
+              "player_id": "1837",
+              "position": "QB",
+              "team": null
+            }
+          ],
+          "roster_ids": [
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "Vatican City Hail Marys"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1782933304659,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Vatican City Hail Marys",
+              "name": "Jarrett Stidham",
+              "player_id": "6136",
+              "position": "QB",
+              "team": "DEN"
+            }
+          ],
+          "roster_ids": [
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "Vatican City Hail Marys"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Daniel Jones",
+              "player_id": "5870",
+              "position": "QB",
+              "team": "IND",
+              "to_team": "IDAHO SPUD REAPERS"
+            }
+          ],
+          "created": 1782849493208,
+          "draft_picks": [
+            {
+              "league_id": null,
+              "owner_id": 11,
+              "previous_owner_id": 1,
+              "roster_id": 1,
+              "round": 1,
+              "season": "2027"
+            },
+            {
+              "league_id": null,
+              "owner_id": 1,
+              "previous_owner_id": 11,
+              "roster_id": 11,
+              "round": 1,
+              "season": "2026"
+            },
+            {
+              "league_id": null,
+              "owner_id": 1,
+              "previous_owner_id": 11,
+              "roster_id": 11,
+              "round": 3,
+              "season": "2027"
+            }
+          ],
+          "drops": [
+            {
+              "from_team": "Pine Bluff Escapees",
+              "name": "Daniel Jones",
+              "player_id": "5870",
+              "position": "QB",
+              "team": "IND"
+            }
+          ],
+          "roster_ids": [
+            1,
+            11
+          ],
+          "status": "complete",
+          "teams": [
+            "Pine Bluff Escapees",
+            "IDAHO SPUD REAPERS"
+          ],
+          "type": "trade",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Jalen Nailor",
+              "player_id": "8180",
+              "position": "WR",
+              "team": "LV",
+              "to_team": "New England Knights"
+            }
+          ],
+          "created": 1773553622115,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "New England Knights",
+              "name": "Kimani Vidal",
+              "player_id": "11647",
+              "position": "RB",
+              "team": "LAC"
+            }
+          ],
+          "roster_ids": [
+            3
+          ],
+          "status": "complete",
+          "teams": [
+            "New England Knights"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Darnell Mooney",
+              "player_id": "7090",
+              "position": "WR",
+              "team": "NYG",
+              "to_team": "New England Knights"
+            }
+          ],
+          "created": 1773553513766,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "New England Knights",
+              "name": "Kirk Cousins",
+              "player_id": "1166",
+              "position": "QB",
+              "team": "LV"
+            }
+          ],
+          "roster_ids": [
+            3
+          ],
+          "status": "complete",
+          "teams": [
+            "New England Knights"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1773081333291,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Vatican City Hail Marys",
+              "name": "Dillon Gabriel",
+              "player_id": "12486",
+              "position": "QB",
+              "team": "CLE"
+            }
+          ],
+          "roster_ids": [
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "Vatican City Hail Marys"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1772751692425,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "New England Knights",
+              "name": "Justin Fields",
+              "player_id": "7591",
+              "position": "QB",
+              "team": "KC"
+            }
+          ],
+          "roster_ids": [
+            3
+          ],
+          "status": "complete",
+          "teams": [
+            "New England Knights"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Jimmy Garoppolo",
+              "player_id": "1837",
+              "position": "QB",
+              "team": null,
+              "to_team": "Vatican City Hail Marys"
+            }
+          ],
+          "created": 1772471233003,
+          "draft_picks": [],
+          "drops": [],
+          "roster_ids": [
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "Vatican City Hail Marys"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1772470261435,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Vatican City Hail Marys",
+              "name": "Tez Johnson",
+              "player_id": "12485",
+              "position": "WR",
+              "team": "TB"
+            }
+          ],
+          "roster_ids": [
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "Vatican City Hail Marys"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1772470251738,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Vatican City Hail Marys",
+              "name": "Zach Ertz",
+              "player_id": "1339",
+              "position": "TE",
+              "team": null
+            }
+          ],
+          "roster_ids": [
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "Vatican City Hail Marys"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Jaxson Dart",
+              "player_id": "12508",
+              "position": "QB",
+              "team": "NYG",
+              "to_team": "New England Knights"
+            }
+          ],
+          "created": 1771573965803,
+          "draft_picks": [
+            {
+              "league_id": null,
+              "owner_id": 5,
+              "previous_owner_id": 3,
+              "roster_id": 1,
+              "round": 1,
+              "season": "2026"
+            },
+            {
+              "league_id": null,
+              "owner_id": 5,
+              "previous_owner_id": 3,
+              "roster_id": 3,
+              "round": 1,
+              "season": "2026"
+            }
+          ],
+          "drops": [
+            {
+              "from_team": "Vatican City Hail Marys",
+              "name": "Jaxson Dart",
+              "player_id": "12508",
+              "position": "QB",
+              "team": "NYG"
+            }
+          ],
+          "roster_ids": [
+            3,
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "New England Knights",
+            "Vatican City Hail Marys"
+          ],
+          "type": "trade",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Justin Fields",
+              "player_id": "7591",
+              "position": "QB",
+              "team": "KC",
+              "to_team": "New England Knights"
+            }
+          ],
+          "created": 1771302802751,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "New England Knights",
+              "name": "Darnell Mooney",
+              "player_id": "7090",
+              "position": "WR",
+              "team": "NYG"
+            }
+          ],
+          "roster_ids": [
+            3
+          ],
+          "status": "complete",
+          "teams": [
+            "New England Knights"
+          ],
+          "type": "waiver",
+          "waiver_bid": 0,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Malik Willis",
+              "player_id": "8161",
+              "position": "QB",
+              "team": "MIA",
+              "to_team": "Pine Bluff Escapees"
+            }
+          ],
+          "created": 1771260409574,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Pine Bluff Escapees",
+              "name": "Justin Fields",
+              "player_id": "7591",
+              "position": "QB",
+              "team": "KC"
+            }
+          ],
+          "roster_ids": [
+            1
+          ],
+          "status": "complete",
+          "teams": [
+            "Pine Bluff Escapees"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Jarrett Stidham",
+              "player_id": "6136",
+              "position": "QB",
+              "team": "DEN",
+              "to_team": "Vatican City Hail Marys"
+            }
+          ],
+          "created": 1769228690944,
+          "draft_picks": [],
+          "drops": [],
+          "roster_ids": [
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "Vatican City Hail Marys"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1769228670804,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Vatican City Hail Marys",
+              "name": "Ty Johnson",
+              "player_id": "6039",
+              "position": "RB",
+              "team": "BUF"
+            }
+          ],
+          "roster_ids": [
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "Vatican City Hail Marys"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Riley Leonard",
+              "player_id": "12470",
+              "position": "QB",
+              "team": "IND",
+              "to_team": "Vatican City Hail Marys"
+            }
+          ],
+          "created": 1767726709775,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Vatican City Hail Marys",
+              "name": "Evan Engram",
+              "player_id": "4066",
+              "position": "TE",
+              "team": "DEN"
+            }
+          ],
+          "roster_ids": [
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "Vatican City Hail Marys"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Kirk Cousins",
+              "player_id": "1166",
+              "position": "QB",
+              "team": "LV",
+              "to_team": "New England Knights"
+            }
+          ],
+          "created": 1767726697683,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "New England Knights",
+              "name": "Jameis Winston",
+              "player_id": "2306",
+              "position": "QB",
+              "team": "NYG"
+            }
+          ],
+          "roster_ids": [
+            3
+          ],
+          "status": "complete",
+          "teams": [
+            "New England Knights"
+          ],
+          "type": "waiver",
+          "waiver_bid": 2,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "J.K. Dobbins",
+              "player_id": "6806",
+              "position": "RB",
+              "team": "DEN",
+              "to_team": "Phoenix Firebirds"
+            }
+          ],
+          "created": 1767726642570,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Phoenix Firebirds",
+              "name": "Trey Lance",
+              "player_id": "7610",
+              "position": "QB",
+              "team": "LAC"
+            }
+          ],
+          "roster_ids": [
+            2
+          ],
+          "status": "complete",
+          "teams": [
+            "Phoenix Firebirds"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1767709222874,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Pine Bluff Escapees",
+              "name": "Kirk Cousins",
+              "player_id": "1166",
+              "position": "QB",
+              "team": "LV"
+            }
+          ],
+          "roster_ids": [
+            1
+          ],
+          "status": "complete",
+          "teams": [
+            "Pine Bluff Escapees"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1767684048690,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "New England Knights",
+              "name": "Malik Washington",
+              "player_id": "11610",
+              "position": "WR",
+              "team": "MIA"
+            }
+          ],
+          "roster_ids": [
+            3
+          ],
+          "status": "complete",
+          "teams": [
+            "New England Knights"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Bucky Irving",
+              "player_id": "11584",
+              "position": "RB",
+              "team": "TB",
+              "to_team": "New England Knights"
+            },
+            {
+              "name": "Brock Bowers",
+              "player_id": "11604",
+              "position": "TE",
+              "team": "LV",
+              "to_team": "New England Knights"
+            },
+            {
+              "name": "C.J. Stroud",
+              "player_id": "9758",
+              "position": "QB",
+              "team": "HOU",
+              "to_team": "Pine Bluff Escapees"
+            }
+          ],
+          "created": 1767592949528,
+          "draft_picks": [
+            {
+              "league_id": null,
+              "owner_id": 3,
+              "previous_owner_id": 1,
+              "roster_id": 1,
+              "round": 1,
+              "season": "2026"
+            },
+            {
+              "league_id": null,
+              "owner_id": 1,
+              "previous_owner_id": 3,
+              "roster_id": 3,
+              "round": 2,
+              "season": "2026"
+            },
+            {
+              "league_id": null,
+              "owner_id": 1,
+              "previous_owner_id": 3,
+              "roster_id": 8,
+              "round": 1,
+              "season": "2026"
+            }
+          ],
+          "drops": [
+            {
+              "from_team": "Pine Bluff Escapees",
+              "name": "Bucky Irving",
+              "player_id": "11584",
+              "position": "RB",
+              "team": "TB"
+            },
+            {
+              "from_team": "Pine Bluff Escapees",
+              "name": "Brock Bowers",
+              "player_id": "11604",
+              "position": "TE",
+              "team": "LV"
+            },
+            {
+              "from_team": "New England Knights",
+              "name": "C.J. Stroud",
+              "player_id": "9758",
+              "position": "QB",
+              "team": "HOU"
+            }
+          ],
+          "roster_ids": [
+            1,
+            3
+          ],
+          "status": "complete",
+          "teams": [
+            "Pine Bluff Escapees",
+            "New England Knights"
+          ],
+          "type": "trade",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1767314850365,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Pine Bluff Escapees",
+              "name": "Philip Rivers",
+              "player_id": "331",
+              "position": "QB",
+              "team": null
+            }
+          ],
+          "roster_ids": [
+            1
+          ],
+          "status": "complete",
+          "teams": [
+            "Pine Bluff Escapees"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        }
+      ]
+    },
+    "rosters": {
+      "kwargs": {},
+      "mode": "strict",
+      "tool": "get_rosters",
+      "value": [
+        {
+          "bench": [
+            {
+              "name": "Chris Rodriguez",
+              "player_id": "10219",
+              "position": "RB",
+              "team": "JAX"
+            },
+            {
+              "name": "Woody Marks",
+              "player_id": "12474",
+              "position": "RB",
+              "team": "HOU"
+            },
+            {
+              "name": "Oronde Gadsden",
+              "player_id": "12493",
+              "position": "TE",
+              "team": "LAC"
+            },
+            {
+              "name": "Elic Ayomanor",
+              "player_id": "12499",
+              "position": "WR",
+              "team": "TEN"
+            },
+            {
+              "name": "Gunnar Helm",
+              "player_id": "12502",
+              "position": "TE",
+              "team": "TEN"
+            },
+            {
+              "name": "Malik Willis",
+              "player_id": "8161",
+              "position": "QB",
+              "team": "MIA"
+            },
+            {
+              "name": "Chig Okonkwo",
+              "player_id": "8210",
+              "position": "TE",
+              "team": "WAS"
+            },
+            {
+              "name": "Dontayvion Wicks",
+              "player_id": "9486",
+              "position": "WR",
+              "team": "PHI"
+            },
+            {
+              "name": "Kayshon Boutte",
+              "player_id": "9504",
+              "position": "WR",
+              "team": "NE"
+            }
+          ],
+          "losses": 0,
+          "manager": "JarrodLee",
+          "owner": "Pine Bluff Escapees",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 1,
+          "starters": [
+            {
+              "name": "Cam Ward",
+              "player_id": "12522",
+              "position": "QB",
+              "team": "TEN"
+            },
+            {
+              "name": "Chase Brown",
+              "player_id": "9224",
+              "position": "RB",
+              "team": "CIN"
+            },
+            {
+              "name": "Derrick Henry",
+              "player_id": "3198",
+              "position": "RB",
+              "team": "BAL"
+            },
+            {
+              "name": "Emeka Egbuka",
+              "player_id": "12514",
+              "position": "WR",
+              "team": "TB"
+            },
+            {
+              "name": "Courtland Sutton",
+              "player_id": "5045",
+              "position": "WR",
+              "team": "DEN"
+            },
+            {
+              "name": "Trey McBride",
+              "player_id": "8130",
+              "position": "TE",
+              "team": "ARI"
+            },
+            {
+              "name": "Alec Pierce",
+              "player_id": "8142",
+              "position": "WR",
+              "team": "IND"
+            },
+            {
+              "name": "Rico Dowdle",
+              "player_id": "7021",
+              "position": "RB",
+              "team": "PIT"
+            },
+            {
+              "name": "C.J. Stroud",
+              "player_id": "9758",
+              "position": "QB",
+              "team": "HOU"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "bench": [
+            {
+              "name": "Tre Tucker",
+              "player_id": "10213",
+              "position": "WR",
+              "team": "LV"
+            },
+            {
+              "name": "Jayden Reed",
+              "player_id": "10222",
+              "position": "WR",
+              "team": "GB"
+            },
+            {
+              "name": "AJ Barner",
+              "player_id": "11603",
+              "position": "TE",
+              "team": "SEA"
+            },
+            {
+              "name": "Jayden Higgins",
+              "player_id": "12484",
+              "position": "WR",
+              "team": "HOU"
+            },
+            {
+              "name": "Matthew Golden",
+              "player_id": "12501",
+              "position": "WR",
+              "team": "GB"
+            },
+            {
+              "name": "Jacory Croskey-Merritt",
+              "player_id": "12533",
+              "position": "RB",
+              "team": "WAS"
+            },
+            {
+              "name": "J.K. Dobbins",
+              "player_id": "6806",
+              "position": "RB",
+              "team": "DEN"
+            },
+            {
+              "name": "Bryce Young",
+              "player_id": "9228",
+              "position": "QB",
+              "team": "CAR"
+            },
+            {
+              "name": "Anthony Richardson",
+              "player_id": "9229",
+              "position": "QB",
+              "team": "IND"
+            }
+          ],
+          "losses": 0,
+          "manager": "darknegan",
+          "owner": "Phoenix Firebirds",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 2,
+          "starters": [
+            {
+              "name": "Justin Herbert",
+              "player_id": "6797",
+              "position": "QB",
+              "team": "LAC"
+            },
+            {
+              "name": "De'Von Achane",
+              "player_id": "9226",
+              "position": "RB",
+              "team": "MIA"
+            },
+            {
+              "name": "RJ Harvey",
+              "player_id": "12489",
+              "position": "RB",
+              "team": "DEN"
+            },
+            {
+              "name": "Ja'Marr Chase",
+              "player_id": "7564",
+              "position": "WR",
+              "team": "CIN"
+            },
+            {
+              "name": "Malik Nabers",
+              "player_id": "11632",
+              "position": "WR",
+              "team": "NYG"
+            },
+            {
+              "name": "Brenton Strange",
+              "player_id": "9480",
+              "position": "TE",
+              "team": "JAX"
+            },
+            {
+              "name": "Kyle Monangai",
+              "player_id": "12534",
+              "position": "RB",
+              "team": "CHI"
+            },
+            {
+              "name": "Ladd McConkey",
+              "player_id": "11635",
+              "position": "WR",
+              "team": "LAC"
+            },
+            {
+              "name": "Jordan Love",
+              "player_id": "6804",
+              "position": "QB",
+              "team": "GB"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "bench": [
+            {
+              "name": "Michael Penix",
+              "player_id": "11559",
+              "position": "QB",
+              "team": "ATL"
+            },
+            {
+              "name": "Braelon Allen",
+              "player_id": "11576",
+              "position": "RB",
+              "team": "NYJ"
+            },
+            {
+              "name": "Jaydon Blue",
+              "player_id": "12457",
+              "position": "RB",
+              "team": "DAL"
+            },
+            {
+              "name": "Stefon Diggs",
+              "player_id": "2449",
+              "position": "WR",
+              "team": "WAS"
+            },
+            {
+              "name": "Hunter Henry",
+              "player_id": "3214",
+              "position": "TE",
+              "team": "NE"
+            },
+            {
+              "name": "Jacoby Brissett",
+              "player_id": "3257",
+              "position": "QB",
+              "team": "ARI"
+            },
+            {
+              "name": "Alvin Kamara",
+              "player_id": "4035",
+              "position": "RB",
+              "team": "NO"
+            },
+            {
+              "name": "Tony Pollard",
+              "player_id": "5967",
+              "position": "RB",
+              "team": "TEN"
+            },
+            {
+              "name": "Darnell Mooney",
+              "player_id": "7090",
+              "position": "WR",
+              "team": "NYG"
+            },
+            {
+              "name": "Kyle Pitts",
+              "player_id": "7553",
+              "position": "TE",
+              "team": "ATL"
+            },
+            {
+              "name": "Jalen Nailor",
+              "player_id": "8180",
+              "position": "WR",
+              "team": "LV"
+            },
+            {
+              "name": "Parker Washington",
+              "player_id": "9487",
+              "position": "WR",
+              "team": "JAX"
+            }
+          ],
+          "losses": 0,
+          "manager": "daedaluswings",
+          "owner": "New England Knights",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 3,
+          "starters": [
+            {
+              "name": "Jayden Daniels",
+              "player_id": "11566",
+              "position": "QB",
+              "team": "WAS"
+            },
+            {
+              "name": "Bucky Irving",
+              "player_id": "11584",
+              "position": "RB",
+              "team": "TB"
+            },
+            {
+              "name": "Cam Skattebo",
+              "player_id": "12481",
+              "position": "RB",
+              "team": "NYG"
+            },
+            {
+              "name": "Tetairoa McMillan",
+              "player_id": "12526",
+              "position": "WR",
+              "team": "CAR"
+            },
+            {
+              "name": "Brian Thomas",
+              "player_id": "11631",
+              "position": "WR",
+              "team": "JAX"
+            },
+            {
+              "name": "Brock Bowers",
+              "player_id": "11604",
+              "position": "TE",
+              "team": "LV"
+            },
+            {
+              "name": "Zay Flowers",
+              "player_id": "9997",
+              "position": "WR",
+              "team": "BAL"
+            },
+            {
+              "name": "TreVeyon Henderson",
+              "player_id": "12529",
+              "position": "RB",
+              "team": "NE"
+            },
+            {
+              "name": "Jaxson Dart",
+              "player_id": "12508",
+              "position": "QB",
+              "team": "NYG"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 2,
+          "wins": 0
+        },
+        {
+          "bench": [
+            {
+              "name": "Dalton Kincaid",
+              "player_id": "10236",
+              "position": "TE",
+              "team": "BUF"
+            },
+            {
+              "name": "Adonai Mitchell",
+              "player_id": "11625",
+              "position": "WR",
+              "team": "NYJ"
+            },
+            {
+              "name": "Isaac Guerendo",
+              "player_id": "11651",
+              "position": "RB",
+              "team": "SF"
+            },
+            {
+              "name": "Devin Neal",
+              "player_id": "12476",
+              "position": "RB",
+              "team": "NO"
+            },
+            {
+              "name": "Tre' Harris",
+              "player_id": "12509",
+              "position": "WR",
+              "team": "LAC"
+            },
+            {
+              "name": "Will Howard",
+              "player_id": "12511",
+              "position": "QB",
+              "team": "PIT"
+            },
+            {
+              "name": "Elijah Arroyo",
+              "player_id": "12521",
+              "position": "TE",
+              "team": "SEA"
+            },
+            {
+              "name": "Trevor Etienne",
+              "player_id": "12531",
+              "position": "RB",
+              "team": "CAR"
+            },
+            {
+              "name": "Joe Mixon",
+              "player_id": "4018",
+              "position": "RB",
+              "team": null
+            },
+            {
+              "name": "Nick Chubb",
+              "player_id": "4988",
+              "position": "RB",
+              "team": null
+            },
+            {
+              "name": "Pat Freiermuth",
+              "player_id": "7600",
+              "position": "TE",
+              "team": "PIT"
+            },
+            {
+              "name": "Josh Downs",
+              "player_id": "9500",
+              "position": "WR",
+              "team": "IND"
+            }
+          ],
+          "losses": 0,
+          "manager": "zachbrandt51",
+          "owner": "New York Yappers",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 4,
+          "starters": [
+            {
+              "name": "Trevor Lawrence",
+              "player_id": "7523",
+              "position": "QB",
+              "team": "JAX"
+            },
+            {
+              "name": "Ashton Jeanty",
+              "player_id": "12527",
+              "position": "RB",
+              "team": "LV"
+            },
+            {
+              "name": "Quinshon Judkins",
+              "player_id": "12512",
+              "position": "RB",
+              "team": "CLE"
+            },
+            {
+              "name": "Jaxon Smith-Njigba",
+              "player_id": "9488",
+              "position": "WR",
+              "team": "SEA"
+            },
+            {
+              "name": "DeVonta Smith",
+              "player_id": "7525",
+              "position": "WR",
+              "team": "PHI"
+            },
+            {
+              "name": "Harold Fannin",
+              "player_id": "12506",
+              "position": "TE",
+              "team": "CLE"
+            },
+            {
+              "name": "Luther Burden",
+              "player_id": "12519",
+              "position": "WR",
+              "team": "CHI"
+            },
+            {
+              "name": "CeeDee Lamb",
+              "player_id": "6786",
+              "position": "WR",
+              "team": "DAL"
+            },
+            {
+              "name": "Baker Mayfield",
+              "player_id": "4892",
+              "position": "QB",
+              "team": "TB"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "bench": [
+            {
+              "name": "Theo Johnson",
+              "player_id": "11597",
+              "position": "TE",
+              "team": "NYG"
+            },
+            {
+              "name": "Troy Franklin",
+              "player_id": "11627",
+              "position": "WR",
+              "team": "DEN"
+            },
+            {
+              "name": "Dylan Sampson",
+              "player_id": "12469",
+              "position": "RB",
+              "team": "CLE"
+            },
+            {
+              "name": "Riley Leonard",
+              "player_id": "12470",
+              "position": "QB",
+              "team": "IND"
+            },
+            {
+              "name": "Keenan Allen",
+              "player_id": "1479",
+              "position": "WR",
+              "team": null
+            },
+            {
+              "name": "Jerry Jeudy",
+              "player_id": "6783",
+              "position": "WR",
+              "team": "CLE"
+            }
+          ],
+          "losses": 0,
+          "manager": "Ryanespejo",
+          "owner": "Vatican City Hail Marys",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 5,
+          "starters": [
+            {
+              "name": "Bo Nix",
+              "player_id": "11563",
+              "position": "QB",
+              "team": "DEN"
+            },
+            {
+              "name": "Jahmyr Gibbs",
+              "player_id": "9221",
+              "position": "RB",
+              "team": "DET"
+            },
+            {
+              "name": "Chuba Hubbard",
+              "player_id": "7594",
+              "position": "RB",
+              "team": "CAR"
+            },
+            {
+              "name": "Michael Pittman",
+              "player_id": "6819",
+              "position": "WR",
+              "team": "PIT"
+            },
+            {
+              "name": "Michael Wilson",
+              "player_id": "10232",
+              "position": "WR",
+              "team": "ARI"
+            },
+            {
+              "name": "Colston Loveland",
+              "player_id": "12517",
+              "position": "TE",
+              "team": "CHI"
+            },
+            {
+              "name": "Jauan Jennings",
+              "player_id": "7049",
+              "position": "WR",
+              "team": "MIN"
+            },
+            {
+              "name": "Mike Evans",
+              "player_id": "2216",
+              "position": "WR",
+              "team": "SF"
+            },
+            {
+              "name": "Mac Jones",
+              "player_id": "7527",
+              "position": "QB",
+              "team": "SF"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "bench": [
+            {
+              "name": "Sam LaPorta",
+              "player_id": "10859",
+              "position": "TE",
+              "team": "DET"
+            },
+            {
+              "name": "Rome Odunze",
+              "player_id": "11620",
+              "position": "WR",
+              "team": "CHI"
+            },
+            {
+              "name": "Mason Taylor",
+              "player_id": "12498",
+              "position": "TE",
+              "team": "NYJ"
+            },
+            {
+              "name": "Kaleb Johnson",
+              "player_id": "12504",
+              "position": "RB",
+              "team": "PIT"
+            },
+            {
+              "name": "Jalen Milroe",
+              "player_id": "12510",
+              "position": "QB",
+              "team": "SEA"
+            },
+            {
+              "name": "Travis Hunter",
+              "player_id": "12530",
+              "position": "WR",
+              "team": "JAX"
+            },
+            {
+              "name": "Jaylin Noel",
+              "player_id": "12536",
+              "position": "WR",
+              "team": "HOU"
+            },
+            {
+              "name": "Kyle Williams",
+              "player_id": "12547",
+              "position": "WR",
+              "team": "NE"
+            },
+            {
+              "name": "KeAndre Lambert-Smith",
+              "player_id": "12670",
+              "position": "WR",
+              "team": "LAC"
+            },
+            {
+              "name": "Marcus Mariota",
+              "player_id": "2307",
+              "position": "QB",
+              "team": "WAS"
+            },
+            {
+              "name": "Greg Dortch",
+              "player_id": "5970",
+              "position": "WR",
+              "team": "DET"
+            },
+            {
+              "name": "Garrett Wilson",
+              "player_id": "8146",
+              "position": "WR",
+              "team": "NYJ"
+            }
+          ],
+          "losses": 0,
+          "manager": "tannerfinlay",
+          "owner": "Birmingham Boomers",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 6,
+          "starters": [
+            {
+              "name": "Drake Maye",
+              "player_id": "11564",
+              "position": "QB",
+              "team": "NE"
+            },
+            {
+              "name": "Bijan Robinson",
+              "player_id": "9509",
+              "position": "RB",
+              "team": "ATL"
+            },
+            {
+              "name": "D'Andre Swift",
+              "player_id": "6790",
+              "position": "RB",
+              "team": "CHI"
+            },
+            {
+              "name": "Pat Bryant",
+              "player_id": "12492",
+              "position": "WR",
+              "team": "DEN"
+            },
+            {
+              "name": "Quentin Johnston",
+              "player_id": "9754",
+              "position": "WR",
+              "team": "LAC"
+            },
+            {
+              "name": "Isaiah Likely",
+              "player_id": "8131",
+              "position": "TE",
+              "team": "NYG"
+            },
+            {
+              "name": "Brian Robinson",
+              "player_id": "8154",
+              "position": "RB",
+              "team": "ATL"
+            },
+            {
+              "name": "Chimere Dike",
+              "player_id": "12540",
+              "position": "WR",
+              "team": "TEN"
+            },
+            {
+              "name": "Geno Smith",
+              "player_id": "1373",
+              "position": "QB",
+              "team": "NYJ"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "bench": [
+            {
+              "name": "Andrei Iosivas",
+              "player_id": "10226",
+              "position": "WR",
+              "team": "CIN"
+            },
+            {
+              "name": "Shedeur Sanders",
+              "player_id": "12524",
+              "position": "QB",
+              "team": "CLE"
+            },
+            {
+              "name": "Isaac TeSlaa",
+              "player_id": "12535",
+              "position": "WR",
+              "team": "DET"
+            },
+            {
+              "name": "Tyreek Hill",
+              "player_id": "3321",
+              "position": "WR",
+              "team": null
+            },
+            {
+              "name": "Kareem Hunt",
+              "player_id": "4098",
+              "position": "RB",
+              "team": null
+            },
+            {
+              "name": "Jonnu Smith",
+              "player_id": "4144",
+              "position": "TE",
+              "team": null
+            },
+            {
+              "name": "Kendrick Bourne",
+              "player_id": "4454",
+              "position": "WR",
+              "team": "ARI"
+            },
+            {
+              "name": "Sam Darnold",
+              "player_id": "4943",
+              "position": "QB",
+              "team": "SEA"
+            },
+            {
+              "name": "Marquise Brown",
+              "player_id": "5848",
+              "position": "WR",
+              "team": "PHI"
+            },
+            {
+              "name": "Devin Singletary",
+              "player_id": "6130",
+              "position": "RB",
+              "team": "NYG"
+            },
+            {
+              "name": "Brandon Aiyuk",
+              "player_id": "6803",
+              "position": "WR",
+              "team": "SF"
+            },
+            {
+              "name": "Tyrod Taylor",
+              "player_id": "827",
+              "position": "QB",
+              "team": "GB"
+            }
+          ],
+          "losses": 0,
+          "manager": "XandalfTheGrayt",
+          "owner": "B\u00f6seges\u00e4\u00df Schildkr\u00f6ten",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 7,
+          "starters": [
+            {
+              "name": "Joe Burrow",
+              "player_id": "6770",
+              "position": "QB",
+              "team": "CIN"
+            },
+            {
+              "name": "Josh Jacobs",
+              "player_id": "5850",
+              "position": "RB",
+              "team": "GB"
+            },
+            {
+              "name": "David Montgomery",
+              "player_id": "5892",
+              "position": "RB",
+              "team": "HOU"
+            },
+            {
+              "name": "Amon-Ra St. Brown",
+              "player_id": "7547",
+              "position": "WR",
+              "team": "DET"
+            },
+            {
+              "name": "Romeo Doubs",
+              "player_id": "8121",
+              "position": "WR",
+              "team": "NE"
+            },
+            {
+              "name": "Travis Kelce",
+              "player_id": "1466",
+              "position": "TE",
+              "team": "KC"
+            },
+            {
+              "name": "Terry McLaurin",
+              "player_id": "5927",
+              "position": "WR",
+              "team": "WAS"
+            },
+            {
+              "name": "Breece Hall",
+              "player_id": "8155",
+              "position": "RB",
+              "team": "NYJ"
+            },
+            {
+              "name": "Brock Purdy",
+              "player_id": "8183",
+              "position": "QB",
+              "team": "SF"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "bench": [
+            {
+              "name": "Joe Milton",
+              "player_id": "11557",
+              "position": "QB",
+              "team": "DAL"
+            },
+            {
+              "name": "MarShawn Lloyd",
+              "player_id": "11581",
+              "position": "RB",
+              "team": "GB"
+            },
+            {
+              "name": "Jonathon Brooks",
+              "player_id": "11583",
+              "position": "RB",
+              "team": "CAR"
+            },
+            {
+              "name": "Ja'Tavion Sanders",
+              "player_id": "11600",
+              "position": "TE",
+              "team": "CAR"
+            },
+            {
+              "name": "David Njoku",
+              "player_id": "4033",
+              "position": "TE",
+              "team": "LAC"
+            },
+            {
+              "name": "Rashod Bateman",
+              "player_id": "7571",
+              "position": "WR",
+              "team": "BAL"
+            },
+            {
+              "name": "Rhamondre Stevenson",
+              "player_id": "7611",
+              "position": "RB",
+              "team": "NE"
+            },
+            {
+              "name": "Rachaad White",
+              "player_id": "8136",
+              "position": "RB",
+              "team": "WAS"
+            },
+            {
+              "name": "Christian Watson",
+              "player_id": "8167",
+              "position": "WR",
+              "team": "GB"
+            },
+            {
+              "name": "Tank Dell",
+              "player_id": "9502",
+              "position": "WR",
+              "team": "HOU"
+            },
+            {
+              "name": "Tyjae Spears",
+              "player_id": "9508",
+              "position": "RB",
+              "team": "TEN"
+            },
+            {
+              "name": "Jordan Addison",
+              "player_id": "9756",
+              "position": "WR",
+              "team": "MIN"
+            }
+          ],
+          "losses": 0,
+          "manager": "awking1515",
+          "owner": "awking1515",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 8,
+          "starters": [
+            {
+              "name": "Dak Prescott",
+              "player_id": "3294",
+              "position": "QB",
+              "team": "DAL"
+            },
+            {
+              "name": "Kenneth Walker",
+              "player_id": "8151",
+              "position": "RB",
+              "team": "KC"
+            },
+            {
+              "name": "Travis Etienne",
+              "player_id": "7543",
+              "position": "RB",
+              "team": "NO"
+            },
+            {
+              "name": "George Pickens",
+              "player_id": "8137",
+              "position": "WR",
+              "team": "DAL"
+            },
+            {
+              "name": "Khalil Shakir",
+              "player_id": "8134",
+              "position": "WR",
+              "team": "BUF"
+            },
+            {
+              "name": "Darren Waller",
+              "player_id": "2505",
+              "position": "TE",
+              "team": null
+            },
+            {
+              "name": "Xavier Worthy",
+              "player_id": "11624",
+              "position": "WR",
+              "team": "KC"
+            },
+            {
+              "name": "Chris Olave",
+              "player_id": "8144",
+              "position": "WR",
+              "team": "NO"
+            },
+            {
+              "name": "Patrick Mahomes",
+              "player_id": "4046",
+              "position": "QB",
+              "team": "KC"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "bench": [
+            {
+              "name": "Emanuel Wilson",
+              "player_id": "11435",
+              "position": "RB",
+              "team": "SEA"
+            },
+            {
+              "name": "J.J. McCarthy",
+              "player_id": "11565",
+              "position": "QB",
+              "team": "MIN"
+            },
+            {
+              "name": "Jalen McMillan",
+              "player_id": "11618",
+              "position": "WR",
+              "team": "TB"
+            },
+            {
+              "name": "Tyrone Tracy",
+              "player_id": "11655",
+              "position": "RB",
+              "team": "NYG"
+            },
+            {
+              "name": "Devaughn Vele",
+              "player_id": "11834",
+              "position": "WR",
+              "team": "NO"
+            },
+            {
+              "name": "Bhayshul Tuten",
+              "player_id": "12490",
+              "position": "RB",
+              "team": "JAX"
+            },
+            {
+              "name": "Tory Horton",
+              "player_id": "12497",
+              "position": "WR",
+              "team": "SEA"
+            },
+            {
+              "name": "Chris Godwin",
+              "player_id": "4037",
+              "position": "WR",
+              "team": "TB"
+            },
+            {
+              "name": "John Metchie",
+              "player_id": "8147",
+              "position": "WR",
+              "team": "CAR"
+            },
+            {
+              "name": "Isiah Pacheco",
+              "player_id": "8205",
+              "position": "RB",
+              "team": "DET"
+            },
+            {
+              "name": "Luke Musgrave",
+              "player_id": "9481",
+              "position": "TE",
+              "team": "GB"
+            },
+            {
+              "name": "Tucker Kraft",
+              "player_id": "9484",
+              "position": "TE",
+              "team": "GB"
+            }
+          ],
+          "losses": 0,
+          "manager": "Kyyyy1232",
+          "owner": "Honolulu Barracudas",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 9,
+          "starters": [
+            {
+              "name": "Josh Allen",
+              "player_id": "4984",
+              "position": "QB",
+              "team": "BUF"
+            },
+            {
+              "name": "Omarion Hampton",
+              "player_id": "12507",
+              "position": "RB",
+              "team": "LAC"
+            },
+            {
+              "name": "Kyren Williams",
+              "player_id": "8150",
+              "position": "RB",
+              "team": "LAR"
+            },
+            {
+              "name": "Nico Collins",
+              "player_id": "7569",
+              "position": "WR",
+              "team": "HOU"
+            },
+            {
+              "name": "Rashee Rice",
+              "player_id": "10229",
+              "position": "WR",
+              "team": "KC"
+            },
+            {
+              "name": "Tyler Warren",
+              "player_id": "12518",
+              "position": "TE",
+              "team": "IND"
+            },
+            {
+              "name": "Jaylen Waddle",
+              "player_id": "7526",
+              "position": "WR",
+              "team": "DEN"
+            },
+            {
+              "name": "Tee Higgins",
+              "player_id": "6801",
+              "position": "WR",
+              "team": "CIN"
+            },
+            {
+              "name": "Tyler Shough",
+              "player_id": "12545",
+              "position": "QB",
+              "team": "NO"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "bench": [
+            {
+              "name": "Xavier Legette",
+              "player_id": "11626",
+              "position": "WR",
+              "team": "CAR"
+            },
+            {
+              "name": "Keon Coleman",
+              "player_id": "11637",
+              "position": "WR",
+              "team": "BUF"
+            },
+            {
+              "name": "Jalen Coker",
+              "player_id": "11646",
+              "position": "WR",
+              "team": "CAR"
+            },
+            {
+              "name": "Russell Wilson",
+              "player_id": "1234",
+              "position": "QB",
+              "team": null
+            },
+            {
+              "name": "Jordan James",
+              "player_id": "12467",
+              "position": "RB",
+              "team": "SF"
+            },
+            {
+              "name": "Jack Bech",
+              "player_id": "12483",
+              "position": "WR",
+              "team": "LV"
+            },
+            {
+              "name": "Ollie Gordon",
+              "player_id": "12495",
+              "position": "RB",
+              "team": "MIA"
+            },
+            {
+              "name": "Joe Flacco",
+              "player_id": "19",
+              "position": "QB",
+              "team": "CIN"
+            },
+            {
+              "name": "James Conner",
+              "player_id": "4137",
+              "position": "RB",
+              "team": "ARI"
+            },
+            {
+              "name": "T.J. Hockenson",
+              "player_id": "5844",
+              "position": "TE",
+              "team": "MIN"
+            },
+            {
+              "name": "Tua Tagovailoa",
+              "player_id": "6768",
+              "position": "QB",
+              "team": "ATL"
+            },
+            {
+              "name": "Tyler Allgeier",
+              "player_id": "8132",
+              "position": "RB",
+              "team": "ARI"
+            }
+          ],
+          "losses": 0,
+          "manager": "TheHowlster",
+          "owner": "Combs Cavaliers",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 10,
+          "starters": [
+            {
+              "name": "Jared Goff",
+              "player_id": "3163",
+              "position": "QB",
+              "team": "DET"
+            },
+            {
+              "name": "Christian McCaffrey",
+              "player_id": "4034",
+              "position": "RB",
+              "team": "SF"
+            },
+            {
+              "name": "Kenny Gainwell",
+              "player_id": "7567",
+              "position": "RB",
+              "team": "TB"
+            },
+            {
+              "name": "DJ Moore",
+              "player_id": "4983",
+              "position": "WR",
+              "team": "BUF"
+            },
+            {
+              "name": "A.J. Brown",
+              "player_id": "5859",
+              "position": "WR",
+              "team": "NE"
+            },
+            {
+              "name": "Jake Ferguson",
+              "player_id": "8110",
+              "position": "TE",
+              "team": "DAL"
+            },
+            {
+              "name": "Zach Charbonnet",
+              "player_id": "9753",
+              "position": "RB",
+              "team": "SEA"
+            },
+            {
+              "name": "Drake London",
+              "player_id": "8112",
+              "position": "WR",
+              "team": "ATL"
+            },
+            {
+              "name": "Lamar Jackson",
+              "player_id": "4881",
+              "position": "QB",
+              "team": "BAL"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "bench": [
+            {
+              "name": "Ricky Pearsall",
+              "player_id": "11638",
+              "position": "WR",
+              "team": "SF"
+            },
+            {
+              "name": "Brashard Smith",
+              "player_id": "12455",
+              "position": "RB",
+              "team": "KC"
+            },
+            {
+              "name": "Quinn Ewers",
+              "player_id": "12500",
+              "position": "QB",
+              "team": "MIA"
+            },
+            {
+              "name": "Jaylin Lane",
+              "player_id": "12641",
+              "position": "WR",
+              "team": "WAS"
+            },
+            {
+              "name": "Davante Adams",
+              "player_id": "2133",
+              "position": "WR",
+              "team": "LAR"
+            },
+            {
+              "name": "Cooper Kupp",
+              "player_id": "4039",
+              "position": "WR",
+              "team": "SEA"
+            },
+            {
+              "name": "Aaron Jones",
+              "player_id": "4199",
+              "position": "RB",
+              "team": "MIN"
+            },
+            {
+              "name": "DK Metcalf",
+              "player_id": "5846",
+              "position": "WR",
+              "team": "PIT"
+            },
+            {
+              "name": "Kyler Murray",
+              "player_id": "5849",
+              "position": "QB",
+              "team": "MIN"
+            },
+            {
+              "name": "Daniel Jones",
+              "player_id": "5870",
+              "position": "QB",
+              "team": "IND"
+            },
+            {
+              "name": "Juwan Johnson",
+              "player_id": "7002",
+              "position": "TE",
+              "team": "NO"
+            },
+            {
+              "name": "Elijah Moore",
+              "player_id": "7596",
+              "position": "WR",
+              "team": "PHI"
+            },
+            {
+              "name": "Jake Tonges",
+              "player_id": "8698",
+              "position": "TE",
+              "team": "SF"
+            }
+          ],
+          "losses": 0,
+          "manager": "PETERPATJEFF",
+          "owner": "IDAHO SPUD REAPERS",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 11,
+          "starters": [
+            {
+              "name": "Jalen Hurts",
+              "player_id": "6904",
+              "position": "QB",
+              "team": "PHI"
+            },
+            {
+              "name": "Jaylen Warren",
+              "player_id": "8228",
+              "position": "RB",
+              "team": "PIT"
+            },
+            {
+              "name": "Saquon Barkley",
+              "player_id": "4866",
+              "position": "RB",
+              "team": "PHI"
+            },
+            {
+              "name": "Marvin Harrison",
+              "player_id": "11628",
+              "position": "WR",
+              "team": "ARI"
+            },
+            {
+              "name": "Wan'Dale Robinson",
+              "player_id": "8126",
+              "position": "WR",
+              "team": "TEN"
+            },
+            {
+              "name": "George Kittle",
+              "player_id": "4217",
+              "position": "TE",
+              "team": "SF"
+            },
+            {
+              "name": "Blake Corum",
+              "player_id": "11586",
+              "position": "RB",
+              "team": "LAR"
+            },
+            {
+              "name": "Javonte Williams",
+              "player_id": "7588",
+              "position": "RB",
+              "team": "DAL"
+            },
+            {
+              "name": "Aaron Rodgers",
+              "player_id": "96",
+              "position": "QB",
+              "team": "PIT"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "bench": [
+            {
+              "name": "Emari Demercado",
+              "player_id": "11199",
+              "position": "RB",
+              "team": "KC"
+            },
+            {
+              "name": "Isaiah Davis",
+              "player_id": "11571",
+              "position": "RB",
+              "team": "NYJ"
+            },
+            {
+              "name": "Mark Andrews",
+              "player_id": "5012",
+              "position": "TE",
+              "team": "BAL"
+            },
+            {
+              "name": "Deebo Samuel",
+              "player_id": "5872",
+              "position": "WR",
+              "team": "SF"
+            },
+            {
+              "name": "Justice Hill",
+              "player_id": "5995",
+              "position": "RB",
+              "team": "BAL"
+            },
+            {
+              "name": "Darius Slayton",
+              "player_id": "6149",
+              "position": "WR",
+              "team": "NYG"
+            },
+            {
+              "name": "Dyami Brown",
+              "player_id": "7587",
+              "position": "WR",
+              "team": "WAS"
+            },
+            {
+              "name": "Andy Dalton",
+              "player_id": "829",
+              "position": "QB",
+              "team": "PHI"
+            },
+            {
+              "name": "Jordan Mason",
+              "player_id": "8408",
+              "position": "RB",
+              "team": "MIN"
+            },
+            {
+              "name": "Rashid Shaheed",
+              "player_id": "8676",
+              "position": "WR",
+              "team": "SEA"
+            }
+          ],
+          "losses": 0,
+          "manager": "scottlviii",
+          "owner": "Japton Hilltoppers ",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 12,
+          "starters": [
+            {
+              "name": "Caleb Williams",
+              "player_id": "11560",
+              "position": "QB",
+              "team": "CHI"
+            },
+            {
+              "name": "Jonathan Taylor",
+              "player_id": "6813",
+              "position": "RB",
+              "team": "IND"
+            },
+            {
+              "name": "James Cook",
+              "player_id": "8138",
+              "position": "RB",
+              "team": "BUF"
+            },
+            {
+              "name": "Justin Jefferson",
+              "player_id": "6794",
+              "position": "WR",
+              "team": "MIN"
+            },
+            {
+              "name": "Jameson Williams",
+              "player_id": "8148",
+              "position": "WR",
+              "team": "DET"
+            },
+            {
+              "name": "Dallas Goedert",
+              "player_id": "5022",
+              "position": "TE",
+              "team": "PHI"
+            },
+            {
+              "name": "Puka Nacua",
+              "player_id": "9493",
+              "position": "WR",
+              "team": "LAR"
+            },
+            {
+              "name": "Jakobi Meyers",
+              "player_id": "5947",
+              "position": "WR",
+              "team": "JAX"
+            },
+            {
+              "name": "Matthew Stafford",
+              "player_id": "421",
+              "position": "QB",
+              "team": "LAR"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        }
+      ]
+    },
+    "rosters_no_players": {
+      "kwargs": {
+        "include_players": false
+      },
+      "mode": "strict",
+      "tool": "get_rosters",
+      "value": [
+        {
+          "losses": 0,
+          "manager": "JarrodLee",
+          "owner": "Pine Bluff Escapees",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 1,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "darknegan",
+          "owner": "Phoenix Firebirds",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 2,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "daedaluswings",
+          "owner": "New England Knights",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 3,
+          "ties": 0,
+          "waiver_budget_used": 2,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "zachbrandt51",
+          "owner": "New York Yappers",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 4,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "Ryanespejo",
+          "owner": "Vatican City Hail Marys",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 5,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "tannerfinlay",
+          "owner": "Birmingham Boomers",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 6,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "XandalfTheGrayt",
+          "owner": "B\u00f6seges\u00e4\u00df Schildkr\u00f6ten",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 7,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "awking1515",
+          "owner": "awking1515",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 8,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "Kyyyy1232",
+          "owner": "Honolulu Barracudas",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 9,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "TheHowlster",
+          "owner": "Combs Cavaliers",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 10,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "PETERPATJEFF",
+          "owner": "IDAHO SPUD REAPERS",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 11,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "scottlviii",
+          "owner": "Japton Hilltoppers ",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "roster_id": 12,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        }
+      ]
+    },
+    "score_player_a": {
+      "kwargs": {
+        "player_name": "Puka Nacua"
+      },
+      "mode": "shape",
+      "tool": "score_player",
+      "value": {
+        "components": {
+          "availability": {
+            "detail": {
+              "active_weeks": "number",
+              "availability_pct": "number",
+              "total_regular_season_weeks": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "floor_consistency": {
+            "detail": {
+              "avg_ppg": "number",
+              "games_above_10": "number",
+              "games_scored": "number",
+              "pct_above_10": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "offensive_context": {
+            "detail": {
+              "oc_name": "str",
+              "oc_notes": "str",
+              "oc_tier": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "team_fit": {
+            "detail": {
+              "fit_rank": "str",
+              "player_position": "str",
+              "weakest_position": "str",
+              "your_position_values": {
+                "QB": "number",
+                "RB": "number",
+                "TE": "number",
+                "WR": "number"
+              }
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "trade_value": {
+            "detail": {
+              "overall_rank": "number",
+              "position_rank": "number",
+              "trend_30_day": "number",
+              "value": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "usage": {
+            "detail": {
+              "avg_carries_per_game": "number",
+              "avg_target_share": "number",
+              "avg_wopr": "number",
+              "position": "str"
+            },
+            "score": "number",
+            "weight": "str"
+          }
+        },
+        "composite_score": "number",
+        "data_season": "str",
+        "grade": "str",
+        "player": "str",
+        "player_position": "str",
+        "player_team": "str",
+        "sources": "str",
+        "warnings": [
+          "<empty>"
+        ]
+      }
+    },
+    "score_player_b": {
+      "kwargs": {
+        "player_name": "Bijan Robinson"
+      },
+      "mode": "shape",
+      "tool": "score_player",
+      "value": {
+        "components": {
+          "availability": {
+            "detail": {
+              "active_weeks": "number",
+              "availability_pct": "number",
+              "total_regular_season_weeks": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "floor_consistency": {
+            "detail": {
+              "avg_ppg": "number",
+              "games_above_10": "number",
+              "games_scored": "number",
+              "pct_above_10": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "offensive_context": {
+            "detail": {
+              "oc_name": "str",
+              "oc_notes": "str",
+              "oc_tier": "number",
+              "target_share_std": "number",
+              "team_hhi": "number",
+              "usage_rank": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "team_fit": {
+            "detail": {
+              "fit_rank": "str",
+              "player_position": "str",
+              "weakest_position": "str",
+              "your_position_values": {
+                "QB": "number",
+                "RB": "number",
+                "TE": "number",
+                "WR": "number"
+              }
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "trade_value": {
+            "detail": {
+              "overall_rank": "number",
+              "position_rank": "number",
+              "trend_30_day": "number",
+              "value": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "usage": {
+            "detail": {
+              "avg_carries_per_game": "number",
+              "avg_target_share": "number",
+              "avg_wopr": "number",
+              "position": "str"
+            },
+            "score": "number",
+            "weight": "str"
+          }
+        },
+        "composite_score": "number",
+        "data_season": "str",
+        "grade": "str",
+        "player": "str",
+        "player_position": "str",
+        "player_team": "str",
+        "sources": "str",
+        "warnings": [
+          "<empty>"
+        ]
+      }
+    },
+    "scout_team": {
+      "kwargs": {
+        "team_name_or_manager": "Pine Bluff Escapees"
+      },
+      "mode": "strict",
+      "tool": "scout_team",
+      "value": {
+        "bench": [
+          {
+            "name": "Chris Rodriguez",
+            "player_id": "10219",
+            "position": "RB",
+            "team": "JAX"
+          },
+          {
+            "name": "Woody Marks",
+            "player_id": "12474",
+            "position": "RB",
+            "team": "HOU"
+          },
+          {
+            "name": "Oronde Gadsden",
+            "player_id": "12493",
+            "position": "TE",
+            "team": "LAC"
+          },
+          {
+            "name": "Elic Ayomanor",
+            "player_id": "12499",
+            "position": "WR",
+            "team": "TEN"
+          },
+          {
+            "name": "Gunnar Helm",
+            "player_id": "12502",
+            "position": "TE",
+            "team": "TEN"
+          },
+          {
+            "name": "Malik Willis",
+            "player_id": "8161",
+            "position": "QB",
+            "team": "MIA"
+          },
+          {
+            "name": "Chig Okonkwo",
+            "player_id": "8210",
+            "position": "TE",
+            "team": "WAS"
+          },
+          {
+            "name": "Dontayvion Wicks",
+            "player_id": "9486",
+            "position": "WR",
+            "team": "PHI"
+          },
+          {
+            "name": "Kayshon Boutte",
+            "player_id": "9504",
+            "position": "WR",
+            "team": "NE"
+          }
+        ],
+        "losses": 0,
+        "manager": "JarrodLee",
+        "matched_by": "exact",
+        "next_week": null,
+        "owner": "Pine Bluff Escapees",
+        "points_against": 0.0,
+        "points_for": 0.0,
+        "rank": 1,
+        "roster_id": 1,
+        "starters": [
+          {
+            "name": "Cam Ward",
+            "player_id": "12522",
+            "position": "QB",
+            "team": "TEN"
+          },
+          {
+            "name": "Chase Brown",
+            "player_id": "9224",
+            "position": "RB",
+            "team": "CIN"
+          },
+          {
+            "name": "Derrick Henry",
+            "player_id": "3198",
+            "position": "RB",
+            "team": "BAL"
+          },
+          {
+            "name": "Emeka Egbuka",
+            "player_id": "12514",
+            "position": "WR",
+            "team": "TB"
+          },
+          {
+            "name": "Courtland Sutton",
+            "player_id": "5045",
+            "position": "WR",
+            "team": "DEN"
+          },
+          {
+            "name": "Trey McBride",
+            "player_id": "8130",
+            "position": "TE",
+            "team": "ARI"
+          },
+          {
+            "name": "Alec Pierce",
+            "player_id": "8142",
+            "position": "WR",
+            "team": "IND"
+          },
+          {
+            "name": "Rico Dowdle",
+            "player_id": "7021",
+            "position": "RB",
+            "team": "PIT"
+          },
+          {
+            "name": "C.J. Stroud",
+            "player_id": "9758",
+            "position": "QB",
+            "team": "HOU"
+          }
+        ],
+        "teams_in_league": 12,
+        "this_week": null,
+        "ties": 0,
+        "waiver_budget_used": 0,
+        "wins": 0
+      }
+    },
+    "search_player": {
+      "kwargs": {
+        "limit": 5,
+        "name": "Puka Nacua"
+      },
+      "mode": "strict",
+      "tool": "search_player",
+      "value": [
+        {
+          "name": "Puka Nacua",
+          "player_id": "9493",
+          "position": "WR",
+          "team": "LAR"
+        }
+      ]
+    },
+    "snap_counts": {
+      "kwargs": {
+        "last_n_weeks": 8,
+        "player_name": "Puka Nacua",
+        "season": "2025"
+      },
+      "mode": "strict",
+      "tool": "get_snap_counts",
+      "value": {
+        "player": "Puka Nacua",
+        "position": "WR",
+        "season": "2025",
+        "snaps": [
+          {
+            "defense_pct": 0,
+            "defense_snaps": 0,
+            "offense_pct": 0.44,
+            "offense_snaps": 31,
+            "opponent": "ARI",
+            "st_pct": 0,
+            "st_snaps": 0,
+            "team": "LA",
+            "week": 14
+          },
+          {
+            "defense_pct": 0,
+            "defense_snaps": 0,
+            "offense_pct": 0.56,
+            "offense_snaps": 40,
+            "opponent": "DET",
+            "st_pct": 0,
+            "st_snaps": 0,
+            "team": "LA",
+            "week": 15
+          },
+          {
+            "defense_pct": 0,
+            "defense_snaps": 0,
+            "offense_pct": 0.78,
+            "offense_snaps": 72,
+            "opponent": "SEA",
+            "st_pct": 0,
+            "st_snaps": 0,
+            "team": "LA",
+            "week": 16
+          },
+          {
+            "defense_pct": 0,
+            "defense_snaps": 0,
+            "offense_pct": 0.74,
+            "offense_snaps": 48,
+            "opponent": "ATL",
+            "st_pct": 0,
+            "st_snaps": 0,
+            "team": "LA",
+            "week": 17
+          },
+          {
+            "defense_pct": 0,
+            "defense_snaps": 0,
+            "offense_pct": 0.69,
+            "offense_snaps": 52,
+            "opponent": "ARI",
+            "st_pct": 0,
+            "st_snaps": 0,
+            "team": "LA",
+            "week": 18
+          },
+          {
+            "defense_pct": 0,
+            "defense_snaps": 0,
+            "offense_pct": 0.79,
+            "offense_snaps": 60,
+            "opponent": "CAR",
+            "st_pct": 0,
+            "st_snaps": 0,
+            "team": "LA",
+            "week": 19
+          },
+          {
+            "defense_pct": 0,
+            "defense_snaps": 0,
+            "offense_pct": 0.9,
+            "offense_snaps": 70,
+            "opponent": "CHI",
+            "st_pct": 0,
+            "st_snaps": 0,
+            "team": "LA",
+            "week": 20
+          },
+          {
+            "defense_pct": 0,
+            "defense_snaps": 0,
+            "offense_pct": 0.79,
+            "offense_snaps": 48,
+            "opponent": "SEA",
+            "st_pct": 0,
+            "st_snaps": 0,
+            "team": "LA",
+            "week": 21
+          }
+        ],
+        "source": "nflverse open data (MIT licensed, github.com/nflverse)",
+        "team": "LA"
+      }
+    },
+    "standings": {
+      "kwargs": {},
+      "mode": "strict",
+      "tool": "get_standings",
+      "value": [
+        {
+          "losses": 0,
+          "manager": "JarrodLee",
+          "owner": "Pine Bluff Escapees",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 1,
+          "roster_id": 1,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "darknegan",
+          "owner": "Phoenix Firebirds",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 2,
+          "roster_id": 2,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "daedaluswings",
+          "owner": "New England Knights",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 3,
+          "roster_id": 3,
+          "ties": 0,
+          "waiver_budget_used": 2,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "zachbrandt51",
+          "owner": "New York Yappers",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 4,
+          "roster_id": 4,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "Ryanespejo",
+          "owner": "Vatican City Hail Marys",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 5,
+          "roster_id": 5,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "tannerfinlay",
+          "owner": "Birmingham Boomers",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 6,
+          "roster_id": 6,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "XandalfTheGrayt",
+          "owner": "B\u00f6seges\u00e4\u00df Schildkr\u00f6ten",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 7,
+          "roster_id": 7,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "awking1515",
+          "owner": "awking1515",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 8,
+          "roster_id": 8,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "Kyyyy1232",
+          "owner": "Honolulu Barracudas",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 9,
+          "roster_id": 9,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "TheHowlster",
+          "owner": "Combs Cavaliers",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 10,
+          "roster_id": 10,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "PETERPATJEFF",
+          "owner": "IDAHO SPUD REAPERS",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 11,
+          "roster_id": 11,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        },
+        {
+          "losses": 0,
+          "manager": "scottlviii",
+          "owner": "Japton Hilltoppers ",
+          "points_against": 0.0,
+          "points_for": 0.0,
+          "rank": 12,
+          "roster_id": 12,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 0
+        }
+      ]
+    },
+    "start_sit": {
+      "kwargs": {
+        "week": 10
+      },
+      "mode": "shape",
+      "tool": "start_sit_advice",
+      "value": {
+        "consider_benching": [
+          {
+            "name": "str",
+            "player_id": "str",
+            "position": "str",
+            "proj": "number"
+          }
+        ],
+        "consider_starting": [
+          {
+            "name": "str",
+            "player_id": "str",
+            "position": "str",
+            "proj": "number",
+            "slot": "str"
+          }
+        ],
+        "current_projected": "number",
+        "note": "str",
+        "optimal_lineup": [
+          {
+            "name": "str",
+            "position": "str",
+            "proj": "number",
+            "slot": "str"
+          }
+        ],
+        "optimal_projected": "number",
+        "potential_point_gain": "number",
+        "scoring_format": "str",
+        "source": "str",
+        "team": "str",
+        "week": "number"
+      }
+    },
+    "trade_values": {
+      "kwargs": {
+        "limit": 25
+      },
+      "mode": "shape",
+      "tool": "get_trade_values",
+      "value": {
+        "format": {
+          "isDynasty": "bool",
+          "numQbs": "number",
+          "numTeams": "number",
+          "ppr": "number"
+        },
+        "players": [
+          {
+            "adp": "null",
+            "age": "number",
+            "name": "str",
+            "overall_rank": "number",
+            "position": "str",
+            "position_rank": "number",
+            "redraft_value": "number",
+            "sleeper_id": "str",
+            "team": "str",
+            "tier": "number",
+            "trade_frequency": "number",
+            "trend_30_day": "number",
+            "value": "number"
+          }
+        ],
+        "source": "str"
+      }
+    },
+    "trade_values_te": {
+      "kwargs": {
+        "limit": 10,
+        "position": "TE"
+      },
+      "mode": "shape",
+      "tool": "get_trade_values",
+      "value": {
+        "format": {
+          "isDynasty": "bool",
+          "numQbs": "number",
+          "numTeams": "number",
+          "ppr": "number"
+        },
+        "players": [
+          {
+            "adp": "null",
+            "age": "number",
+            "name": "str",
+            "overall_rank": "number",
+            "position": "str",
+            "position_rank": "number",
+            "redraft_value": "number",
+            "sleeper_id": "str",
+            "team": "str",
+            "tier": "number",
+            "trade_frequency": "number",
+            "trend_30_day": "number",
+            "value": "number"
+          }
+        ],
+        "source": "str"
+      }
+    },
+    "traded_picks": {
+      "kwargs": {},
+      "mode": "strict",
+      "tool": "get_traded_picks",
+      "value": [
+        {
+          "owner_id": 5,
+          "previous_owner_id": 3,
+          "roster_id": 1,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 11,
+          "previous_owner_id": 1,
+          "roster_id": 1,
+          "round": 1,
+          "season": "2027"
+        },
+        {
+          "owner_id": 5,
+          "previous_owner_id": 2,
+          "roster_id": 2,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 5,
+          "previous_owner_id": 3,
+          "roster_id": 3,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 1,
+          "previous_owner_id": 3,
+          "roster_id": 3,
+          "round": 2,
+          "season": "2026"
+        },
+        {
+          "owner_id": 1,
+          "previous_owner_id": 3,
+          "roster_id": 8,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 1,
+          "previous_owner_id": 11,
+          "roster_id": 11,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 8,
+          "previous_owner_id": 3,
+          "roster_id": 11,
+          "round": 2,
+          "season": "2026"
+        },
+        {
+          "owner_id": 1,
+          "previous_owner_id": 11,
+          "roster_id": 11,
+          "round": 3,
+          "season": "2027"
+        }
+      ]
+    },
+    "transactions": {
+      "kwargs": {
+        "week": 10
+      },
+      "mode": "strict",
+      "tool": "get_transactions",
+      "value": []
+    },
+    "trending_add": {
+      "kwargs": {
+        "kind": "add",
+        "limit": 10
+      },
+      "mode": "shape",
+      "tool": "get_trending_players",
+      "value": [
+        {
+          "count": "number",
+          "injury_status": "str",
+          "name": "str",
+          "player_id": "str",
+          "position": "str",
+          "team": "str"
+        }
+      ]
+    },
+    "trending_drop": {
+      "kwargs": {
+        "kind": "drop",
+        "limit": 10
+      },
+      "mode": "shape",
+      "tool": "get_trending_players",
+      "value": [
+        {
+          "count": "number",
+          "injury_status": "str",
+          "name": "str",
+          "player_id": "str",
+          "position": "str",
+          "team": "str"
+        }
+      ]
+    },
+    "user": {
+      "kwargs": {
+        "username_or_id": "JarrodLee"
+      },
+      "mode": "strict",
+      "tool": "get_user",
+      "value": {
+        "avatar": "608075f398ac0269defee79911f6934c",
+        "cookies": null,
+        "created": null,
+        "currencies": null,
+        "data_updated": null,
+        "deleted": null,
+        "display_name": "JarrodLee",
+        "email": null,
+        "is_bot": false,
+        "metadata": null,
+        "notifications": null,
+        "pending": null,
+        "phone": null,
+        "real_name": null,
+        "solicitable": null,
+        "summoner_name": null,
+        "summoner_region": null,
+        "token": null,
+        "user_id": "337322962594054144",
+        "username": "jarrodlee",
+        "verification": null
+      }
+    },
+    "value_my_roster": {
+      "kwargs": {},
+      "mode": "shape",
+      "tool": "value_my_roster",
+      "value": {
+        "format": {
+          "isDynasty": "bool",
+          "numQbs": "number",
+          "numTeams": "number",
+          "ppr": "number"
+        },
+        "players": [
+          {
+            "name": "str",
+            "position": "str",
+            "position_rank": "number",
+            "value": "number"
+          }
+        ],
+        "source": "str",
+        "team": "str",
+        "total_value": "number"
+      }
+    }
+  }
+}
