@@ -1,10 +1,14 @@
 {
   "_meta": {
-    "captured_at": "2026-08-05 23:51:32",
-    "case_count": 44,
+    "captured_at": "2026-08-05 23:57:37",
+    "case_count": 62,
     "fixtures": {
       "draft_id": "1312218810626887680",
-      "player_id": "9493"
+      "league_season": "2026",
+      "league_status": "pre_draft",
+      "player_id": "9493",
+      "prev_draft_id": "1235828907576414208",
+      "prev_league_id": "1235828906838216704"
     },
     "player_a": "Puka Nacua",
     "player_b": "Bijan Robinson",
@@ -1676,6 +1680,6011 @@
           "w": null
         }
       ]
+    },
+    "prev_available": {
+      "kwargs": {
+        "league_id": "1235828906838216704",
+        "limit": 15
+      },
+      "mode": "shape",
+      "tool": "get_available_players",
+      "value": [
+        {
+          "injury_status": "str",
+          "name": "str",
+          "player_id": "str",
+          "position": "str",
+          "search_rank": "number",
+          "status": "str",
+          "team": "str"
+        }
+      ]
+    },
+    "prev_draft": {
+      "kwargs": {
+        "draft_id": "1235828907576414208"
+      },
+      "mode": "strict",
+      "tool": "get_draft",
+      "value": {
+        "created": 1749007081446,
+        "creators": [
+          "337322962594054144",
+          "706026655591768064"
+        ],
+        "draft_id": "1235828907576414208",
+        "draft_order": {
+          "1001284597327486976": 1,
+          "1095429062677401600": 7,
+          "1123490464163901440": 4,
+          "1129466881162821632": 3,
+          "1236055001478987776": 6,
+          "1244378217029058560": 10,
+          "1264287661795840000": 2,
+          "337322962594054144": 8,
+          "706026655591768064": 11,
+          "860618680084574208": 12,
+          "866065736727142400": 5,
+          "941857690488242176": 9
+        },
+        "last_message_id": "1265168086617563137",
+        "last_message_time": 1756002086838,
+        "last_picked": 1756002085774,
+        "league_id": "1235828906838216704",
+        "metadata": {
+          "description": "",
+          "name": "Gridiron Time Machine",
+          "scoring_type": "dynasty_2qb",
+          "show_team_names": "0"
+        },
+        "season": "2025",
+        "season_type": "regular",
+        "settings": {
+          "alpha_sort": 0,
+          "autopause_enabled": 0,
+          "autopause_end_time": 900,
+          "autopause_start_time": 180,
+          "autostart": 0,
+          "cpu_autopick": 1,
+          "enforce_position_limits": 1,
+          "nomination_timer": 60,
+          "pick_timer": 300,
+          "player_type": 0,
+          "reversal_round": 0,
+          "rounds": 21,
+          "slots_bn": 9,
+          "slots_flex": 2,
+          "slots_qb": 1,
+          "slots_rb": 2,
+          "slots_super_flex": 1,
+          "slots_te": 1,
+          "slots_wr": 2,
+          "teams": 12
+        },
+        "slot_to_roster_id": {
+          "1": 9,
+          "10": 8,
+          "11": 2,
+          "12": 4,
+          "2": 11,
+          "3": 5,
+          "4": 6,
+          "5": 10,
+          "6": 3,
+          "7": 12,
+          "8": 1,
+          "9": 7
+        },
+        "sport": "nfl",
+        "start_time": 1755990007477,
+        "status": "complete",
+        "type": "snake"
+      }
+    },
+    "prev_draft_picks": {
+      "kwargs": {
+        "draft_id": "1235828907576414208"
+      },
+      "mode": "strict",
+      "tool": "get_draft_picks",
+      "value": [
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 1,
+          "player": "Josh Allen",
+          "position": "QB",
+          "roster_id": 9,
+          "round": 1,
+          "team": "BUF"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 2,
+          "player": "Jalen Hurts",
+          "position": "QB",
+          "roster_id": 11,
+          "round": 1,
+          "team": "PHI"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 3,
+          "player": "Jahmyr Gibbs",
+          "position": "RB",
+          "roster_id": 5,
+          "round": 1,
+          "team": "DET"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 4,
+          "player": "Bijan Robinson",
+          "position": "RB",
+          "roster_id": 6,
+          "round": 1,
+          "team": "ATL"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 5,
+          "player": "Lamar Jackson",
+          "position": "QB",
+          "roster_id": 10,
+          "round": 1,
+          "team": "BAL"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 6,
+          "player": "Jayden Daniels",
+          "position": "QB",
+          "roster_id": 3,
+          "round": 1,
+          "team": "WAS"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 7,
+          "player": "Justin Jefferson",
+          "position": "WR",
+          "roster_id": 12,
+          "round": 1,
+          "team": "MIN"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 8,
+          "player": "Brock Bowers",
+          "position": "TE",
+          "roster_id": 1,
+          "round": 1,
+          "team": "LV"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 9,
+          "player": "Joe Burrow",
+          "position": "QB",
+          "roster_id": 7,
+          "round": 1,
+          "team": "CIN"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 10,
+          "player": "Patrick Mahomes",
+          "position": "QB",
+          "roster_id": 8,
+          "round": 1,
+          "team": "KC"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 11,
+          "player": "Ja'Marr Chase",
+          "position": "WR",
+          "roster_id": 2,
+          "round": 1,
+          "team": "CIN"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 12,
+          "player": "CeeDee Lamb",
+          "position": "WR",
+          "roster_id": 4,
+          "round": 1,
+          "team": "DAL"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 13,
+          "player": "Ashton Jeanty",
+          "position": "RB",
+          "roster_id": 4,
+          "round": 2,
+          "team": "LV"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 14,
+          "player": "Malik Nabers",
+          "position": "WR",
+          "roster_id": 2,
+          "round": 2,
+          "team": "NYG"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 15,
+          "player": "C.J. Stroud",
+          "position": "QB",
+          "roster_id": 8,
+          "round": 2,
+          "team": "HOU"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 16,
+          "player": "Amon-Ra St. Brown",
+          "position": "WR",
+          "roster_id": 7,
+          "round": 2,
+          "team": "DET"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 17,
+          "player": "Trey McBride",
+          "position": "TE",
+          "roster_id": 1,
+          "round": 2,
+          "team": "ARI"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 18,
+          "player": "Puka Nacua",
+          "position": "WR",
+          "roster_id": 12,
+          "round": 2,
+          "team": "LAR"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 19,
+          "player": "Brian Thomas",
+          "position": "WR",
+          "roster_id": 3,
+          "round": 2,
+          "team": "JAX"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 20,
+          "player": "Drake London",
+          "position": "WR",
+          "roster_id": 10,
+          "round": 2,
+          "team": "ATL"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 21,
+          "player": "Drake Maye",
+          "position": "QB",
+          "roster_id": 6,
+          "round": 2,
+          "team": "NE"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 22,
+          "player": "Bo Nix",
+          "position": "QB",
+          "roster_id": 5,
+          "round": 2,
+          "team": "DEN"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 23,
+          "player": "Saquon Barkley",
+          "position": "RB",
+          "roster_id": 11,
+          "round": 2,
+          "team": "PHI"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 24,
+          "player": "Nico Collins",
+          "position": "WR",
+          "roster_id": 9,
+          "round": 2,
+          "team": "HOU"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 25,
+          "player": "Omarion Hampton",
+          "position": "RB",
+          "roster_id": 9,
+          "round": 3,
+          "team": "LAC"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 26,
+          "player": "Marvin Harrison",
+          "position": "WR",
+          "roster_id": 11,
+          "round": 3,
+          "team": "ARI"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 27,
+          "player": "Ladd McConkey",
+          "position": "WR",
+          "roster_id": 5,
+          "round": 3,
+          "team": "LAC"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 28,
+          "player": "Garrett Wilson",
+          "position": "WR",
+          "roster_id": 6,
+          "round": 3,
+          "team": "NYJ"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 29,
+          "player": "A.J. Brown",
+          "position": "WR",
+          "roster_id": 10,
+          "round": 3,
+          "team": "PHI"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 30,
+          "player": "De'Von Achane",
+          "position": "RB",
+          "roster_id": 3,
+          "round": 3,
+          "team": "MIA"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 31,
+          "player": "Caleb Williams",
+          "position": "QB",
+          "roster_id": 12,
+          "round": 3,
+          "team": "CHI"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 32,
+          "player": "Bucky Irving",
+          "position": "RB",
+          "roster_id": 1,
+          "round": 3,
+          "team": "TB"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 33,
+          "player": "Breece Hall",
+          "position": "RB",
+          "roster_id": 7,
+          "round": 3,
+          "team": "NYJ"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 34,
+          "player": "Chris Olave",
+          "position": "WR",
+          "roster_id": 8,
+          "round": 3,
+          "team": "NO"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 35,
+          "player": "Justin Herbert",
+          "position": "QB",
+          "roster_id": 2,
+          "round": 3,
+          "team": "LAC"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 36,
+          "player": "Baker Mayfield",
+          "position": "QB",
+          "roster_id": 4,
+          "round": 3,
+          "team": "TB"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 37,
+          "player": "Jaxon Smith-Njigba",
+          "position": "WR",
+          "roster_id": 4,
+          "round": 4,
+          "team": "SEA"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 38,
+          "player": "Tee Higgins",
+          "position": "WR",
+          "roster_id": 2,
+          "round": 4,
+          "team": "CIN"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 39,
+          "player": "Xavier Worthy",
+          "position": "WR",
+          "roster_id": 8,
+          "round": 4,
+          "team": "KC"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 40,
+          "player": "Brock Purdy",
+          "position": "QB",
+          "roster_id": 7,
+          "round": 4,
+          "team": "SF"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 41,
+          "player": "Chase Brown",
+          "position": "RB",
+          "roster_id": 1,
+          "round": 4,
+          "team": "CIN"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 42,
+          "player": "Jonathan Taylor",
+          "position": "RB",
+          "roster_id": 12,
+          "round": 4,
+          "team": "IND"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 43,
+          "player": "TreVeyon Henderson",
+          "position": "RB",
+          "roster_id": 3,
+          "round": 4,
+          "team": "NE"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 44,
+          "player": "Christian McCaffrey",
+          "position": "RB",
+          "roster_id": 10,
+          "round": 4,
+          "team": "SF"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 45,
+          "player": "Travis Hunter",
+          "position": "WR",
+          "roster_id": 6,
+          "round": 4,
+          "team": "JAX"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 46,
+          "player": "Jaxson Dart",
+          "position": "QB",
+          "roster_id": 5,
+          "round": 4,
+          "team": "NYG"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 47,
+          "player": "Kyler Murray",
+          "position": "QB",
+          "roster_id": 11,
+          "round": 4,
+          "team": "ARI"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 48,
+          "player": "Kyren Williams",
+          "position": "RB",
+          "roster_id": 9,
+          "round": 4,
+          "team": "LAR"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 49,
+          "player": "Rashee Rice",
+          "position": "WR",
+          "roster_id": 9,
+          "round": 5,
+          "team": "KC"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 50,
+          "player": "DK Metcalf",
+          "position": "WR",
+          "roster_id": 11,
+          "round": 5,
+          "team": "PIT"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 51,
+          "player": "Mike Evans",
+          "position": "WR",
+          "roster_id": 5,
+          "round": 5,
+          "team": "TB"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 52,
+          "player": "Sam LaPorta",
+          "position": "TE",
+          "roster_id": 6,
+          "round": 5,
+          "team": "DET"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 53,
+          "player": "Jared Goff",
+          "position": "QB",
+          "roster_id": 10,
+          "round": 5,
+          "team": "DET"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 54,
+          "player": "Tetairoa McMillan",
+          "position": "WR",
+          "roster_id": 3,
+          "round": 5,
+          "team": "CAR"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 55,
+          "player": "James Cook",
+          "position": "RB",
+          "roster_id": 12,
+          "round": 5,
+          "team": "BUF"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 56,
+          "player": "Derrick Henry",
+          "position": "RB",
+          "roster_id": 1,
+          "round": 5,
+          "team": "BAL"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 57,
+          "player": "Josh Jacobs",
+          "position": "RB",
+          "roster_id": 7,
+          "round": 5,
+          "team": "GB"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 58,
+          "player": "Kenneth Walker",
+          "position": "RB",
+          "roster_id": 8,
+          "round": 5,
+          "team": "SEA"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 59,
+          "player": "Jordan Love",
+          "position": "QB",
+          "roster_id": 2,
+          "round": 5,
+          "team": "GB"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 60,
+          "player": "Quinshon Judkins",
+          "position": "RB",
+          "roster_id": 4,
+          "round": 5,
+          "team": "CLE"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 61,
+          "player": "DeVonta Smith",
+          "position": "WR",
+          "roster_id": 4,
+          "round": 6,
+          "team": "PHI"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 62,
+          "player": "RJ Harvey",
+          "position": "RB",
+          "roster_id": 2,
+          "round": 6,
+          "team": "DEN"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 63,
+          "player": "Travis Etienne",
+          "position": "RB",
+          "roster_id": 8,
+          "round": 6,
+          "team": "JAX"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 64,
+          "player": "Terry McLaurin",
+          "position": "WR",
+          "roster_id": 7,
+          "round": 6,
+          "team": "WAS"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 65,
+          "player": "Emeka Egbuka",
+          "position": "WR",
+          "roster_id": 1,
+          "round": 6,
+          "team": "TB"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 66,
+          "player": "Jakobi Meyers",
+          "position": "WR",
+          "roster_id": 12,
+          "round": 6,
+          "team": "LV"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 67,
+          "player": "Zay Flowers",
+          "position": "WR",
+          "roster_id": 3,
+          "round": 6,
+          "team": "BAL"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 68,
+          "player": "DJ Moore",
+          "position": "WR",
+          "roster_id": 10,
+          "round": 6,
+          "team": "CHI"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 69,
+          "player": "Kaleb Johnson",
+          "position": "RB",
+          "roster_id": 6,
+          "round": 6,
+          "team": "PIT"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 70,
+          "player": "Chuba Hubbard",
+          "position": "RB",
+          "roster_id": 5,
+          "round": 6,
+          "team": "CAR"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 71,
+          "player": "Davante Adams",
+          "position": "WR",
+          "roster_id": 11,
+          "round": 6,
+          "team": "LAR"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 72,
+          "player": "J.J. McCarthy",
+          "position": "QB",
+          "roster_id": 9,
+          "round": 6,
+          "team": "MIN"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 73,
+          "player": "Tyler Warren",
+          "position": "TE",
+          "roster_id": 9,
+          "round": 7,
+          "team": "IND"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 74,
+          "player": "George Kittle",
+          "position": "TE",
+          "roster_id": 11,
+          "round": 7,
+          "team": "SF"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 75,
+          "player": "Colston Loveland",
+          "position": "TE",
+          "roster_id": 5,
+          "round": 7,
+          "team": "CHI"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 76,
+          "player": "Rome Odunze",
+          "position": "WR",
+          "roster_id": 6,
+          "round": 7,
+          "team": "CHI"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 77,
+          "player": "T.J. Hockenson",
+          "position": "TE",
+          "roster_id": 10,
+          "round": 7,
+          "team": "MIN"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 78,
+          "player": "Dak Prescott",
+          "position": "QB",
+          "roster_id": 3,
+          "round": 7,
+          "team": "DAL"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 79,
+          "player": "Jameson Williams",
+          "position": "WR",
+          "roster_id": 12,
+          "round": 7,
+          "team": "DET"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 80,
+          "player": "Cam Ward",
+          "position": "QB",
+          "roster_id": 1,
+          "round": 7,
+          "team": "TEN"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 81,
+          "player": "Tyreek Hill",
+          "position": "WR",
+          "roster_id": 7,
+          "round": 7,
+          "team": "MIA"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 82,
+          "player": "Jordan Addison",
+          "position": "WR",
+          "roster_id": 8,
+          "round": 7,
+          "team": "MIN"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 83,
+          "player": "Matthew Golden",
+          "position": "WR",
+          "roster_id": 2,
+          "round": 7,
+          "team": "GB"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 84,
+          "player": "Dalton Kincaid",
+          "position": "TE",
+          "roster_id": 4,
+          "round": 7,
+          "team": "BUF"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 85,
+          "player": "Trevor Lawrence",
+          "position": "QB",
+          "roster_id": 4,
+          "round": 8,
+          "team": "JAX"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 86,
+          "player": "Alvin Kamara",
+          "position": "RB",
+          "roster_id": 2,
+          "round": 8,
+          "team": "NO"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 87,
+          "player": "George Pickens",
+          "position": "WR",
+          "roster_id": 8,
+          "round": 8,
+          "team": "DAL"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 88,
+          "player": "David Montgomery",
+          "position": "RB",
+          "roster_id": 7,
+          "round": 8,
+          "team": "DET"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 89,
+          "player": "Courtland Sutton",
+          "position": "WR",
+          "roster_id": 1,
+          "round": 8,
+          "team": "DEN"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 90,
+          "player": "Mark Andrews",
+          "position": "TE",
+          "roster_id": 12,
+          "round": 8,
+          "team": "BAL"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 91,
+          "player": "Michael Penix",
+          "position": "QB",
+          "roster_id": 3,
+          "round": 8,
+          "team": "ATL"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 92,
+          "player": "James Conner",
+          "position": "RB",
+          "roster_id": 10,
+          "round": 8,
+          "team": "ARI"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 93,
+          "player": "D'Andre Swift",
+          "position": "RB",
+          "roster_id": 6,
+          "round": 8,
+          "team": "CHI"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 94,
+          "player": "Isiah Pacheco",
+          "position": "RB",
+          "roster_id": 5,
+          "round": 8,
+          "team": "KC"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 95,
+          "player": "Aaron Jones",
+          "position": "RB",
+          "roster_id": 11,
+          "round": 8,
+          "team": "MIN"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 96,
+          "player": "Jaylen Waddle",
+          "position": "WR",
+          "roster_id": 9,
+          "round": 8,
+          "team": "MIA"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 97,
+          "player": "Jerry Jeudy",
+          "position": "WR",
+          "roster_id": 9,
+          "round": 9,
+          "team": "CLE"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 98,
+          "player": "Tony Pollard",
+          "position": "RB",
+          "roster_id": 11,
+          "round": 9,
+          "team": "TEN"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 99,
+          "player": "Bryce Young",
+          "position": "QB",
+          "roster_id": 5,
+          "round": 9,
+          "team": "CAR"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 100,
+          "player": "Geno Smith",
+          "position": "QB",
+          "roster_id": 6,
+          "round": 9,
+          "team": "LV"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 101,
+          "player": "Tua Tagovailoa",
+          "position": "QB",
+          "roster_id": 10,
+          "round": 9,
+          "team": "MIA"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 102,
+          "player": "Cam Skattebo",
+          "position": "RB",
+          "roster_id": 3,
+          "round": 9,
+          "team": "NYG"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 103,
+          "player": "Matthew Stafford",
+          "position": "QB",
+          "roster_id": 12,
+          "round": 9,
+          "team": "LAR"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 104,
+          "player": "Justin Fields",
+          "position": "QB",
+          "roster_id": 1,
+          "round": 9,
+          "team": "NYJ"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 105,
+          "player": "Sam Darnold",
+          "position": "QB",
+          "roster_id": 7,
+          "round": 9,
+          "team": "SEA"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 106,
+          "player": "Rachaad White",
+          "position": "RB",
+          "roster_id": 8,
+          "round": 9,
+          "team": "TB"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 107,
+          "player": "Ricky Pearsall",
+          "position": "WR",
+          "roster_id": 2,
+          "round": 9,
+          "team": "SF"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 108,
+          "player": "Joe Mixon",
+          "position": "RB",
+          "roster_id": 4,
+          "round": 9,
+          "team": "HOU"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 109,
+          "player": "Luther Burden",
+          "position": "WR",
+          "roster_id": 4,
+          "round": 10,
+          "team": "CHI"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 110,
+          "player": "Jayden Higgins",
+          "position": "WR",
+          "roster_id": 2,
+          "round": 10,
+          "team": "HOU"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 111,
+          "player": "David Njoku",
+          "position": "TE",
+          "roster_id": 8,
+          "round": 10,
+          "team": "CLE"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 112,
+          "player": "Travis Kelce",
+          "position": "TE",
+          "roster_id": 7,
+          "round": 10,
+          "team": "KC"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 113,
+          "player": "Calvin Ridley",
+          "position": "WR",
+          "roster_id": 1,
+          "round": 10,
+          "team": "TEN"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 114,
+          "player": "Deebo Samuel",
+          "position": "WR",
+          "roster_id": 12,
+          "round": 10,
+          "team": "WAS"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 115,
+          "player": "Kyle Pitts",
+          "position": "TE",
+          "roster_id": 3,
+          "round": 10,
+          "team": "ATL"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 116,
+          "player": "Keon Coleman",
+          "position": "WR",
+          "roster_id": 10,
+          "round": 10,
+          "team": "BUF"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 117,
+          "player": "Brian Robinson",
+          "position": "RB",
+          "roster_id": 6,
+          "round": 10,
+          "team": "SF"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 118,
+          "player": "Michael Pittman",
+          "position": "WR",
+          "roster_id": 5,
+          "round": 10,
+          "team": "IND"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 119,
+          "player": "Jaylen Warren",
+          "position": "RB",
+          "roster_id": 11,
+          "round": 10,
+          "team": "PIT"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 120,
+          "player": "Tyrone Tracy",
+          "position": "RB",
+          "roster_id": 9,
+          "round": 10,
+          "team": "NYG"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 121,
+          "player": "Tucker Kraft",
+          "position": "TE",
+          "roster_id": 9,
+          "round": 11,
+          "team": "GB"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 122,
+          "player": "Cooper Kupp",
+          "position": "WR",
+          "roster_id": 11,
+          "round": 11,
+          "team": "SEA"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 123,
+          "player": "Marvin Mims",
+          "position": "WR",
+          "roster_id": 5,
+          "round": 11,
+          "team": "DEN"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 124,
+          "player": "Isaiah Likely",
+          "position": "TE",
+          "roster_id": 6,
+          "round": 11,
+          "team": "BAL"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 125,
+          "player": "Zach Charbonnet",
+          "position": "RB",
+          "roster_id": 10,
+          "round": 11,
+          "team": "SEA"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 126,
+          "player": "Jaydon Blue",
+          "position": "RB",
+          "roster_id": 3,
+          "round": 11,
+          "team": "DAL"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 127,
+          "player": "Jordan Mason",
+          "position": "RB",
+          "roster_id": 12,
+          "round": 11,
+          "team": "MIN"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 128,
+          "player": "Khalil Shakir",
+          "position": "WR",
+          "roster_id": 1,
+          "round": 11,
+          "team": "BUF"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 129,
+          "player": "Brandon Aiyuk",
+          "position": "WR",
+          "roster_id": 7,
+          "round": 11,
+          "team": "SF"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 130,
+          "player": "Tank Bigsby",
+          "position": "RB",
+          "roster_id": 8,
+          "round": 11,
+          "team": "JAX"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 131,
+          "player": "Trey Benson",
+          "position": "RB",
+          "roster_id": 2,
+          "round": 11,
+          "team": "ARI"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 132,
+          "player": "Tre' Harris",
+          "position": "WR",
+          "roster_id": 4,
+          "round": 11,
+          "team": "LAC"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 133,
+          "player": "Josh Downs",
+          "position": "WR",
+          "roster_id": 4,
+          "round": 12,
+          "team": "IND"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 134,
+          "player": "Jacory Croskey-Merritt",
+          "position": "RB",
+          "roster_id": 2,
+          "round": 12,
+          "team": "WAS"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 135,
+          "player": "Tyjae Spears",
+          "position": "RB",
+          "roster_id": 8,
+          "round": 12,
+          "team": "TEN"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 136,
+          "player": "Shedeur Sanders",
+          "position": "QB",
+          "roster_id": 7,
+          "round": 12,
+          "team": "CLE"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 137,
+          "player": "J.K. Dobbins",
+          "position": "RB",
+          "roster_id": 1,
+          "round": 12,
+          "team": "DEN"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 138,
+          "player": "Dallas Goedert",
+          "position": "TE",
+          "roster_id": 12,
+          "round": 12,
+          "team": "PHI"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 139,
+          "player": "Stefon Diggs",
+          "position": "WR",
+          "roster_id": 3,
+          "round": 12,
+          "team": "NE"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 140,
+          "player": "Jack Bech",
+          "position": "WR",
+          "roster_id": 10,
+          "round": 12,
+          "team": "LV"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 141,
+          "player": "Kyle Williams",
+          "position": "WR",
+          "roster_id": 6,
+          "round": 12,
+          "team": "NE"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 142,
+          "player": "Evan Engram",
+          "position": "TE",
+          "roster_id": 5,
+          "round": 12,
+          "team": "DEN"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 143,
+          "player": "Javonte Williams",
+          "position": "RB",
+          "roster_id": 11,
+          "round": 12,
+          "team": "DAL"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 144,
+          "player": "Jauan Jennings",
+          "position": "WR",
+          "roster_id": 9,
+          "round": 12,
+          "team": "SF"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 145,
+          "player": "Bhayshul Tuten",
+          "position": "RB",
+          "roster_id": 9,
+          "round": 13,
+          "team": "JAX"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 146,
+          "player": "Aaron Rodgers",
+          "position": "QB",
+          "roster_id": 11,
+          "round": 13,
+          "team": "PIT"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 147,
+          "player": "Dylan Sampson",
+          "position": "RB",
+          "roster_id": 5,
+          "round": 13,
+          "team": "CLE"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 148,
+          "player": "Pat Bryant",
+          "position": "WR",
+          "roster_id": 6,
+          "round": 13,
+          "team": "DEN"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 149,
+          "player": "Jake Ferguson",
+          "position": "TE",
+          "roster_id": 10,
+          "round": 13,
+          "team": "DAL"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 150,
+          "player": "Jayden Reed",
+          "position": "WR",
+          "roster_id": 3,
+          "round": 13,
+          "team": "GB"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 151,
+          "player": "Rashid Shaheed",
+          "position": "WR",
+          "roster_id": 12,
+          "round": 13,
+          "team": "NO"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 152,
+          "player": "Ray Davis",
+          "position": "RB",
+          "roster_id": 1,
+          "round": 13,
+          "team": "BUF"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 153,
+          "player": "Jonnu Smith",
+          "position": "TE",
+          "roster_id": 7,
+          "round": 13,
+          "team": "PIT"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 154,
+          "player": "Rhamondre Stevenson",
+          "position": "RB",
+          "roster_id": 8,
+          "round": 13,
+          "team": "NE"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 155,
+          "player": "Anthony Richardson",
+          "position": "QB",
+          "roster_id": 2,
+          "round": 13,
+          "team": "IND"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 156,
+          "player": "Pat Freiermuth",
+          "position": "TE",
+          "roster_id": 4,
+          "round": 13,
+          "team": "PIT"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 157,
+          "player": "Braelon Allen",
+          "position": "RB",
+          "roster_id": 4,
+          "round": 14,
+          "team": "NYJ"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 158,
+          "player": "Terrance Ferguson",
+          "position": "TE",
+          "roster_id": 2,
+          "round": 14,
+          "team": "LAR"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 159,
+          "player": "Rashod Bateman",
+          "position": "WR",
+          "roster_id": 8,
+          "round": 14,
+          "team": "BAL"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 160,
+          "player": "Isaac TeSlaa",
+          "position": "WR",
+          "roster_id": 7,
+          "round": 14,
+          "team": "DET"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 161,
+          "player": "Elic Ayomanor",
+          "position": "WR",
+          "roster_id": 1,
+          "round": 14,
+          "team": "TEN"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 162,
+          "player": "Austin Ekeler",
+          "position": "RB",
+          "roster_id": 12,
+          "round": 14,
+          "team": "WAS"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 163,
+          "player": "Hunter Henry",
+          "position": "TE",
+          "roster_id": 3,
+          "round": 14,
+          "team": "NE"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 164,
+          "player": "Tyler Allgeier",
+          "position": "RB",
+          "roster_id": 10,
+          "round": 14,
+          "team": "ATL"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 165,
+          "player": "Mason Taylor",
+          "position": "TE",
+          "roster_id": 6,
+          "round": 14,
+          "team": "NYJ"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 166,
+          "player": "Dillon Gabriel",
+          "position": "QB",
+          "roster_id": 5,
+          "round": 14,
+          "team": "CLE"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 167,
+          "player": "Wan'Dale Robinson",
+          "position": "WR",
+          "roster_id": 11,
+          "round": 14,
+          "team": "NYG"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 168,
+          "player": "Chris Godwin",
+          "position": "WR",
+          "roster_id": 9,
+          "round": 14,
+          "team": "TB"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 169,
+          "player": "Tyler Shough",
+          "position": "QB",
+          "roster_id": 9,
+          "round": 15,
+          "team": "NO"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 170,
+          "player": "Quinn Ewers",
+          "position": "QB",
+          "roster_id": 11,
+          "round": 15,
+          "team": "MIA"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 171,
+          "player": "Tez Johnson",
+          "position": "WR",
+          "roster_id": 5,
+          "round": 15,
+          "team": "TB"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 172,
+          "player": "Jaylin Noel",
+          "position": "WR",
+          "roster_id": 6,
+          "round": 15,
+          "team": "HOU"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 173,
+          "player": "Xavier Legette",
+          "position": "WR",
+          "roster_id": 10,
+          "round": 15,
+          "team": "CAR"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 174,
+          "player": "Cedric Tillman",
+          "position": "WR",
+          "roster_id": 3,
+          "round": 15,
+          "team": "CLE"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 175,
+          "player": "Darnell Mooney",
+          "position": "WR",
+          "roster_id": 12,
+          "round": 15,
+          "team": "ATL"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 176,
+          "player": "Christian Kirk",
+          "position": "WR",
+          "roster_id": 1,
+          "round": 15,
+          "team": "HOU"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 177,
+          "player": "Najee Harris",
+          "position": "RB",
+          "roster_id": 7,
+          "round": 15,
+          "team": "LAC"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 178,
+          "player": "Ja'Tavion Sanders",
+          "position": "TE",
+          "roster_id": 8,
+          "round": 15,
+          "team": "CAR"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 179,
+          "player": "Brenton Strange",
+          "position": "TE",
+          "roster_id": 2,
+          "round": 15,
+          "team": "JAX"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 180,
+          "player": "Isaac Guerendo",
+          "position": "RB",
+          "roster_id": 4,
+          "round": 15,
+          "team": "SF"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 181,
+          "player": "Devin Neal",
+          "position": "RB",
+          "roster_id": 4,
+          "round": 16,
+          "team": "NO"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 182,
+          "player": "Jaylen Wright",
+          "position": "RB",
+          "roster_id": 2,
+          "round": 16,
+          "team": "MIA"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 183,
+          "player": "Adonai Mitchell",
+          "position": "WR",
+          "roster_id": 8,
+          "round": 16,
+          "team": "IND"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 184,
+          "player": "Hollywood Brown",
+          "position": "WR",
+          "roster_id": 7,
+          "round": 16,
+          "team": "KC"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 185,
+          "player": "Woody Marks",
+          "position": "RB",
+          "roster_id": 1,
+          "round": 16,
+          "team": "HOU"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 186,
+          "player": "Jerome Ford",
+          "position": "RB",
+          "roster_id": 12,
+          "round": 16,
+          "team": "CLE"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 187,
+          "player": "Joshua Palmer",
+          "position": "WR",
+          "roster_id": 3,
+          "round": 16,
+          "team": "BUF"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 188,
+          "player": "Jalen Coker",
+          "position": "WR",
+          "roster_id": 10,
+          "round": 16,
+          "team": "CAR"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 189,
+          "player": "Jalen Milroe",
+          "position": "QB",
+          "roster_id": 6,
+          "round": 16,
+          "team": "SEA"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 190,
+          "player": "DeMario Douglas",
+          "position": "WR",
+          "roster_id": 5,
+          "round": 16,
+          "team": "NE"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 191,
+          "player": "Blake Corum",
+          "position": "RB",
+          "roster_id": 11,
+          "round": 16,
+          "team": "LAR"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 192,
+          "player": "Jalen McMillan",
+          "position": "WR",
+          "roster_id": 9,
+          "round": 16,
+          "team": "TB"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 193,
+          "player": "Cade Otton",
+          "position": "TE",
+          "roster_id": 9,
+          "round": 17,
+          "team": "TB"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 194,
+          "player": "Elijah Moore",
+          "position": "WR",
+          "roster_id": 11,
+          "round": 17,
+          "team": "BUF"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 195,
+          "player": "Troy Franklin",
+          "position": "WR",
+          "roster_id": 5,
+          "round": 17,
+          "team": "DEN"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 196,
+          "player": "DJ Giddens",
+          "position": "RB",
+          "roster_id": 6,
+          "round": 17,
+          "team": "IND"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 197,
+          "player": "Russell Wilson",
+          "position": "QB",
+          "roster_id": 10,
+          "round": 17,
+          "team": "NYG"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 198,
+          "player": "Nick Chubb",
+          "position": "RB",
+          "roster_id": 3,
+          "round": 17,
+          "team": "HOU"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 199,
+          "player": "Tommy Mellott",
+          "position": "WR",
+          "roster_id": 12,
+          "round": 17,
+          "team": "LV"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 200,
+          "player": "Gunnar Helm",
+          "position": "TE",
+          "roster_id": 1,
+          "round": 17,
+          "team": "TEN"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 201,
+          "player": "Rico Dowdle",
+          "position": "RB",
+          "roster_id": 7,
+          "round": 17,
+          "team": "CAR"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 202,
+          "player": "Tank Dell",
+          "position": "WR",
+          "roster_id": 8,
+          "round": 17,
+          "team": "HOU"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 203,
+          "player": "Jalen Royals",
+          "position": "WR",
+          "roster_id": 2,
+          "round": 17,
+          "team": "KC"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 204,
+          "player": "Elijah Arroyo",
+          "position": "TE",
+          "roster_id": 4,
+          "round": 17,
+          "team": "SEA"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 205,
+          "player": "Harold Fannin",
+          "position": "TE",
+          "roster_id": 4,
+          "round": 18,
+          "team": "CLE"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 206,
+          "player": "Zach Ertz",
+          "position": "TE",
+          "roster_id": 2,
+          "round": 18,
+          "team": "WAS"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 207,
+          "player": "Jonathon Brooks",
+          "position": "RB",
+          "roster_id": 8,
+          "round": 18,
+          "team": "CAR"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 208,
+          "player": "Romeo Doubs",
+          "position": "WR",
+          "roster_id": 7,
+          "round": 18,
+          "team": "GB"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 209,
+          "player": "A.J. Dillon",
+          "position": "RB",
+          "roster_id": 1,
+          "round": 18,
+          "team": "PHI"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 210,
+          "player": "Adam Thielen",
+          "position": "WR",
+          "roster_id": 12,
+          "round": 18,
+          "team": "CAR"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 211,
+          "player": "Chig Okonkwo",
+          "position": "TE",
+          "roster_id": 3,
+          "round": 18,
+          "team": "TEN"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 212,
+          "player": "Ollie Gordon",
+          "position": "RB",
+          "roster_id": 10,
+          "round": 18,
+          "team": "MIA"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 213,
+          "player": "Quentin Johnston",
+          "position": "WR",
+          "roster_id": 6,
+          "round": 18,
+          "team": "LAC"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 214,
+          "player": "Riley Leonard",
+          "position": "QB",
+          "roster_id": 5,
+          "round": 18,
+          "team": "IND"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 215,
+          "player": "Curtis Samuel",
+          "position": "WR",
+          "roster_id": 11,
+          "round": 18,
+          "team": "BUF"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 216,
+          "player": "Jarquez Hunter",
+          "position": "RB",
+          "roster_id": 9,
+          "round": 18,
+          "team": "LAR"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 217,
+          "player": "Tory Horton",
+          "position": "WR",
+          "roster_id": 9,
+          "round": 19,
+          "team": "SEA"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 218,
+          "player": "Dont'e Thornton",
+          "position": "WR",
+          "roster_id": 11,
+          "round": 19,
+          "team": "LV"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 219,
+          "player": "Keenan Allen",
+          "position": "WR",
+          "roster_id": 5,
+          "round": 19,
+          "team": "LAC"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 220,
+          "player": "KeAndre Lambert-Smith",
+          "position": "WR",
+          "roster_id": 6,
+          "round": 19,
+          "team": "LAC"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 221,
+          "player": "Jordan James",
+          "position": "RB",
+          "roster_id": 10,
+          "round": 19,
+          "team": "SF"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 222,
+          "player": "Kareem Hunt",
+          "position": "RB",
+          "roster_id": 3,
+          "round": 19,
+          "team": "KC"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 223,
+          "player": "Darius Slayton",
+          "position": "WR",
+          "roster_id": 12,
+          "round": 19,
+          "team": "NYG"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 224,
+          "player": "Kalel Mullings",
+          "position": "RB",
+          "roster_id": 1,
+          "round": 19,
+          "team": "TEN"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 225,
+          "player": "Andrei Iosivas",
+          "position": "WR",
+          "roster_id": 7,
+          "round": 19,
+          "team": "CIN"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 226,
+          "player": "MarShawn Lloyd",
+          "position": "RB",
+          "roster_id": 8,
+          "round": 19,
+          "team": "GB"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 227,
+          "player": "Roschon Johnson",
+          "position": "RB",
+          "roster_id": 2,
+          "round": 19,
+          "team": "CHI"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 228,
+          "player": "Will Howard",
+          "position": "QB",
+          "roster_id": 4,
+          "round": 19,
+          "team": "PIT"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 229,
+          "player": "Trevor Etienne",
+          "position": "RB",
+          "roster_id": 4,
+          "round": 20,
+          "team": "CAR"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 230,
+          "player": "Tahj Brooks",
+          "position": "RB",
+          "roster_id": 2,
+          "round": 20,
+          "team": "CIN"
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 231,
+          "player": "Joe Milton",
+          "position": "QB",
+          "roster_id": 8,
+          "round": 20,
+          "team": "DAL"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 232,
+          "player": "Miles Sanders",
+          "position": "RB",
+          "roster_id": 7,
+          "round": 20,
+          "team": "DAL"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 233,
+          "player": "Daniel Jones",
+          "position": "QB",
+          "roster_id": 1,
+          "round": 20,
+          "team": "IND"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 234,
+          "player": "Justice Hill",
+          "position": "RB",
+          "roster_id": 12,
+          "round": 20,
+          "team": "BAL"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 235,
+          "player": "DeAndre Hopkins",
+          "position": "WR",
+          "roster_id": 3,
+          "round": 20,
+          "team": "BAL"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 236,
+          "player": "Ben Sinnott",
+          "position": "TE",
+          "roster_id": 10,
+          "round": 20,
+          "team": "WAS"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 237,
+          "player": "Mike Gesicki",
+          "position": "TE",
+          "roster_id": 6,
+          "round": 20,
+          "team": "CIN"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 238,
+          "player": "Dalton Schultz",
+          "position": "TE",
+          "roster_id": 5,
+          "round": 20,
+          "team": "HOU"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 239,
+          "player": "Brashard Smith",
+          "position": "RB",
+          "roster_id": 11,
+          "round": 20,
+          "team": "KC"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 240,
+          "player": "Roman Wilson",
+          "position": "WR",
+          "roster_id": 9,
+          "round": 20,
+          "team": "PIT"
+        },
+        {
+          "draft_slot": 1,
+          "is_keeper": null,
+          "pick_no": 241,
+          "player": "Xavier Restrepo",
+          "position": "WR",
+          "roster_id": 9,
+          "round": 21,
+          "team": "TEN"
+        },
+        {
+          "draft_slot": 2,
+          "is_keeper": null,
+          "pick_no": 242,
+          "player": "Jaylin Lane",
+          "position": "WR",
+          "roster_id": 11,
+          "round": 21,
+          "team": "WAS"
+        },
+        {
+          "draft_slot": 3,
+          "is_keeper": null,
+          "pick_no": 243,
+          "player": "Marcus Mariota",
+          "position": "QB",
+          "roster_id": 5,
+          "round": 21,
+          "team": "WAS"
+        },
+        {
+          "draft_slot": 4,
+          "is_keeper": null,
+          "pick_no": 244,
+          "player": "Chimere Dike",
+          "position": "WR",
+          "roster_id": 6,
+          "round": 21,
+          "team": "TEN"
+        },
+        {
+          "draft_slot": 5,
+          "is_keeper": null,
+          "pick_no": 245,
+          "player": "Joe Flacco",
+          "position": "QB",
+          "roster_id": 10,
+          "round": 21,
+          "team": "CLE"
+        },
+        {
+          "draft_slot": 6,
+          "is_keeper": null,
+          "pick_no": 246,
+          "player": "Mack Hollins",
+          "position": "WR",
+          "roster_id": 3,
+          "round": 21,
+          "team": "NE"
+        },
+        {
+          "draft_slot": 7,
+          "is_keeper": null,
+          "pick_no": 247,
+          "player": "Dyami Brown",
+          "position": "WR",
+          "roster_id": 12,
+          "round": 21,
+          "team": "JAX"
+        },
+        {
+          "draft_slot": 8,
+          "is_keeper": null,
+          "pick_no": 248,
+          "player": "Malik Willis",
+          "position": "QB",
+          "roster_id": 1,
+          "round": 21,
+          "team": "GB"
+        },
+        {
+          "draft_slot": 9,
+          "is_keeper": null,
+          "pick_no": 249,
+          "player": "Tim Tebow",
+          "position": "TE",
+          "roster_id": 7,
+          "round": 21,
+          "team": ""
+        },
+        {
+          "draft_slot": 10,
+          "is_keeper": null,
+          "pick_no": 250,
+          "player": "Cole Kmet",
+          "position": "TE",
+          "roster_id": 8,
+          "round": 21,
+          "team": "CHI"
+        },
+        {
+          "draft_slot": 11,
+          "is_keeper": null,
+          "pick_no": 251,
+          "player": "Savion Williams",
+          "position": "WR",
+          "roster_id": 2,
+          "round": 21,
+          "team": "GB"
+        },
+        {
+          "draft_slot": 12,
+          "is_keeper": null,
+          "pick_no": 252,
+          "player": "Gary Jennings",
+          "position": "WR",
+          "roster_id": 4,
+          "round": 21,
+          "team": ""
+        }
+      ]
+    },
+    "prev_draft_traded": {
+      "kwargs": {
+        "draft_id": "1235828907576414208"
+      },
+      "mode": "strict",
+      "tool": "get_draft_traded_picks",
+      "value": []
+    },
+    "prev_drafts": {
+      "kwargs": {
+        "league_id": "1235828906838216704"
+      },
+      "mode": "strict",
+      "tool": "get_drafts",
+      "value": [
+        {
+          "created": 1749007081446,
+          "creators": [
+            "337322962594054144",
+            "706026655591768064"
+          ],
+          "draft_id": "1235828907576414208",
+          "draft_order": {
+            "1001284597327486976": 1,
+            "1095429062677401600": 7,
+            "1123490464163901440": 4,
+            "1129466881162821632": 3,
+            "1236055001478987776": 6,
+            "1244378217029058560": 10,
+            "1264287661795840000": 2,
+            "337322962594054144": 8,
+            "706026655591768064": 11,
+            "860618680084574208": 12,
+            "866065736727142400": 5,
+            "941857690488242176": 9
+          },
+          "last_message_id": "1265168086617563137",
+          "last_message_time": 1756002086838,
+          "last_picked": 1756002085774,
+          "league_id": "1235828906838216704",
+          "metadata": {
+            "description": "",
+            "name": "Gridiron Time Machine",
+            "scoring_type": "dynasty_2qb",
+            "show_team_names": "0"
+          },
+          "season": "2025",
+          "season_type": "regular",
+          "settings": {
+            "alpha_sort": 0,
+            "autopause_enabled": 0,
+            "autopause_end_time": 900,
+            "autopause_start_time": 180,
+            "autostart": 0,
+            "cpu_autopick": 1,
+            "enforce_position_limits": 1,
+            "nomination_timer": 60,
+            "pick_timer": 300,
+            "player_type": 0,
+            "reversal_round": 0,
+            "rounds": 21,
+            "slots_bn": 9,
+            "slots_flex": 2,
+            "slots_qb": 1,
+            "slots_rb": 2,
+            "slots_super_flex": 1,
+            "slots_te": 1,
+            "slots_wr": 2,
+            "teams": 12
+          },
+          "sport": "nfl",
+          "start_time": 1755990007477,
+          "status": "complete",
+          "type": "snake"
+        }
+      ]
+    },
+    "prev_league": {
+      "kwargs": {
+        "league_id": "1235828906838216704"
+      },
+      "mode": "strict",
+      "tool": "get_league",
+      "value": {
+        "draft_id": "1235828907576414208",
+        "league_id": "1235828906838216704",
+        "metadata": {
+          "auto_continue": "on",
+          "continued": "yes",
+          "keeper_deadline": "0",
+          "latest_league_winner_roster_id": "12"
+        },
+        "name": "Gridiron Time Machine",
+        "previous_league_id": null,
+        "roster_positions": [
+          "QB",
+          "RB",
+          "RB",
+          "WR",
+          "WR",
+          "TE",
+          "FLEX",
+          "FLEX",
+          "SUPER_FLEX",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN",
+          "BN"
+        ],
+        "scoring_settings": {
+          "blk_kick": 2.0,
+          "bonus_rec_te": 0.0,
+          "def_st_ff": 1.0,
+          "def_st_fum_rec": 1.0,
+          "def_st_td": 6.0,
+          "def_td": 6.0,
+          "ff": 1.0,
+          "fgm_0_19": 3.0,
+          "fgm_20_29": 3.0,
+          "fgm_30_39": 3.0,
+          "fgm_40_49": 4.0,
+          "fgm_50_59": 5.0,
+          "fgm_60p": 6.0,
+          "fgmiss": -1.0,
+          "fum": 0.0,
+          "fum_lost": -2.0,
+          "fum_rec": 2.0,
+          "fum_rec_td": 6.0,
+          "int": 2.0,
+          "pass_2pt": 2.0,
+          "pass_int": -1.0,
+          "pass_td": 4.0,
+          "pass_yd": 0.04,
+          "pts_allow_0": 10.0,
+          "pts_allow_14_20": 1.0,
+          "pts_allow_1_6": 7.0,
+          "pts_allow_21_27": 0.0,
+          "pts_allow_28_34": -1.0,
+          "pts_allow_35p": -4.0,
+          "pts_allow_7_13": 4.0,
+          "rec": 1.0,
+          "rec_2pt": 2.0,
+          "rec_td": 6.0,
+          "rec_yd": 0.1,
+          "rush_2pt": 2.0,
+          "rush_td": 6.0,
+          "rush_yd": 0.1,
+          "sack": 1.0,
+          "safe": 2.0,
+          "st_ff": 1.0,
+          "st_fum_rec": 1.0,
+          "st_td": 6.0,
+          "xpm": 1.0,
+          "xpmiss": -1.0
+        },
+        "season": "2025",
+        "season_type": "regular",
+        "settings": {
+          "best_ball": 0,
+          "leg": 17,
+          "max_keepers": 1,
+          "num_teams": 12,
+          "playoff_round_type": 0,
+          "playoff_teams": 6,
+          "playoff_type": 1,
+          "playoff_week_start": 15,
+          "reserve_slots": 0,
+          "taxi_allow_vets": 1,
+          "taxi_slots": 3,
+          "taxi_years": 0,
+          "trade_deadline": 11,
+          "type": 2,
+          "waiver_budget": 100,
+          "waiver_type": 2
+        },
+        "sport": "nfl",
+        "status": "complete",
+        "total_rosters": 12
+      }
+    },
+    "prev_managers": {
+      "kwargs": {
+        "league_id": "1235828906838216704"
+      },
+      "mode": "strict",
+      "tool": "get_managers",
+      "value": [
+        {
+          "display_name": "JarrodLee",
+          "is_commissioner": true,
+          "team_name": "Pine Bluff Escapees",
+          "user_id": "337322962594054144",
+          "username": null
+        },
+        {
+          "display_name": "darknegan",
+          "is_commissioner": true,
+          "team_name": "Phoenix Firebirds",
+          "user_id": "706026655591768064",
+          "username": null
+        },
+        {
+          "display_name": "zachbrandt51",
+          "is_commissioner": false,
+          "team_name": "New York Yappers",
+          "user_id": "860618680084574208",
+          "username": null
+        },
+        {
+          "display_name": "TheHowlster",
+          "is_commissioner": false,
+          "team_name": "Combs Cavaliers",
+          "user_id": "866065736727142400",
+          "username": null
+        },
+        {
+          "display_name": "XandalfTheGrayt",
+          "is_commissioner": false,
+          "team_name": "B\u00f6seges\u00e4\u00df Schildkr\u00f6ten",
+          "user_id": "941857690488242176",
+          "username": null
+        },
+        {
+          "display_name": "Kyyyy1232",
+          "is_commissioner": false,
+          "team_name": "Honolulu Barracudas",
+          "user_id": "1001284597327486976",
+          "username": null
+        },
+        {
+          "display_name": "scottlviii",
+          "is_commissioner": false,
+          "team_name": "Japton Hilltoppers ",
+          "user_id": "1095429062677401600",
+          "username": null
+        },
+        {
+          "display_name": "tannerfinlay",
+          "is_commissioner": false,
+          "team_name": "Birmingham Boomers",
+          "user_id": "1123490464163901440",
+          "username": null
+        },
+        {
+          "display_name": "Ryanespejo",
+          "is_commissioner": false,
+          "team_name": "Vatican City Hail Marys",
+          "user_id": "1129466881162821632",
+          "username": null
+        },
+        {
+          "display_name": "daedaluswings",
+          "is_commissioner": false,
+          "team_name": "New England Knights",
+          "user_id": "1236055001478987776",
+          "username": null
+        },
+        {
+          "display_name": "dunkeldoge",
+          "is_commissioner": false,
+          "team_name": "Minnesota Doges",
+          "user_id": "1244378217029058560",
+          "username": null
+        },
+        {
+          "display_name": "PETERPATJEFF",
+          "is_commissioner": false,
+          "team_name": "IDAHO SPUD REAPERS",
+          "user_id": "1264287661795840000",
+          "username": null
+        }
+      ]
+    },
+    "prev_matchups": {
+      "kwargs": {
+        "league_id": "1235828906838216704",
+        "week": 10
+      },
+      "mode": "strict",
+      "tool": "get_matchups",
+      "value": {
+        "league_id": "1235828906838216704",
+        "matchups": [
+          {
+            "matchup_id": 1,
+            "teams": [
+              {
+                "points": 117.2,
+                "roster_id": 1,
+                "team": "Pine Bluff Escapees"
+              },
+              {
+                "points": 112.14,
+                "roster_id": 4,
+                "team": "New York Yappers"
+              }
+            ]
+          },
+          {
+            "matchup_id": 2,
+            "teams": [
+              {
+                "points": 88.12,
+                "roster_id": 7,
+                "team": "B\u00f6seges\u00e4\u00df Schildkr\u00f6ten"
+              },
+              {
+                "points": 165.7,
+                "roster_id": 12,
+                "team": "Japton Hilltoppers "
+              }
+            ]
+          },
+          {
+            "matchup_id": 3,
+            "teams": [
+              {
+                "points": 117.08,
+                "roster_id": 5,
+                "team": "Vatican City Hail Marys"
+              },
+              {
+                "points": 109.92,
+                "roster_id": 10,
+                "team": "Combs Cavaliers"
+              }
+            ]
+          },
+          {
+            "matchup_id": 4,
+            "teams": [
+              {
+                "points": 135.2,
+                "roster_id": 3,
+                "team": "New England Knights"
+              },
+              {
+                "points": 120.76,
+                "roster_id": 11,
+                "team": "IDAHO SPUD REAPERS"
+              }
+            ]
+          },
+          {
+            "matchup_id": 5,
+            "teams": [
+              {
+                "points": 116.98,
+                "roster_id": 8,
+                "team": "Minnesota Doges"
+              },
+              {
+                "points": 164.36,
+                "roster_id": 9,
+                "team": "Honolulu Barracudas"
+              }
+            ]
+          },
+          {
+            "matchup_id": 6,
+            "teams": [
+              {
+                "points": 105.14,
+                "roster_id": 2,
+                "team": "Phoenix Firebirds"
+              },
+              {
+                "points": 95.52,
+                "roster_id": 6,
+                "team": "Birmingham Boomers"
+              }
+            ]
+          }
+        ],
+        "week": 10
+      }
+    },
+    "prev_my_roster_id": {
+      "kwargs": {
+        "league_id": "1235828906838216704"
+      },
+      "mode": "strict",
+      "tool": "get_my_roster_id",
+      "value": {
+        "league_id": "1235828906838216704",
+        "manager": "JarrodLee",
+        "matched_by": "username",
+        "roster_id": 1,
+        "team_name": "Pine Bluff Escapees"
+      }
+    },
+    "prev_my_team": {
+      "kwargs": {
+        "league_id": "1235828906838216704"
+      },
+      "mode": "strict",
+      "tool": "get_my_team",
+      "value": {
+        "bench": [
+          {
+            "name": "Brock Bowers",
+            "player_id": "11604",
+            "position": "TE",
+            "team": "LV"
+          },
+          {
+            "name": "Woody Marks",
+            "player_id": "12474",
+            "position": "RB",
+            "team": "HOU"
+          },
+          {
+            "name": "Oronde Gadsden",
+            "player_id": "12493",
+            "position": "TE",
+            "team": "LAC"
+          },
+          {
+            "name": "Elic Ayomanor",
+            "player_id": "12499",
+            "position": "WR",
+            "team": "TEN"
+          },
+          {
+            "name": "Gunnar Helm",
+            "player_id": "12502",
+            "position": "TE",
+            "team": "TEN"
+          },
+          {
+            "name": "Emeka Egbuka",
+            "player_id": "12514",
+            "position": "WR",
+            "team": "TB"
+          },
+          {
+            "name": "Cam Ward",
+            "player_id": "12522",
+            "position": "QB",
+            "team": "TEN"
+          },
+          {
+            "name": "Daniel Jones",
+            "player_id": "5870",
+            "position": "QB",
+            "team": "IND"
+          },
+          {
+            "name": "Rico Dowdle",
+            "player_id": "7021",
+            "position": "RB",
+            "team": "PIT"
+          },
+          {
+            "name": "Justin Fields",
+            "player_id": "7591",
+            "position": "QB",
+            "team": "KC"
+          },
+          {
+            "name": "Cade Otton",
+            "player_id": "8111",
+            "position": "TE",
+            "team": "TB"
+          },
+          {
+            "name": "Kayshon Boutte",
+            "player_id": "9504",
+            "position": "WR",
+            "team": "NE"
+          }
+        ],
+        "losses": 3,
+        "manager": "JarrodLee",
+        "matched_by": "username",
+        "next_week": {
+          "opponent": "Combs Cavaliers",
+          "opponent_points": 126.16,
+          "opponent_roster_id": 10,
+          "points": 92.82,
+          "week": 2
+        },
+        "owner": "Pine Bluff Escapees",
+        "points_against": 1590.74,
+        "points_for": 1753.32,
+        "rank": 2,
+        "roster_id": 1,
+        "starters": [
+          {
+            "name": "Kirk Cousins",
+            "player_id": "1166",
+            "position": "QB",
+            "team": "LV"
+          },
+          {
+            "name": "Chase Brown",
+            "player_id": "9224",
+            "position": "RB",
+            "team": "CIN"
+          },
+          {
+            "name": "Derrick Henry",
+            "player_id": "3198",
+            "position": "RB",
+            "team": "BAL"
+          },
+          {
+            "name": "Courtland Sutton",
+            "player_id": "5045",
+            "position": "WR",
+            "team": "DEN"
+          },
+          {
+            "name": "Alec Pierce",
+            "player_id": "8142",
+            "position": "WR",
+            "team": "IND"
+          },
+          {
+            "name": "Trey McBride",
+            "player_id": "8130",
+            "position": "TE",
+            "team": "ARI"
+          },
+          {
+            "name": "Chris Rodriguez",
+            "player_id": "10219",
+            "position": "RB",
+            "team": "JAX"
+          },
+          {
+            "name": "Bucky Irving",
+            "player_id": "11584",
+            "position": "RB",
+            "team": "TB"
+          },
+          {
+            "name": "Philip Rivers",
+            "player_id": "331",
+            "position": "QB",
+            "team": null
+          }
+        ],
+        "teams_in_league": 12,
+        "this_week": {
+          "opponent": "Japton Hilltoppers ",
+          "opponent_points": 135.5,
+          "opponent_roster_id": 12,
+          "points": 141.0,
+          "week": 1
+        },
+        "ties": 0,
+        "waiver_budget_used": 66,
+        "wins": 11
+      }
+    },
+    "prev_playoff_bracket": {
+      "kwargs": {
+        "bracket": "winners",
+        "league_id": "1235828906838216704"
+      },
+      "mode": "strict",
+      "tool": "get_playoff_bracket",
+      "value": [
+        {
+          "l": 9,
+          "m": 1,
+          "r": 1,
+          "t1": 9,
+          "t1_original": 1,
+          "t2": 10,
+          "w": 10
+        },
+        {
+          "l": 5,
+          "m": 2,
+          "r": 1,
+          "t1": 5,
+          "t2": 4,
+          "t2_original": 9,
+          "w": 4
+        },
+        {
+          "l": 10,
+          "m": 3,
+          "r": 2,
+          "t1": 12,
+          "t2": 10,
+          "t2_from": {
+            "w": 1
+          },
+          "w": 12
+        },
+        {
+          "l": 1,
+          "m": 4,
+          "r": 2,
+          "t1": 1,
+          "t1_original": 4,
+          "t2": 4,
+          "t2_from": {
+            "w": 2
+          },
+          "w": 4
+        },
+        {
+          "l": 9,
+          "m": 5,
+          "p": 5,
+          "r": 2,
+          "t1": 9,
+          "t1_from": {
+            "l": 1
+          },
+          "t2": 5,
+          "t2_from": {
+            "l": 2
+          },
+          "w": 5
+        },
+        {
+          "l": 4,
+          "m": 6,
+          "p": 1,
+          "r": 3,
+          "t1": 12,
+          "t1_from": {
+            "w": 3
+          },
+          "t2": 4,
+          "t2_from": {
+            "w": 4
+          },
+          "w": 12
+        },
+        {
+          "l": 10,
+          "m": 7,
+          "p": 3,
+          "r": 3,
+          "t1": 10,
+          "t1_from": {
+            "l": 3
+          },
+          "t2": 1,
+          "t2_from": {
+            "l": 4
+          },
+          "w": 1
+        }
+      ]
+    },
+    "prev_recent_moves": {
+      "kwargs": {
+        "league_id": "1235828906838216704",
+        "weeks": 3
+      },
+      "mode": "strict",
+      "tool": "recent_moves",
+      "value": [
+        {
+          "adds": [
+            {
+              "name": "Kenny Gainwell",
+              "player_id": "7567",
+              "position": "RB",
+              "team": "TB",
+              "to_team": "Combs Cavaliers"
+            }
+          ],
+          "created": 1757440132968,
+          "draft_picks": [],
+          "drops": [],
+          "roster_ids": [
+            10
+          ],
+          "status": "complete",
+          "teams": [
+            "Combs Cavaliers"
+          ],
+          "type": "waiver",
+          "waiver_bid": 5,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Juwan Johnson",
+              "player_id": "7002",
+              "position": "TE",
+              "team": "NO",
+              "to_team": "IDAHO SPUD REAPERS"
+            }
+          ],
+          "created": 1757438717816,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "IDAHO SPUD REAPERS",
+              "name": "Curtis Samuel",
+              "player_id": "4082",
+              "position": "WR",
+              "team": null
+            }
+          ],
+          "roster_ids": [
+            11
+          ],
+          "status": "complete",
+          "teams": [
+            "IDAHO SPUD REAPERS"
+          ],
+          "type": "waiver",
+          "waiver_bid": 10,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Kayshon Boutte",
+              "player_id": "9504",
+              "position": "WR",
+              "team": "NE",
+              "to_team": "Phoenix Firebirds"
+            }
+          ],
+          "created": 1757438057317,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Phoenix Firebirds",
+              "name": "Dameon Pierce",
+              "player_id": "8129",
+              "position": "RB",
+              "team": "PHI"
+            }
+          ],
+          "roster_ids": [
+            2
+          ],
+          "status": "complete",
+          "teams": [
+            "Phoenix Firebirds"
+          ],
+          "type": "waiver",
+          "waiver_bid": 26,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Michael Mayer",
+              "player_id": "9482",
+              "position": "TE",
+              "team": "LV",
+              "to_team": "Pine Bluff Escapees"
+            }
+          ],
+          "created": 1757297580275,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Pine Bluff Escapees",
+              "name": "Darren Waller",
+              "player_id": "2505",
+              "position": "TE",
+              "team": null
+            }
+          ],
+          "roster_ids": [
+            1
+          ],
+          "status": "complete",
+          "teams": [
+            "Pine Bluff Escapees"
+          ],
+          "type": "waiver",
+          "waiver_bid": 5,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Braelon Allen",
+              "player_id": "11576",
+              "position": "RB",
+              "team": "NYJ",
+              "to_team": "New England Knights"
+            },
+            {
+              "name": "Nick Chubb",
+              "player_id": "4988",
+              "position": "RB",
+              "team": null,
+              "to_team": "New York Yappers"
+            }
+          ],
+          "created": 1757187376957,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "New York Yappers",
+              "name": "Braelon Allen",
+              "player_id": "11576",
+              "position": "RB",
+              "team": "NYJ"
+            },
+            {
+              "from_team": "New England Knights",
+              "name": "Nick Chubb",
+              "player_id": "4988",
+              "position": "RB",
+              "team": null
+            }
+          ],
+          "roster_ids": [
+            3,
+            4
+          ],
+          "status": "complete",
+          "teams": [
+            "New England Knights",
+            "New York Yappers"
+          ],
+          "type": "trade",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Darren Waller",
+              "player_id": "2505",
+              "position": "TE",
+              "team": null,
+              "to_team": "Pine Bluff Escapees"
+            }
+          ],
+          "created": 1757009617521,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Pine Bluff Escapees",
+              "name": "Amari Cooper",
+              "player_id": "2309",
+              "position": "WR",
+              "team": null
+            }
+          ],
+          "roster_ids": [
+            1
+          ],
+          "status": "complete",
+          "teams": [
+            "Pine Bluff Escapees"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Ricky Pearsall",
+              "player_id": "11638",
+              "position": "WR",
+              "team": "SF",
+              "to_team": "IDAHO SPUD REAPERS"
+            },
+            {
+              "name": "Tony Pollard",
+              "player_id": "5967",
+              "position": "RB",
+              "team": "TEN",
+              "to_team": "Phoenix Firebirds"
+            }
+          ],
+          "created": 1757000319381,
+          "draft_picks": [
+            {
+              "league_id": null,
+              "owner_id": 2,
+              "previous_owner_id": 11,
+              "roster_id": 11,
+              "round": 2,
+              "season": "2026"
+            }
+          ],
+          "drops": [
+            {
+              "from_team": "Phoenix Firebirds",
+              "name": "Ricky Pearsall",
+              "player_id": "11638",
+              "position": "WR",
+              "team": "SF"
+            },
+            {
+              "from_team": "IDAHO SPUD REAPERS",
+              "name": "Tony Pollard",
+              "player_id": "5967",
+              "position": "RB",
+              "team": "TEN"
+            }
+          ],
+          "roster_ids": [
+            2,
+            11
+          ],
+          "status": "complete",
+          "teams": [
+            "Phoenix Firebirds",
+            "IDAHO SPUD REAPERS"
+          ],
+          "type": "trade",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Kyle Monangai",
+              "player_id": "12534",
+              "position": "RB",
+              "team": "CHI",
+              "to_team": "Phoenix Firebirds"
+            }
+          ],
+          "created": 1756964584618,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Phoenix Firebirds",
+              "name": "Jaylen Wright",
+              "player_id": "11643",
+              "position": "RB",
+              "team": "MIA"
+            }
+          ],
+          "roster_ids": [
+            2
+          ],
+          "status": "complete",
+          "teams": [
+            "Phoenix Firebirds"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1756843261665,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Combs Cavaliers",
+              "name": "Ben Sinnott",
+              "player_id": "11596",
+              "position": "TE",
+              "team": "WAS"
+            }
+          ],
+          "roster_ids": [
+            10
+          ],
+          "status": "complete",
+          "teams": [
+            "Combs Cavaliers"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Spencer Rattler",
+              "player_id": "11562",
+              "position": "QB",
+              "team": "NO",
+              "to_team": "Honolulu Barracudas"
+            }
+          ],
+          "created": 1756331319455,
+          "draft_picks": [],
+          "drops": [],
+          "roster_ids": [
+            9
+          ],
+          "status": "complete",
+          "teams": [
+            "Honolulu Barracudas"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1756331064073,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Honolulu Barracudas",
+              "name": "Xavier Restrepo",
+              "player_id": "12520",
+              "position": "WR",
+              "team": "TEN"
+            }
+          ],
+          "roster_ids": [
+            9
+          ],
+          "status": "complete",
+          "teams": [
+            "Honolulu Barracudas"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Dameon Pierce",
+              "player_id": "8129",
+              "position": "RB",
+              "team": "PHI",
+              "to_team": "Phoenix Firebirds"
+            }
+          ],
+          "created": 1756177994799,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Phoenix Firebirds",
+              "name": "Savion Williams",
+              "player_id": "12482",
+              "position": "WR",
+              "team": "GB"
+            }
+          ],
+          "roster_ids": [
+            2
+          ],
+          "status": "complete",
+          "teams": [
+            "Phoenix Firebirds"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Amari Cooper",
+              "player_id": "2309",
+              "position": "WR",
+              "team": null,
+              "to_team": "Pine Bluff Escapees"
+            }
+          ],
+          "created": 1756177856301,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Pine Bluff Escapees",
+              "name": "Malik Willis",
+              "player_id": "8161",
+              "position": "QB",
+              "team": "MIA"
+            }
+          ],
+          "roster_ids": [
+            1
+          ],
+          "status": "complete",
+          "teams": [
+            "Pine Bluff Escapees"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Isaiah Bond",
+              "player_id": "12503",
+              "position": "WR",
+              "team": "CLE",
+              "to_team": "Vatican City Hail Marys"
+            }
+          ],
+          "created": 1756007123190,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Vatican City Hail Marys",
+              "name": "Dalton Schultz",
+              "player_id": "5001",
+              "position": "TE",
+              "team": "HOU"
+            }
+          ],
+          "roster_ids": [
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "Vatican City Hail Marys"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
+              "name": "Chris Rodriguez",
+              "player_id": "10219",
+              "position": "RB",
+              "team": "JAX",
+              "to_team": "Pine Bluff Escapees"
+            }
+          ],
+          "created": 1756007023123,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Pine Bluff Escapees",
+              "name": "AJ Dillon",
+              "player_id": "6828",
+              "position": "RB",
+              "team": "CAR"
+            }
+          ],
+          "roster_ids": [
+            1
+          ],
+          "status": "complete",
+          "teams": [
+            "Pine Bluff Escapees"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1756003789492,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "New England Knights",
+              "name": "Chig Okonkwo",
+              "player_id": "8210",
+              "position": "TE",
+              "team": "WAS"
+            }
+          ],
+          "roster_ids": [
+            3
+          ],
+          "status": "complete",
+          "teams": [
+            "New England Knights"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        }
+      ]
+    },
+    "prev_rosters": {
+      "kwargs": {
+        "league_id": "1235828906838216704"
+      },
+      "mode": "strict",
+      "tool": "get_rosters",
+      "value": [
+        {
+          "bench": [
+            {
+              "name": "Brock Bowers",
+              "player_id": "11604",
+              "position": "TE",
+              "team": "LV"
+            },
+            {
+              "name": "Woody Marks",
+              "player_id": "12474",
+              "position": "RB",
+              "team": "HOU"
+            },
+            {
+              "name": "Oronde Gadsden",
+              "player_id": "12493",
+              "position": "TE",
+              "team": "LAC"
+            },
+            {
+              "name": "Elic Ayomanor",
+              "player_id": "12499",
+              "position": "WR",
+              "team": "TEN"
+            },
+            {
+              "name": "Gunnar Helm",
+              "player_id": "12502",
+              "position": "TE",
+              "team": "TEN"
+            },
+            {
+              "name": "Emeka Egbuka",
+              "player_id": "12514",
+              "position": "WR",
+              "team": "TB"
+            },
+            {
+              "name": "Cam Ward",
+              "player_id": "12522",
+              "position": "QB",
+              "team": "TEN"
+            },
+            {
+              "name": "Daniel Jones",
+              "player_id": "5870",
+              "position": "QB",
+              "team": "IND"
+            },
+            {
+              "name": "Rico Dowdle",
+              "player_id": "7021",
+              "position": "RB",
+              "team": "PIT"
+            },
+            {
+              "name": "Justin Fields",
+              "player_id": "7591",
+              "position": "QB",
+              "team": "KC"
+            },
+            {
+              "name": "Cade Otton",
+              "player_id": "8111",
+              "position": "TE",
+              "team": "TB"
+            },
+            {
+              "name": "Kayshon Boutte",
+              "player_id": "9504",
+              "position": "WR",
+              "team": "NE"
+            }
+          ],
+          "losses": 3,
+          "manager": "JarrodLee",
+          "owner": "Pine Bluff Escapees",
+          "points_against": 1590.74,
+          "points_for": 1753.32,
+          "roster_id": 1,
+          "starters": [
+            {
+              "name": "Kirk Cousins",
+              "player_id": "1166",
+              "position": "QB",
+              "team": "LV"
+            },
+            {
+              "name": "Chase Brown",
+              "player_id": "9224",
+              "position": "RB",
+              "team": "CIN"
+            },
+            {
+              "name": "Derrick Henry",
+              "player_id": "3198",
+              "position": "RB",
+              "team": "BAL"
+            },
+            {
+              "name": "Courtland Sutton",
+              "player_id": "5045",
+              "position": "WR",
+              "team": "DEN"
+            },
+            {
+              "name": "Alec Pierce",
+              "player_id": "8142",
+              "position": "WR",
+              "team": "IND"
+            },
+            {
+              "name": "Trey McBride",
+              "player_id": "8130",
+              "position": "TE",
+              "team": "ARI"
+            },
+            {
+              "name": "Chris Rodriguez",
+              "player_id": "10219",
+              "position": "RB",
+              "team": "JAX"
+            },
+            {
+              "name": "Bucky Irving",
+              "player_id": "11584",
+              "position": "RB",
+              "team": "TB"
+            },
+            {
+              "name": "Philip Rivers",
+              "player_id": "331",
+              "position": "QB",
+              "team": null
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 66,
+          "wins": 11
+        },
+        {
+          "bench": [
+            {
+              "name": "Tre Tucker",
+              "player_id": "10213",
+              "position": "WR",
+              "team": "LV"
+            },
+            {
+              "name": "Trey Benson",
+              "player_id": "11589",
+              "position": "RB",
+              "team": "ARI"
+            },
+            {
+              "name": "AJ Barner",
+              "player_id": "11603",
+              "position": "TE",
+              "team": "SEA"
+            },
+            {
+              "name": "Malik Nabers",
+              "player_id": "11632",
+              "position": "WR",
+              "team": "NYG"
+            },
+            {
+              "name": "Jayden Higgins",
+              "player_id": "12484",
+              "position": "WR",
+              "team": "HOU"
+            },
+            {
+              "name": "Matthew Golden",
+              "player_id": "12501",
+              "position": "WR",
+              "team": "GB"
+            },
+            {
+              "name": "Jalen Royals",
+              "player_id": "12505",
+              "position": "WR",
+              "team": "KC"
+            },
+            {
+              "name": "Jacory Croskey-Merritt",
+              "player_id": "12533",
+              "position": "RB",
+              "team": "WAS"
+            },
+            {
+              "name": "Tahj Brooks",
+              "player_id": "12543",
+              "position": "RB",
+              "team": "CIN"
+            },
+            {
+              "name": "Trey Lance",
+              "player_id": "7610",
+              "position": "QB",
+              "team": "LAC"
+            },
+            {
+              "name": "Bryce Young",
+              "player_id": "9228",
+              "position": "QB",
+              "team": "CAR"
+            },
+            {
+              "name": "Anthony Richardson",
+              "player_id": "9229",
+              "position": "QB",
+              "team": "IND"
+            }
+          ],
+          "losses": 8,
+          "manager": "darknegan",
+          "owner": "Phoenix Firebirds",
+          "points_against": 1769.66,
+          "points_for": 1672.64,
+          "roster_id": 2,
+          "starters": [
+            {
+              "name": "Jordan Love",
+              "player_id": "6804",
+              "position": "QB",
+              "team": "GB"
+            },
+            {
+              "name": "De'Von Achane",
+              "player_id": "9226",
+              "position": "RB",
+              "team": "MIA"
+            },
+            {
+              "name": "RJ Harvey",
+              "player_id": "12489",
+              "position": "RB",
+              "team": "DEN"
+            },
+            {
+              "name": "Ja'Marr Chase",
+              "player_id": "7564",
+              "position": "WR",
+              "team": "CIN"
+            },
+            {
+              "name": "Ladd McConkey",
+              "player_id": "11635",
+              "position": "WR",
+              "team": "LAC"
+            },
+            {
+              "name": "Brenton Strange",
+              "player_id": "9480",
+              "position": "TE",
+              "team": "JAX"
+            },
+            {
+              "name": "Kyle Monangai",
+              "player_id": "12534",
+              "position": "RB",
+              "team": "CHI"
+            },
+            {
+              "name": "Jayden Reed",
+              "player_id": "10222",
+              "position": "WR",
+              "team": "GB"
+            },
+            {
+              "name": "Justin Herbert",
+              "player_id": "6797",
+              "position": "QB",
+              "team": "LAC"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 98,
+          "wins": 6
+        },
+        {
+          "bench": [
+            {
+              "name": "Michael Penix",
+              "player_id": "11559",
+              "position": "QB",
+              "team": "ATL"
+            },
+            {
+              "name": "Jayden Daniels",
+              "player_id": "11566",
+              "position": "QB",
+              "team": "WAS"
+            },
+            {
+              "name": "Braelon Allen",
+              "player_id": "11576",
+              "position": "RB",
+              "team": "NYJ"
+            },
+            {
+              "name": "Malik Washington",
+              "player_id": "11610",
+              "position": "WR",
+              "team": "MIA"
+            },
+            {
+              "name": "Kimani Vidal",
+              "player_id": "11647",
+              "position": "RB",
+              "team": "LAC"
+            },
+            {
+              "name": "Jaydon Blue",
+              "player_id": "12457",
+              "position": "RB",
+              "team": "DAL"
+            },
+            {
+              "name": "Cam Skattebo",
+              "player_id": "12481",
+              "position": "RB",
+              "team": "NYG"
+            },
+            {
+              "name": "Jameis Winston",
+              "player_id": "2306",
+              "position": "QB",
+              "team": "NYG"
+            },
+            {
+              "name": "Hunter Henry",
+              "player_id": "3214",
+              "position": "TE",
+              "team": "NE"
+            },
+            {
+              "name": "Alvin Kamara",
+              "player_id": "4035",
+              "position": "RB",
+              "team": "NO"
+            },
+            {
+              "name": "Darnell Mooney",
+              "player_id": "7090",
+              "position": "WR",
+              "team": "NYG"
+            },
+            {
+              "name": "Parker Washington",
+              "player_id": "9487",
+              "position": "WR",
+              "team": "JAX"
+            }
+          ],
+          "losses": 9,
+          "manager": "daedaluswings",
+          "owner": "New England Knights",
+          "points_against": 1791.7,
+          "points_for": 1633.54,
+          "roster_id": 3,
+          "starters": [
+            {
+              "name": "Jacoby Brissett",
+              "player_id": "3257",
+              "position": "QB",
+              "team": "ARI"
+            },
+            {
+              "name": "TreVeyon Henderson",
+              "player_id": "12529",
+              "position": "RB",
+              "team": "NE"
+            },
+            {
+              "name": "Tony Pollard",
+              "player_id": "5967",
+              "position": "RB",
+              "team": "TEN"
+            },
+            {
+              "name": "Tetairoa McMillan",
+              "player_id": "12526",
+              "position": "WR",
+              "team": "CAR"
+            },
+            {
+              "name": "Zay Flowers",
+              "player_id": "9997",
+              "position": "WR",
+              "team": "BAL"
+            },
+            {
+              "name": "Kyle Pitts",
+              "player_id": "7553",
+              "position": "TE",
+              "team": "ATL"
+            },
+            {
+              "name": "Stefon Diggs",
+              "player_id": "2449",
+              "position": "WR",
+              "team": "WAS"
+            },
+            {
+              "name": "Brian Thomas",
+              "player_id": "11631",
+              "position": "WR",
+              "team": "JAX"
+            },
+            {
+              "name": "C.J. Stroud",
+              "player_id": "9758",
+              "position": "QB",
+              "team": "HOU"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 73,
+          "wins": 5
+        },
+        {
+          "bench": [
+            {
+              "name": "Dalton Kincaid",
+              "player_id": "10236",
+              "position": "TE",
+              "team": "BUF"
+            },
+            {
+              "name": "Isaac Guerendo",
+              "player_id": "11651",
+              "position": "RB",
+              "team": "SF"
+            },
+            {
+              "name": "Devin Neal",
+              "player_id": "12476",
+              "position": "RB",
+              "team": "NO"
+            },
+            {
+              "name": "Tre' Harris",
+              "player_id": "12509",
+              "position": "WR",
+              "team": "LAC"
+            },
+            {
+              "name": "Will Howard",
+              "player_id": "12511",
+              "position": "QB",
+              "team": "PIT"
+            },
+            {
+              "name": "Luther Burden",
+              "player_id": "12519",
+              "position": "WR",
+              "team": "CHI"
+            },
+            {
+              "name": "Elijah Arroyo",
+              "player_id": "12521",
+              "position": "TE",
+              "team": "SEA"
+            },
+            {
+              "name": "Trevor Etienne",
+              "player_id": "12531",
+              "position": "RB",
+              "team": "CAR"
+            },
+            {
+              "name": "Joe Mixon",
+              "player_id": "4018",
+              "position": "RB",
+              "team": null
+            },
+            {
+              "name": "Nick Chubb",
+              "player_id": "4988",
+              "position": "RB",
+              "team": null
+            },
+            {
+              "name": "Pat Freiermuth",
+              "player_id": "7600",
+              "position": "TE",
+              "team": "PIT"
+            },
+            {
+              "name": "Josh Downs",
+              "player_id": "9500",
+              "position": "WR",
+              "team": "IND"
+            }
+          ],
+          "losses": 4,
+          "manager": "zachbrandt51",
+          "owner": "New York Yappers",
+          "points_against": 1545.36,
+          "points_for": 1739.78,
+          "roster_id": 4,
+          "starters": [
+            {
+              "name": "Trevor Lawrence",
+              "player_id": "7523",
+              "position": "QB",
+              "team": "JAX"
+            },
+            {
+              "name": "Ashton Jeanty",
+              "player_id": "12527",
+              "position": "RB",
+              "team": "LV"
+            },
+            {
+              "name": "Quinshon Judkins",
+              "player_id": "12512",
+              "position": "RB",
+              "team": "CLE"
+            },
+            {
+              "name": "Jaxon Smith-Njigba",
+              "player_id": "9488",
+              "position": "WR",
+              "team": "SEA"
+            },
+            {
+              "name": "DeVonta Smith",
+              "player_id": "7525",
+              "position": "WR",
+              "team": "PHI"
+            },
+            {
+              "name": "Harold Fannin",
+              "player_id": "12506",
+              "position": "TE",
+              "team": "CLE"
+            },
+            {
+              "name": "Adonai Mitchell",
+              "player_id": "11625",
+              "position": "WR",
+              "team": "NYJ"
+            },
+            {
+              "name": "CeeDee Lamb",
+              "player_id": "6786",
+              "position": "WR",
+              "team": "DAL"
+            },
+            {
+              "name": "Baker Mayfield",
+              "player_id": "4892",
+              "position": "QB",
+              "team": "TB"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 10
+        },
+        {
+          "bench": [
+            {
+              "name": "Theo Johnson",
+              "player_id": "11597",
+              "position": "TE",
+              "team": "NYG"
+            },
+            {
+              "name": "Dylan Sampson",
+              "player_id": "12469",
+              "position": "RB",
+              "team": "CLE"
+            },
+            {
+              "name": "Tez Johnson",
+              "player_id": "12485",
+              "position": "WR",
+              "team": "TB"
+            },
+            {
+              "name": "Dillon Gabriel",
+              "player_id": "12486",
+              "position": "QB",
+              "team": "CLE"
+            },
+            {
+              "name": "Zach Ertz",
+              "player_id": "1339",
+              "position": "TE",
+              "team": null
+            },
+            {
+              "name": "Keenan Allen",
+              "player_id": "1479",
+              "position": "WR",
+              "team": null
+            },
+            {
+              "name": "Evan Engram",
+              "player_id": "4066",
+              "position": "TE",
+              "team": "DEN"
+            },
+            {
+              "name": "Ty Johnson",
+              "player_id": "6039",
+              "position": "RB",
+              "team": "BUF"
+            },
+            {
+              "name": "Jerry Jeudy",
+              "player_id": "6783",
+              "position": "WR",
+              "team": "CLE"
+            },
+            {
+              "name": "Michael Pittman",
+              "player_id": "6819",
+              "position": "WR",
+              "team": "PIT"
+            },
+            {
+              "name": "Mac Jones",
+              "player_id": "7527",
+              "position": "QB",
+              "team": "SF"
+            }
+          ],
+          "losses": 7,
+          "manager": "Ryanespejo",
+          "owner": "Vatican City Hail Marys",
+          "points_against": 1721.8,
+          "points_for": 1673.3,
+          "roster_id": 5,
+          "starters": [
+            {
+              "name": "Bo Nix",
+              "player_id": "11563",
+              "position": "QB",
+              "team": "DEN"
+            },
+            {
+              "name": "Jahmyr Gibbs",
+              "player_id": "9221",
+              "position": "RB",
+              "team": "DET"
+            },
+            {
+              "name": "Chuba Hubbard",
+              "player_id": "7594",
+              "position": "RB",
+              "team": "CAR"
+            },
+            {
+              "name": "Troy Franklin",
+              "player_id": "11627",
+              "position": "WR",
+              "team": "DEN"
+            },
+            {
+              "name": "Michael Wilson",
+              "player_id": "10232",
+              "position": "WR",
+              "team": "ARI"
+            },
+            {
+              "name": "Colston Loveland",
+              "player_id": "12517",
+              "position": "TE",
+              "team": "CHI"
+            },
+            {
+              "name": "Jauan Jennings",
+              "player_id": "7049",
+              "position": "WR",
+              "team": "MIN"
+            },
+            {
+              "name": "Mike Evans",
+              "player_id": "2216",
+              "position": "WR",
+              "team": "SF"
+            },
+            {
+              "name": "Jaxson Dart",
+              "player_id": "12508",
+              "position": "QB",
+              "team": "NYG"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 35,
+          "wins": 7
+        },
+        {
+          "bench": [
+            {
+              "name": "Sam LaPorta",
+              "player_id": "10859",
+              "position": "TE",
+              "team": "DET"
+            },
+            {
+              "name": "Rome Odunze",
+              "player_id": "11620",
+              "position": "WR",
+              "team": "CHI"
+            },
+            {
+              "name": "Mason Taylor",
+              "player_id": "12498",
+              "position": "TE",
+              "team": "NYJ"
+            },
+            {
+              "name": "Kaleb Johnson",
+              "player_id": "12504",
+              "position": "RB",
+              "team": "PIT"
+            },
+            {
+              "name": "Jalen Milroe",
+              "player_id": "12510",
+              "position": "QB",
+              "team": "SEA"
+            },
+            {
+              "name": "Travis Hunter",
+              "player_id": "12530",
+              "position": "WR",
+              "team": "JAX"
+            },
+            {
+              "name": "Jaylin Noel",
+              "player_id": "12536",
+              "position": "WR",
+              "team": "HOU"
+            },
+            {
+              "name": "Kyle Williams",
+              "player_id": "12547",
+              "position": "WR",
+              "team": "NE"
+            },
+            {
+              "name": "KeAndre Lambert-Smith",
+              "player_id": "12670",
+              "position": "WR",
+              "team": "LAC"
+            },
+            {
+              "name": "Marcus Mariota",
+              "player_id": "2307",
+              "position": "QB",
+              "team": "WAS"
+            },
+            {
+              "name": "Greg Dortch",
+              "player_id": "5970",
+              "position": "WR",
+              "team": "DET"
+            },
+            {
+              "name": "Garrett Wilson",
+              "player_id": "8146",
+              "position": "WR",
+              "team": "NYJ"
+            }
+          ],
+          "losses": 8,
+          "manager": "tannerfinlay",
+          "owner": "Birmingham Boomers",
+          "points_against": 1703.3,
+          "points_for": 1626.68,
+          "roster_id": 6,
+          "starters": [
+            {
+              "name": "Drake Maye",
+              "player_id": "11564",
+              "position": "QB",
+              "team": "NE"
+            },
+            {
+              "name": "Bijan Robinson",
+              "player_id": "9509",
+              "position": "RB",
+              "team": "ATL"
+            },
+            {
+              "name": "D'Andre Swift",
+              "player_id": "6790",
+              "position": "RB",
+              "team": "CHI"
+            },
+            {
+              "name": "Pat Bryant",
+              "player_id": "12492",
+              "position": "WR",
+              "team": "DEN"
+            },
+            {
+              "name": "Quentin Johnston",
+              "player_id": "9754",
+              "position": "WR",
+              "team": "LAC"
+            },
+            {
+              "name": "Isaiah Likely",
+              "player_id": "8131",
+              "position": "TE",
+              "team": "NYG"
+            },
+            {
+              "name": "Brian Robinson",
+              "player_id": "8154",
+              "position": "RB",
+              "team": "ATL"
+            },
+            {
+              "name": "Chimere Dike",
+              "player_id": "12540",
+              "position": "WR",
+              "team": "TEN"
+            },
+            {
+              "name": "Geno Smith",
+              "player_id": "1373",
+              "position": "QB",
+              "team": "NYJ"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 6
+        },
+        {
+          "bench": [
+            {
+              "name": "Andrei Iosivas",
+              "player_id": "10226",
+              "position": "WR",
+              "team": "CIN"
+            },
+            {
+              "name": "Isaac TeSlaa",
+              "player_id": "12535",
+              "position": "WR",
+              "team": "DET"
+            },
+            {
+              "name": "Tyreek Hill",
+              "player_id": "3321",
+              "position": "WR",
+              "team": null
+            },
+            {
+              "name": "Kareem Hunt",
+              "player_id": "4098",
+              "position": "RB",
+              "team": null
+            },
+            {
+              "name": "Jonnu Smith",
+              "player_id": "4144",
+              "position": "TE",
+              "team": null
+            },
+            {
+              "name": "Kendrick Bourne",
+              "player_id": "4454",
+              "position": "WR",
+              "team": "ARI"
+            },
+            {
+              "name": "Sam Darnold",
+              "player_id": "4943",
+              "position": "QB",
+              "team": "SEA"
+            },
+            {
+              "name": "Marquise Brown",
+              "player_id": "5848",
+              "position": "WR",
+              "team": "PHI"
+            },
+            {
+              "name": "Devin Singletary",
+              "player_id": "6130",
+              "position": "RB",
+              "team": "NYG"
+            },
+            {
+              "name": "Brandon Aiyuk",
+              "player_id": "6803",
+              "position": "WR",
+              "team": "SF"
+            },
+            {
+              "name": "Brock Purdy",
+              "player_id": "8183",
+              "position": "QB",
+              "team": "SF"
+            },
+            {
+              "name": "Tyrod Taylor",
+              "player_id": "827",
+              "position": "QB",
+              "team": "GB"
+            }
+          ],
+          "losses": 10,
+          "manager": "XandalfTheGrayt",
+          "owner": "B\u00f6seges\u00e4\u00df Schildkr\u00f6ten",
+          "points_against": 1959.16,
+          "points_for": 1632.4,
+          "roster_id": 7,
+          "starters": [
+            {
+              "name": "Shedeur Sanders",
+              "player_id": "12524",
+              "position": "QB",
+              "team": "CLE"
+            },
+            {
+              "name": "Josh Jacobs",
+              "player_id": "5850",
+              "position": "RB",
+              "team": "GB"
+            },
+            {
+              "name": "David Montgomery",
+              "player_id": "5892",
+              "position": "RB",
+              "team": "HOU"
+            },
+            {
+              "name": "Amon-Ra St. Brown",
+              "player_id": "7547",
+              "position": "WR",
+              "team": "DET"
+            },
+            {
+              "name": "Romeo Doubs",
+              "player_id": "8121",
+              "position": "WR",
+              "team": "NE"
+            },
+            {
+              "name": "Travis Kelce",
+              "player_id": "1466",
+              "position": "TE",
+              "team": "KC"
+            },
+            {
+              "name": "Terry McLaurin",
+              "player_id": "5927",
+              "position": "WR",
+              "team": "WAS"
+            },
+            {
+              "name": "Breece Hall",
+              "player_id": "8155",
+              "position": "RB",
+              "team": "NYJ"
+            },
+            {
+              "name": "Joe Burrow",
+              "player_id": "6770",
+              "position": "QB",
+              "team": "CIN"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 8,
+          "wins": 4
+        },
+        {
+          "bench": [
+            {
+              "name": "Joe Milton",
+              "player_id": "11557",
+              "position": "QB",
+              "team": "DAL"
+            },
+            {
+              "name": "MarShawn Lloyd",
+              "player_id": "11581",
+              "position": "RB",
+              "team": "GB"
+            },
+            {
+              "name": "Jonathon Brooks",
+              "player_id": "11583",
+              "position": "RB",
+              "team": "CAR"
+            },
+            {
+              "name": "Ja'Tavion Sanders",
+              "player_id": "11600",
+              "position": "TE",
+              "team": "CAR"
+            },
+            {
+              "name": "David Njoku",
+              "player_id": "4033",
+              "position": "TE",
+              "team": "LAC"
+            },
+            {
+              "name": "Rashod Bateman",
+              "player_id": "7571",
+              "position": "WR",
+              "team": "BAL"
+            },
+            {
+              "name": "Rhamondre Stevenson",
+              "player_id": "7611",
+              "position": "RB",
+              "team": "NE"
+            },
+            {
+              "name": "Rachaad White",
+              "player_id": "8136",
+              "position": "RB",
+              "team": "WAS"
+            },
+            {
+              "name": "Christian Watson",
+              "player_id": "8167",
+              "position": "WR",
+              "team": "GB"
+            },
+            {
+              "name": "Tank Dell",
+              "player_id": "9502",
+              "position": "WR",
+              "team": "HOU"
+            },
+            {
+              "name": "Tyjae Spears",
+              "player_id": "9508",
+              "position": "RB",
+              "team": "TEN"
+            },
+            {
+              "name": "Jordan Addison",
+              "player_id": "9756",
+              "position": "WR",
+              "team": "MIN"
+            }
+          ],
+          "losses": 9,
+          "manager": "dunkeldoge",
+          "owner": "Minnesota Doges",
+          "points_against": 1659.64,
+          "points_for": 1662.94,
+          "roster_id": 8,
+          "starters": [
+            {
+              "name": "Dak Prescott",
+              "player_id": "3294",
+              "position": "QB",
+              "team": "DAL"
+            },
+            {
+              "name": "Kenneth Walker",
+              "player_id": "8151",
+              "position": "RB",
+              "team": "KC"
+            },
+            {
+              "name": "Travis Etienne",
+              "player_id": "7543",
+              "position": "RB",
+              "team": "NO"
+            },
+            {
+              "name": "George Pickens",
+              "player_id": "8137",
+              "position": "WR",
+              "team": "DAL"
+            },
+            {
+              "name": "Khalil Shakir",
+              "player_id": "8134",
+              "position": "WR",
+              "team": "BUF"
+            },
+            {
+              "name": "Darren Waller",
+              "player_id": "2505",
+              "position": "TE",
+              "team": null
+            },
+            {
+              "name": "Xavier Worthy",
+              "player_id": "11624",
+              "position": "WR",
+              "team": "KC"
+            },
+            {
+              "name": "Chris Olave",
+              "player_id": "8144",
+              "position": "WR",
+              "team": "NO"
+            },
+            {
+              "name": "Patrick Mahomes",
+              "player_id": "4046",
+              "position": "QB",
+              "team": "KC"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 10,
+          "wins": 5
+        },
+        {
+          "bench": [
+            {
+              "name": "Rashee Rice",
+              "player_id": "10229",
+              "position": "WR",
+              "team": "KC"
+            },
+            {
+              "name": "Emanuel Wilson",
+              "player_id": "11435",
+              "position": "RB",
+              "team": "SEA"
+            },
+            {
+              "name": "J.J. McCarthy",
+              "player_id": "11565",
+              "position": "QB",
+              "team": "MIN"
+            },
+            {
+              "name": "Jalen McMillan",
+              "player_id": "11618",
+              "position": "WR",
+              "team": "TB"
+            },
+            {
+              "name": "Tyrone Tracy",
+              "player_id": "11655",
+              "position": "RB",
+              "team": "NYG"
+            },
+            {
+              "name": "Devaughn Vele",
+              "player_id": "11834",
+              "position": "WR",
+              "team": "NO"
+            },
+            {
+              "name": "Bhayshul Tuten",
+              "player_id": "12490",
+              "position": "RB",
+              "team": "JAX"
+            },
+            {
+              "name": "Tory Horton",
+              "player_id": "12497",
+              "position": "WR",
+              "team": "SEA"
+            },
+            {
+              "name": "John Metchie",
+              "player_id": "8147",
+              "position": "WR",
+              "team": "CAR"
+            },
+            {
+              "name": "Isiah Pacheco",
+              "player_id": "8205",
+              "position": "RB",
+              "team": "DET"
+            },
+            {
+              "name": "Luke Musgrave",
+              "player_id": "9481",
+              "position": "TE",
+              "team": "GB"
+            },
+            {
+              "name": "Tucker Kraft",
+              "player_id": "9484",
+              "position": "TE",
+              "team": "GB"
+            }
+          ],
+          "losses": 5,
+          "manager": "Kyyyy1232",
+          "owner": "Honolulu Barracudas",
+          "points_against": 1543.5,
+          "points_for": 1775.14,
+          "roster_id": 9,
+          "starters": [
+            {
+              "name": "Josh Allen",
+              "player_id": "4984",
+              "position": "QB",
+              "team": "BUF"
+            },
+            {
+              "name": "Omarion Hampton",
+              "player_id": "12507",
+              "position": "RB",
+              "team": "LAC"
+            },
+            {
+              "name": "Kyren Williams",
+              "player_id": "8150",
+              "position": "RB",
+              "team": "LAR"
+            },
+            {
+              "name": "Nico Collins",
+              "player_id": "7569",
+              "position": "WR",
+              "team": "HOU"
+            },
+            {
+              "name": "Chris Godwin",
+              "player_id": "4037",
+              "position": "WR",
+              "team": "TB"
+            },
+            {
+              "name": "Tyler Warren",
+              "player_id": "12518",
+              "position": "TE",
+              "team": "IND"
+            },
+            {
+              "name": "Jaylen Waddle",
+              "player_id": "7526",
+              "position": "WR",
+              "team": "DEN"
+            },
+            {
+              "name": "Tee Higgins",
+              "player_id": "6801",
+              "position": "WR",
+              "team": "CIN"
+            },
+            {
+              "name": "Tyler Shough",
+              "player_id": "12545",
+              "position": "QB",
+              "team": "NO"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 85,
+          "wins": 9
+        },
+        {
+          "bench": [
+            {
+              "name": "Xavier Legette",
+              "player_id": "11626",
+              "position": "WR",
+              "team": "CAR"
+            },
+            {
+              "name": "Keon Coleman",
+              "player_id": "11637",
+              "position": "WR",
+              "team": "BUF"
+            },
+            {
+              "name": "Jalen Coker",
+              "player_id": "11646",
+              "position": "WR",
+              "team": "CAR"
+            },
+            {
+              "name": "Russell Wilson",
+              "player_id": "1234",
+              "position": "QB",
+              "team": null
+            },
+            {
+              "name": "Jordan James",
+              "player_id": "12467",
+              "position": "RB",
+              "team": "SF"
+            },
+            {
+              "name": "Jack Bech",
+              "player_id": "12483",
+              "position": "WR",
+              "team": "LV"
+            },
+            {
+              "name": "Ollie Gordon",
+              "player_id": "12495",
+              "position": "RB",
+              "team": "MIA"
+            },
+            {
+              "name": "Joe Flacco",
+              "player_id": "19",
+              "position": "QB",
+              "team": "CIN"
+            },
+            {
+              "name": "James Conner",
+              "player_id": "4137",
+              "position": "RB",
+              "team": "ARI"
+            },
+            {
+              "name": "T.J. Hockenson",
+              "player_id": "5844",
+              "position": "TE",
+              "team": "MIN"
+            },
+            {
+              "name": "Tua Tagovailoa",
+              "player_id": "6768",
+              "position": "QB",
+              "team": "ATL"
+            },
+            {
+              "name": "Tyler Allgeier",
+              "player_id": "8132",
+              "position": "RB",
+              "team": "ARI"
+            }
+          ],
+          "losses": 7,
+          "manager": "TheHowlster",
+          "owner": "Combs Cavaliers",
+          "points_against": 1771.76,
+          "points_for": 1698.54,
+          "roster_id": 10,
+          "starters": [
+            {
+              "name": "Jared Goff",
+              "player_id": "3163",
+              "position": "QB",
+              "team": "DET"
+            },
+            {
+              "name": "Christian McCaffrey",
+              "player_id": "4034",
+              "position": "RB",
+              "team": "SF"
+            },
+            {
+              "name": "Kenny Gainwell",
+              "player_id": "7567",
+              "position": "RB",
+              "team": "TB"
+            },
+            {
+              "name": "DJ Moore",
+              "player_id": "4983",
+              "position": "WR",
+              "team": "BUF"
+            },
+            {
+              "name": "A.J. Brown",
+              "player_id": "5859",
+              "position": "WR",
+              "team": "NE"
+            },
+            {
+              "name": "Jake Ferguson",
+              "player_id": "8110",
+              "position": "TE",
+              "team": "DAL"
+            },
+            {
+              "name": "Zach Charbonnet",
+              "player_id": "9753",
+              "position": "RB",
+              "team": "SEA"
+            },
+            {
+              "name": "Drake London",
+              "player_id": "8112",
+              "position": "WR",
+              "team": "ATL"
+            },
+            {
+              "name": "Lamar Jackson",
+              "player_id": "4881",
+              "position": "QB",
+              "team": "BAL"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 5,
+          "wins": 7
+        },
+        {
+          "bench": [
+            {
+              "name": "Ricky Pearsall",
+              "player_id": "11638",
+              "position": "WR",
+              "team": "SF"
+            },
+            {
+              "name": "Brashard Smith",
+              "player_id": "12455",
+              "position": "RB",
+              "team": "KC"
+            },
+            {
+              "name": "Quinn Ewers",
+              "player_id": "12500",
+              "position": "QB",
+              "team": "MIA"
+            },
+            {
+              "name": "Jaylin Lane",
+              "player_id": "12641",
+              "position": "WR",
+              "team": "WAS"
+            },
+            {
+              "name": "Davante Adams",
+              "player_id": "2133",
+              "position": "WR",
+              "team": "LAR"
+            },
+            {
+              "name": "Cooper Kupp",
+              "player_id": "4039",
+              "position": "WR",
+              "team": "SEA"
+            },
+            {
+              "name": "Aaron Jones",
+              "player_id": "4199",
+              "position": "RB",
+              "team": "MIN"
+            },
+            {
+              "name": "DK Metcalf",
+              "player_id": "5846",
+              "position": "WR",
+              "team": "PIT"
+            },
+            {
+              "name": "Kyler Murray",
+              "player_id": "5849",
+              "position": "QB",
+              "team": "MIN"
+            },
+            {
+              "name": "Juwan Johnson",
+              "player_id": "7002",
+              "position": "TE",
+              "team": "NO"
+            },
+            {
+              "name": "Elijah Moore",
+              "player_id": "7596",
+              "position": "WR",
+              "team": "PHI"
+            },
+            {
+              "name": "Jake Tonges",
+              "player_id": "8698",
+              "position": "TE",
+              "team": "SF"
+            }
+          ],
+          "losses": 11,
+          "manager": "PETERPATJEFF",
+          "owner": "IDAHO SPUD REAPERS",
+          "points_against": 1897.34,
+          "points_for": 1693.44,
+          "roster_id": 11,
+          "starters": [
+            {
+              "name": "Jalen Hurts",
+              "player_id": "6904",
+              "position": "QB",
+              "team": "PHI"
+            },
+            {
+              "name": "Jaylen Warren",
+              "player_id": "8228",
+              "position": "RB",
+              "team": "PIT"
+            },
+            {
+              "name": "Saquon Barkley",
+              "player_id": "4866",
+              "position": "RB",
+              "team": "PHI"
+            },
+            {
+              "name": "Marvin Harrison",
+              "player_id": "11628",
+              "position": "WR",
+              "team": "ARI"
+            },
+            {
+              "name": "Wan'Dale Robinson",
+              "player_id": "8126",
+              "position": "WR",
+              "team": "TEN"
+            },
+            {
+              "name": "George Kittle",
+              "player_id": "4217",
+              "position": "TE",
+              "team": "SF"
+            },
+            {
+              "name": "Blake Corum",
+              "player_id": "11586",
+              "position": "RB",
+              "team": "LAR"
+            },
+            {
+              "name": "Javonte Williams",
+              "player_id": "7588",
+              "position": "RB",
+              "team": "DAL"
+            },
+            {
+              "name": "Aaron Rodgers",
+              "player_id": "96",
+              "position": "QB",
+              "team": "PIT"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 10,
+          "wins": 3
+        },
+        {
+          "bench": [
+            {
+              "name": "Emari Demercado",
+              "player_id": "11199",
+              "position": "RB",
+              "team": "KC"
+            },
+            {
+              "name": "Isaiah Davis",
+              "player_id": "11571",
+              "position": "RB",
+              "team": "NYJ"
+            },
+            {
+              "name": "Mark Andrews",
+              "player_id": "5012",
+              "position": "TE",
+              "team": "BAL"
+            },
+            {
+              "name": "Deebo Samuel",
+              "player_id": "5872",
+              "position": "WR",
+              "team": "SF"
+            },
+            {
+              "name": "Justice Hill",
+              "player_id": "5995",
+              "position": "RB",
+              "team": "BAL"
+            },
+            {
+              "name": "Darius Slayton",
+              "player_id": "6149",
+              "position": "WR",
+              "team": "NYG"
+            },
+            {
+              "name": "Dyami Brown",
+              "player_id": "7587",
+              "position": "WR",
+              "team": "WAS"
+            },
+            {
+              "name": "Andy Dalton",
+              "player_id": "829",
+              "position": "QB",
+              "team": "PHI"
+            },
+            {
+              "name": "Jordan Mason",
+              "player_id": "8408",
+              "position": "RB",
+              "team": "MIN"
+            },
+            {
+              "name": "Rashid Shaheed",
+              "player_id": "8676",
+              "position": "WR",
+              "team": "SEA"
+            }
+          ],
+          "losses": 3,
+          "manager": "scottlviii",
+          "owner": "Japton Hilltoppers ",
+          "points_against": 1557.8,
+          "points_for": 1950.04,
+          "roster_id": 12,
+          "starters": [
+            {
+              "name": "Caleb Williams",
+              "player_id": "11560",
+              "position": "QB",
+              "team": "CHI"
+            },
+            {
+              "name": "Jonathan Taylor",
+              "player_id": "6813",
+              "position": "RB",
+              "team": "IND"
+            },
+            {
+              "name": "James Cook",
+              "player_id": "8138",
+              "position": "RB",
+              "team": "BUF"
+            },
+            {
+              "name": "Justin Jefferson",
+              "player_id": "6794",
+              "position": "WR",
+              "team": "MIN"
+            },
+            {
+              "name": "Jameson Williams",
+              "player_id": "8148",
+              "position": "WR",
+              "team": "DET"
+            },
+            {
+              "name": "Dallas Goedert",
+              "player_id": "5022",
+              "position": "TE",
+              "team": "PHI"
+            },
+            {
+              "name": "Puka Nacua",
+              "player_id": "9493",
+              "position": "WR",
+              "team": "LAR"
+            },
+            {
+              "name": "Jakobi Meyers",
+              "player_id": "5947",
+              "position": "WR",
+              "team": "JAX"
+            },
+            {
+              "name": "Matthew Stafford",
+              "player_id": "421",
+              "position": "QB",
+              "team": "LAR"
+            }
+          ],
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 11
+        }
+      ]
+    },
+    "prev_scout_team": {
+      "kwargs": {
+        "league_id": "1235828906838216704",
+        "team_name_or_manager": "JarrodLee"
+      },
+      "mode": "strict",
+      "tool": "scout_team",
+      "value": {
+        "bench": [
+          {
+            "name": "Brock Bowers",
+            "player_id": "11604",
+            "position": "TE",
+            "team": "LV"
+          },
+          {
+            "name": "Woody Marks",
+            "player_id": "12474",
+            "position": "RB",
+            "team": "HOU"
+          },
+          {
+            "name": "Oronde Gadsden",
+            "player_id": "12493",
+            "position": "TE",
+            "team": "LAC"
+          },
+          {
+            "name": "Elic Ayomanor",
+            "player_id": "12499",
+            "position": "WR",
+            "team": "TEN"
+          },
+          {
+            "name": "Gunnar Helm",
+            "player_id": "12502",
+            "position": "TE",
+            "team": "TEN"
+          },
+          {
+            "name": "Emeka Egbuka",
+            "player_id": "12514",
+            "position": "WR",
+            "team": "TB"
+          },
+          {
+            "name": "Cam Ward",
+            "player_id": "12522",
+            "position": "QB",
+            "team": "TEN"
+          },
+          {
+            "name": "Daniel Jones",
+            "player_id": "5870",
+            "position": "QB",
+            "team": "IND"
+          },
+          {
+            "name": "Rico Dowdle",
+            "player_id": "7021",
+            "position": "RB",
+            "team": "PIT"
+          },
+          {
+            "name": "Justin Fields",
+            "player_id": "7591",
+            "position": "QB",
+            "team": "KC"
+          },
+          {
+            "name": "Cade Otton",
+            "player_id": "8111",
+            "position": "TE",
+            "team": "TB"
+          },
+          {
+            "name": "Kayshon Boutte",
+            "player_id": "9504",
+            "position": "WR",
+            "team": "NE"
+          }
+        ],
+        "losses": 3,
+        "manager": "JarrodLee",
+        "matched_by": "exact",
+        "next_week": {
+          "opponent": "Combs Cavaliers",
+          "opponent_points": 126.16,
+          "opponent_roster_id": 10,
+          "points": 92.82,
+          "week": 2
+        },
+        "owner": "Pine Bluff Escapees",
+        "points_against": 1590.74,
+        "points_for": 1753.32,
+        "rank": 2,
+        "roster_id": 1,
+        "starters": [
+          {
+            "name": "Kirk Cousins",
+            "player_id": "1166",
+            "position": "QB",
+            "team": "LV"
+          },
+          {
+            "name": "Chase Brown",
+            "player_id": "9224",
+            "position": "RB",
+            "team": "CIN"
+          },
+          {
+            "name": "Derrick Henry",
+            "player_id": "3198",
+            "position": "RB",
+            "team": "BAL"
+          },
+          {
+            "name": "Courtland Sutton",
+            "player_id": "5045",
+            "position": "WR",
+            "team": "DEN"
+          },
+          {
+            "name": "Alec Pierce",
+            "player_id": "8142",
+            "position": "WR",
+            "team": "IND"
+          },
+          {
+            "name": "Trey McBride",
+            "player_id": "8130",
+            "position": "TE",
+            "team": "ARI"
+          },
+          {
+            "name": "Chris Rodriguez",
+            "player_id": "10219",
+            "position": "RB",
+            "team": "JAX"
+          },
+          {
+            "name": "Bucky Irving",
+            "player_id": "11584",
+            "position": "RB",
+            "team": "TB"
+          },
+          {
+            "name": "Philip Rivers",
+            "player_id": "331",
+            "position": "QB",
+            "team": null
+          }
+        ],
+        "teams_in_league": 12,
+        "this_week": {
+          "opponent": "Japton Hilltoppers ",
+          "opponent_points": 135.5,
+          "opponent_roster_id": 12,
+          "points": 141.0,
+          "week": 1
+        },
+        "ties": 0,
+        "waiver_budget_used": 66,
+        "wins": 11
+      }
+    },
+    "prev_standings": {
+      "kwargs": {
+        "league_id": "1235828906838216704"
+      },
+      "mode": "strict",
+      "tool": "get_standings",
+      "value": [
+        {
+          "losses": 3,
+          "manager": "scottlviii",
+          "owner": "Japton Hilltoppers ",
+          "points_against": 1557.8,
+          "points_for": 1950.04,
+          "rank": 1,
+          "roster_id": 12,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 11
+        },
+        {
+          "losses": 3,
+          "manager": "JarrodLee",
+          "owner": "Pine Bluff Escapees",
+          "points_against": 1590.74,
+          "points_for": 1753.32,
+          "rank": 2,
+          "roster_id": 1,
+          "ties": 0,
+          "waiver_budget_used": 66,
+          "wins": 11
+        },
+        {
+          "losses": 4,
+          "manager": "zachbrandt51",
+          "owner": "New York Yappers",
+          "points_against": 1545.36,
+          "points_for": 1739.78,
+          "rank": 3,
+          "roster_id": 4,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 10
+        },
+        {
+          "losses": 5,
+          "manager": "Kyyyy1232",
+          "owner": "Honolulu Barracudas",
+          "points_against": 1543.5,
+          "points_for": 1775.14,
+          "rank": 4,
+          "roster_id": 9,
+          "ties": 0,
+          "waiver_budget_used": 85,
+          "wins": 9
+        },
+        {
+          "losses": 7,
+          "manager": "TheHowlster",
+          "owner": "Combs Cavaliers",
+          "points_against": 1771.76,
+          "points_for": 1698.54,
+          "rank": 5,
+          "roster_id": 10,
+          "ties": 0,
+          "waiver_budget_used": 5,
+          "wins": 7
+        },
+        {
+          "losses": 7,
+          "manager": "Ryanespejo",
+          "owner": "Vatican City Hail Marys",
+          "points_against": 1721.8,
+          "points_for": 1673.3,
+          "rank": 6,
+          "roster_id": 5,
+          "ties": 0,
+          "waiver_budget_used": 35,
+          "wins": 7
+        },
+        {
+          "losses": 8,
+          "manager": "darknegan",
+          "owner": "Phoenix Firebirds",
+          "points_against": 1769.66,
+          "points_for": 1672.64,
+          "rank": 7,
+          "roster_id": 2,
+          "ties": 0,
+          "waiver_budget_used": 98,
+          "wins": 6
+        },
+        {
+          "losses": 8,
+          "manager": "tannerfinlay",
+          "owner": "Birmingham Boomers",
+          "points_against": 1703.3,
+          "points_for": 1626.68,
+          "rank": 8,
+          "roster_id": 6,
+          "ties": 0,
+          "waiver_budget_used": 0,
+          "wins": 6
+        },
+        {
+          "losses": 9,
+          "manager": "dunkeldoge",
+          "owner": "Minnesota Doges",
+          "points_against": 1659.64,
+          "points_for": 1662.94,
+          "rank": 9,
+          "roster_id": 8,
+          "ties": 0,
+          "waiver_budget_used": 10,
+          "wins": 5
+        },
+        {
+          "losses": 9,
+          "manager": "daedaluswings",
+          "owner": "New England Knights",
+          "points_against": 1791.7,
+          "points_for": 1633.54,
+          "rank": 10,
+          "roster_id": 3,
+          "ties": 0,
+          "waiver_budget_used": 73,
+          "wins": 5
+        },
+        {
+          "losses": 10,
+          "manager": "XandalfTheGrayt",
+          "owner": "B\u00f6seges\u00e4\u00df Schildkr\u00f6ten",
+          "points_against": 1959.16,
+          "points_for": 1632.4,
+          "rank": 11,
+          "roster_id": 7,
+          "ties": 0,
+          "waiver_budget_used": 8,
+          "wins": 4
+        },
+        {
+          "losses": 11,
+          "manager": "PETERPATJEFF",
+          "owner": "IDAHO SPUD REAPERS",
+          "points_against": 1897.34,
+          "points_for": 1693.44,
+          "rank": 12,
+          "roster_id": 11,
+          "ties": 0,
+          "waiver_budget_used": 10,
+          "wins": 3
+        }
+      ]
+    },
+    "prev_traded_picks": {
+      "kwargs": {
+        "league_id": "1235828906838216704"
+      },
+      "mode": "strict",
+      "tool": "get_traded_picks",
+      "value": [
+        {
+          "owner_id": 5,
+          "previous_owner_id": 2,
+          "roster_id": 2,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 3,
+          "previous_owner_id": 8,
+          "roster_id": 8,
+          "round": 1,
+          "season": "2026"
+        },
+        {
+          "owner_id": 8,
+          "previous_owner_id": 3,
+          "roster_id": 11,
+          "round": 2,
+          "season": "2026"
+        }
+      ]
+    },
+    "prev_transactions": {
+      "kwargs": {
+        "league_id": "1235828906838216704",
+        "week": 10
+      },
+      "mode": "strict",
+      "tool": "get_transactions",
+      "value": [
+        {
+          "adds": [
+            {
+              "name": "Isiah Pacheco",
+              "player_id": "8205",
+              "position": "RB",
+              "team": "DET",
+              "to_team": "Honolulu Barracudas"
+            }
+          ],
+          "created": 1762912107694,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Honolulu Barracudas",
+              "name": "Kameron Johnson",
+              "player_id": "11994",
+              "position": "WR",
+              "team": "TB"
+            }
+          ],
+          "roster_ids": [
+            9
+          ],
+          "status": "complete",
+          "teams": [
+            "Honolulu Barracudas"
+          ],
+          "type": "waiver",
+          "waiver_bid": 15,
+          "week": 10
+        },
+        {
+          "adds": [
+            {
+              "name": "Davis Mills",
+              "player_id": "7585",
+              "position": "QB",
+              "team": "HOU",
+              "to_team": "Minnesota Doges"
+            }
+          ],
+          "created": 1762447891254,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Minnesota Doges",
+              "name": "Noah Fant",
+              "player_id": "5857",
+              "position": "TE",
+              "team": "NO"
+            }
+          ],
+          "roster_ids": [
+            8
+          ],
+          "status": "complete",
+          "teams": [
+            "Minnesota Doges"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 10
+        },
+        {
+          "adds": [
+            {
+              "name": "Ty Johnson",
+              "player_id": "6039",
+              "position": "RB",
+              "team": "BUF",
+              "to_team": "Vatican City Hail Marys"
+            }
+          ],
+          "created": 1762447610144,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Vatican City Hail Marys",
+              "name": "Isiah Pacheco",
+              "player_id": "8205",
+              "position": "RB",
+              "team": "DET"
+            }
+          ],
+          "roster_ids": [
+            5
+          ],
+          "status": "complete",
+          "teams": [
+            "Vatican City Hail Marys"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 10
+        },
+        {
+          "adds": [
+            {
+              "name": "Luke Musgrave",
+              "player_id": "9481",
+              "position": "TE",
+              "team": "GB",
+              "to_team": "Honolulu Barracudas"
+            }
+          ],
+          "created": 1762356921395,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "Honolulu Barracudas",
+              "name": "Michael Carter",
+              "player_id": "7607",
+              "position": "RB",
+              "team": "TEN"
+            }
+          ],
+          "roster_ids": [
+            9
+          ],
+          "status": "complete",
+          "teams": [
+            "Honolulu Barracudas"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 10
+        }
+      ]
+    },
+    "prev_value_roster": {
+      "kwargs": {
+        "league_id": "1235828906838216704"
+      },
+      "mode": "shape",
+      "tool": "value_my_roster",
+      "value": {
+        "format": {
+          "isDynasty": "bool",
+          "numQbs": "number",
+          "numTeams": "number",
+          "ppr": "number"
+        },
+        "players": [
+          {
+            "name": "str",
+            "position": "str",
+            "position_rank": "number",
+            "value": "number"
+          }
+        ],
+        "source": "str",
+        "team": "str",
+        "total_value": "number"
+      }
     },
     "projections": {
       "kwargs": {

@@ -178,6 +178,38 @@ def resolve_fixtures() -> dict:
         fixtures["player_id"] = None
         fixtures["player_id_error"] = f"{type(exc).__name__}: {exc}"
 
+    # The previous season's league is the single most valuable fixture here.
+    #
+    # The current league is in `pre_draft`, so its rosters are empty, its
+    # standings are all zeros and its transaction log is bare. Cases against it
+    # confirm very little: the player-enrichment helpers (_player_name,
+    # _enrich_players, _format_roster_entry) barely execute, and those are
+    # exactly the functions moving into players.py and league.py.
+    #
+    # A completed season has full rosters, a real draft, and a real transaction
+    # history — and it is frozen, so it makes a more stable baseline than the
+    # live league, which will change the moment you draft.
+    try:
+        league = server.get_league() or {}
+        prev = league.get("previous_league_id")
+        fixtures["prev_league_id"] = prev
+        fixtures["league_status"] = league.get("status")
+        fixtures["league_season"] = league.get("season")
+    except Exception as exc:  # noqa: BLE001
+        fixtures["prev_league_id"] = None
+        fixtures["prev_league_error"] = f"{type(exc).__name__}: {exc}"
+
+    prev = fixtures.get("prev_league_id")
+    if prev:
+        try:
+            prev_drafts = server.get_drafts(league_id=prev) or []
+            fixtures["prev_draft_id"] = (
+                prev_drafts[0].get("draft_id") if prev_drafts else None
+            )
+        except Exception as exc:  # noqa: BLE001
+            fixtures["prev_draft_id"] = None
+            fixtures["prev_draft_error"] = f"{type(exc).__name__}: {exc}"
+
     return fixtures
 
 
@@ -305,6 +337,55 @@ def build_cases(fixtures: dict) -> list[tuple[str, str, dict, str]]:
 
     if player_id:
         cases.append(("player", "get_player", {"player_id": player_id}, STRICT))
+
+    # -- previous season: a completed, frozen league ------------------------
+    # This is where the roster/enrichment/transaction code paths actually get
+    # exercised with real data. Everything here is STRICT: a finished season
+    # does not change, so any diff is your refactor, not the NFL.
+    prev = fixtures.get("prev_league_id")
+    if prev:
+        L = {"league_id": prev}
+        cases += [
+            ("prev_league", "get_league", L, STRICT),
+            ("prev_managers", "get_managers", L, STRICT),
+            ("prev_rosters", "get_rosters", L, STRICT),
+            ("prev_standings", "get_standings", L, STRICT),
+            ("prev_my_team", "get_my_team", L, STRICT),
+            ("prev_my_roster_id", "get_my_roster_id", L, STRICT),
+            # Match on manager name, not team name: team names get changed
+            # between seasons, manager handles do not.
+            (
+                "prev_scout_team",
+                "scout_team",
+                {"team_name_or_manager": server.DEFAULT_USERNAME, **L},
+                STRICT,
+            ),
+            ("prev_matchups", "get_matchups", {"week": WEEK, **L}, STRICT),
+            ("prev_transactions", "get_transactions", {"week": WEEK, **L}, STRICT),
+            ("prev_recent_moves", "recent_moves", {"weeks": 3, **L}, STRICT),
+            ("prev_traded_picks", "get_traded_picks", L, STRICT),
+            (
+                "prev_playoff_bracket",
+                "get_playoff_bracket",
+                {"bracket": "winners", **L},
+                STRICT,
+            ),
+            ("prev_drafts", "get_drafts", L, STRICT),
+            # Roster-dependent, so a real roster makes this meaningful.
+            ("prev_available", "get_available_players", {"limit": 15, **L}, SHAPE),
+            ("prev_value_roster", "value_my_roster", L, SHAPE),
+        ]
+
+        prev_draft_id = fixtures.get("prev_draft_id")
+        if prev_draft_id:
+            D = {"draft_id": prev_draft_id}
+            cases += [
+                ("prev_draft", "get_draft", D, STRICT),
+                # The one case that exercises pick enrichment against a real,
+                # completed draft rather than an empty pick list.
+                ("prev_draft_picks", "get_draft_picks", D, STRICT),
+                ("prev_draft_traded", "get_draft_traded_picks", D, STRICT),
+            ]
 
     return cases
 
