@@ -1369,6 +1369,9 @@ def score_player(
 # --------------------------------------------------------------------------
 
 
+_warmed = False
+
+
 def _warm_caches() -> None:
     """Load the ~5 MB player map before serving instead of on first request.
 
@@ -1377,9 +1380,15 @@ def _warm_caches() -> None:
     and swallowed: a cold cache is slow, not broken, and the server should
     still come up if Sleeper is briefly unreachable at boot.
 
+    Idempotent, so it is safe to call from both the import hook and __main__.
+
     Logs go to stderr, never stdout — under stdio transport stdout carries the
     MCP protocol itself and a stray print corrupts the stream.
     """
+    global _warmed
+    if _warmed:
+        return
+    _warmed = True
     try:
         count = _players.warm()
         print(f"[startup] player map warm: {count} players", file=sys.stderr)
@@ -1388,20 +1397,28 @@ def _warm_caches() -> None:
               f"will load on first use", file=sys.stderr)
 
 
+# Warm at IMPORT time, not just under __main__.
+#
+# A managed host is given an entrypoint like "server.py:mcp" and imports this
+# module to get the object — it never executes it as a script, so __main__
+# never runs and a warm hook living only there would silently never fire.
+#
+# Opt-in via MCP_WARM so that importing server.py stays cheap for tests, and so
+# stdio launches (where Claude Desktop restarts the process often) do not put a
+# 5 MB fetch in front of every start. Set MCP_WARM=1 on the deployed host.
+if os.environ.get("MCP_WARM"):
+    _warm_caches()
+
+
 if __name__ == "__main__":
-    # HTTP transport for remote hosting (Horizon, or a local smoke test).
+    # HTTP transport for remote hosting, or a local smoke test.
     # Streamable HTTP, not SSE — SSE was deprecated in the March 2025 MCP spec.
     if os.environ.get("MCP_HTTP"):
-        _warm_caches()
+        _warm_caches()  # no-op if the import hook already ran
         mcp.run(
             transport="http",
             host=os.environ.get("HOST", "0.0.0.0"),
             port=int(os.environ.get("PORT", "8000")),
         )
     else:
-        # stdio for Claude Desktop, unchanged. Warming is opt-in here because
-        # Desktop restarts this process often and a cold 5 MB fetch would sit
-        # in front of every launch.
-        if os.environ.get("MCP_WARM"):
-            _warm_caches()
-        mcp.run()
+        mcp.run()  # stdio for Claude Desktop, unchanged
