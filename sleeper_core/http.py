@@ -24,7 +24,7 @@ import csv
 import gzip
 import io
 import time
-from typing import Any
+from typing import Any, Callable
 
 import httpx
 
@@ -114,17 +114,34 @@ def fc_get(path: str, params: list | None = None) -> Any:
     return resp.json()
 
 
-def nflverse_csv(tag: str, filename: str) -> list[dict]:
-    """Download and disk-cache an nflverse CSV. Checks an in-memory cache first
-    so repeat calls within a session skip disk I/O and CSV parsing.
+def nflverse_csv(
+    tag: str,
+    filename: str,
+    row_filter: Callable[[dict], bool] | None = None,
+) -> list[dict]:
+    """Download and disk-cache an nflverse CSV, returning parsed rows.
 
     Returns [] on any failure rather than raising. nflverse is a nice-to-have
     enrichment source; if GitHub is unreachable the stats tools should degrade,
     not take down the twenty-odd tools that never touch it.
+
+    row_filter is a predicate applied while parsing, and it is not an
+    optimization you can skip on the big files. depth_charts_2025.csv is
+    50 MB — the 2025 schema swapped the week column for a dt load timestamp,
+    so the file is every snapshot ever taken rather than one per week. Turning
+    that into a list of dicts costs several hundred MB of Python objects and
+    will OOM a small container. Filtering during the parse keeps only the rows
+    that matter, usually a few hundred.
+
+    When row_filter is given the parsed-row cache is bypassed in both
+    directions: the result is specific to that predicate, and caching the full
+    unfiltered file is exactly the thing being avoided.
     """
     now = time.time()
-    if filename in _csv_mem_cache and (now - _csv_mem_cache_ts.get(filename, 0)) < NFLVERSE_CACHE_TTL:
-        return _csv_mem_cache[filename]
+    if row_filter is None:
+        hit = _csv_mem_cache.get(filename)
+        if hit is not None and (now - _csv_mem_cache_ts.get(filename, 0)) < NFLVERSE_CACHE_TTL:
+            return hit
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     cache_file = CACHE_DIR / filename
@@ -146,10 +163,22 @@ def nflverse_csv(tag: str, filename: str) -> list[dict]:
 
     try:
         text = gzip.decompress(raw).decode("utf-8") if filename.endswith(".gz") else raw.decode("utf-8")
-        rows = list(csv.DictReader(io.StringIO(text)))
     except Exception:
         return []
+    del raw  # release the encoded copy before building rows
 
-    _csv_mem_cache[filename] = rows
-    _csv_mem_cache_ts[filename] = now
+    try:
+        reader = csv.DictReader(io.StringIO(text))
+        if row_filter is None:
+            rows = list(reader)
+        else:
+            rows = [r for r in reader if row_filter(r)]
+    except Exception:
+        return []
+    finally:
+        del text
+
+    if row_filter is None:
+        _csv_mem_cache[filename] = rows
+        _csv_mem_cache_ts[filename] = now
     return rows

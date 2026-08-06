@@ -162,26 +162,45 @@ def detect_depth_schema(rows: list[dict]) -> dict | None:
 
 
 def depth_chart(team: str, position: str | None = None, season: str | None = None) -> dict:
-    """Latest depth chart for one team, in whichever schema the season uses."""
+    """Latest depth chart for one team, in whichever schema the season uses.
+
+    Filters by team during the CSV parse rather than after. depth_charts_2025
+    is a 50 MB file (see nflverse_csv) and materializing all of it costs
+    hundreds of megabytes of Python objects — enough to kill a small container.
+    One team's rows are a rounding error by comparison.
+    """
     season = season or current_season()
-    rows = nflverse_csv("depth_charts", f"depth_charts_{season}.csv")
-    if not rows:
+    team_up = team.strip().upper()
+
+    # The team column differs by schema, and we do not know which schema the
+    # file uses until we have seen a row — so the predicate checks both. Only
+    # one of the two columns exists in any given file. The closure also grabs
+    # the header off the first row, so an unrecognized layout can still be
+    # reported even when nothing matches.
+    header: list[str] = []
+
+    def keep(row: dict) -> bool:
+        if not header:
+            header.extend(row.keys())
+        return (row.get("team") or row.get("club_code") or "").upper() == team_up
+
+    rows = nflverse_csv("depth_charts", f"depth_charts_{season}.csv", row_filter=keep)
+
+    if not header:
         return {"error": "no depth chart data", "season": season}
 
-    schema = detect_depth_schema(rows)
+    schema = detect_depth_schema(rows) or detect_depth_schema([dict.fromkeys(header)])
     if schema is None:
         return {
             "error": "unrecognized depth chart schema",
             "season": season,
-            "columns_seen": sorted(rows[0].keys())[:15],
+            "columns_seen": sorted(header)[:15],
         }
 
-    team_up = team.strip().upper()
     wanted = expand_position(position) if position else None
     matched = [
         r for r in rows
-        if (r.get(schema["team"]) or "").upper() == team_up
-        and (wanted is None or (r.get(schema["pos"]) or "").upper() in wanted)
+        if wanted is None or (r.get(schema["pos"]) or "").upper() in wanted
     ]
     if not matched:
         return {
