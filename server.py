@@ -32,10 +32,10 @@ if os.environ.get("USE_OS_TRUSTSTORE"):
 from fastmcp import FastMCP
 
 from sleeper_core import http as _http
+from sleeper_core import league as _league_mod
 from sleeper_core import players as _players
 from sleeper_core.config import (
     CACHE_DIR,
-    DEFAULT_LEAGUE_ID,
     DEFAULT_TEAM_NAME,
     DEFAULT_USERNAME,
     FC_CACHE_TTL,
@@ -64,25 +64,20 @@ _load_players = _players.load_players
 _player_name = _players.player_name
 _enrich_players = _players.enrich_players
 
+_league = _league_mod.resolve_league_id
+_user_map = _league_mod.user_map
+_format_roster_entry = _league_mod.format_roster_entry
+_compute_rosters = _league_mod.compute_rosters
+_compute_standings = _league_mod.compute_standings
+_resolve_my_roster = _league_mod.resolve_my_roster
+_resolve_roster = _league_mod.resolve_roster
+_team_report = _league_mod.team_report
+_current_week = _league_mod.current_week
+_compute_matchups = _league_mod.compute_matchups
+_matchup_for = _league_mod.matchup_for
+_compute_transactions = _league_mod.compute_transactions
+
 _OC_TIERS_FILE = OC_TIERS_FILE
-
-
-def _league(league_id: str | None) -> str:
-    return league_id or DEFAULT_LEAGUE_ID
-
-
-def _user_map(league_id: str) -> dict[str, dict]:
-    """Map user_id -> {display_name, team_name}."""
-    users = _get(f"/league/{league_id}/users", cache=True) or []
-    out: dict[str, dict] = {}
-    for u in users:
-        meta = u.get("metadata") or {}
-        out[u.get("user_id")] = {
-            "display_name": u.get("display_name"),
-            "team_name": meta.get("team_name") or u.get("display_name"),
-            "is_commissioner": bool(u.get("is_owner")),
-        }
-    return out
 
 
 # --------------------------------------------------------------------------
@@ -166,55 +161,6 @@ def get_managers(league_id: str | None = None) -> list[dict]:
 # --------------------------------------------------------------------------
 
 
-def _format_roster_entry(
-    r: dict, owner: dict, players: dict, include_players: bool
-) -> dict:
-    """Turn one raw roster + its owner into a readable entry."""
-    settings = r.get("settings") or {}
-    fpts = settings.get("fpts", 0) + (settings.get("fpts_decimal", 0) / 100)
-    fpts_against = settings.get("fpts_against", 0) + (
-        settings.get("fpts_against_decimal", 0) / 100
-    )
-    entry = {
-        "roster_id": r.get("roster_id"),
-        "owner": owner.get("team_name") or "unknown",
-        "manager": owner.get("display_name"),
-        "wins": settings.get("wins", 0),
-        "losses": settings.get("losses", 0),
-        "ties": settings.get("ties", 0),
-        "points_for": round(fpts, 2),
-        "points_against": round(fpts_against, 2),
-        "waiver_budget_used": settings.get("waiver_budget_used"),
-    }
-    if include_players:
-        starters = r.get("starters") or []
-        entry["starters"] = _enrich_players(starters, players)
-        bench_ids = [p for p in (r.get("players") or []) if p not in set(starters)]
-        entry["bench"] = _enrich_players(bench_ids, players)
-    return entry
-
-
-def _compute_rosters(lid: str, include_players: bool) -> list[dict]:
-    rosters = _get(f"/league/{lid}/rosters", cache=True) or []
-    umap = _user_map(lid)
-    players = _load_players() if include_players else {}
-    return [
-        _format_roster_entry(r, umap.get(r.get("owner_id"), {}), players, include_players)
-        for r in rosters
-    ]
-
-
-def _compute_standings(lid: str) -> list[dict]:
-    ranked = sorted(
-        _compute_rosters(lid, include_players=False),
-        key=lambda x: (x["wins"], x["points_for"]),
-        reverse=True,
-    )
-    for i, row in enumerate(ranked, start=1):
-        row["rank"] = i
-    return ranked
-
-
 @mcp.tool()
 def get_rosters(league_id: str | None = None, include_players: bool = True) -> list[dict]:
     """All rosters in the league, joined with manager names and win/loss
@@ -233,111 +179,6 @@ def get_standings(league_id: str | None = None) -> list[dict]:
 # --------------------------------------------------------------------------
 # Tools: "my team"
 # --------------------------------------------------------------------------
-
-
-def _resolve_my_roster(lid: str) -> dict | None:
-    """Find the configured user's roster in the league. Matches by username
-    (resolved to a user_id) first, then falls back to team name, then to
-    display name. Returns {roster, owner, matched_by} or None."""
-    rosters = _get(f"/league/{lid}/rosters", cache=True) or []
-    umap = _user_map(lid)  # user_id -> {display_name, team_name, ...}
-
-    def roster_for(uid: str) -> dict | None:
-        return next((r for r in rosters if r.get("owner_id") == uid), None)
-
-    # 1. Username -> user_id via the user endpoint, then match owner.
-    if DEFAULT_USERNAME:
-        user = _get(f"/user/{DEFAULT_USERNAME}", cache=True)
-        uid = user.get("user_id") if user else None
-        if uid:
-            r = roster_for(uid)
-            if r:
-                return {"roster": r, "owner": umap.get(uid, {}), "matched_by": "username"}
-
-    # 2. Team name match within the league.
-    if DEFAULT_TEAM_NAME:
-        target = DEFAULT_TEAM_NAME.strip().lower()
-        for uid, info in umap.items():
-            if (info.get("team_name") or "").strip().lower() == target:
-                r = roster_for(uid)
-                if r:
-                    return {"roster": r, "owner": info, "matched_by": "team_name"}
-
-    # 3. Display name match within the league.
-    if DEFAULT_USERNAME:
-        target = DEFAULT_USERNAME.strip().lower()
-        for uid, info in umap.items():
-            if (info.get("display_name") or "").strip().lower() == target:
-                r = roster_for(uid)
-                if r:
-                    return {"roster": r, "owner": info, "matched_by": "display_name"}
-
-    return None
-
-
-def _team_report(lid: str, roster: dict, owner: dict, matched_by: str, players: dict) -> dict:
-    """Build a full scouting report for one roster: players, record, standings
-    rank, current matchup, and next week's matchup."""
-    entry = _format_roster_entry(roster, owner, players, include_players=True)
-    entry["matched_by"] = matched_by
-    rid = roster.get("roster_id")
-
-    standings = _compute_standings(lid)
-    for row in standings:
-        if row["roster_id"] == rid:
-            entry["rank"] = row["rank"]
-            entry["teams_in_league"] = len(standings)
-            break
-
-    week = _current_week()
-    entry["this_week"] = _matchup_for(lid, week, rid)
-    entry["next_week"] = _matchup_for(lid, week + 1, rid)
-    return entry
-
-
-def _resolve_roster(lid: str, query: str) -> dict | None:
-    """Resolve any team in the league by team name, manager display name, or
-    username. Tries an exact match first, then a substring match. Returns
-    {roster, owner, matched_by} or None."""
-    q = (query or "").strip().lower()
-    if not q:
-        return None
-    rosters = _get(f"/league/{lid}/rosters", cache=True) or []
-    users = _get(f"/league/{lid}/users") or []
-
-    def roster_for(uid: str) -> dict | None:
-        return next((r for r in rosters if r.get("owner_id") == uid), None)
-
-    def owner_of(u: dict) -> dict:
-        meta = u.get("metadata") or {}
-        return {
-            "display_name": u.get("display_name"),
-            "team_name": meta.get("team_name") or u.get("display_name"),
-        }
-
-    def fields(u: dict) -> list[str]:
-        meta = u.get("metadata") or {}
-        return [
-            (meta.get("team_name") or "").strip().lower(),
-            (u.get("display_name") or "").strip().lower(),
-            (u.get("username") or "").strip().lower(),
-        ]
-
-    # Exact match on any field.
-    for u in users:
-        if q in [f for f in fields(u) if f]:
-            r = roster_for(u.get("user_id"))
-            if r:
-                return {"roster": r, "owner": owner_of(u), "matched_by": "exact"}
-
-    # Substring fallback.
-    for u in users:
-        if any(q in f for f in fields(u) if f):
-            r = roster_for(u.get("user_id"))
-            if r:
-                return {"roster": r, "owner": owner_of(u), "matched_by": "partial"}
-
-    return None
 
 
 @mcp.tool()
@@ -405,56 +246,6 @@ def get_my_roster_id(league_id: str | None = None) -> dict:
 # --------------------------------------------------------------------------
 
 
-def _current_week() -> int:
-    state = _get(f"/state/{SPORT}", cache=True) or {}
-    return state.get("week") or state.get("display_week") or 1
-
-
-def _compute_matchups(lid: str, week: int) -> dict:
-    raw = _get(f"/league/{lid}/matchups/{week}", cache=True) or []
-    rosters = _get(f"/league/{lid}/rosters", cache=True) or []
-    umap = _user_map(lid)
-    roster_owner = {
-        r.get("roster_id"): umap.get(r.get("owner_id"), {}).get("team_name", "unknown")
-        for r in rosters
-    }
-
-    pairs: dict[Any, list] = {}
-    for m in raw:
-        team = {
-            "roster_id": m.get("roster_id"),
-            "team": roster_owner.get(m.get("roster_id"), "unknown"),
-            "points": m.get("points"),
-        }
-        pairs.setdefault(m.get("matchup_id"), []).append(team)
-
-    matchups = [
-        {"matchup_id": mid, "teams": teams}
-        for mid, teams in sorted(pairs.items(), key=lambda kv: (kv[0] is None, kv[0]))
-    ]
-    return {"league_id": lid, "week": week, "matchups": matchups}
-
-
-def _matchup_for(lid: str, week: int, roster_id: Any) -> dict | None:
-    """Return one roster's matchup for a week: own points, opponent, and the
-    opponent's points. Returns None if the roster has no matchup that week
-    (for example a week past the end of the schedule). For future weeks the
-    pairing is set but points will be null until the games are played."""
-    for mu in _compute_matchups(lid, week)["matchups"]:
-        teams = mu["teams"]
-        if any(t["roster_id"] == roster_id for t in teams):
-            me = next(t for t in teams if t["roster_id"] == roster_id)
-            opp = next((t for t in teams if t["roster_id"] != roster_id), None)
-            return {
-                "week": week,
-                "points": me["points"],
-                "opponent": opp["team"] if opp else "BYE",
-                "opponent_points": opp["points"] if opp else None,
-                "opponent_roster_id": opp["roster_id"] if opp else None,
-            }
-    return None
-
-
 @mcp.tool()
 def get_matchups(league_id: str | None = None, week: int | None = None) -> dict:
     """Matchups for a given week, paired up by opponent and labeled with team
@@ -466,44 +257,6 @@ def get_matchups(league_id: str | None = None, week: int | None = None) -> dict:
 # --------------------------------------------------------------------------
 # Tools: transactions and picks
 # --------------------------------------------------------------------------
-
-
-def _compute_transactions(lid: str, week: int) -> list[dict]:
-    """Enriched transaction list for one week (the Sleeper "round")."""
-    txns = _get(f"/league/{lid}/transactions/{week}", cache=True) or []
-    players = _load_players()
-    rosters = _get(f"/league/{lid}/rosters", cache=True) or []
-    umap = _user_map(lid)
-    roster_owner = {
-        r.get("roster_id"): umap.get(r.get("owner_id"), {}).get("team_name", "unknown")
-        for r in rosters
-    }
-
-    def names(d: dict | None, team_key: str) -> list[dict]:
-        out = []
-        for pid, rid in (d or {}).items():
-            rec = _player_name(pid, players)
-            rec[team_key] = roster_owner.get(rid)
-            out.append(rec)
-        return out
-
-    result = []
-    for t in txns:
-        result.append(
-            {
-                "type": t.get("type"),
-                "status": t.get("status"),
-                "week": t.get("leg"),
-                "created": t.get("created"),
-                "roster_ids": t.get("roster_ids"),
-                "teams": [roster_owner.get(rid) for rid in (t.get("roster_ids") or [])],
-                "adds": names(t.get("adds"), "to_team"),
-                "drops": names(t.get("drops"), "from_team"),
-                "draft_picks": t.get("draft_picks") or [],
-                "waiver_bid": (t.get("settings") or {}).get("waiver_bid"),
-            }
-        )
-    return result
 
 
 @mcp.tool()
