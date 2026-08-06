@@ -12,13 +12,9 @@ optional league_id if you ever want to point at a different one.
 
 from __future__ import annotations
 
-import csv
-import gzip
-import io
 import json
 import os
 import time
-from pathlib import Path
 from typing import Any
 
 # Corporate networks that do TLS inspection present a private root CA that
@@ -33,105 +29,43 @@ if os.environ.get("USE_OS_TRUSTSTORE"):
 
     truststore.inject_into_ssl()
 
-import httpx
 from fastmcp import FastMCP
 
-# --------------------------------------------------------------------------
-# Configuration
-# --------------------------------------------------------------------------
-
-BASE_URL = "https://api.sleeper.app/v1"
-DEFAULT_LEAGUE_ID = os.environ.get("SLEEPER_LEAGUE_ID", "1312218810614300672")
-SPORT = os.environ.get("SLEEPER_SPORT", "nfl")
-
-# Identity used to resolve "my team" without passing a roster_id.
-DEFAULT_USERNAME = os.environ.get("SLEEPER_USERNAME", "JarrodLee")
-DEFAULT_TEAM_NAME = os.environ.get("SLEEPER_TEAM_NAME", "Pine Bluff Escapees")
-
-# The full player map is ~5MB. Sleeper asks that you fetch it at most once a
-# day, so it is cached on disk and refreshed only when stale.
-CACHE_DIR = Path(
-    os.environ.get("SLEEPER_CACHE_DIR", Path.home() / ".cache" / "sleeper-mcp")
+from sleeper_core import http as _http
+from sleeper_core.config import (
+    CACHE_DIR,
+    DEFAULT_LEAGUE_ID,
+    DEFAULT_TEAM_NAME,
+    DEFAULT_USERNAME,
+    FC_CACHE_TTL,
+    FC_SOURCE,
+    NFLVERSE_SOURCE,
+    OC_TIERS_FILE,
+    PLAYER_CACHE_TTL,
+    PROJ_CACHE_TTL,
+    SPORT,
 )
-PLAYER_CACHE_TTL = 18 * 60 * 60  # seconds
 
 mcp = FastMCP("sleeper-readonly")
-
-_client = httpx.Client(
-    base_url=BASE_URL,
-    timeout=30.0,
-    headers={"User-Agent": "sleeper-mcp-readonly/1.0"},
-)
-
-# Separate client for Sleeper's UNDOCUMENTED endpoints (stats and projections),
-# which live on a different host. These are not part of the supported API and
-# can change or disappear without notice. Kept isolated so that if they break,
-# only the projection tools are affected and every documented tool keeps working.
-ALT_BASE_URL = "https://api.sleeper.com"
-PROJ_CACHE_TTL = 6 * 60 * 60  # seconds
-
-_alt_client = httpx.Client(
-    base_url=ALT_BASE_URL,
-    timeout=30.0,
-    headers={"User-Agent": "sleeper-mcp-readonly/1.0"},
-)
-
-# Client for FantasyCalc's public trade-value API (third party). Semi-official:
-# documented by FantasyCalc in a guest post, but with no formal API docs or
-# stated rate limits. Isolated like the projections client so a failure here
-# only affects the trade-value tools.
-FC_BASE_URL = "https://api.fantasycalc.com"
-FC_CACHE_TTL = 6 * 60 * 60  # seconds
-
-_fc_client = httpx.Client(
-    base_url=FC_BASE_URL,
-    timeout=30.0,
-    headers={"User-Agent": "sleeper-mcp-readonly/1.0"},
-)
-
-# nflverse open data — hosted on GitHub releases, MIT licensed.
-# Files are large (2–7 MB per season) so cached on disk and refreshed every 6 h.
-NFLVERSE_BASE = "https://github.com/nflverse/nflverse-data/releases/download"
-NFLVERSE_CACHE_TTL = 6 * 60 * 60
-
-_nfl_client = httpx.Client(
-    follow_redirects=True,
-    timeout=60.0,
-    headers={"User-Agent": "sleeper-mcp-readonly/1.0"},
-)
-
-# Short-lived in-memory caches to avoid hammering the API within one session.
-_mem_cache: dict[str, tuple[float, Any]] = {}
-_MEM_TTL = 3600.0  # seconds
-
-# In-memory singleton for the player map (5 MB JSON, expensive to re-parse).
-_players_cache: dict[str, Any] | None = None
-_players_cache_ts: float = 0.0
-
-# In-memory cache for parsed nflverse CSV files (2-7 MB each, re-parsed per call otherwise).
-_csv_mem_cache: dict[str, list[dict]] = {}
-_csv_mem_cache_ts: dict[str, float] = {}
-
 
 # --------------------------------------------------------------------------
 # Low-level helpers
 # --------------------------------------------------------------------------
+# These now live in sleeper_core.http. They keep their original private names
+# here so the ~46 existing call sites stay untouched: this commit moves code,
+# it does not change behaviour. Call sites get tidied once every module lands.
 
+_get = _http.get_json
+_alt_get = _http.alt_get
+_fc_get = _http.fc_get
+_nflverse_csv = _http.nflverse_csv
 
-def _get(path: str, *, cache: bool = False) -> Any:
-    """GET a Sleeper API path and return parsed JSON. Read-only."""
-    if cache:
-        hit = _mem_cache.get(path)
-        if hit and (time.time() - hit[0]) < _MEM_TTL:
-            return hit[1]
-    resp = _client.get(path)
-    if resp.status_code == 404:
-        return None
-    resp.raise_for_status()
-    data = resp.json()
-    if cache:
-        _mem_cache[path] = (time.time(), data)
-    return data
+_OC_TIERS_FILE = OC_TIERS_FILE
+
+# In-memory singleton for the player map (5 MB JSON, expensive to re-parse).
+# Moves to sleeper_core/players.py in the next commit.
+_players_cache: dict[str, Any] | None = None
+_players_cache_ts: float = 0.0
 
 
 def _league(league_id: str | None) -> str:
@@ -844,15 +778,6 @@ _SLOT_ELIGIBILITY: dict[str, set] = {
 _SKIP_SLOTS = {"BN", "IR", "TAXI", "NA"}
 
 
-def _alt_get(path: str, params: list | None = None) -> Any:
-    """GET against the undocumented api.sleeper.com host. Read-only."""
-    resp = _alt_client.get(path, params=params)
-    if resp.status_code == 404:
-        return None
-    resp.raise_for_status()
-    return resp.json()
-
-
 def _normalize_projections(raw: Any) -> dict[str, dict]:
     """Reduce a projections payload to {player_id: stats_dict}. Handles both a
     list of records and a dict keyed by player_id, since the undocumented shape
@@ -1083,18 +1008,6 @@ def start_sit_advice(
 # matching. Isolated behind its own client; if FantasyCalc changes, only these
 # tools are affected.
 # --------------------------------------------------------------------------
-
-FC_SOURCE = "fantasycalc.com trade values (unofficial, third party)"
-
-
-def _fc_get(path: str, params: list | None = None) -> Any:
-    """GET against the FantasyCalc API. Read-only."""
-    resp = _fc_client.get(path, params=params)
-    if resp.status_code == 404:
-        return None
-    resp.raise_for_status()
-    return resp.json()
-
 
 def _league_format(lid: str) -> dict:
     """Translate the Sleeper league's settings into FantasyCalc parameters:
@@ -1422,8 +1335,6 @@ def get_dynasty_tiers(
 # (MIT licensed, no auth required, updated daily during season)
 # --------------------------------------------------------------------------
 
-NFLVERSE_SOURCE = "nflverse open data (MIT licensed, github.com/nflverse)"
-
 # Columns to keep from the weekly player stats file (115 total — we trim hard).
 _STAT_KEEP = {
     "player_display_name", "position", "team", "week", "season", "opponent_team",
@@ -1447,42 +1358,6 @@ _NUMERIC = {
     "offense_snaps", "offense_pct", "defense_snaps", "defense_pct",
     "st_snaps", "st_pct",
 }
-
-
-def _nflverse_csv(tag: str, filename: str) -> list[dict]:
-    """Download and disk-cache a nflverse CSV file. Checks an in-memory cache
-    first so repeat calls within a session skip disk I/O and CSV parsing."""
-    now = time.time()
-    if filename in _csv_mem_cache and (now - _csv_mem_cache_ts.get(filename, 0)) < NFLVERSE_CACHE_TTL:
-        return _csv_mem_cache[filename]
-
-    CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    cache_file = CACHE_DIR / filename
-    if cache_file.exists() and (now - cache_file.stat().st_mtime) < NFLVERSE_CACHE_TTL:
-        raw = cache_file.read_bytes()
-    else:
-        try:
-            resp = _nfl_client.get(f"{NFLVERSE_BASE}/{tag}/{filename}")
-            if resp.status_code == 404:
-                return []
-            resp.raise_for_status()
-            raw = resp.content
-        except Exception:
-            return []
-        try:
-            cache_file.write_bytes(raw)
-        except OSError:
-            pass
-
-    try:
-        text = gzip.decompress(raw).decode("utf-8") if filename.endswith(".gz") else raw.decode("utf-8")
-        rows = list(csv.DictReader(io.StringIO(text)))
-    except Exception:
-        return []
-
-    _csv_mem_cache[filename] = rows
-    _csv_mem_cache_ts[filename] = now
-    return rows
 
 
 def _current_season() -> str:
@@ -1686,9 +1561,6 @@ def get_injuries(
 # --------------------------------------------------------------------------
 # Tools: team offense crowding + composite player scoring
 # --------------------------------------------------------------------------
-
-# Path to the user-maintained OC tier config (edit directly to update).
-_OC_TIERS_FILE = Path(__file__).parent / "oc_tiers.json"
 
 
 def _load_oc_tiers() -> dict[str, dict]:
