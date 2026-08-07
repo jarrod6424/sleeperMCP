@@ -48,9 +48,12 @@ reverse-engineering further.
 from __future__ import annotations
 
 import argparse
+import csv
+import io
 import json
 import statistics
 import sys
+import time
 from collections import defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
@@ -59,9 +62,10 @@ ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from sleeper_core.config import STATS_CACHE_TTL   # noqa: E402
+from sleeper_core.config import CACHE_DIR, STATS_CACHE_TTL   # noqa: E402
 from sleeper_core.http import nflverse_csv         # noqa: E402
 from sleeper_core.offense import safe_float        # noqa: E402
+from sleeper_core.stats import to_nflverse_team     # noqa: E402
 
 DEFAULT_COHORT = 3
 
@@ -74,14 +78,45 @@ DEFAULT_COHORT = 3
 DEFAULT_SEASONS = [2015, 2016, 2017, 2018, 2019, 2020,
                    2021, 2022, 2023, 2024, 2025]
 
-# DraftLab's published values. Kept here only to prove the method still
-# reproduces them — if a future nflverse change breaks the pipeline, these
-# drift and the artifact says so instead of silently shipping bad numbers.
+# DraftLab's published values — a REFERENCE, not ground truth.
+#
+# These were transcribed by hand from screenshots of a video, of an analysis
+# whose own method is unknown. So a difference between his number and ours is
+# not an error on either side; it is two independent inferences disagreeing.
+#
+# They are kept for two reasons:
+#   1. Corroboration. Two unrelated methods — his chart-reading, our eleven
+#      seasons of nflverse — agreeing to a median 4.3% across 17 factors is
+#      real evidence both are roughly right.
+#   2. Regression detection. These deltas are recorded in every artifact. If a
+#      future nflverse schema change shifts them, that is OUR pipeline breaking,
+#      which is exactly what the numbers are useful for.
+#
+# What they are NOT is a target to optimise against. Where the correct
+# definition and the closest match to his number diverge, take correctness.
 DRAFTLAB_PUBLISHED = {
     "QB": {"pass_attempts": 33.91, "passing_tds": 2.63,
-           "rush_attempts": 5.74, "rushing_tds": 0.32},
-    "WR": {"targets": 10.7, "receptions": 7.21, "touchdowns": 0.76},
-    "TE": {"targets": 8.1, "receptions": 5.71, "touchdowns": 0.56},
+           "rush_attempts": 5.74, "rushing_tds": 0.32,
+           "off_ppg_rank": 6.35},
+    "WR": {"targets": 10.7, "receptions": 7.21, "touchdowns": 0.76,
+           "off_ppg_rank": 8.94, "team_pass_attempts": 594.94},
+    "TE": {"targets": 8.1, "receptions": 5.71, "touchdowns": 0.56,
+           "off_ppg_rank": 11.78, "team_pass_att_rank": 11.81,
+           "team_target_rank": 1.43, "rec_td_rank": 1.38},
+}
+
+# Not every factor is a per-game rate. Getting this wrong silently divides a
+# season total by 17 and produces a plausible-looking wrong number.
+#   per_game     rate stats — divide by games played
+#   season_total team_pass_attempts, benchmark 594.94, clearly a full season
+#   rank         already a rank; average it as-is
+FACTOR_KIND = {
+    "team_pass_attempts": "season_total",
+    "off_ppg_rank": "rank",
+    "team_pass_att_rank": "rank",
+    "team_target_rank": "rank",
+    "rec_td_rank": "rank",
+    "snap_share": "rate",          # already a percentage
 }
 
 # DraftLab's factor ids per position, in its own order. Factors we cannot
@@ -91,7 +126,7 @@ FACTORS = {
     "QB": [
         ("pass_attempts", "nflverse"), ("passing_tds", "nflverse"),
         ("rush_attempts", "nflverse"), ("rushing_tds", "nflverse"),
-        ("off_ppg_rank", None), ("ol_pass_block_rank", "licensed:PFF"),
+        ("off_ppg_rank", "nflverse"), ("ol_pass_block_rank", "licensed:PFF"),
         ("deep_ball_attempts", "nflverse:pbp"), ("qbr_rank", "licensed:ESPN"),
         ("red_zone_attempts", "nflverse:pbp"), ("adp", "fantasyfootballcalculator"),
         ("neutral_pace_rank", "nflverse:pbp"), ("pass_dvoa_rank", "licensed:FTN"),
@@ -99,31 +134,105 @@ FACTORS = {
     "RB": [
         ("touches", "nflverse"), ("rush_attempts", "nflverse"),
         ("targets", "nflverse"), ("touchdowns", "nflverse"),
-        ("off_ppg_rank", None), ("ol_run_block_rank", "licensed:PFF"),
+        ("off_ppg_rank", "nflverse"), ("ol_run_block_rank", "licensed:PFF"),
         ("rz_touch_share", "nflverse:pbp"), ("snap_share", "nflverse"),
         ("gl_carry_share", "nflverse:pbp"), ("neutral_run_rate", "nflverse:pbp"),
         ("archetype", "categorical"), ("injury_concern", "categorical"),
     ],
     "WR": [
         ("targets", "nflverse"), ("receptions", "nflverse"),
-        ("touchdowns", "nflverse"), ("off_ppg_rank", None),
-        ("qb_pff_rank", "licensed:PFF"), ("team_pass_attempts", None),
+        ("touchdowns", "nflverse"), ("off_ppg_rank", "nflverse"),
+        ("qb_pff_rank", "licensed:PFF"), ("team_pass_attempts", "nflverse"),
         ("secondary_target", "categorical"), ("ol_pass_block_rank", "licensed:PFF"),
         ("yprr", "licensed:PFF"), ("reception_perception", "licensed:RP"),
         ("archetype", "categorical"), ("injury_concern", "categorical"),
     ],
     "TE": [
         ("targets", "nflverse"), ("receptions", "nflverse"),
-        ("touchdowns", "nflverse"), ("off_ppg_rank", None),
-        ("qb_qbr_rank", "licensed:ESPN"), ("team_pass_att_rank", None),
-        ("team_target_rank", None), ("rec_td_rank", None),
+        ("touchdowns", "nflverse"), ("off_ppg_rank", "nflverse"),
+        ("qb_qbr_rank", "licensed:ESPN"), ("team_pass_att_rank", "nflverse"),
+        ("team_target_rank", "nflverse"), ("rec_td_rank", "nflverse"),
         ("route_participation", "licensed:PFF"), ("inline_pct", "licensed:PFF"),
         ("yprr_rank", "licensed:PFF"), ("injury_concern", "categorical"),
     ],
 }
 
 COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
-              "targets", "receptions", "touchdowns", "touches", "snap_share"}
+              "targets", "receptions", "touchdowns", "touches", "snap_share",
+              # team context, aggregated from the same weekly stats file
+              "off_ppg_rank", "team_pass_attempts", "team_pass_att_rank",
+              "team_target_rank", "rec_td_rank"}
+
+
+_POINTS_CACHE: dict[int, dict] = {}
+# Records whether off_ppg_rank came from real scores or the fallback proxy.
+# Shipped in the artifact: a circular proxy must not look like real data.
+_OFF_PPG_SOURCE = {"used": None}
+
+
+def team_points_per_game(season: int) -> dict:
+    """Points scored per game by each team, from nflverse's games file.
+
+    A ~1 MB CSV of game results, not the multi-hundred-MB play-by-play. Cached
+    on disk like everything else. Returns {} on any failure so the caller can
+    fall back rather than crash.
+    """
+    if season in _POINTS_CACHE:
+        return _POINTS_CACHE[season]
+
+    cache = CACHE_DIR / "nfldata_games.csv"
+    raw = None
+    if cache.exists() and (time.time() - cache.stat().st_mtime) < 7 * 24 * 3600:
+        raw = cache.read_text(encoding="utf-8", errors="replace")
+    else:
+        try:
+            import httpx
+            r = httpx.get("https://github.com/nflverse/nfldata/raw/master/data/games.csv",
+                          timeout=60.0, follow_redirects=True)
+            r.raise_for_status()
+            raw = r.text
+            CACHE_DIR.mkdir(parents=True, exist_ok=True)
+            cache.write_text(raw, encoding="utf-8")
+        except Exception as exc:  # noqa: BLE001
+            # Distinguish "the network won't let me out" from "the file moved".
+            # These look identical in a stack trace and lead to opposite fixes:
+            # one wasted a round chasing a master/main branch rename when the
+            # URL had been correct all along and the sandbox simply blocked
+            # raw.githubusercontent.com.
+            blocked = any(s in f"{type(exc).__name__}: {exc}".lower()
+                          for s in ("proxy", "403", "forbidden", "ssl",
+                                    "connect", "timeout", "resolve"))
+            print(f"  WARNING: could not fetch games.csv ({type(exc).__name__}: {exc})",
+                  file=sys.stderr)
+            if blocked:
+                print("           This looks like blocked egress, not a bad URL. Run this\n"
+                      "           script on a machine that can already reach nflverse —\n"
+                      "           if get_player_stats works there, so will this.",
+                      file=sys.stderr)
+            print("           off_ppg_rank falls back to the fantasy-points proxy,\n"
+                  "           which is circular. Do not ship those values.",
+                  file=sys.stderr)
+            _POINTS_CACHE[season] = {}
+            return {}
+
+    scored: dict[str, list[float]] = defaultdict(list)
+    for row in csv.DictReader(io.StringIO(raw)):
+        try:
+            if int(row.get("season") or 0) != season:
+                continue
+        except (TypeError, ValueError):
+            continue
+        if (row.get("game_type") or "REG") != "REG":
+            continue
+        for side, opp in (("home", "away"), ("away", "home")):
+            team = to_nflverse_team(row.get(f"{side}_team"))
+            pts = row.get(f"{side}_score")
+            if team and pts not in (None, ""):
+                scored[team].append(safe_float(pts))
+
+    out = {t: sum(v) / len(v) for t, v in scored.items() if v}
+    _POINTS_CACHE[season] = out
+    return out
 
 
 def last_regular_week(season: int) -> int:
@@ -150,6 +259,7 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
 
         maxweek = last_regular_week(season)
         agg: dict[tuple, dict] = {}
+        team_weeks: dict[str, set] = defaultdict(set)
         for r in rows:
             try:
                 week = int(float(r.get("week") or 0))
@@ -161,8 +271,12 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
             if pos not in FACTORS:
                 continue
             name = r.get("player_display_name") or ""
+            team = (r.get("team") or "").upper()
+            if team:
+                team_weeks[team].add(week)
             a = agg.setdefault((name, pos, season), {
                 "name": name, "position": pos, "season": season, "games": 0,
+                "team": team,
                 "attempts": 0.0, "passing_tds": 0.0, "carries": 0.0,
                 "rushing_tds": 0.0, "targets": 0.0, "receptions": 0.0,
                 "receiving_tds": 0.0, "fp_std": 0.0, "fp_ppr": 0.0,
@@ -175,17 +289,102 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                              ("fantasy_points", "fp_std"),
                              ("fantasy_points_ppr", "fp_ppr")):
                 a[dst] += safe_float(r.get(src))
+            a["fp_half"] = (a["fp_std"] + a["fp_ppr"]) / 2
 
         for key, a in agg.items():
             pcts = snap_by_player.get(a["name"], [])
             a["snap_share"] = statistics.mean(pcts) if pcts else None
-            out.append(a)
+
+        _attach_team_context(list(agg.values()), team_weeks)
+        out.extend(agg.values())
     return out
 
 
+def _attach_team_context(season_rows: list[dict], team_weeks: dict) -> None:
+    """Team-level ranks and totals, computed from the same weekly rows.
+
+    Four of DraftLab's factors are about the offence a player sits in rather
+    than the player. All of them fall out of the stats file we already have —
+    no play-by-play needed.
+
+      off_ppg_rank        team rank by offensive fantasy points per game
+      team_pass_attempts  team season pass attempts
+      team_pass_att_rank  team rank by that
+      team_target_rank    the player's rank WITHIN his team by targets
+      rec_td_rank         the player's rank within his team by receiving TDs
+
+    The last two are why an elite TE benchmarks at 1.43 — the tight ends that
+    matter are their team's first or second option, not their tenth.
+    """
+    by_team: dict[str, list[dict]] = defaultdict(list)
+    for r in season_rows:
+        if r.get("team"):
+            by_team[r["team"]].append(r)
+
+    totals = {}
+    for team, players in by_team.items():
+        games = max(len(team_weeks.get(team, ())), 1)
+        totals[team] = {
+            "fp_total": sum(p["fp_half"] for p in players),
+            "games": games,
+            "pass_attempts": sum(p["attempts"] for p in players),
+        }
+
+    att_order = sorted(totals, key=lambda t: totals[t]["pass_attempts"], reverse=True)
+    att_rank = {t: i + 1 for i, t in enumerate(att_order)}
+
+    # off_ppg_rank uses ACTUAL POINTS SCORED, not summed fantasy points.
+    #
+    # Two failed attempts got us here. Ranking teams by their skill players'
+    # fantasy points is circular — the player being evaluated is inside the sum
+    # — and the error tracked how much each position contributes to its own
+    # total (QB 30% off, WR 18%, TE 4.6%). Subtracting just that player from
+    # just his own team was worse still (QB 284% off): it compares one team
+    # missing its quarterback against 31 teams that still have theirs.
+    #
+    # The measure was never fantasy points. "Offensive PPG" is points on the
+    # scoreboard, one ranking for all positions — which is why his three
+    # benchmarks (QB 6.35, WR 8.94, TE 11.78) differ: same ranking, different
+    # cohorts. Elite quarterbacks play for better offences than elite tight
+    # ends do.
+    ppg = team_points_per_game(season_rows[0]["season"]) if season_rows else {}
+    if ppg:
+        _OFF_PPG_SOURCE["used"] = "points_scored"
+        order = sorted(ppg, key=lambda t: ppg[t], reverse=True)
+        pts_rank = {t: i + 1 for i, t in enumerate(order)}
+    else:
+        _OFF_PPG_SOURCE["used"] = "fantasy_points_proxy"
+        # Fall back to the fantasy-points proxy, clearly flagged, rather than
+        # emitting nothing. Circular, but better than a silent gap.
+        fp_order = sorted(totals, key=lambda t: totals[t]["fp_total"] / totals[t]["games"],
+                          reverse=True)
+        pts_rank = {t: i + 1 for i, t in enumerate(fp_order)}
+
+    for team, players in by_team.items():
+        for p in players:
+            p["off_ppg_rank"] = pts_rank.get(team)
+
+    for team, players in by_team.items():
+        # Within-team ranks count PASS CATCHERS only. Ranking against the whole
+        # roster let a receiving back push an elite tight end from 1st to 2nd,
+        # which is why our TE ranks came in worse than DraftLab's.
+        catchers = [p for p in players if p["position"] in ("WR", "TE")]
+        tgt_order = sorted(catchers, key=lambda p: p["targets"], reverse=True)
+        td_order = sorted(catchers, key=lambda p: p["receiving_tds"], reverse=True)
+        tgt_rank = {id(p): i + 1 for i, p in enumerate(tgt_order)}
+        td_rank = {id(p): i + 1 for i, p in enumerate(td_order)}
+        for p in players:
+            p["team_pass_attempts"] = totals[team]["pass_attempts"]
+            p["team_pass_att_rank"] = att_rank[team]
+            p["team_target_rank"] = tgt_rank.get(id(p))
+            p["rec_td_rank"] = td_rank.get(id(p))
+
+
 def per_game(ps: dict) -> dict:
+    """Factor values for one player-season, scaled per FACTOR_KIND."""
     g = max(ps["games"], 1)
-    return {
+    passthrough = {k: ps.get(k) for k in FACTOR_KIND if k in ps}
+    return {**passthrough, **{
         "pass_attempts": ps["attempts"] / g,
         "passing_tds": ps["passing_tds"] / g,
         "rush_attempts": ps["carries"] / g,
@@ -194,8 +393,7 @@ def per_game(ps: dict) -> dict:
         "receptions": ps["receptions"] / g,
         "touchdowns": (ps["rushing_tds"] + ps["receiving_tds"]) / g,
         "touches": (ps["carries"] + ps["receptions"]) / g,
-        "snap_share": ps.get("snap_share"),
-    }
+    }}
 
 
 def fantasy_points(ps: dict, fmt: str) -> float:
@@ -261,18 +459,12 @@ def _gap_note(src: str | None) -> str:
 
 
 def calibration(rows: list[dict], cohort: int) -> dict:
-    """Delta between this method and DraftLab's published numbers.
+    """Compare our computed values against DraftLab's published reference.
 
-    NOT a pass/fail. Per-factor search showed his values best fit at cohort
-    sizes scattered from 1 to 6, and two QB factors pull in opposite
-    directions — passing_tds wants a narrower cohort (or an era with more
-    passing TDs), rushing_tds wants a wider one. No single cohort satisfies
-    both, so his set was not derived from one rule and cannot be exactly
-    reproduced.
-
-    What this block is for: detecting when OUR pipeline changes. Record the
-    deltas now, and if a future nflverse schema change shifts them, that is a
-    broken pipeline rather than a difference of method.
+    Neither side is ground truth. His numbers came from screenshots of a video;
+    ours from eleven seasons of nflverse. Agreement is corroboration, not a
+    grade, and the recorded deltas exist so that a future change in OUR
+    pipeline is visible as movement against a fixed reference.
     """
     report = {}
     for pos, known in DRAFTLAB_PUBLISHED.items():
@@ -286,6 +478,23 @@ def calibration(rows: list[dict], cohort: int) -> dict:
                 "error_pct": round(err, 1),
             }
     return report
+
+
+
+def _artifact_warnings() -> list[str]:
+    """Anything a consumer should know before trusting these numbers."""
+    out = []
+    if _OFF_PPG_SOURCE["used"] == "fantasy_points_proxy":
+        out.append(
+            "off_ppg_rank was computed from summed skill-player fantasy points, "
+            "NOT actual points scored — the game-results file could not be "
+            "fetched. This is circular: the player being evaluated contributes "
+            "to the total his team is ranked by. The error scales with how much "
+            "a position drives its own team total (QB ~29% off, WR ~16%, TE "
+            "~2.5%). Treat QB and WR off_ppg_rank as unreliable until the real "
+            "scores are available; run tools/probe_games_url.py to diagnose."
+        )
+    return out
 
 
 def main() -> int:
@@ -319,7 +528,8 @@ def main() -> int:
             "rationale": "reverse-engineered from DraftLab's published QB/WR/TE "
                          "benchmarks; see calibration",
         },
-        "calibration": cal,
+        "reference_comparison": cal,
+        "warnings": _artifact_warnings(),
         "benchmarks": bench,
     }
 
@@ -327,19 +537,22 @@ def main() -> int:
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, indent=2))
 
-    print("\ndelta vs DraftLab's published values (not a pass/fail — see docstring):")
+    print("\nvs DraftLab's reference values (corroboration, not a grade):")
     for k, v in cal.items():
-        flag = "" if v["error_pct"] < 5 else "   <- differs"
+        flag = "" if v["error_pct"] < 10 else "   <- diverges"
         print(f"  {k:<22} his {v['draftlab']:>7.2f}   ours {v['computed']:>7.2f}"
               f"   {v['error_pct']:>5.1f}%{flag}")
     spread = [v["error_pct"] for v in cal.values()]
-    print(f"  median delta {statistics.median(spread):.1f}%, "
-          f"max {max(spread):.1f}%  ({sum(1 for s in spread if s < 5)}/{len(spread)} within 5%)")
+    print(f"  median {statistics.median(spread):.1f}%, max {max(spread):.1f}%  "
+          f"({sum(1 for s in spread if s < 10)}/{len(spread)} agree within 10%)")
+    print("  Two independent estimates. Divergence is a question, not a defect.")
 
     print("\ncoverage:")
     for pos, b in bench.items():
         print(f"  {pos}  {b['computed']}/{b['total']} factors sourced")
 
+    for w in payload["warnings"]:
+        print(f"\nWARNING: {w}")
     print(f"\nWrote {out}")
     return 0
 

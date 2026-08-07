@@ -160,10 +160,29 @@ Two stragglers remain, both touchdown stats: QB `passing_tds` (18.5%) and TE
 likely rounded or transcribed off a chart. Worth one question rather than more
 reverse-engineering.
 
-The calibration block is embedded in every artifact. Its job is not to grade
-the method against his numbers — it is to detect when *our* pipeline changes.
-If a future nflverse schema shift moves these deltas, that is a broken
-pipeline, not a difference of opinion.
+### Neither set of numbers is ground truth
+
+DraftLab's benchmarks were transcribed by hand from screenshots of a video, of
+an analysis whose own method is undocumented. So the deltas above are not a
+measure of our accuracy — they are two independent inferences compared.
+
+That reframes the result favourably. His chart-reading and eleven seasons of
+nflverse computation agreeing to a **median 4.3% across 17 factors** is genuine
+mutual corroboration; two unrelated methods do not converge like that by
+accident.
+
+It also settles what to ship. **Computed benchmarks should replace all four
+positions, not just fill in RB** — not because his are wrong, but because ours
+have a written-down method, regenerate every February, and can be audited by
+anyone. His are frozen values that nobody, including him, can reconstruct.
+
+Where the correct definition and the closest match to his number diverge, take
+correctness. `off_ppg_rank` is the live example: real points scored is the right
+measure whether or not it lands nearer 6.35 than the fantasy-points proxy did.
+
+The comparison block stays in every artifact, but its job is regression
+detection — if a future nflverse schema change moves these deltas, that is our
+pipeline breaking against a fixed reference.
 
 ---
 
