@@ -157,19 +157,22 @@ def get_standings(league_id: str | None = None) -> list[dict]:
 
 
 @mcp.tool()
-def get_my_team(league_id: str | None = None) -> dict:
+def get_my_team(league_id: str | None = None, username: str | None = None) -> dict:
     """Your own team: roster, record, standings rank, this week's matchup, and
     next week's matchup. Resolves you by the configured Sleeper username (with
     team name and display name as fallbacks), so no roster_id is needed. Use
     this for any "my team", "my roster", "my record", or "who do I play"
-    question."""
+    question.
+
+    Pass username to resolve a different manager instead — use this whenever
+    the person asking is not the configured default user."""
     lid = _league_mod.resolve_league_id(league_id)
-    resolved = _league_mod.resolve_my_roster(lid)
+    resolved = _league_mod.resolve_my_roster(lid, username=username)
     if not resolved:
         return {
-            "error": "could not find your team in this league",
-            "tried_username": DEFAULT_USERNAME,
-            "tried_team_name": DEFAULT_TEAM_NAME,
+            "error": "could not find that team in this league",
+            "tried_username": username or DEFAULT_USERNAME,
+            "tried_team_name": None if username else DEFAULT_TEAM_NAME,
             "league_id": lid,
         }
     players = _players.load_players()
@@ -204,13 +207,19 @@ def scout_team(team_name_or_manager: str, league_id: str | None = None) -> dict:
 
 
 @mcp.tool()
-def get_my_roster_id(league_id: str | None = None) -> dict:
+def get_my_roster_id(league_id: str | None = None, username: str | None = None) -> dict:
     """Resolve the configured user to their roster_id and team name in the
-    league. Useful when another tool needs an explicit roster_id."""
+    league. Useful when another tool needs an explicit roster_id.
+
+    Pass username to resolve a different manager instead."""
     lid = _league_mod.resolve_league_id(league_id)
-    resolved = _league_mod.resolve_my_roster(lid)
+    resolved = _league_mod.resolve_my_roster(lid, username=username)
     if not resolved:
-        return {"error": "could not resolve your team", "league_id": lid}
+        return {
+            "error": "could not resolve that team",
+            "tried_username": username or DEFAULT_USERNAME,
+            "league_id": lid,
+        }
     return {
         "roster_id": resolved["roster"].get("roster_id"),
         "team_name": resolved["owner"].get("team_name"),
@@ -1008,6 +1017,7 @@ def get_team_offense_crowding(
 def score_player(
     player_name: str,
     league_id: str | None = None,
+    username: str | None = None,
 ) -> dict:
     """Composite dynasty player score using your personal weighting model:
       30% FantasyCalc trade value
@@ -1018,6 +1028,9 @@ def score_player(
       10% offensive context (OC tier + usage crowding)
     Returns a 0-100 score with a full breakdown of each component.
     Clearly labels whether stats are current-season or historical.
+
+    The team-fit component is scored against the configured user's roster.
+    Pass username to score fit against a different manager's roster instead.
     Sources: FantasyCalc + nflverse + playcaller_tiers.json + Sleeper."""
     lid = _league_mod.resolve_league_id(league_id)
     season_used, season_label = _offense.stats_season_with_label()
@@ -1075,7 +1088,7 @@ def score_player(
     fit_score = 50.0  # neutral default
     fit_detail: dict = {}
     try:
-        my_roster = _league_mod.resolve_my_roster(lid)
+        my_roster = _league_mod.resolve_my_roster(lid, username=username)
         if my_roster and fc_vals:
             owned_ids = {str(pid) for pid in (my_roster["roster"].get("players") or [])}
             by_sid = {str((v.get("player") or {}).get("sleeperId")): v for v in fc_vals}

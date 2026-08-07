@@ -116,14 +116,20 @@ def resolve_my_roster(
     exact identity join. Falls back to team name, then display name, both of
     which are user-editable and can collide.
 
-    username and team_name default to the configured identity. Pass them
-    explicitly for a second manager — that is the seam multi-user support
-    grows from, without the caller needing to know about the env defaults.
+    With no arguments this resolves the configured identity. Pass either
+    argument to resolve someone else.
+
+    The two defaults apply together or not at all, deliberately. Filling in
+    only the missing one would mean a caller asking for username="darknegan"
+    still carries the configured team name into step 2 — so a failed username
+    lookup would quietly return the *configured* user's roster instead of
+    nothing. Wrong data that looks right, which is the failure mode worth
+    engineering against.
 
     Returns {roster, owner, matched_by} or None.
     """
-    username = username if username is not None else DEFAULT_USERNAME
-    team_name = team_name if team_name is not None else DEFAULT_TEAM_NAME
+    if username is None and team_name is None:
+        username, team_name = DEFAULT_USERNAME, DEFAULT_TEAM_NAME
 
     rosters = get_json(f"/league/{lid}/rosters", cache=True) or []
     umap = user_map(lid)
