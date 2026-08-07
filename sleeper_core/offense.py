@@ -34,7 +34,7 @@ from typing import Any
 
 from .config import PLAYCALLER_TIERS_FILE, STATS_CACHE_TTL
 from .http import nflverse_csv
-from .stats import current_season
+from .stats import current_season, to_nflverse_team
 
 SKILL_POSITIONS = {"WR", "RB", "TE", "QB"}
 
@@ -118,12 +118,17 @@ def safe_float(val: Any, default: float = 0.0) -> float:
 
 
 def team_skill_rows(team: str, season: str) -> list[dict]:
-    """Every weekly stat row for skill-position players on one team."""
+    """Every weekly stat row for skill-position players on one team.
+
+    Normalises the abbreviation first — a caller passing Sleeper's "LAR" would
+    otherwise match nothing in nflverse, which writes the Rams as "LA".
+    """
+    wanted = to_nflverse_team(team)
     rows = nflverse_csv("stats_player", f"stats_player_week_{season}.csv",
                         ttl=STATS_CACHE_TTL)
     return [
         r for r in rows
-        if r.get("team", "").upper() == team.upper()
+        if r.get("team", "").upper() == wanted
         and r.get("position") in SKILL_POSITIONS
     ]
 

@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "captured_at": "2026-08-07 10:57:08",
+    "captured_at": "2026-08-07 14:17:44",
     "case_count": 62,
     "fixtures": {
       "draft_id": "1312218810626887680",
@@ -199,7 +199,10 @@
               "play_caller": "str",
               "play_caller_notes": "str",
               "play_caller_role": "str",
-              "play_caller_tier": "number"
+              "play_caller_tier": "number",
+              "target_share_std": "number",
+              "team_hhi": "number",
+              "usage_rank": "number"
             },
             "score": "number",
             "weight": "str"

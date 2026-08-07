@@ -43,6 +43,36 @@ NUMERIC = {
 }
 
 
+# Sleeper and nflverse disagree on some team abbreviations. The live one is the
+# Rams: Sleeper says LAR, nflverse says LA. Querying nflverse with "LAR" matched
+# nothing and returned an empty result — which custom_score_player then treated
+# as "no crowding data" and silently scored at the neutral default, so every
+# Rams player got a quietly neutered offensive-context component.
+#
+# The rest are relocation and style variants included so a caller typing any
+# common form gets an answer rather than silence.
+NFLVERSE_TEAM_ALIASES = {
+    "LAR": "LA",   # Rams — the one that actually bites
+    "STL": "LA",
+    "OAK": "LV",
+    "LVR": "LV",
+    "SD": "LAC",
+    "SDG": "LAC",
+    "JAC": "JAX",
+    "WSH": "WAS",
+    "ARZ": "ARI",
+    "BLT": "BAL",
+    "CLV": "CLE",
+    "HST": "HOU",
+}
+
+
+def to_nflverse_team(team: str | None) -> str:
+    """Normalise a team abbreviation to the form nflverse files use."""
+    up = (team or "").strip().upper()
+    return NFLVERSE_TEAM_ALIASES.get(up, up)
+
+
 def current_season() -> str:
     """The active NFL season per Sleeper's state endpoint."""
     state = get_json(f"/state/{SPORT}", cache=True) or {}
@@ -170,7 +200,7 @@ def depth_chart(team: str, position: str | None = None, season: str | None = Non
     One team's rows are a rounding error by comparison.
     """
     season = season or current_season()
-    team_up = team.strip().upper()
+    team_up = to_nflverse_team(team)
 
     # The team column differs by schema, and we do not know which schema the
     # file uses until we have seen a row — so the predicate checks both. Only

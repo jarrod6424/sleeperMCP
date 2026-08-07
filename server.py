@@ -933,7 +933,7 @@ def get_injuries(
     if not rows:
         return {"error": "no injury data", "season": season}
 
-    team_up = team.strip().upper() if team else None
+    team_up = _stats.to_nflverse_team(team) if team else None
     filtered = [
         r for r in rows
         if team_up is None or r.get("team", "").upper() == team_up
