@@ -97,8 +97,8 @@ MEM_TTL = 3600.0  # short-lived in-process cache, avoids hammering within a sess
 # Bundled data
 # --------------------------------------------------------------------------
 
-OC_TIERS_FILE = Path(
-    os.environ.get("SLEEPER_OC_TIERS_FILE", ROOT_DIR / "oc_tiers.json")
+PLAYCALLER_TIERS_FILE = Path(
+    os.environ.get("SLEEPER_PLAYCALLER_TIERS_FILE", ROOT_DIR / "playcaller_tiers.json")
 )
 
 # --------------------------------------------------------------------------

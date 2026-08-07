@@ -46,7 +46,7 @@ from sleeper_core.config import (
     FC_SOURCE,
     INJURY_CACHE_TTL,
     NFLVERSE_SOURCE,
-    OC_TIERS_FILE,
+    PLAYCALLER_TIERS_FILE,
     SPORT,
     STATS_CACHE_TTL,
 )
@@ -100,13 +100,14 @@ _current_season = _stats.current_season
 _coerce = _stats.coerce
 _match_player = _stats.match_player
 
-_load_oc_tiers = _offense.load_oc_tiers
+_load_playcaller_tiers = _offense.load_playcaller_tiers
+_playcaller_tiers_meta = _offense.playcaller_tiers_meta
 _stats_season_with_label = _offense.stats_season_with_label
 _safe_float = _offense.safe_float
 _team_skill_rows = _offense.team_skill_rows
 _crowding_analysis = _offense.crowding_analysis
 
-_OC_TIERS_FILE = OC_TIERS_FILE
+_PLAYCALLER_TIERS_FILE = PLAYCALLER_TIERS_FILE
 
 
 # --------------------------------------------------------------------------
@@ -1018,11 +1019,11 @@ def get_team_offense_crowding(
     """Analyze how a team distributes offensive touches across skill positions.
     Shows each player's average target share, week-to-week consistency, and
     usage rank. Also includes team HHI (target concentration) and the OC's
-    tier from your oc_tiers.json config. Low target share variance = player
+    tier from your playcaller_tiers.json config. Low target share variance = player
     has a consistent role. High HHI = targets concentrated in 1-2 players
     (crowded for others). Use this to assess whether a player has a reliable,
     clearly defined role vs. competing for opportunities.
-    Source: nflverse (MIT licensed) + oc_tiers.json (user-maintained)."""
+    Source: nflverse (MIT licensed) + playcaller_tiers.json (user-maintained)."""
     season_used, season_label = _stats_season_with_label() if not season else (season, season)
     if season:
         season_used, season_label = season, season
@@ -1031,22 +1032,25 @@ def get_team_offense_crowding(
     if not analysis:
         return {"error": "no data found", "team": team, "season": season_used}
 
-    oc_tiers = _load_oc_tiers()
-    oc_info = oc_tiers.get(team.upper(), {})
+    tiers = _load_playcaller_tiers()
+    pc_info = tiers.get(team.upper(), {})
 
     return {
         "team": team.upper(),
         "season": season_label,
-        "oc": {
-            "name": oc_info.get("oc", "unknown — update oc_tiers.json"),
-            "tier": oc_info.get("tier", 3),
-            "notes": oc_info.get("notes", ""),
+        "play_caller": {
+            "name": pc_info.get("play_caller", "unknown — update playcaller_tiers.json"),
+            "role": pc_info.get("role"),
+            "tier": pc_info.get("tier", 3),
+            "notes": pc_info.get("notes", ""),
+            **({"config": _playcaller_tiers_meta()}
+               if _playcaller_tiers_meta().get("stale") else {}),
         },
         "team_concentration": {
             "hhi": analysis["team_hhi"],
             "interpretation": analysis["concentration"],
         },
-        "source": f"{NFLVERSE_SOURCE} + oc_tiers.json",
+        "source": f"{NFLVERSE_SOURCE} + playcaller_tiers.json",
         "skill_players": analysis["players"],
     }
 
@@ -1065,7 +1069,7 @@ def score_player(
       10% offensive context (OC tier + usage crowding)
     Returns a 0-100 score with a full breakdown of each component.
     Clearly labels whether stats are current-season or historical.
-    Sources: FantasyCalc + nflverse + oc_tiers.json + Sleeper."""
+    Sources: FantasyCalc + nflverse + playcaller_tiers.json + Sleeper."""
     lid = _league(league_id)
     season_used, season_label = _stats_season_with_label()
 
@@ -1256,10 +1260,10 @@ def score_player(
     crowding_score = 50.0
     oc_detail: dict = {}
     if player_team:
-        oc_tiers = _load_oc_tiers()
-        oc_info = oc_tiers.get(player_team.upper(), {})
-        oc_tier = oc_info.get("tier", 3)
-        oc_score = round((oc_tier / 5) * 100, 1)
+        tiers = _load_playcaller_tiers()
+        pc_info = tiers.get(player_team.upper(), {})
+        pc_tier = pc_info.get("tier", 3)
+        oc_score = round((pc_tier / 5) * 100, 1)
 
         analysis = _crowding_analysis(player_team.upper(), season_used)
         if analysis:
@@ -1272,9 +1276,15 @@ def score_player(
                 oc_detail["usage_rank"] = player_entry["usage_rank"]
                 oc_detail["target_share_std"] = player_entry["target_share_std"]
                 oc_detail["team_hhi"] = analysis["team_hhi"]
-        oc_detail["oc_name"] = oc_info.get("oc", "unknown")
-        oc_detail["oc_tier"] = oc_tier
-        oc_detail["oc_notes"] = oc_info.get("notes", "")
+        oc_detail["play_caller"] = pc_info.get("play_caller", "unknown")
+        oc_detail["play_caller_role"] = pc_info.get("role")
+        oc_detail["play_caller_tier"] = pc_tier
+        oc_detail["play_caller_notes"] = pc_info.get("notes", "")
+        # 10% of the composite rides on a hand-maintained file. Say so when
+        # it is old, rather than letting a stale tier look authoritative.
+        _pc_meta = _playcaller_tiers_meta()
+        if _pc_meta.get("stale"):
+            result.setdefault("warnings", []).append(_pc_meta["warning"])
 
     offensive_context_score = round(0.5 * oc_score + 0.5 * crowding_score, 1)
     result["components"]["offensive_context"] = {
@@ -1303,7 +1313,7 @@ def score_player(
     )
     result["player_team"] = player_team
     result["player_position"] = player_pos
-    result["sources"] = f"FantasyCalc + {NFLVERSE_SOURCE} + oc_tiers.json + Sleeper"
+    result["sources"] = f"FantasyCalc + {NFLVERSE_SOURCE} + playcaller_tiers.json + Sleeper"
 
     return result
 

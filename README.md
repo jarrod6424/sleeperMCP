@@ -180,7 +180,7 @@ custom connector.
 | `SLEEPER_TEAM_NAME` | `Pine Bluff Escapees` | Fallback for matching your team |
 | `SLEEPER_SPORT` | `nfl` | Sport |
 | `SLEEPER_CACHE_DIR` | `~/.cache/sleeper-mcp` | Cache location. **Set explicitly on any host with a non-writable home** |
-| `SLEEPER_OC_TIERS_FILE` | `./oc_tiers.json` | Override the bundled OC tier file |
+| `SLEEPER_PLAYCALLER_TIERS_FILE` | `./playcaller_tiers.json` | Override the bundled play-caller tier file |
 | `MCP_HTTP` | unset | Set for Streamable HTTP instead of stdio |
 | `HOST` / `PORT` | `0.0.0.0` / `8000` | HTTP bind address |
 | `MCP_WARM` | unset | Warm the player map at import. **Set on a managed host**, where the `__main__` block never runs |

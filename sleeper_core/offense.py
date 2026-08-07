@@ -17,8 +17,11 @@ Two measures:
                             of squared shares: high means one or two players
                             dominate, low means targets are spread thin.
 
-OC tiers come from oc_tiers.json, a hand-maintained file. Teams missing from it
-fall back to tier 3 with an "unknown" label rather than failing.
+Play-caller tiers come from playcaller_tiers.json, a hand-maintained file.
+It rates whoever actually calls plays, which on 15 of 32 teams is the head
+coach rather than the titled coordinator — rating the coordinator instead
+would frequently be rating someone with no say in the design. Teams missing
+from the file fall back to tier 3 rather than failing.
 """
 
 from __future__ import annotations
@@ -26,24 +29,68 @@ from __future__ import annotations
 import json
 import statistics
 from collections import defaultdict
+from datetime import date
 from typing import Any
 
-from .config import OC_TIERS_FILE, STATS_CACHE_TTL
+from .config import PLAYCALLER_TIERS_FILE, STATS_CACHE_TTL
 from .http import nflverse_csv
 from .stats import current_season
 
 SKILL_POSITIONS = {"WR", "RB", "TE", "QB"}
 
 
-def load_oc_tiers() -> dict[str, dict]:
-    """Read the hand-maintained OC tier file. Keys starting with _ are notes."""
-    if OC_TIERS_FILE.exists():
+# How long before the tier file should be treated as suspect. Coaching cycles
+# run January to March, so anything older than a full offseason is likely wrong.
+PLAYCALLER_TIERS_MAX_AGE_DAYS = 200
+
+
+def _read_tiers_file() -> dict:
+    if PLAYCALLER_TIERS_FILE.exists():
         try:
-            data = json.loads(OC_TIERS_FILE.read_text())
-            return {k: v for k, v in data.items() if not k.startswith("_")}
+            return json.loads(PLAYCALLER_TIERS_FILE.read_text())
         except (json.JSONDecodeError, OSError):
             pass
     return {}
+
+
+def load_playcaller_tiers() -> dict[str, dict]:
+    """Read the hand-maintained tier file. Keys starting with _ are notes."""
+    return {k: v for k, v in _read_tiers_file().items() if not k.startswith("_")}
+
+
+def playcaller_tiers_meta() -> dict:
+    """Age and coverage of the tier file, so staleness can be surfaced.
+
+    This file has silently gone stale twice. It is hand-maintained, nothing
+    validates it, and a departed play-caller produces a plausible-looking tier
+    rather than an error — the worst failure mode there is. Reporting its age
+    alongside the data makes that visible instead of invisible.
+    """
+    raw = _read_tiers_file()
+    teams = {k: v for k, v in raw.items() if not k.startswith("_")}
+    updated = raw.get("_updated")
+
+    age_days = None
+    if updated:
+        try:
+            age_days = (date.today() - date.fromisoformat(updated)).days
+        except ValueError:
+            pass
+
+    meta = {
+        "updated": updated,
+        "age_days": age_days,
+        "teams_rated": len(teams),
+        "stale": age_days is None or age_days > PLAYCALLER_TIERS_MAX_AGE_DAYS,
+    }
+    if meta["stale"]:
+        meta["warning"] = (
+            f"playcaller_tiers.json was last reviewed {updated or 'at an unknown date'}"
+            + (f" ({age_days} days ago)" if age_days is not None else "")
+            + ". NFL play-callers turn over every January-March — 17 of 32 teams "
+              "changed in 2026. Treat these tiers as unverified until re-checked."
+        )
+    return meta
 
 
 def stats_season_with_label() -> tuple[str, str]:

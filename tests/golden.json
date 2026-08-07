@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "captured_at": "2026-08-06 23:01:12",
+    "captured_at": "2026-08-06 23:39:20",
     "case_count": 62,
     "fixtures": {
       "draft_id": "1312218810626887680",
@@ -1419,9 +1419,10 @@
       "mode": "strict",
       "tool": "get_team_offense_crowding",
       "value": {
-        "oc": {
-          "name": "unknown \u2014 update oc_tiers.json",
-          "notes": "",
+        "play_caller": {
+          "name": "Drew Petzing",
+          "notes": "Three years calling plays in Arizona, competent and adaptable. Inherits excellent personnel \u00e2\u20ac\u201d continuity matters more than invention here",
+          "role": "OC",
           "tier": 3
         },
         "season": "2025",
@@ -1617,7 +1618,7 @@
             "usage_rank": 19
           }
         ],
-        "source": "nflverse open data (MIT licensed, github.com/nflverse) + oc_tiers.json",
+        "source": "nflverse open data (MIT licensed, github.com/nflverse) + playcaller_tiers.json",
         "team": "DET",
         "team_concentration": {
           "hhi": 0.256,
@@ -10921,9 +10922,10 @@
           },
           "offensive_context": {
             "detail": {
-              "oc_name": "str",
-              "oc_notes": "str",
-              "oc_tier": "number"
+              "play_caller": "str",
+              "play_caller_notes": "str",
+              "play_caller_role": "str",
+              "play_caller_tier": "number"
             },
             "score": "number",
             "weight": "str"
@@ -11005,9 +11007,10 @@
           },
           "offensive_context": {
             "detail": {
-              "oc_name": "str",
-              "oc_notes": "str",
-              "oc_tier": "number",
+              "play_caller": "str",
+              "play_caller_notes": "str",
+              "play_caller_role": "str",
+              "play_caller_tier": "number",
               "target_share_std": "number",
               "team_hhi": "number",
               "usage_rank": "number"

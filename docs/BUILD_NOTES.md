@@ -189,7 +189,12 @@ Draft-day notes that still hold:
 
 ### Known data gaps
 
-- `oc_tiers.json` covers 11 teams. Missing ones fall back to tier 3 "unknown" — Detroit is one.
+- `playcaller_tiers.json` is hand-maintained and has no external validation. It rates
+  whoever actually calls plays — on 15 of 32 teams that's the head coach, not the titled
+  coordinator, so rating the coordinator would frequently rate someone with no say in the
+  design. A departed play-caller produces a plausible-looking tier rather than an error,
+  which is why the file carries an `_updated` date and both tools that read it warn when
+  it's older than 200 days. Coaching cycles run January to March; re-check every offseason.
 - Sleeper's projections endpoint is undocumented and unversioned. If projections break, nothing else should.
 
 ---
