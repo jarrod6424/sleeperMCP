@@ -35,14 +35,40 @@ So the benchmark is what the BEST player at the position does, which is why
 green (>= 1.05x) is rare and a genuinely good player grades yellow. The name
 was the clue: it is a Ceiling score.
 
-Over the calibrated eleven-season window, 7 of 10 published factors reproduce
-within 5% at a single cohort of 3, median delta 3.4%. Good enough to treat as
-a recovered method rather than a coincidence.
+Over the calibrated eleven-season window, 11 of 17 published factors agree
+within 10% at a single cohort of 3, median 4.3%.
 
-Two stragglers, both touchdown stats: QB passing_tds (18.5% off) and TE
-touchdowns (15.0%). Touchdowns are the lowest-count, noisiest factor and the
-most likely to have been rounded or read off a chart. Worth asking rather than
-reverse-engineering further.
+NEITHER SET IS GROUND TRUTH
+---------------------------
+DraftLab's numbers were transcribed by hand from screenshots of a video, of an
+analysis whose own method is undocumented. So a gap is not an error on either
+side — it is two independent inferences disagreeing, with no authority to
+appeal to. Do not tune this script to close one.
+
+That makes the agreement the result worth reporting: chart-reading and eleven
+seasons of nflverse converging to a median 4.3% across 17 factors is real
+mutual corroboration.
+
+WHAT off_ppg_rank REVEALED
+--------------------------
+Once real points scored replaced the fantasy-points proxy, the remaining gap
+lined up with how tightly a position drives its own team's score:
+
+    TE   11.78 vs 11.76    0.2%     least coupled
+    WR    8.94 vs  7.82   12.6%
+    QB    6.35 vs  4.21   33.7%     most coupled
+
+TE landing at 0.2% is the single strongest corroboration in the table, and it
+rules out a broken team-context pipeline — the same code produces all three.
+The gradient instead points at cohort width: the top 3 fantasy QBs are nearly
+by definition on the league's best offenses, so a top-3 cohort ranks 4.21,
+while a wider cohort regresses toward the league mean of 16 and would land
+nearer his 6.35. Consistent with the earlier finding that his values best fit
+at cohort sizes scattered between 1 and 6.
+
+Left alone deliberately. Widening the QB cohort to hit 6.35 would fit this
+script to a hand-read number and break the one property that justifies owning
+benchmarks here: one rule, all four positions, re-derivable every February.
 """
 
 from __future__ import annotations
@@ -519,6 +545,10 @@ def main() -> int:
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": "nflverse stats_player_week + snap_counts",
         "seasons": args.seasons,
+        # Provenance, stated positively. An empty `warnings` list is only
+        # implicit evidence that the real scores were used; a reader should
+        # not have to infer where a number came from from something absent.
+        "off_ppg_rank_source": _OFF_PPG_SOURCE["used"],
         "method": {
             "cohort": f"top {args.cohort} by fantasy points in the given format, "
                       f"per season, then averaged across seasons",

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-07T22:09:39+00:00",
+  "generated_at": "2026-08-07T22:52:57+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -22,7 +22,7 @@
     "min_games": 4,
     "rationale": "reverse-engineered from DraftLab's published QB/WR/TE benchmarks; see calibration"
   },
-  "calibration": {
+  "reference_comparison": {
     "QB.pass_attempts": {
       "draftlab": 33.91,
       "computed": 34.702,
@@ -43,6 +43,11 @@
       "computed": 0.328,
       "error_pct": 2.5
     },
+    "QB.off_ppg_rank": {
+      "draftlab": 6.35,
+      "computed": 4.212,
+      "error_pct": 33.7
+    },
     "WR.targets": {
       "draftlab": 10.7,
       "computed": 10.306,
@@ -58,6 +63,16 @@
       "computed": 0.727,
       "error_pct": 4.3
     },
+    "WR.off_ppg_rank": {
+      "draftlab": 8.94,
+      "computed": 7.818,
+      "error_pct": 12.6
+    },
+    "WR.team_pass_attempts": {
+      "draftlab": 594.94,
+      "computed": 588.758,
+      "error_pct": 1.0
+    },
     "TE.targets": {
       "draftlab": 8.1,
       "computed": 7.854,
@@ -72,8 +87,29 @@
       "draftlab": 0.56,
       "computed": 0.476,
       "error_pct": 15.0
+    },
+    "TE.off_ppg_rank": {
+      "draftlab": 11.78,
+      "computed": 11.758,
+      "error_pct": 0.2
+    },
+    "TE.team_pass_att_rank": {
+      "draftlab": 11.81,
+      "computed": 13.485,
+      "error_pct": 14.2
+    },
+    "TE.team_target_rank": {
+      "draftlab": 1.43,
+      "computed": 1.515,
+      "error_pct": 5.9
+    },
+    "TE.rec_td_rank": {
+      "draftlab": 1.38,
+      "computed": 1.758,
+      "error_pct": 27.4
     }
   },
+  "warnings": [],
   "benchmarks": {
     "QB": {
       "factors": [
@@ -119,9 +155,13 @@
         },
         {
           "factor_id": "off_ppg_rank",
-          "source": null,
-          "benchmark": null,
-          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+          "source": "nflverse",
+          "benchmark": {
+            "std": 4.212,
+            "half": 4.212,
+            "ppr": 4.212
+          },
+          "note": null
         },
         {
           "factor_id": "ol_pass_block_rank",
@@ -166,7 +206,7 @@
           "note": "not freely redistributable (FTN); manual import"
         }
       ],
-      "computed": 4,
+      "computed": 5,
       "total": 12
     },
     "RB": {
@@ -213,9 +253,13 @@
         },
         {
           "factor_id": "off_ppg_rank",
-          "source": null,
-          "benchmark": null,
-          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+          "source": "nflverse",
+          "benchmark": {
+            "std": 10.424,
+            "half": 9.939,
+            "ppr": 11.424
+          },
+          "note": null
         },
         {
           "factor_id": "ol_run_block_rank",
@@ -264,7 +308,7 @@
           "note": "categorical, graded by DraftLab rather than benchmarked"
         }
       ],
-      "computed": 5,
+      "computed": 6,
       "total": 12
     },
     "WR": {
@@ -301,9 +345,13 @@
         },
         {
           "factor_id": "off_ppg_rank",
-          "source": null,
-          "benchmark": null,
-          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+          "source": "nflverse",
+          "benchmark": {
+            "std": 7.727,
+            "half": 7.818,
+            "ppr": 7.818
+          },
+          "note": null
         },
         {
           "factor_id": "qb_pff_rank",
@@ -313,9 +361,13 @@
         },
         {
           "factor_id": "team_pass_attempts",
-          "source": null,
-          "benchmark": null,
-          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+          "source": "nflverse",
+          "benchmark": {
+            "std": 589.667,
+            "half": 588.758,
+            "ppr": 588.758
+          },
+          "note": null
         },
         {
           "factor_id": "secondary_target",
@@ -354,7 +406,7 @@
           "note": "categorical, graded by DraftLab rather than benchmarked"
         }
       ],
-      "computed": 3,
+      "computed": 5,
       "total": 12
     },
     "TE": {
@@ -391,9 +443,13 @@
         },
         {
           "factor_id": "off_ppg_rank",
-          "source": null,
-          "benchmark": null,
-          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+          "source": "nflverse",
+          "benchmark": {
+            "std": 11.485,
+            "half": 11.758,
+            "ppr": 12.303
+          },
+          "note": null
         },
         {
           "factor_id": "qb_qbr_rank",
@@ -403,21 +459,33 @@
         },
         {
           "factor_id": "team_pass_att_rank",
-          "source": null,
-          "benchmark": null,
-          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+          "source": "nflverse",
+          "benchmark": {
+            "std": 15.03,
+            "half": 13.485,
+            "ppr": 13.364
+          },
+          "note": null
         },
         {
           "factor_id": "team_target_rank",
-          "source": null,
-          "benchmark": null,
-          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+          "source": "nflverse",
+          "benchmark": {
+            "std": 1.848,
+            "half": 1.515,
+            "ppr": 1.333
+          },
+          "note": null
         },
         {
           "factor_id": "rec_td_rank",
-          "source": null,
-          "benchmark": null,
-          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+          "source": "nflverse",
+          "benchmark": {
+            "std": 1.697,
+            "half": 1.758,
+            "ppr": 1.636
+          },
+          "note": null
         },
         {
           "factor_id": "route_participation",
@@ -444,7 +512,7 @@
           "note": "categorical, graded by DraftLab rather than benchmarked"
         }
       ],
-      "computed": 3,
+      "computed": 7,
       "total": 12
     }
   }
