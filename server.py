@@ -32,6 +32,7 @@ if os.environ.get("USE_OS_TRUSTSTORE"):
 
 from fastmcp import FastMCP
 
+from sleeper_core import adp as _adp
 from sleeper_core import http as _http
 from sleeper_core import league as _league_mod
 from sleeper_core import offense as _offense
@@ -798,47 +799,19 @@ def get_adp(
     limit: int = 50,
     league_id: str | None = None,
 ) -> dict:
-    """[UNOFFICIAL] Average Draft Position (ADP) from FantasyCalc, derived from
-    real fantasy drafts and matched to your league's format (PPR, superflex,
-    dynasty/redraft detected automatically). ADP is embedded in the trade-values
-    response as 'adp' — null means insufficient recent draft data for that player
-    (common in the offseason). Optionally filter by position. Source is the
-    third-party FantasyCalc API."""
+    """[UNOFFICIAL] Average Draft Position from FantasyFootballCalculator,
+    derived from real fantasy drafts and matched to your league's format
+    (superflex, dynasty and PPR level detected automatically, with a fallback
+    when the exact format has too few drafts to be meaningful). Joined to
+    FantasyCalc trade value, so you can see where the market drafts a player
+    versus what the market thinks he is worth. Optionally filter by position.
+    Sources are the third-party FantasyFootballCalculator and FantasyCalc
+    APIs."""
     lid = _league(league_id)
     fmt = _league_format(lid)
-    values = _fc_values(fmt)
-    if not values:
-        return {"error": "no data returned", "format": fmt, "source": FC_SOURCE}
-
-    pos = position.upper() if position else None
-    rows = []
-    for v in values:
-        p = v.get("player") or {}
-        adp = v.get("maybeAdp")
-        if adp is None:
-            continue
-        position_val = p.get("position")
-        if pos and position_val != pos:
-            continue
-        rows.append({
-            "name": p.get("name"),
-            "position": position_val,
-            "team": p.get("maybeTeam"),
-            "age": p.get("maybeAge"),
-            "adp": adp,
-            "value": v.get("value"),
-            "overall_rank": v.get("overallRank"),
-            "position_rank": v.get("positionRank"),
-            "sleeper_id": p.get("sleeperId"),
-        })
-
-    rows.sort(key=lambda r: r["adp"])
-    return {
-        "format": fmt,
-        "source": FC_SOURCE,
-        "note": "ADP is null for players with insufficient recent draft data (common in offseason).",
-        "players": rows[:limit],
-    }
+    season = int(_current_season())
+    return _adp.adp_rows(fmt, season, position=position, limit=limit,
+                         fc_values=_fc_values(fmt))
 
 
 # --------------------------------------------------------------------------

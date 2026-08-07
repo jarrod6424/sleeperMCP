@@ -34,6 +34,7 @@ from .config import (
     CACHE_DIR,
     DEFAULT_TIMEOUT,
     FC_BASE_URL,
+    FFC_BASE_URL,
     MEM_TTL,
     NFLVERSE_BASE,
     NFLVERSE_CACHE_TTL,
@@ -48,6 +49,8 @@ _HEADERS = {"User-Agent": USER_AGENT}
 _client = httpx.Client(base_url=BASE_URL, timeout=DEFAULT_TIMEOUT, headers=_HEADERS)
 _alt_client = httpx.Client(base_url=ALT_BASE_URL, timeout=DEFAULT_TIMEOUT, headers=_HEADERS)
 _fc_client = httpx.Client(base_url=FC_BASE_URL, timeout=DEFAULT_TIMEOUT, headers=_HEADERS)
+_ffc_client = httpx.Client(base_url=FFC_BASE_URL, timeout=DEFAULT_TIMEOUT,
+                           follow_redirects=True, headers=_HEADERS)
 _nfl_client = httpx.Client(follow_redirects=True, timeout=NFLVERSE_TIMEOUT, headers=_HEADERS)
 
 # --------------------------------------------------------------------------
@@ -108,6 +111,15 @@ def alt_get(path: str, params: list | None = None) -> Any:
 def fc_get(path: str, params: list | None = None) -> Any:
     """GET against the FantasyCalc API. Read-only."""
     resp = _fc_client.get(path, params=params)
+    if resp.status_code == 404:
+        return None
+    resp.raise_for_status()
+    return resp.json()
+
+
+def ffc_get(path: str, params: dict | None = None) -> Any:
+    """GET against the FantasyFootballCalculator ADP API. Read-only."""
+    resp = _ffc_client.get(path, params=params)
     if resp.status_code == 404:
         return None
     resp.raise_for_status()

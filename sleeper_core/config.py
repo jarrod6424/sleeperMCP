@@ -45,6 +45,17 @@ FC_BASE_URL = "https://api.fantasycalc.com"
 FC_SOURCE = "fantasycalc.com trade values (unofficial, third party)"
 
 # --------------------------------------------------------------------------
+# FantasyFootballCalculator — ADP (third party)
+# --------------------------------------------------------------------------
+# A separate source, because FantasyCalc does not serve ADP. Their response
+# carries a maybeAdp field but it is null for every player, with or without an
+# includeAdp parameter. FantasyCalc's own API walkthrough pulls ADP from here
+# instead, which is a fair signal that this is the conventional source.
+
+FFC_BASE_URL = "https://fantasyfootballcalculator.com"
+FFC_SOURCE = "fantasyfootballcalculator.com ADP (unofficial, third party)"
+
+# --------------------------------------------------------------------------
 # nflverse — open data on GitHub releases (MIT licensed)
 # --------------------------------------------------------------------------
 
@@ -66,6 +77,7 @@ CACHE_DIR = Path(
 PLAYER_CACHE_TTL = 18 * 60 * 60  # Sleeper asks for at most one fetch per day
 PROJ_CACHE_TTL = 6 * 60 * 60
 FC_CACHE_TTL = 6 * 60 * 60
+FFC_CACHE_TTL = 6 * 60 * 60
 NFLVERSE_CACHE_TTL = 6 * 60 * 60
 
 MEM_TTL = 3600.0  # short-lived in-process cache, avoids hammering within a session

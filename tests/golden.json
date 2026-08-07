@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "captured_at": "2026-08-06 15:52:38",
+    "captured_at": "2026-08-06 23:01:12",
     "case_count": 62,
     "fixtures": {
       "draft_id": "1312218810626887680",
@@ -24,17 +24,41 @@
       "mode": "shape",
       "tool": "get_adp",
       "value": {
+        "adp_format_used": "str",
+        "adp_teams": "number",
+        "adp_year": "number",
+        "drafts_sampled": "number",
         "format": {
           "isDynasty": "bool",
           "numQbs": "number",
           "numTeams": "number",
           "ppr": "number"
         },
-        "note": "str",
         "players": [
-          "<empty>"
+          {
+            "adp": "number",
+            "adp_round_pick": "str",
+            "age": "number",
+            "name": "str",
+            "overall_rank": "number",
+            "position": "str",
+            "position_rank": "number",
+            "sleeper_id": "str",
+            "team": "str",
+            "times_drafted": "number",
+            "value": "number"
+          }
         ],
-        "source": "str"
+        "sampled_between": [
+          [
+            "\"str\""
+          ]
+        ],
+        "sleeper_id_matched": "str",
+        "source": "str",
+        "unmatched_sample": [
+          "<empty>"
+        ]
       }
     },
     "analyze_trade": {
@@ -983,9 +1007,9 @@
         "last_author_id": "166666666666666666",
         "last_author_is_bot": true,
         "last_message_attachment": null,
-        "last_message_id": "1390771994114392064",
+        "last_message_id": "1391239204129742848",
         "last_message_text_map": null,
-        "last_message_time": 1785948391992,
+        "last_message_time": 1786059783541,
         "last_pinned_message_id": "1377774357559930880",
         "last_read_id": null,
         "league_id": "1312218810614300672",
@@ -8160,6 +8184,134 @@
         {
           "adds": [
             {
+              "name": "Dalton Schultz",
+              "player_id": "5001",
+              "position": "TE",
+              "team": "HOU",
+              "to_team": "awking1515"
+            }
+          ],
+          "created": 1786059783504,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "awking1515",
+              "name": "Ja'Tavion Sanders",
+              "player_id": "11600",
+              "position": "TE",
+              "team": "CAR"
+            }
+          ],
+          "roster_ids": [
+            8
+          ],
+          "status": "complete",
+          "teams": [
+            "awking1515"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1786059660527,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "awking1515",
+              "name": "MarShawn Lloyd",
+              "player_id": "11581",
+              "position": "RB",
+              "team": "GB"
+            }
+          ],
+          "roster_ids": [
+            8
+          ],
+          "status": "complete",
+          "teams": [
+            "awking1515"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1786059617550,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "awking1515",
+              "name": "Rashod Bateman",
+              "player_id": "7571",
+              "position": "WR",
+              "team": "BAL"
+            }
+          ],
+          "roster_ids": [
+            8
+          ],
+          "status": "complete",
+          "teams": [
+            "awking1515"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1786059114027,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "awking1515",
+              "name": "Joe Milton",
+              "player_id": "11557",
+              "position": "QB",
+              "team": "DAL"
+            }
+          ],
+          "roster_ids": [
+            8
+          ],
+          "status": "complete",
+          "teams": [
+            "awking1515"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [],
+          "created": 1786059101450,
+          "draft_picks": [],
+          "drops": [
+            {
+              "from_team": "awking1515",
+              "name": "Darren Waller",
+              "player_id": "2505",
+              "position": "TE",
+              "team": null
+            }
+          ],
+          "roster_ids": [
+            8
+          ],
+          "status": "complete",
+          "teams": [
+            "awking1515"
+          ],
+          "type": "free_agent",
+          "waiver_bid": null,
+          "week": 1
+        },
+        {
+          "adds": [
+            {
               "name": "Dontayvion Wicks",
               "player_id": "9486",
               "position": "WR",
@@ -9919,27 +10071,9 @@
         {
           "bench": [
             {
-              "name": "Joe Milton",
-              "player_id": "11557",
-              "position": "QB",
-              "team": "DAL"
-            },
-            {
-              "name": "MarShawn Lloyd",
-              "player_id": "11581",
-              "position": "RB",
-              "team": "GB"
-            },
-            {
               "name": "Jonathon Brooks",
               "player_id": "11583",
               "position": "RB",
-              "team": "CAR"
-            },
-            {
-              "name": "Ja'Tavion Sanders",
-              "player_id": "11600",
-              "position": "TE",
               "team": "CAR"
             },
             {
@@ -9949,10 +10083,10 @@
               "team": "LAC"
             },
             {
-              "name": "Rashod Bateman",
-              "player_id": "7571",
-              "position": "WR",
-              "team": "BAL"
+              "name": "Dalton Schultz",
+              "player_id": "5001",
+              "position": "TE",
+              "team": "HOU"
             },
             {
               "name": "Rhamondre Stevenson",
@@ -10029,9 +10163,9 @@
               "team": "BUF"
             },
             {
-              "name": "Darren Waller",
-              "player_id": "2505",
-              "position": "TE",
+              "name": "0",
+              "player_id": "0",
+              "position": null,
               "team": null
             },
             {
