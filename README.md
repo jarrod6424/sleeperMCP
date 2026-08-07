@@ -188,6 +188,28 @@ custom connector.
 
 See `.env.example`.
 
+## Artifacts
+
+```bash
+python tools/build_benchmarks.py            # -> artifacts/benchmarks.json
+python tools/build_benchmarks.py --cohort 3 --seasons 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025
+```
+
+Computes CeilingScore benchmarks for QB/RB/WR/TE from nflverse and writes a
+versioned artifact for [DraftLab](https://github.com/darknegan/fantasy-football-draft-optimizer)
+to import.
+
+The split with DraftLab: this repo owns **what the numbers are** — factors,
+benchmarks, the player-ID crosswalk. DraftLab owns **what they mean** — grading,
+archetypes, risk, scoring, strategy. See
+[docs/INTEGRATION_PROPOSAL.md](docs/INTEGRATION_PROPOSAL.md).
+
+Benchmarks are the top-1-to-3 seasonal average per position — a *ceiling*, not a
+typical value. Every artifact embeds a calibration block checking that the method
+still reproduces DraftLab's published numbers, so a broken pipeline is visible
+rather than silent. Factors that cannot be sourced are emitted as explicit nulls
+with a reason instead of being omitted.
+
 ## Tests
 
 ```bash

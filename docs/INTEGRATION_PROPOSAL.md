@@ -93,6 +93,80 @@ batch context.
 
 ---
 
+## 3b. The ownership boundary — decided 2026-08-07
+
+The scoring engine stays in DraftLab. It is a pure function over data, it needs
+app state (who has been picked, your roster, the active strategy), and putting a
+network hop in front of it would make draft night depend on a Horizon
+deployment nobody can fix at 8pm on a Sunday. It is also his model.
+
+```
+  this side   what the numbers ARE      factors, benchmarks, the ID crosswalk
+  that side   what the numbers MEAN     grading, archetypes, risk, scoring, strategy
+```
+
+**Benchmarks moved to this side** as a consequence. They are data — derived
+from nflverse, recomputed every season, produced by the same pipeline as every
+other factor value. `tools/build_benchmarks.py` emits
+`artifacts/benchmarks.json`; DraftLab imports it the same way it imports factor
+rows. When 2026 finishes, rerunning the script updates every benchmark without
+anyone touching engine code, which is the whole reason RB sat provisional for a
+season.
+
+### What the cohort turned out to be
+
+Reverse-engineered from DraftLab's own published QB/WR/TE numbers. Nine of ten
+factors reproduce within 2% at a cohort of the **top 1-3 players per season**:
+
+| | DraftLab | computed | at |
+|---|---:|---:|---|
+| WR targets | 10.70 | 10.68 | top-1 |
+| TE targets | 8.10 | 8.15 | top-2 |
+| QB pass attempts | 33.91 | 33.91 | top-5 |
+| WR receptions | 7.21 | 7.10 | top-3 |
+| TE receptions | 5.71 | 5.73 | top-3 |
+
+So the benchmark is **what the best player at the position does**, not what a
+good one does — which the name was telling us all along. Green (>= 1.05x) means
+"better than the league's best", so it is rare by design, and a genuinely strong
+player grading yellow is correct rather than a calibration error.
+
+### The window is eleven seasons, not five
+
+Testing 2015-2025 against 2021-2025 settled it:
+
+| | 5 seasons | 11 seasons |
+|---|---:|---:|
+| QB rushing TDs | 30.9% off | **2.5%** |
+| WR targets | 6.5% | 3.7% |
+| TE targets | 3.7% | 3.0% |
+| within 5% | 5 of 10 | **7 of 10** |
+
+QB rushing TDs collapsing from 31% to 2.5% is the confirmation — mobile
+quarterbacks inflate that stat in recent years, and the long window dilutes
+them. So his source used the longer history, and RB computed the same way sits
+on the same scale as his other three positions.
+
+**A correction worth recording.** On the five-year numbers it looked like his
+positions were graded at inconsistent strictness — WR against a top-1 bar, QB
+rushing TDs against a top-6 bar — which would have biased cross-position
+comparison in DraftScore. That was an artifact of the wrong window. At eleven
+seasons, seven of ten factors reproduce at a *single* cohort of 3. His set is
+internally consistent, and there is no need to replace QB/WR/TE. Add RB, leave
+the rest alone.
+
+Two stragglers remain, both touchdown stats: QB `passing_tds` (18.5%) and TE
+`touchdowns` (15.0%). Touchdowns are the lowest-count and noisiest factor, most
+likely rounded or transcribed off a chart. Worth one question rather than more
+reverse-engineering.
+
+The calibration block is embedded in every artifact. Its job is not to grade
+the method against his numbers — it is to detect when *our* pipeline changes.
+If a future nflverse schema shift moves these deltas, that is a broken
+pipeline, not a difference of opinion.
+
+---
+
 ## 4. The contract
 
 One table, already in `db/schema.sql`, unchanged:

@@ -1,0 +1,451 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-08-07T22:09:39+00:00",
+  "source": "nflverse stats_player_week + snap_counts",
+  "seasons": [
+    2015,
+    2016,
+    2017,
+    2018,
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "method": {
+    "cohort": "top 3 by fantasy points in the given format, per season, then averaged across seasons",
+    "divisor": "games in which the player appeared",
+    "regular_season_only": true,
+    "min_games": 4,
+    "rationale": "reverse-engineered from DraftLab's published QB/WR/TE benchmarks; see calibration"
+  },
+  "calibration": {
+    "QB.pass_attempts": {
+      "draftlab": 33.91,
+      "computed": 34.702,
+      "error_pct": 2.3
+    },
+    "QB.passing_tds": {
+      "draftlab": 2.63,
+      "computed": 2.144,
+      "error_pct": 18.5
+    },
+    "QB.rush_attempts": {
+      "draftlab": 5.74,
+      "computed": 5.18,
+      "error_pct": 9.8
+    },
+    "QB.rushing_tds": {
+      "draftlab": 0.32,
+      "computed": 0.328,
+      "error_pct": 2.5
+    },
+    "WR.targets": {
+      "draftlab": 10.7,
+      "computed": 10.306,
+      "error_pct": 3.7
+    },
+    "WR.receptions": {
+      "draftlab": 7.21,
+      "computed": 7.075,
+      "error_pct": 1.9
+    },
+    "WR.touchdowns": {
+      "draftlab": 0.76,
+      "computed": 0.727,
+      "error_pct": 4.3
+    },
+    "TE.targets": {
+      "draftlab": 8.1,
+      "computed": 7.854,
+      "error_pct": 3.0
+    },
+    "TE.receptions": {
+      "draftlab": 5.71,
+      "computed": 5.595,
+      "error_pct": 2.0
+    },
+    "TE.touchdowns": {
+      "draftlab": 0.56,
+      "computed": 0.476,
+      "error_pct": 15.0
+    }
+  },
+  "benchmarks": {
+    "QB": {
+      "factors": [
+        {
+          "factor_id": "pass_attempts",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 34.702,
+            "half": 34.702,
+            "ppr": 34.702
+          },
+          "note": null
+        },
+        {
+          "factor_id": "passing_tds",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 2.144,
+            "half": 2.144,
+            "ppr": 2.144
+          },
+          "note": null
+        },
+        {
+          "factor_id": "rush_attempts",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 5.18,
+            "half": 5.18,
+            "ppr": 5.18
+          },
+          "note": null
+        },
+        {
+          "factor_id": "rushing_tds",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 0.328,
+            "half": 0.328,
+            "ppr": 0.328
+          },
+          "note": null
+        },
+        {
+          "factor_id": "off_ppg_rank",
+          "source": null,
+          "benchmark": null,
+          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+        },
+        {
+          "factor_id": "ol_pass_block_rank",
+          "source": "licensed:PFF",
+          "benchmark": null,
+          "note": "not freely redistributable (PFF); manual import"
+        },
+        {
+          "factor_id": "deep_ball_attempts",
+          "source": "nflverse:pbp",
+          "benchmark": null,
+          "note": "available from nflverse play-by-play; not yet implemented"
+        },
+        {
+          "factor_id": "qbr_rank",
+          "source": "licensed:ESPN",
+          "benchmark": null,
+          "note": "not freely redistributable (ESPN); manual import"
+        },
+        {
+          "factor_id": "red_zone_attempts",
+          "source": "nflverse:pbp",
+          "benchmark": null,
+          "note": "available from nflverse play-by-play; not yet implemented"
+        },
+        {
+          "factor_id": "adp",
+          "source": "fantasyfootballcalculator",
+          "benchmark": null,
+          "note": "use get_adp from the MCP server"
+        },
+        {
+          "factor_id": "neutral_pace_rank",
+          "source": "nflverse:pbp",
+          "benchmark": null,
+          "note": "available from nflverse play-by-play; not yet implemented"
+        },
+        {
+          "factor_id": "pass_dvoa_rank",
+          "source": "licensed:FTN",
+          "benchmark": null,
+          "note": "not freely redistributable (FTN); manual import"
+        }
+      ],
+      "computed": 4,
+      "total": 12
+    },
+    "RB": {
+      "factors": [
+        {
+          "factor_id": "touches",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 21.515,
+            "half": 21.386,
+            "ppr": 21.196
+          },
+          "note": null
+        },
+        {
+          "factor_id": "rush_attempts",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 17.911,
+            "half": 17.512,
+            "ppr": 16.899
+          },
+          "note": null
+        },
+        {
+          "factor_id": "targets",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 4.6,
+            "half": 4.941,
+            "ppr": 5.484
+          },
+          "note": null
+        },
+        {
+          "factor_id": "touchdowns",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 1.019,
+            "half": 1.025,
+            "ppr": 0.971
+          },
+          "note": null
+        },
+        {
+          "factor_id": "off_ppg_rank",
+          "source": null,
+          "benchmark": null,
+          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+        },
+        {
+          "factor_id": "ol_run_block_rank",
+          "source": "licensed:PFF",
+          "benchmark": null,
+          "note": "not freely redistributable (PFF); manual import"
+        },
+        {
+          "factor_id": "rz_touch_share",
+          "source": "nflverse:pbp",
+          "benchmark": null,
+          "note": "available from nflverse play-by-play; not yet implemented"
+        },
+        {
+          "factor_id": "snap_share",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 0.716,
+            "half": 0.717,
+            "ppr": 0.726
+          },
+          "note": null
+        },
+        {
+          "factor_id": "gl_carry_share",
+          "source": "nflverse:pbp",
+          "benchmark": null,
+          "note": "available from nflverse play-by-play; not yet implemented"
+        },
+        {
+          "factor_id": "neutral_run_rate",
+          "source": "nflverse:pbp",
+          "benchmark": null,
+          "note": "available from nflverse play-by-play; not yet implemented"
+        },
+        {
+          "factor_id": "archetype",
+          "source": "categorical",
+          "benchmark": null,
+          "note": "categorical, graded by DraftLab rather than benchmarked"
+        },
+        {
+          "factor_id": "injury_concern",
+          "source": "categorical",
+          "benchmark": null,
+          "note": "categorical, graded by DraftLab rather than benchmarked"
+        }
+      ],
+      "computed": 5,
+      "total": 12
+    },
+    "WR": {
+      "factors": [
+        {
+          "factor_id": "targets",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 10.148,
+            "half": 10.306,
+            "ppr": 10.306
+          },
+          "note": null
+        },
+        {
+          "factor_id": "receptions",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 6.901,
+            "half": 7.075,
+            "ppr": 7.075
+          },
+          "note": null
+        },
+        {
+          "factor_id": "touchdowns",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 0.748,
+            "half": 0.727,
+            "ppr": 0.727
+          },
+          "note": null
+        },
+        {
+          "factor_id": "off_ppg_rank",
+          "source": null,
+          "benchmark": null,
+          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+        },
+        {
+          "factor_id": "qb_pff_rank",
+          "source": "licensed:PFF",
+          "benchmark": null,
+          "note": "not freely redistributable (PFF); manual import"
+        },
+        {
+          "factor_id": "team_pass_attempts",
+          "source": null,
+          "benchmark": null,
+          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+        },
+        {
+          "factor_id": "secondary_target",
+          "source": "categorical",
+          "benchmark": null,
+          "note": "categorical, graded by DraftLab rather than benchmarked"
+        },
+        {
+          "factor_id": "ol_pass_block_rank",
+          "source": "licensed:PFF",
+          "benchmark": null,
+          "note": "not freely redistributable (PFF); manual import"
+        },
+        {
+          "factor_id": "yprr",
+          "source": "licensed:PFF",
+          "benchmark": null,
+          "note": "not freely redistributable (PFF); manual import"
+        },
+        {
+          "factor_id": "reception_perception",
+          "source": "licensed:RP",
+          "benchmark": null,
+          "note": "not freely redistributable (RP); manual import"
+        },
+        {
+          "factor_id": "archetype",
+          "source": "categorical",
+          "benchmark": null,
+          "note": "categorical, graded by DraftLab rather than benchmarked"
+        },
+        {
+          "factor_id": "injury_concern",
+          "source": "categorical",
+          "benchmark": null,
+          "note": "categorical, graded by DraftLab rather than benchmarked"
+        }
+      ],
+      "computed": 3,
+      "total": 12
+    },
+    "TE": {
+      "factors": [
+        {
+          "factor_id": "targets",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 7.433,
+            "half": 7.854,
+            "ppr": 8.072
+          },
+          "note": null
+        },
+        {
+          "factor_id": "receptions",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 5.27,
+            "half": 5.595,
+            "ppr": 5.756
+          },
+          "note": null
+        },
+        {
+          "factor_id": "touchdowns",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 0.523,
+            "half": 0.476,
+            "ppr": 0.466
+          },
+          "note": null
+        },
+        {
+          "factor_id": "off_ppg_rank",
+          "source": null,
+          "benchmark": null,
+          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+        },
+        {
+          "factor_id": "qb_qbr_rank",
+          "source": "licensed:ESPN",
+          "benchmark": null,
+          "note": "not freely redistributable (ESPN); manual import"
+        },
+        {
+          "factor_id": "team_pass_att_rank",
+          "source": null,
+          "benchmark": null,
+          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+        },
+        {
+          "factor_id": "team_target_rank",
+          "source": null,
+          "benchmark": null,
+          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+        },
+        {
+          "factor_id": "rec_td_rank",
+          "source": null,
+          "benchmark": null,
+          "note": "derivable by aggregating team-level nflverse data; not yet implemented"
+        },
+        {
+          "factor_id": "route_participation",
+          "source": "licensed:PFF",
+          "benchmark": null,
+          "note": "not freely redistributable (PFF); manual import"
+        },
+        {
+          "factor_id": "inline_pct",
+          "source": "licensed:PFF",
+          "benchmark": null,
+          "note": "not freely redistributable (PFF); manual import"
+        },
+        {
+          "factor_id": "yprr_rank",
+          "source": "licensed:PFF",
+          "benchmark": null,
+          "note": "not freely redistributable (PFF); manual import"
+        },
+        {
+          "factor_id": "injury_concern",
+          "source": "categorical",
+          "benchmark": null,
+          "note": "categorical, graded by DraftLab rather than benchmarked"
+        }
+      ],
+      "computed": 3,
+      "total": 12
+    }
+  }
+}
