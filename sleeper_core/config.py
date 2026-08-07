@@ -75,10 +75,21 @@ CACHE_DIR = Path(
 )
 
 PLAYER_CACHE_TTL = 18 * 60 * 60  # Sleeper asks for at most one fetch per day
-PROJ_CACHE_TTL = 6 * 60 * 60
-FC_CACHE_TTL = 6 * 60 * 60
-FFC_CACHE_TTL = 6 * 60 * 60
-NFLVERSE_CACHE_TTL = 6 * 60 * 60
+PROJ_CACHE_TTL = 6 * 60 * 60     # revised through the week as news breaks
+FC_CACHE_TTL = 6 * 60 * 60       # FantasyCalc recomputes daily
+FFC_CACHE_TTL = 24 * 60 * 60     # ADP is a 30-day rolling aggregate, moves slowly
+
+# nflverse TTLs are split by how fast each dataset actually moves. A single
+# value was wrong in both directions: depth_charts_2026.csv had not changed in
+# two months, so a 6h TTL re-fetched an identical file four times a day, while
+# injuries at the same 6h could be badly stale on a game day.
+#
+# These are "how often to check", not "how often to download" — conditional
+# requests mean an unchanged file costs a 304 with no body.
+NFLVERSE_CACHE_TTL = 6 * 60 * 60        # default for anything unclassified
+DEPTH_CHART_CACHE_TTL = 24 * 60 * 60    # teams file depth charts weekly
+STATS_CACHE_TTL = 24 * 60 * 60          # only changes once games are complete
+INJURY_CACHE_TTL = 1 * 60 * 60          # the one that genuinely needs freshness
 
 MEM_TTL = 3600.0  # short-lived in-process cache, avoids hammering within a session
 

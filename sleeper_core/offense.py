@@ -28,7 +28,7 @@ import statistics
 from collections import defaultdict
 from typing import Any
 
-from .config import OC_TIERS_FILE
+from .config import OC_TIERS_FILE, STATS_CACHE_TTL
 from .http import nflverse_csv
 from .stats import current_season
 
@@ -54,7 +54,8 @@ def stats_season_with_label() -> tuple[str, str]:
     August should be told they are looking at 2025.
     """
     current = current_season()
-    rows = nflverse_csv("stats_player", f"stats_player_week_{current}.csv")
+    rows = nflverse_csv("stats_player", f"stats_player_week_{current}.csv",
+                        ttl=STATS_CACHE_TTL)
     if rows:
         return current, f"{current} (current season)"
     prev = str(int(current) - 1)
@@ -71,7 +72,8 @@ def safe_float(val: Any, default: float = 0.0) -> float:
 
 def team_skill_rows(team: str, season: str) -> list[dict]:
     """Every weekly stat row for skill-position players on one team."""
-    rows = nflverse_csv("stats_player", f"stats_player_week_{season}.csv")
+    rows = nflverse_csv("stats_player", f"stats_player_week_{season}.csv",
+                        ttl=STATS_CACHE_TTL)
     return [
         r for r in rows
         if r.get("team", "").upper() == team.upper()

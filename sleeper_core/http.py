@@ -23,6 +23,7 @@ from __future__ import annotations
 import csv
 import gzip
 import io
+import json
 import time
 from typing import Any, Callable
 
@@ -126,10 +127,77 @@ def ffc_get(path: str, params: dict | None = None) -> Any:
     return resp.json()
 
 
+def _cache_meta_path(cache_file):
+    return cache_file.with_suffix(cache_file.suffix + ".meta.json")
+
+
+def _read_meta(cache_file) -> dict:
+    try:
+        return json.loads(_cache_meta_path(cache_file).read_text())
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def _write_meta(cache_file, resp) -> None:
+    meta = {}
+    if resp.headers.get("etag"):
+        meta["etag"] = resp.headers["etag"]
+    if resp.headers.get("last-modified"):
+        meta["last_modified"] = resp.headers["last-modified"]
+    if not meta:
+        return
+    try:
+        _cache_meta_path(cache_file).write_text(json.dumps(meta))
+    except OSError:
+        pass
+
+
+def _fetch_raw(url: str, cache_file) -> bytes | None:
+    """Fetch with a conditional request, reusing the cached body on 304.
+
+    GitHub serves ETags on release assets, so once a file is cached the refresh
+    costs a header exchange rather than a download. That matters here: these
+    files are 4-50 MB and often go months without changing. A 304 also touches
+    the cache file, which resets its TTL — otherwise every expiry would issue
+    another conditional request, correct but pointlessly chatty.
+
+    Returns the body, or None if the asset does not exist.
+    """
+    headers = {}
+    meta = _read_meta(cache_file) if cache_file.exists() else {}
+    if meta.get("etag"):
+        headers["If-None-Match"] = meta["etag"]
+    if meta.get("last_modified"):
+        headers["If-Modified-Since"] = meta["last_modified"]
+
+    resp = _nfl_client.get(url, headers=headers)
+
+    if resp.status_code == 304 and cache_file.exists():
+        try:
+            cache_file.touch()
+        except OSError:
+            pass
+        return cache_file.read_bytes()
+
+    if resp.status_code == 404:
+        return None
+
+    resp.raise_for_status()
+    raw = resp.content
+    try:
+        cache_file.write_bytes(raw)
+        _write_meta(cache_file, resp)
+    except OSError:
+        pass
+    return raw
+
+
 def nflverse_csv(
     tag: str,
     filename: str,
     row_filter: Callable[[dict], bool] | None = None,
+    ttl: float | None = None,
+    prefer_gzip: bool = True,
 ) -> list[dict]:
     """Download and disk-cache an nflverse CSV, returning parsed rows.
 
@@ -148,33 +216,45 @@ def nflverse_csv(
     When row_filter is given the parsed-row cache is bypassed in both
     directions: the result is specific to that predicate, and caching the full
     unfiltered file is exactly the thing being avoided.
+
+    prefer_gzip asks for the .csv.gz variant first. nflverse publishes both,
+    and gzip is roughly 5x smaller — 10.2 MB versus 50.5 MB for the 2025 depth
+    charts. Seasons before 2024 only have the plain .csv, so a 404 falls back
+    rather than failing.
     """
+    ttl = NFLVERSE_CACHE_TTL if ttl is None else ttl
     now = time.time()
     if row_filter is None:
         hit = _csv_mem_cache.get(filename)
-        if hit is not None and (now - _csv_mem_cache_ts.get(filename, 0)) < NFLVERSE_CACHE_TTL:
+        if hit is not None and (now - _csv_mem_cache_ts.get(filename, 0)) < ttl:
             return hit
 
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
-    cache_file = CACHE_DIR / filename
-    if cache_file.exists() and (now - cache_file.stat().st_mtime) < NFLVERSE_CACHE_TTL:
-        raw = cache_file.read_bytes()
-    else:
+
+    candidates = [filename]
+    if prefer_gzip and filename.endswith(".csv"):
+        candidates.insert(0, filename + ".gz")
+
+    raw = None
+    resolved = filename
+    for candidate in candidates:
+        cache_file = CACHE_DIR / candidate
+        if cache_file.exists() and (now - cache_file.stat().st_mtime) < ttl:
+            raw, resolved = cache_file.read_bytes(), candidate
+            break
         try:
-            resp = _nfl_client.get(f"{NFLVERSE_BASE}/{tag}/{filename}")
-            if resp.status_code == 404:
-                return []
-            resp.raise_for_status()
-            raw = resp.content
+            fetched = _fetch_raw(f"{NFLVERSE_BASE}/{tag}/{candidate}", cache_file)
         except Exception:
-            return []
-        try:
-            cache_file.write_bytes(raw)
-        except OSError:
-            pass
+            fetched = None
+        if fetched is not None:
+            raw, resolved = fetched, candidate
+            break
+
+    if raw is None:
+        return []
 
     try:
-        text = gzip.decompress(raw).decode("utf-8") if filename.endswith(".gz") else raw.decode("utf-8")
+        text = gzip.decompress(raw).decode("utf-8") if resolved.endswith(".gz") else raw.decode("utf-8")
     except Exception:
         return []
     del raw  # release the encoded copy before building rows

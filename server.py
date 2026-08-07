@@ -44,9 +44,11 @@ from sleeper_core.config import (
     DEFAULT_TEAM_NAME,
     DEFAULT_USERNAME,
     FC_SOURCE,
+    INJURY_CACHE_TTL,
     NFLVERSE_SOURCE,
     OC_TIERS_FILE,
     SPORT,
+    STATS_CACHE_TTL,
 )
 
 mcp = FastMCP("sleeper-readonly")
@@ -877,7 +879,8 @@ def get_player_stats(
     Great for usage trend analysis and dynasty evaluation.
     Source: nflverse (MIT licensed)."""
     season = season or _current_season()
-    rows = _nflverse_csv("stats_player", f"stats_player_week_{season}.csv")
+    rows = _nflverse_csv("stats_player", f"stats_player_week_{season}.csv",
+                          ttl=STATS_CACHE_TTL)
     if not rows:
         return {"error": "no data", "season": season,
                 "hint": "Season data may not be available yet."}
@@ -914,7 +917,8 @@ def get_snap_counts(
     percentages. Key signal for dynasty: role changes show up here first.
     Source: nflverse (MIT licensed)."""
     season = season or _current_season()
-    rows = _nflverse_csv("snap_counts", f"snap_counts_{season}.csv")
+    rows = _nflverse_csv("snap_counts", f"snap_counts_{season}.csv",
+                          ttl=STATS_CACHE_TTL)
     if not rows:
         return {"error": "no snap data", "season": season}
 
@@ -965,7 +969,8 @@ def get_injuries(
     participation, and injury type for all listed players.
     Source: nflverse (MIT licensed)."""
     season = season or _current_season()
-    rows = _nflverse_csv("injuries", f"injuries_{season}.csv")
+    rows = _nflverse_csv("injuries", f"injuries_{season}.csv",
+                          ttl=INJURY_CACHE_TTL)
     if not rows:
         return {"error": "no injury data", "season": season}
 
@@ -1154,7 +1159,8 @@ def score_player(
     # ── 3 & 4. Stats-based components ────────────────────────────────────────
     stat_rows: list[dict] = []
     if player_team or player_name:
-        all_rows = _nflverse_csv("stats_player", f"stats_player_week_{season_used}.csv")
+        all_rows = _nflverse_csv("stats_player", f"stats_player_week_{season_used}.csv",
+                              ttl=STATS_CACHE_TTL)
         needle = player_name.strip().lower()
         stat_rows = [
             r for r in all_rows

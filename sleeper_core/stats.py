@@ -12,7 +12,7 @@ what makes these the most stable tools in the codebase.
 
 from __future__ import annotations
 
-from .config import NFLVERSE_SOURCE, SPORT
+from .config import DEPTH_CHART_CACHE_TTL, NFLVERSE_SOURCE, SPORT
 from .http import get_json, nflverse_csv
 
 # Columns worth keeping from the weekly player stats file.
@@ -184,7 +184,8 @@ def depth_chart(team: str, position: str | None = None, season: str | None = Non
             header.extend(row.keys())
         return (row.get("team") or row.get("club_code") or "").upper() == team_up
 
-    rows = nflverse_csv("depth_charts", f"depth_charts_{season}.csv", row_filter=keep)
+    rows = nflverse_csv("depth_charts", f"depth_charts_{season}.csv",
+                        row_filter=keep, ttl=DEPTH_CHART_CACHE_TTL)
 
     if not header:
         return {"error": "no depth chart data", "season": season}
