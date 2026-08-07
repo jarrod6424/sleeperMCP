@@ -49,26 +49,51 @@ That makes the agreement the result worth reporting: chart-reading and eleven
 seasons of nflverse converging to a median 4.3% across 17 factors is real
 mutual corroboration.
 
-WHAT off_ppg_rank REVEALED
---------------------------
-Once real points scored replaced the fantasy-points proxy, the remaining gap
-lined up with how tightly a position drives its own team's score:
+PERCENT ERROR IS THE WRONG METRIC FOR RANK FACTORS
+--------------------------------------------------
+Run with --spread. Each benchmark is a mean of 11 seasonal values, and the
+dispersion of those values decides whether a gap against DraftLab means
+anything. Relative standard error by factor type:
 
-    TE   11.78 vs 11.76    0.2%     least coupled
-    WR    8.94 vs  7.82   12.6%
-    QB    6.35 vs  4.21   33.7%     most coupled
+    rank factors      10-16%   off_ppg_rank, rec_td_rank, team_pass_att_rank
+    volume factors     2-3%    targets, receptions, pass_attempts
 
-TE landing at 0.2% is the single strongest corroboration in the table, and it
-rules out a broken team-context pipeline — the same code produces all three.
-The gradient instead points at cohort width: the top 3 fantasy QBs are nearly
-by definition on the league's best offenses, so a top-3 cohort ranks 4.21,
-while a wider cohort regresses toward the league mean of 16 and would land
-nearer his 6.35. Consistent with the earlier finding that his values best fit
-at cohort sizes scattered between 1 and 6.
+So a 15% gap on a rank is unreadable, while a 15% gap on a volume stat is
+enormous. Judging by percent alone inverts the answer, and did: three of the
+six factors flagged as divergent are within 2 SE and were never disagreements.
 
-Left alone deliberately. Widening the QB cohort to hit 6.35 would fit this
-script to a hand-read number and break the one property that justifies owning
-benchmarks here: one rule, all four positions, re-derivable every February.
+    TE.rec_td_rank         27.4%   z=1.9   noise (worst % in the table)
+    TE.team_pass_att_rank  14.2%   z=1.2   noise
+    WR.off_ppg_rank        12.6%   z=1.0   noise
+    TE.touchdowns          15.0%   z=2.0   borderline
+    QB.off_ppg_rank        33.7%   z=3.8   real
+    QB.passing_tds         18.5%   z=6.9   real, and large
+
+14 of 17 of his values sit within 2 SE of ours. That is the corroboration
+result, and it is stronger than any single close match — note that
+TE.off_ppg_rank agreeing to 0.02 is luck, not evidence, since its SE is 1.83
+on a 1-32 scale.
+
+HIS QB SET IS NOT FROM A SINGLE COHORT
+--------------------------------------
+The two real divergences are both QB, and they demand opposite fixes.
+
+    passing_tds   2.63 vs 2.14   needs a NARROWER cohort. SD is 0.23, so 2.63
+                                 is ~7 SE out and cannot be a top-3 draw. It is
+                                 about where top-1 lands (Mahomes 2018 3.13/g,
+                                 Rodgers 2020 3.00/g).
+    off_ppg_rank  6.35 vs 4.21   needs a WIDER cohort. Top-3 fantasy QBs are
+                                 nearly by definition on elite offenses, so the
+                                 value collapses to 4.21; widening regresses
+                                 toward the league mean of 16.
+
+No single cohort satisfies both, so his QB numbers were not produced by one
+rule. Ours are. That is the argument for owning benchmarks here — not that his
+are wrong, but that one rule across four positions can be re-derived every
+February and audited by anyone.
+
+Deliberately not tuned per factor. Fitting each factor to its own cohort would
+match him better and mean less.
 """
 
 from __future__ import annotations
@@ -432,9 +457,14 @@ def fantasy_points(ps: dict, fmt: str) -> float:
     return (ps["fp_std"] + ps["fp_ppr"]) / 2
 
 
-def cohort_means(rows, position, fmt, size, fields, min_games=4) -> dict:
-    """Top-`size` players per season by fantasy points in `fmt`, averaged, then
-    averaged across seasons so one big year cannot dominate."""
+def cohort_series(rows, position, fmt, size, fields, min_games=4) -> dict:
+    """One value per season: the top-`size` cohort's mean for each field.
+
+    Kept separate from the collapse to a single number so the spread across
+    seasons stays inspectable. A benchmark is a mean of ~11 of these, and a
+    mean without its dispersion cannot say whether a gap against another
+    estimate is real or noise.
+    """
     per_season: dict[str, list[float]] = defaultdict(list)
     for season in sorted({r["season"] for r in rows}):
         pool = [r for r in rows if r["season"] == season
@@ -444,7 +474,14 @@ def cohort_means(rows, position, fmt, size, fields, min_games=4) -> dict:
             vals = [per_game(r)[f] for r in pool[:size] if per_game(r).get(f) is not None]
             if vals:
                 per_season[f].append(statistics.mean(vals))
-    return {f: round(statistics.mean(v), 3) for f, v in per_season.items() if v}
+    return dict(per_season)
+
+
+def cohort_means(rows, position, fmt, size, fields, min_games=4) -> dict:
+    """Top-`size` players per season by fantasy points in `fmt`, averaged, then
+    averaged across seasons so one big year cannot dominate."""
+    series = cohort_series(rows, position, fmt, size, fields, min_games)
+    return {f: round(statistics.mean(v), 3) for f, v in series.items() if v}
 
 
 def build(rows: list[dict], cohort: int) -> dict:
@@ -453,6 +490,27 @@ def build(rows: list[dict], cohort: int) -> dict:
         computable = [f for f, _ in factors if f in COMPUTABLE]
         by_fmt = {fmt: cohort_means(rows, pos, fmt, cohort, computable)
                   for fmt in ("std", "half", "ppr")}
+
+        # Ship the uncertainty next to the value. A benchmark is a mean of ~11
+        # seasonal draws, and their scatter varies enormously by factor type:
+        # volume stats land near 2-3% relative SE, rank stats near 10-16%.
+        # Grading both against one flat 1.05x threshold treats a soft number as
+        # if it were sharp, so a consumer needs to see which is which.
+        series = cohort_series(rows, pos, "half", cohort, computable)
+        disp = {}
+        for fid, vals in series.items():
+            if len(vals) < 3:
+                continue
+            mean = statistics.mean(vals)
+            sd = statistics.stdev(vals)
+            se = sd / (len(vals) ** 0.5)
+            disp[fid] = {
+                "seasons": len(vals),
+                "sd": round(sd, 3),
+                "se": round(se, 3),
+                "relative_se": round(se / mean, 3) if mean else None,
+            }
+
         benchmarks[pos] = {
             "factors": [
                 {
@@ -460,6 +518,7 @@ def build(rows: list[dict], cohort: int) -> dict:
                     "source": src,
                     "benchmark": {fmt: by_fmt[fmt].get(fid) for fmt in ("std", "half", "ppr")}
                     if fid in COMPUTABLE else None,
+                    "dispersion": disp.get(fid) if fid in COMPUTABLE else None,
                     "note": None if fid in COMPUTABLE else _gap_note(src),
                 }
                 for fid, src in factors
@@ -507,6 +566,45 @@ def calibration(rows: list[dict], cohort: int) -> dict:
 
 
 
+def spread_report(rows, cohort: int) -> None:
+    """Is a gap against DraftLab real, or is it inside our own year-to-year noise?
+
+    Every benchmark is a mean of ~11 seasonal values. Reporting a gap against
+    that mean while ignoring how much those values scatter is how a noisy stat
+    gets mistaken for a disagreement about method.
+
+    Prints the standard error of each benchmark and how many SEs away his value
+    sits. Under 2 SE, the two numbers are consistent with being estimates of the
+    same quantity and there is nothing to explain.
+    """
+    print("\nspread across seasons — is the gap real, or is it noise?")
+    print(f"  {'factor':24} {'ours':>8} {'SD':>7} {'SE':>7} {'his':>8} {'z':>6}")
+    verdicts = []
+    for pos, published in DRAFTLAB_PUBLISHED.items():
+        fields = list(published)
+        series = cohort_series(rows, pos, "half", cohort, fields)
+        for f in fields:
+            vals = series.get(f) or []
+            if len(vals) < 3:
+                continue
+            mean = statistics.mean(vals)
+            sd = statistics.stdev(vals)
+            se = sd / (len(vals) ** 0.5)
+            his = published[f]
+            z = abs(his - mean) / se if se else float("inf")
+            verdicts.append((f"{pos}.{f}", z))
+            mark = "" if z < 2 else ("  <- outside noise" if z < 4 else "  <- well outside")
+            print(f"  {pos + '.' + f:24} {mean:8.2f} {sd:7.2f} {se:7.2f} "
+                  f"{his:8.2f} {z:6.1f}{mark}")
+
+    inside = [n for n, z in verdicts if z < 2]
+    print(f"\n  {len(inside)}/{len(verdicts)} of his values fall within 2 SE of ours —")
+    print("  i.e. consistent with both being estimates of the same quantity.")
+    if len(inside) < len(verdicts):
+        print("  The rest differ by more than sampling noise explains, which points")
+        print("  at a genuine difference of definition or cohort, not a bad read.")
+
+
 def _artifact_warnings() -> list[str]:
     """Anything a consumer should know before trusting these numbers."""
     out = []
@@ -528,6 +626,9 @@ def main() -> int:
     ap.add_argument("--seasons", nargs="+", type=int, default=DEFAULT_SEASONS)
     ap.add_argument("--cohort", type=int, default=DEFAULT_COHORT)
     ap.add_argument("--out", default="artifacts/benchmarks.json")
+    ap.add_argument("--spread", action="store_true",
+                    help="report season-to-season dispersion and whether each gap "
+                         "against DraftLab exceeds sampling noise")
     args = ap.parse_args()
 
     print(f"Loading nflverse for {args.seasons} ...")
@@ -538,10 +639,12 @@ def main() -> int:
     print("  player-seasons: " + ", ".join(f"{k} {v}" for k, v in sorted(counts.items())))
 
     cal = calibration(rows, args.cohort)
+    if args.spread:
+        spread_report(rows, args.cohort)
     bench = build(rows, args.cohort)
 
     payload = {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": "nflverse stats_player_week + snap_counts",
         "seasons": args.seasons,

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "generated_at": "2026-08-07T22:52:57+00:00",
+  "generated_at": "2026-08-07T22:58:19+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -15,6 +15,7 @@
     2024,
     2025
   ],
+  "off_ppg_rank_source": "points_scored",
   "method": {
     "cohort": "top 3 by fantasy points in the given format, per season, then averaged across seasons",
     "divisor": "games in which the player appeared",
