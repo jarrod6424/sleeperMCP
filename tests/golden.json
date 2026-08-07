@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "captured_at": "2026-08-06 23:39:20",
+    "captured_at": "2026-08-07 10:57:08",
     "case_count": 62,
     "fixtures": {
       "draft_id": "1312218810626887680",
@@ -166,6 +166,179 @@
           "team": "str"
         }
       ]
+    },
+    "custom_score_a": {
+      "kwargs": {
+        "player_name": "Puka Nacua"
+      },
+      "mode": "shape",
+      "tool": "custom_score_player",
+      "value": {
+        "components": {
+          "availability": {
+            "detail": {
+              "active_weeks": "number",
+              "availability_pct": "number",
+              "total_regular_season_weeks": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "floor_consistency": {
+            "detail": {
+              "avg_ppg": "number",
+              "games_above_10": "number",
+              "games_scored": "number",
+              "pct_above_10": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "offensive_context": {
+            "detail": {
+              "play_caller": "str",
+              "play_caller_notes": "str",
+              "play_caller_role": "str",
+              "play_caller_tier": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "team_fit": {
+            "detail": {
+              "fit_rank": "str",
+              "player_position": "str",
+              "weakest_position": "str",
+              "your_position_values": {
+                "QB": "number",
+                "RB": "number",
+                "TE": "number",
+                "WR": "number"
+              }
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "trade_value": {
+            "detail": {
+              "overall_rank": "number",
+              "position_rank": "number",
+              "trend_30_day": "number",
+              "value": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "usage": {
+            "detail": {
+              "avg_carries_per_game": "number",
+              "avg_target_share": "number",
+              "avg_wopr": "number",
+              "position": "str"
+            },
+            "score": "number",
+            "weight": "str"
+          }
+        },
+        "composite_score": "number",
+        "data_season": "str",
+        "grade": "str",
+        "player": "str",
+        "player_position": "str",
+        "player_team": "str",
+        "sources": "str",
+        "warnings": [
+          "<empty>"
+        ]
+      }
+    },
+    "custom_score_b": {
+      "kwargs": {
+        "player_name": "Bijan Robinson"
+      },
+      "mode": "shape",
+      "tool": "custom_score_player",
+      "value": {
+        "components": {
+          "availability": {
+            "detail": {
+              "active_weeks": "number",
+              "availability_pct": "number",
+              "total_regular_season_weeks": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "floor_consistency": {
+            "detail": {
+              "avg_ppg": "number",
+              "games_above_10": "number",
+              "games_scored": "number",
+              "pct_above_10": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "offensive_context": {
+            "detail": {
+              "play_caller": "str",
+              "play_caller_notes": "str",
+              "play_caller_role": "str",
+              "play_caller_tier": "number",
+              "target_share_std": "number",
+              "team_hhi": "number",
+              "usage_rank": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "team_fit": {
+            "detail": {
+              "fit_rank": "str",
+              "player_position": "str",
+              "weakest_position": "str",
+              "your_position_values": {
+                "QB": "number",
+                "RB": "number",
+                "TE": "number",
+                "WR": "number"
+              }
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "trade_value": {
+            "detail": {
+              "overall_rank": "number",
+              "position_rank": "number",
+              "trend_30_day": "number",
+              "value": "number"
+            },
+            "score": "number",
+            "weight": "str"
+          },
+          "usage": {
+            "detail": {
+              "avg_carries_per_game": "number",
+              "avg_target_share": "number",
+              "avg_wopr": "number",
+              "position": "str"
+            },
+            "score": "number",
+            "weight": "str"
+          }
+        },
+        "composite_score": "number",
+        "data_season": "str",
+        "grade": "str",
+        "player": "str",
+        "player_position": "str",
+        "player_team": "str",
+        "sources": "str",
+        "warnings": [
+          "<empty>"
+        ]
+      }
     },
     "depth_chart": {
       "kwargs": {
@@ -10892,179 +11065,6 @@
           "wins": 0
         }
       ]
-    },
-    "score_player_a": {
-      "kwargs": {
-        "player_name": "Puka Nacua"
-      },
-      "mode": "shape",
-      "tool": "score_player",
-      "value": {
-        "components": {
-          "availability": {
-            "detail": {
-              "active_weeks": "number",
-              "availability_pct": "number",
-              "total_regular_season_weeks": "number"
-            },
-            "score": "number",
-            "weight": "str"
-          },
-          "floor_consistency": {
-            "detail": {
-              "avg_ppg": "number",
-              "games_above_10": "number",
-              "games_scored": "number",
-              "pct_above_10": "number"
-            },
-            "score": "number",
-            "weight": "str"
-          },
-          "offensive_context": {
-            "detail": {
-              "play_caller": "str",
-              "play_caller_notes": "str",
-              "play_caller_role": "str",
-              "play_caller_tier": "number"
-            },
-            "score": "number",
-            "weight": "str"
-          },
-          "team_fit": {
-            "detail": {
-              "fit_rank": "str",
-              "player_position": "str",
-              "weakest_position": "str",
-              "your_position_values": {
-                "QB": "number",
-                "RB": "number",
-                "TE": "number",
-                "WR": "number"
-              }
-            },
-            "score": "number",
-            "weight": "str"
-          },
-          "trade_value": {
-            "detail": {
-              "overall_rank": "number",
-              "position_rank": "number",
-              "trend_30_day": "number",
-              "value": "number"
-            },
-            "score": "number",
-            "weight": "str"
-          },
-          "usage": {
-            "detail": {
-              "avg_carries_per_game": "number",
-              "avg_target_share": "number",
-              "avg_wopr": "number",
-              "position": "str"
-            },
-            "score": "number",
-            "weight": "str"
-          }
-        },
-        "composite_score": "number",
-        "data_season": "str",
-        "grade": "str",
-        "player": "str",
-        "player_position": "str",
-        "player_team": "str",
-        "sources": "str",
-        "warnings": [
-          "<empty>"
-        ]
-      }
-    },
-    "score_player_b": {
-      "kwargs": {
-        "player_name": "Bijan Robinson"
-      },
-      "mode": "shape",
-      "tool": "score_player",
-      "value": {
-        "components": {
-          "availability": {
-            "detail": {
-              "active_weeks": "number",
-              "availability_pct": "number",
-              "total_regular_season_weeks": "number"
-            },
-            "score": "number",
-            "weight": "str"
-          },
-          "floor_consistency": {
-            "detail": {
-              "avg_ppg": "number",
-              "games_above_10": "number",
-              "games_scored": "number",
-              "pct_above_10": "number"
-            },
-            "score": "number",
-            "weight": "str"
-          },
-          "offensive_context": {
-            "detail": {
-              "play_caller": "str",
-              "play_caller_notes": "str",
-              "play_caller_role": "str",
-              "play_caller_tier": "number",
-              "target_share_std": "number",
-              "team_hhi": "number",
-              "usage_rank": "number"
-            },
-            "score": "number",
-            "weight": "str"
-          },
-          "team_fit": {
-            "detail": {
-              "fit_rank": "str",
-              "player_position": "str",
-              "weakest_position": "str",
-              "your_position_values": {
-                "QB": "number",
-                "RB": "number",
-                "TE": "number",
-                "WR": "number"
-              }
-            },
-            "score": "number",
-            "weight": "str"
-          },
-          "trade_value": {
-            "detail": {
-              "overall_rank": "number",
-              "position_rank": "number",
-              "trend_30_day": "number",
-              "value": "number"
-            },
-            "score": "number",
-            "weight": "str"
-          },
-          "usage": {
-            "detail": {
-              "avg_carries_per_game": "number",
-              "avg_target_share": "number",
-              "avg_wopr": "number",
-              "position": "str"
-            },
-            "score": "number",
-            "weight": "str"
-          }
-        },
-        "composite_score": "number",
-        "data_season": "str",
-        "grade": "str",
-        "player": "str",
-        "player_position": "str",
-        "player_team": "str",
-        "sources": "str",
-        "warnings": [
-          "<empty>"
-        ]
-      }
     },
     "scout_team": {
       "kwargs": {

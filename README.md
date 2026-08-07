@@ -82,7 +82,7 @@ that do not depend on it. Tools drawing on unofficial sources are marked
 | `analyze_trade` | Compare two sides of a trade |
 | `get_adp` | ADP joined to trade value — where the market drafts a player versus what it thinks he is worth |
 | `get_dynasty_tiers` | Dynasty values grouped into market tiers |
-| `score_player` | Composite 0-100 dynasty score with a component breakdown |
+| `custom_score_player` | A custom, opinionated 0-100 score with a component breakdown. Not a projection — see [docs/SCORING_COMPARISON.md](docs/SCORING_COMPARISON.md) |
 
 ### NFL context
 

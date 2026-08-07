@@ -344,9 +344,9 @@ def build_cases(fixtures: dict) -> list[tuple[str, str, dict, str]]:
             {"team": TEAM, "season": SEASON},
             STRICT,
         ),
-        # score_player blends FantasyCalc + nflverse, so values drift.
-        ("score_player_a", "score_player", {"player_name": PLAYER_A}, SHAPE),
-        ("score_player_b", "score_player", {"player_name": PLAYER_B}, SHAPE),
+        # custom_score_player blends FantasyCalc + nflverse, so values drift.
+        ("custom_score_a", "custom_score_player", {"player_name": PLAYER_A}, SHAPE),
+        ("custom_score_b", "custom_score_player", {"player_name": PLAYER_B}, SHAPE),
     ]
 
     # These three need a draft_id that only exists once the league has drafted.

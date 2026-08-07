@@ -1013,24 +1013,55 @@ def get_team_offense_crowding(
     }
 
 
+# Component weights for custom_score_player. Single source of truth: these drive
+# the arithmetic and the "weight" label reported back to the caller. They were
+# previously duplicated as hardcoded label strings and drifted — three of six
+# labels disagreed with the math, so the tool misreported its own model.
+_CUSTOM_SCORE_WEIGHTS = {
+    "trade_value": 0.30,
+    "team_fit": 0.10,
+    "floor_consistency": 0.20,
+    "availability": 0.15,
+    "usage": 0.15,
+    "offensive_context": 0.10,
+}
+
+
+def _weight_label(key: str) -> str:
+    return f"{round(_CUSTOM_SCORE_WEIGHTS[key] * 100)}%"
+
+
 @mcp.tool()
-def score_player(
+def custom_score_player(
     player_name: str,
     league_id: str | None = None,
     username: str | None = None,
 ) -> dict:
-    """Composite dynasty player score using your personal weighting model:
+    """A CUSTOM, opinionated 0-100 player score — one particular weighting of
+    market value and situation, not an authoritative rating.
+
       30% FantasyCalc trade value
-      10% team fit (fills your roster's weakest positions)
       20% floor consistency (% of games above 10 PPG + avg PPG)
       15% availability (games played %)
       15% usage within their offense (target share / snap rate)
-      10% offensive context (OC tier + usage crowding)
-    Returns a 0-100 score with a full breakdown of each component.
-    Clearly labels whether stats are current-season or historical.
+      10% team fit (fills your roster's weakest positions)
+      10% offensive context (play-caller tier + usage crowding)
 
-    The team-fit component is scored against the configured user's roster.
-    Pass username to score fit against a different manager's roster instead.
+    What it is good for: a quick read on a player you already own or are
+    considering, especially the component breakdown — floor, availability and
+    usage are useful on their own. Team fit is roster-relative, so the same
+    player scores differently for different managers.
+
+    What it is NOT: a projection. Thirty percent of it is literally the current
+    market price, so it substantially reflects consensus rather than
+    challenging it. It has no positional benchmarks, no archetype outcome
+    rates, and no forward-looking component. Prefer the individual data tools
+    (get_trade_values, get_player_stats, get_team_offense_crowding) when you
+    want inputs rather than a verdict.
+
+    Returns the composite plus every component's score and detail. Clearly
+    labels whether stats are current-season or historical. Pass username to
+    score team fit against a different manager's roster.
     Sources: FantasyCalc + nflverse + playcaller_tiers.json + Sleeper."""
     lid = _league_mod.resolve_league_id(league_id)
     season_used, season_label = _offense.stats_season_with_label()
@@ -1081,10 +1112,10 @@ def score_player(
     else:
         result["warnings"].append("Player not found in FantasyCalc — trade value component scored 0")
     result["components"]["trade_value"] = {
-        "weight": "30%", "score": fc_score, "detail": fc_detail,
+        "weight": _weight_label("trade_value"), "score": fc_score, "detail": fc_detail,
     }
 
-    # ── 2. Team fit — fills your weakest positions (20%) ─────────────────────
+    # ── 2. Team fit — fills your weakest positions (10%) ─────────────────────
     fit_score = 50.0  # neutral default
     fit_detail: dict = {}
     try:
@@ -1119,7 +1150,7 @@ def score_player(
     except Exception as e:
         result["warnings"].append(f"Team fit skipped: {e}")
     result["components"]["team_fit"] = {
-        "weight": "20%", "score": fit_score, "detail": fit_detail,
+        "weight": _weight_label("team_fit"), "score": fit_score, "detail": fit_detail,
     }
 
     # ── 3 & 4. Stats-based components ────────────────────────────────────────
@@ -1157,7 +1188,7 @@ def score_player(
     else:
         result["warnings"].append("No stats found for floor consistency — scored 0")
     result["components"]["floor_consistency"] = {
-        "weight": "15%", "score": floor_score, "detail": floor_detail,
+        "weight": _weight_label("floor_consistency"), "score": floor_score, "detail": floor_detail,
     }
 
     # 4. Availability — games played % (15%)
@@ -1182,7 +1213,7 @@ def score_player(
     else:
         result["warnings"].append("No stats found for availability — scored 0")
     result["components"]["availability"] = {
-        "weight": "15%", "score": avail_score, "detail": avail_detail,
+        "weight": _weight_label("availability"), "score": avail_score, "detail": avail_detail,
     }
 
     # 5. Usage within offense (10%)
@@ -1214,7 +1245,7 @@ def score_player(
     else:
         result["warnings"].append("No stats for usage — scored 0")
     result["components"]["usage"] = {
-        "weight": "10%", "score": usage_score, "detail": usage_detail,
+        "weight": _weight_label("usage"), "score": usage_score, "detail": usage_detail,
     }
 
     # 6. Offensive context — OC tier + crowding (10%)
@@ -1250,18 +1281,11 @@ def score_player(
 
     offensive_context_score = round(0.5 * oc_score + 0.5 * crowding_score, 1)
     result["components"]["offensive_context"] = {
-        "weight": "10%", "score": offensive_context_score, "detail": oc_detail,
+        "weight": _weight_label("offensive_context"), "score": offensive_context_score, "detail": oc_detail,
     }
 
     # ── Weighted total ────────────────────────────────────────────────────────
-    weights = {
-        "trade_value": 0.30,
-        "team_fit": 0.10,
-        "floor_consistency": 0.20,
-        "availability": 0.15,
-        "usage": 0.15,
-        "offensive_context": 0.10,
-    }
+    weights = _CUSTOM_SCORE_WEIGHTS
     total = round(sum(
         result["components"][k]["score"] * w for k, w in weights.items()
     ), 1)

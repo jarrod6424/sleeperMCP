@@ -84,7 +84,7 @@ def test_all_cases_covered() -> None:
         name
         for name in dir(server)
         if name.startswith(("get_", "search_", "scout_", "recent_", "value_",
-                            "analyze_", "start_", "score_"))
+                            "analyze_", "start_", "score_", "custom_"))
         and callable(getattr(server, name))
         and not name.startswith("_")
     }
