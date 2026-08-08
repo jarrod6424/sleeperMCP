@@ -44,14 +44,28 @@ Every such player is flagged `team_changed: true`, and his team-context factors
 are emitted with provenance `stale:team_changed` rather than being passed off as
 current. Counted in the summary so the size of the problem is visible.
 
-ROOKIES HAVE NO MEASUREMENTS
-----------------------------
-A 2026 rookie has no 2025 nflverse row, so every factor is null with
-provenance `missing:no_prior_season`. That is a real gap, reported rather than
-papered over with a projection this script has no business inventing. If the
-gap turns out to be large enough to matter, the fix is a projections basis —
-which is why provenance is per-field, so a later pass can fill selectively
-without rewriting the schema.
+AN INJURED VETERAN IS NOT A ROOKIE
+----------------------------------
+Both have no row in the target season, and calling both null tells a consumer
+"unknown" when for one the honest answer is "known, just older". Aiyuk, Dell,
+Brooks and Watson all missed 2025 and all have real histories; grading them as
+blanks alongside genuine unknowns throws away the thing that makes them
+draftable.
+
+So a miss falls back through `--lookback` earlier seasons, and anything found
+is tagged `measured:<year>` rather than passed off as current. Team context is
+NOT recovered — those factors describe an offence in a season the player may
+not have been part of, and inventing them is the exact failure this file
+exists to prevent. They come back `missing:no_team_context`.
+
+The same mechanism recovers two-way players. load_player_seasons buckets by
+the source's position label, so a receiver filed under CB is dropped despite
+having real receiving lines; the recovery pass ignores the label entirely.
+
+A true rookie still yields `missing:no_prior_season` everywhere, because there
+is genuinely nothing to find. Filling that needs projections, which this script
+has no business inventing. Provenance is per-field precisely so a later pass
+can fill selectively without a schema change.
 """
 
 from __future__ import annotations
@@ -72,6 +86,7 @@ from build_benchmarks import (                      # noqa: E402
     COMPUTABLE, FACTORS, _OFF_PPG_SOURCE, _gap_note,
     load_player_seasons, per_game,
 )
+from sleeper_core.offense import safe_float        # noqa: E402
 from sleeper_core import values                     # noqa: E402
 from sleeper_core.adp import (                      # noqa: E402
     fetch_adp, name_keys, normalize_name, strip_suffix,
@@ -142,6 +157,68 @@ def all_positions_index(season: int) -> dict:
     return out
 
 
+def recover(season: int, name: str) -> dict | None:
+    """Aggregate one player's raw weekly rows, ignoring the position label.
+
+    Two different misses turn out to have the same fix, because in both the
+    data exists and the main path simply cannot reach it.
+
+      Position mismatch. load_player_seasons keeps only QB/RB/WR/TE, so a
+      two-way player the source files under CB is dropped despite having real
+      receiving lines. Bucketing by the source's label is what loses him.
+
+      Missed season. A veteran who was injured has no row in the target year
+      but a full history the year before. That is not the same as a rookie,
+      who has none anywhere — treating both as null tells a consumer "unknown"
+      when the honest answer is "known, just older".
+
+    Player factors only. Team context is deliberately not recovered: those
+    describe an offence in a season this player may not have been part of, and
+    inventing them is the failure mode this whole file is built to avoid.
+    """
+    rows = nflverse_csv("stats_player", f"stats_player_week_{season}.csv",
+                        ttl=STATS_CACHE_TTL)
+    keys = set(name_keys(name))
+    agg = {k: 0.0 for k in ("attempts", "passing_tds", "carries", "rushing_tds",
+                            "targets", "receptions", "receiving_tds")}
+    games = 0
+    teams: Counter = Counter()
+    for r in rows or []:
+        if not keys & set(name_keys(r.get("player_display_name") or "")):
+            continue
+        try:
+            wk = int(float(r.get("week") or 0))
+        except (TypeError, ValueError):
+            continue
+        if wk < 1:
+            continue
+        games += 1
+        for k in agg:
+            agg[k] += safe_float(r.get(k))
+        t = (r.get("team") or "").upper()
+        if t:
+            teams[t] += 1
+    if not games:
+        return None
+    g = max(games, 1)
+    return {
+        "values": {
+            "pass_attempts": agg["attempts"] / g,
+            "passing_tds": agg["passing_tds"] / g,
+            "rush_attempts": agg["carries"] / g,
+            "rushing_tds": agg["rushing_tds"] / g,
+            "targets": agg["targets"] / g,
+            "receptions": agg["receptions"] / g,
+            "touchdowns": (agg["rushing_tds"] + agg["receiving_tds"]) / g,
+            "touches": (agg["carries"] + agg["receptions"]) / g,
+        },
+        "team": teams.most_common(1)[0][0] if teams else None,
+        "games": games,
+        "name": name,
+        "season": season,
+    }
+
+
 def surname(name: str) -> str:
     """Last name, suffix removed.
 
@@ -185,10 +262,19 @@ def classify_miss(measured: dict, all_pos: dict, name: str, position: str) -> st
     return "absent from source: no season played"
 
 
-def build_player(p: dict, measured: dict, sid: str | None) -> dict:
+def build_player(p: dict, measured: dict, sid: str | None,
+                 fallback: dict | None = None) -> dict:
     pos = (p.get("position") or "").upper()
     adp_team = to_nflverse_team((p.get("team") or "").upper())
     hit = match(measured, p.get("name") or "", pos)
+
+    # Nothing in the target season, but the player exists elsewhere in the
+    # source — a two-way player filed under defence, or a veteran who missed
+    # the year. Personal factors carry over; team context does not.
+    recovered_from = None
+    if not hit and fallback:
+        hit = fallback
+        recovered_from = fallback["season"]
 
     prior_team = hit["team"] if hit else None
     team_changed = bool(hit and prior_team and adp_team and prior_team != adp_team)
@@ -207,6 +293,20 @@ def build_player(p: dict, measured: dict, sid: str | None) -> dict:
         if raw is None:
             factors[fid] = {"value": None, "provenance": "missing:not_recorded",
                             "note": "player matched but factor absent from source"}
+            continue
+        if fid in TEAM_CONTEXT and recovered_from:
+            factors[fid] = {
+                "value": None, "provenance": "missing:no_team_context",
+                "note": f"player recovered from {recovered_from}; team context "
+                        f"for that season describes a different situation",
+            }
+            continue
+        if recovered_from:
+            factors[fid] = {
+                "value": round(raw, 3), "provenance": f"measured:{recovered_from}",
+                "note": f"no {p.get('_target_season', 'target')} season; "
+                        f"measured from {recovered_from}",
+            }
             continue
         if fid in TEAM_CONTEXT and team_changed:
             factors[fid] = {
@@ -227,6 +327,7 @@ def build_player(p: dict, measured: dict, sid: str | None) -> dict:
         "adp_round_pick": p.get("adp_formatted"),
         "games_played": hit["games"] if hit else 0,
         "matched": bool(hit),
+        "recovered_from_season": recovered_from,
         "factors": factors,
     }
 
@@ -241,6 +342,9 @@ def main() -> int:
                     help="how deep into ADP to go")
     ap.add_argument("--league", default=DEFAULT_LEAGUE_ID,
                     help="league whose scoring format selects the ADP variant")
+    ap.add_argument("--lookback", type=int, default=2,
+                    help="seasons to search back when the target year is empty "
+                         "(recovers injured veterans; 0 disables)")
     ap.add_argument("--out", default="artifacts/player_factors.json")
     args = ap.parse_args()
 
@@ -276,7 +380,19 @@ def main() -> int:
     players = []
     for p in universe:
         sid = lookup_sleeper_id(index, p.get("name"), p.get("position"), p.get("team"))
-        players.append(build_player(p, measured, sid))
+        row = build_player(p, measured, sid)
+        # Only pay for the recovery scan on players the main path missed.
+        if not row["matched"] and args.lookback:
+            for back in range(0, args.lookback + 1):
+                yr = args.season - back
+                fb = recover(yr, p.get("name") or "")
+                if fb:
+                    row = build_player(dict(p, _target_season=args.season),
+                                       measured, sid, fallback=fb)
+                    break
+        players.append(row)
+
+    recovered = [p for p in players if p.get("recovered_from_season")]
 
     # Report the joins that failed. A silent 60% match rate would look like a
     # working pipeline; this project has been bitten by exactly that before.
@@ -293,6 +409,12 @@ def main() -> int:
     print(f"  matched to {args.season} stats   {len(players)-len(unmatched)}/{len(players)}")
     print(f"  resolved to a Sleeper ID      {len(players)-len(no_sid)}/{len(players)}")
     print(f"  changed teams since {args.season}    {len(changed)}")
+    if recovered:
+        print(f"  recovered from an earlier season {len(recovered)}")
+        for r in recovered:
+            why = ("filed under another position" if r["recovered_from_season"] == args.season
+                   else "no season played that year")
+            print(f"    {r['position']:3} {r['name']:22} <- {r['recovered_from_season']}  ({why})")
     print("\nfactor provenance:")
     for k, n in prov.most_common():
         print(f"  {k:28} {n}")
@@ -333,6 +455,7 @@ def main() -> int:
             "unmatched": len(unmatched),
             "missing_sleeper_id": len(no_sid),
             "team_changed": len(changed),
+            "recovered": len(recovered),
             "provenance": dict(prov),
         },
         "note": (
