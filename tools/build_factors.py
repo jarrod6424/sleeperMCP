@@ -289,17 +289,22 @@ def build_player(p: dict, measured: dict, sid: str | None,
             factors[fid] = {"value": None, "provenance": "missing:no_prior_season",
                             "note": "no measured season for this player"}
             continue
-        raw = hit["values"].get(fid)
-        if raw is None:
-            factors[fid] = {"value": None, "provenance": "missing:not_recorded",
-                            "note": "player matched but factor absent from source"}
-            continue
+        # Order matters. recover() deliberately produces no team-context keys,
+        # so testing `raw is None` first swallowed every one of them into
+        # missing:not_recorded and left this branch unreachable. Null either
+        # way, but the labels mean opposite things to a consumer: "the source
+        # lacks this" versus "we withheld this on purpose".
         if fid in TEAM_CONTEXT and recovered_from:
             factors[fid] = {
                 "value": None, "provenance": "missing:no_team_context",
                 "note": f"player recovered from {recovered_from}; team context "
                         f"for that season describes a different situation",
             }
+            continue
+        raw = hit["values"].get(fid)
+        if raw is None:
+            factors[fid] = {"value": None, "provenance": "missing:not_recorded",
+                            "note": "player matched but factor absent from source"}
             continue
         if recovered_from:
             factors[fid] = {
