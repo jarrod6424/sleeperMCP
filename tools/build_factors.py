@@ -59,7 +59,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
-from collections import Counter
+from collections import Counter, defaultdict
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -74,9 +74,11 @@ from build_benchmarks import (                      # noqa: E402
 )
 from sleeper_core import values                     # noqa: E402
 from sleeper_core.adp import (                      # noqa: E402
-    fetch_adp, name_keys, sleeper_id_index, lookup_sleeper_id,
+    fetch_adp, name_keys, normalize_name, strip_suffix,
+    sleeper_id_index, lookup_sleeper_id,
 )
-from sleeper_core.config import DEFAULT_LEAGUE_ID   # noqa: E402
+from sleeper_core.config import DEFAULT_LEAGUE_ID, STATS_CACHE_TTL  # noqa: E402
+from sleeper_core.http import nflverse_csv         # noqa: E402
 from sleeper_core.stats import to_nflverse_team     # noqa: E402
 
 # Factors describing the offence rather than the player. These go stale the
@@ -86,24 +88,101 @@ TEAM_CONTEXT = {"off_ppg_rank", "team_pass_attempts", "team_pass_att_rank",
 
 
 def index_measurements(season: int) -> dict:
-    """(name_key, position) -> per-game factor values for one season."""
+    """Per-game factor values for one season, plus indexes for diagnosing misses.
+
+    `by_key_pos` does the real join. The other two exist only so an unmatched
+    player can be classified mechanically instead of eyeballed: a name present
+    under a different position is a join bug, a name absent entirely is a
+    player with no season. Those need opposite responses and look identical in
+    a flat list.
+    """
     rows = load_player_seasons([season])
-    out: dict[tuple[str, str], dict] = {}
+    by_key_pos: dict[tuple[str, str], dict] = {}
+    by_key: dict[str, list[dict]] = defaultdict(list)
+    by_last: dict[str, list[dict]] = defaultdict(list)
     for ps in rows:
         vals = per_game(ps)
+        entry = {"values": vals, "team": ps["team"], "games": ps["games"],
+                 "name": ps["name"], "position": ps["position"]}
         for key in name_keys(ps["name"]):
-            out[(key, ps["position"])] = {"values": vals, "team": ps["team"],
-                                          "games": ps["games"], "name": ps["name"]}
-    return out
+            by_key_pos[(key, ps["position"])] = entry
+            by_key[key].append(entry)
+        sn = surname(ps["name"])
+        if sn:
+            by_last[sn].append(entry)
+    return {"by_key_pos": by_key_pos, "by_key": by_key, "by_last": by_last}
 
 
 def match(measured: dict, name: str, position: str) -> dict | None:
     """Name+position join, position first — the same rule the ADP crosswalk uses."""
     for key in name_keys(name):
-        hit = measured.get((key, (position or "").upper()))
+        hit = measured["by_key_pos"].get((key, (position or "").upper()))
         if hit:
             return hit
     return None
+
+
+def all_positions_index(season: int) -> dict:
+    """name_key -> every position the source lists, including ones we drop.
+
+    load_player_seasons keeps only QB/RB/WR/TE, so `by_key` cannot see a
+    receiver the source files under DB. Two-way players and position changes
+    then read as "absent" when the data is really there. This index exists
+    solely to tell those apart.
+    """
+    rows = nflverse_csv("stats_player", f"stats_player_week_{season}.csv",
+                        ttl=STATS_CACHE_TTL)
+    out: dict[str, set] = defaultdict(set)
+    for r in rows or []:
+        nm = r.get("player_display_name") or ""
+        pos = (r.get("position") or "").upper()
+        if nm and pos:
+            for k in name_keys(nm):
+                out[k].add(pos)
+    return out
+
+
+def surname(name: str) -> str:
+    """Last name, suffix removed.
+
+    Taking the final token naively made "Omar Cooper Jr." match every other
+    player whose name ends in "Jr." — the suffix became the surname.
+    """
+    parts = strip_suffix((name or "").strip()).split()
+    return normalize_name(parts[-1]) if parts else ""
+
+
+def classify_miss(measured: dict, all_pos: dict, name: str, position: str) -> str:
+    """Why did this player not join? Answers the question the list used to pose."""
+    pos = (position or "").upper()
+
+    # Present under another MODELLED position: a genuine join bug.
+    for key in name_keys(name):
+        others = [e for e in measured["by_key"].get(key, []) if e["position"] != pos]
+        if others:
+            got = ", ".join(sorted({e["position"] for e in others}))
+            return f"JOIN BUG: present as {got}, ADP says {pos}"
+
+    # Present under a position we drop at load. Real data, filtered out.
+    for key in name_keys(name):
+        seen = all_pos.get(key)
+        if seen and pos not in seen:
+            got = ", ".join(sorted(seen))
+            return f"DROPPED: source lists him as {got}; only QB/RB/WR/TE are loaded"
+
+    # Surname alone is almost no evidence — there are many Williamses. Require
+    # the first initial to agree as well, or this reports noise as findings.
+    sn = surname(name)
+    first = normalize_name((name or " ").split()[0])[:1]
+    if sn:
+        near = [e for e in measured["by_last"].get(sn, [])
+                if e["position"] == pos
+                and normalize_name((e["name"] or " ").split()[0])[:1] == first]
+        if near:
+            names = ", ".join(sorted({e["name"] for e in near})[:3])
+            return f"possible name variant -> {names}"
+
+    return "absent from source: no season played"
 
 
 def build_player(p: dict, measured: dict, sid: str | None) -> dict:
@@ -189,8 +268,10 @@ def main() -> int:
     print(f"  universe: {len(universe)} players")
 
     measured = index_measurements(args.season)
-    print(f"  measured: {len(measured)} name/position keys from {args.season}")
+    print(f"  measured: {len(measured['by_key_pos'])} name/position keys "
+          f"from {args.season}")
 
+    all_pos = all_positions_index(args.season)
     index = sleeper_id_index()
     players = []
     for p in universe:
@@ -217,9 +298,23 @@ def main() -> int:
         print(f"  {k:28} {n}")
 
     if unmatched:
-        print(f"\nunmatched (first 15 of {len(unmatched)}) — rookies, or a broken join:")
-        for p in unmatched[:15]:
-            print(f"  {p['position']:3} {p['name']}")
+        reasons = {}
+        for p in unmatched:
+            reasons[p["name"]] = classify_miss(measured, all_pos, p["name"], p["position"])
+        bugs = {n: r for n, r in reasons.items() if r.startswith(("JOIN BUG", "DROPPED"))}
+        variants = {n: r for n, r in reasons.items() if r.startswith("possible")}
+
+        print(f"\nunmatched: {len(unmatched)}")
+        for p in unmatched:
+            r = reasons[p["name"]]
+            mark = "  <-- FIX" if r.startswith(("JOIN BUG", "DROPPED", "possible")) else ""
+            print(f"  {p['position']:3} {p['name']:24} {r}{mark}")
+        if bugs or variants:
+            print(f"\n  {len(bugs)} join bug(s), {len(variants)} possible name variant(s).")
+            print("  These are recoverable data, not missing players.")
+        else:
+            print("\n  All misses are players with no season in the source —")
+            print("  rookies and anyone who sat out. Nothing to fix in the join.")
 
     by_pos = Counter(p["position"] for p in players)
     doc = {
