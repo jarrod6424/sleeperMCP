@@ -264,6 +264,50 @@ def top12_finish_history(name: str, position: str,
     return {"count": len(hit), "seasons": sorted(hit)}
 
 
+def team_position_ranks(season: int) -> dict[tuple[str, str], int]:
+    """A player's rank among same-team, same-position teammates, by the
+    position's primary volume stat: targets for WR, touches for RB. 1 = the
+    team's clear lead option at that position — a bell-cow back or a true
+    alpha receiver, not a committee/complementary piece.
+
+    (name_key, position) -> rank, matched the same way as everything else in
+    this file. Only WR and RB: QB has no analogous "QB2" within one offense,
+    and TE's version of this split is already captured by DraftLab's
+    computeCeilingScore failsTargetShareGate against team_target_rank
+    (which ranks WR+TE catchers together) rather than an archetype tier —
+    a different mechanism for the same idea, not a gap this needs to fill.
+
+    Describes the team a player was on THIS season — the same team-change
+    trap as every other team-context field in this file. Caller is
+    responsible for tagging stale/team-changed the same way.
+    """
+    rows = load_player_seasons([season])
+    by_team_pos: dict[tuple[str, str], list[dict]] = defaultdict(list)
+    for r in rows:
+        if r["position"] in ("WR", "RB") and r["team"]:
+            by_team_pos[(r["team"], r["position"])].append(r)
+
+    ranks: dict[tuple[str, str], int] = {}
+    for (_team, pos), players in by_team_pos.items():
+        key = (lambda p: p["targets"]) if pos == "WR" else (lambda p: p["carries"] + p["receptions"])
+        ordered = sorted(players, key=key, reverse=True)
+        for i, p in enumerate(ordered):
+            rank = i + 1
+            for k in name_keys(p["name"]):
+                existing = ranks.get((k, pos))
+                if existing is None or rank < existing:
+                    ranks[(k, pos)] = rank
+    return ranks
+
+
+def team_position_rank_for(name: str, position: str, ranks: dict[tuple[str, str], int]) -> int | None:
+    for k in name_keys(name):
+        r = ranks.get((k, position))
+        if r is not None:
+            return r
+    return None
+
+
 def season_projection_ranks(
     season: int, league_id: str, sleeper_players: dict,
 ) -> tuple[dict[str, int], dict[str, float], int, str]:
@@ -402,7 +446,7 @@ def classify_miss(measured: dict, all_pos: dict, name: str, position: str) -> st
 def build_player(p: dict, measured: dict, sid: str | None,
                  sleeper_players: dict, finishers: dict[tuple[int, str], set[str]],
                  finish_seasons: list[int], projection_ranks: dict[str, int],
-                 projection_points: dict[str, float],
+                 projection_points: dict[str, float], team_pos_ranks: dict[tuple[str, str], int],
                  fallback: dict | None = None) -> dict:
     pos = (p.get("position") or "").upper()
     adp_team = to_nflverse_team((p.get("team") or "").upper())
@@ -466,6 +510,24 @@ def build_player(p: dict, measured: dict, sid: str | None,
     bio["top12_finish_count"] = finish["count"]
     bio["top12_finish_seasons"] = finish["seasons"]
 
+    # Team-position rank (WR/RB only) is a team-context field, same trap as
+    # off_ppg_rank etc: it describes the roster a player was on THIS season,
+    # not necessarily the one his ADP says he's on now.
+    team_pos_rank = None
+    team_pos_rank_provenance = "unsourced"
+    if pos in ("WR", "RB"):
+        if team_changed:
+            team_pos_rank_provenance = "stale:team_changed"
+        elif recovered_from:
+            team_pos_rank_provenance = "missing:no_team_context"
+        else:
+            r = team_position_rank_for(p.get("name") or "", pos, team_pos_ranks)
+            if r is not None:
+                team_pos_rank = r
+                team_pos_rank_provenance = "measured"
+            else:
+                team_pos_rank_provenance = "missing:not_recorded"
+
     return {
         "sleeper_id": sid,
         "name": p.get("name"),
@@ -482,6 +544,12 @@ def build_player(p: dict, measured: dict, sid: str | None,
         # player has no sleeper_id or no projection was found for them.
         "projected_rank": projection_ranks.get(sid) if sid else None,
         "projected_points": round(projection_points[sid], 2) if sid in projection_points else None,
+        # Rank among same-team, same-position teammates by targets (WR) or
+        # touches (RB). 1 = clear lead option. Powers DraftLab's WR1/WR2 and
+        # RB1/RB2 archetype split. None/unsourced for QB and TE — see
+        # team_position_ranks()'s docstring for why those don't need it.
+        "team_position_rank": team_pos_rank,
+        "team_position_rank_provenance": team_pos_rank_provenance,
         "games_played": hit["games"] if hit else 0,
         "matched": bool(hit),
         "recovered_from_season": recovered_from,
@@ -551,13 +619,17 @@ def main() -> int:
     print(f"  projections: {proj_weeks_found} week(s) found, {proj_label} scoring, "
           f"{len(projection_ranks)} players ranked")
 
+    print(f"  team position ranks: WR by targets, RB by touches, within "
+          f"{args.season} team+position groups ...")
+    team_pos_ranks = team_position_ranks(args.season)
+
     all_pos = all_positions_index(args.season)
     index = sleeper_id_index()
     players = []
     for p in universe:
         sid = lookup_sleeper_id(index, p.get("name"), p.get("position"), p.get("team"))
         row = build_player(p, measured, sid, sleeper_players, finishers, DEFAULT_SEASONS,
-                            projection_ranks, projection_points)
+                            projection_ranks, projection_points, team_pos_ranks)
         # Only pay for the recovery scan on players the main path missed.
         if not row["matched"] and args.lookback:
             for back in range(0, args.lookback + 1):
@@ -567,7 +639,7 @@ def main() -> int:
                     row = build_player(dict(p, _target_season=args.season),
                                        measured, sid, sleeper_players, finishers,
                                        DEFAULT_SEASONS, projection_ranks, projection_points,
-                                       fallback=fb)
+                                       team_pos_ranks, fallback=fb)
                     break
         players.append(row)
 
@@ -586,6 +658,12 @@ def main() -> int:
 
     bio_prov = Counter(p["bio"]["provenance"] for p in players)
     finish_counts = Counter(p["bio"]["top12_finish_count"] for p in players)
+    team_pos_rank_prov = Counter(
+        p["team_position_rank_provenance"] for p in players if p["position"] in ("WR", "RB")
+    )
+    lead_options = sum(
+        1 for p in players if p["position"] in ("WR", "RB") and p["team_position_rank"] == 1
+    )
 
     print(f"\njoins:")
     print(f"  matched to {args.season} stats   {len(players)-len(unmatched)}/{len(players)}")
@@ -608,6 +686,11 @@ def main() -> int:
     for k in sorted(finish_counts):
         print(f"  {k} finish(es): {finish_counts[k]} players")
 
+    print(f"\nteam position rank (WR by targets, RB by touches): "
+          f"{lead_options} team-lead options (rank 1)")
+    for k, n in team_pos_rank_prov.most_common():
+        print(f"  {k:28} {n}")
+
     if unmatched:
         reasons = {}
         for p in unmatched:
@@ -629,7 +712,7 @@ def main() -> int:
 
     by_pos = Counter(p["position"] for p in players)
     doc = {
-        "schema_version": 3,
+        "schema_version": 4,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "basis": {
             "player_factors": f"measured:{args.season}",
@@ -651,6 +734,10 @@ def main() -> int:
                               f"scarcity adjustment: ranks QBs earlier than an analyst "
                               f"big-board would, since raw season points don't reflect "
                               f"that only one QB starts.",
+            "team_position_rank": f"within-{args.season}-team rank by targets (WR) or "
+                                  f"touches (RB); 1 = clear lead option. QB and TE don't "
+                                  f"get this — TE's version is DraftLab's "
+                                  f"failsTargetShareGate against team_target_rank instead.",
         },
         "counts": {
             "players": len(players),
@@ -664,6 +751,8 @@ def main() -> int:
             "bio_provenance": dict(bio_prov),
             "top12_finish_counts": {str(k): v for k, v in sorted(finish_counts.items())},
             "projected_rank_missing": sum(1 for p in players if p["projected_rank"] is None),
+            "team_position_rank_provenance": dict(team_pos_rank_prov),
+            "team_lead_options": lead_options,
         },
         "note": (
             "Factor values are format-invariant; only benchmark cohorts vary by "
