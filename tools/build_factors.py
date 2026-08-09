@@ -84,7 +84,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from build_benchmarks import (                      # noqa: E402
     COMPUTABLE, DEFAULT_SEASONS, FACTORS, _OFF_PPG_SOURCE, _gap_note,
-    fantasy_points, load_player_seasons, per_game,
+    fantasy_points, last_regular_week, load_player_seasons, per_game,
 )
 from sleeper_core.offense import safe_float        # noqa: E402
 from sleeper_core import values                     # noqa: E402
@@ -95,6 +95,7 @@ from sleeper_core.adp import (                      # noqa: E402
 from sleeper_core.config import DEFAULT_LEAGUE_ID, STATS_CACHE_TTL  # noqa: E402
 from sleeper_core.http import nflverse_csv         # noqa: E402
 from sleeper_core.players import load_players as load_sleeper_players  # noqa: E402
+from sleeper_core.projections import projections_for, proj_points, scoring_field  # noqa: E402
 from sleeper_core.stats import to_nflverse_team     # noqa: E402
 
 # Factors describing the offence rather than the player. These go stale the
@@ -263,6 +264,66 @@ def top12_finish_history(name: str, position: str,
     return {"count": len(hit), "seasons": sorted(hit)}
 
 
+def season_projection_ranks(
+    season: int, league_id: str, sleeper_players: dict,
+) -> tuple[dict[str, int], dict[str, float], int, str]:
+    """Season-long projected-points rank OVERALL (all positions together),
+    from Sleeper's own (undocumented, best-effort) weekly projections summed
+    across the season.
+
+    A mechanical substitute for fseRank/espnProjectionRank when neither
+    licensed source is available: an independent, forward-looking opinion of
+    expected output — not derived from our own measured factors or DraftLab's
+    model, so it is not circular with ceiling/archetype the way re-deriving a
+    "projection" from last season's stats would be. It is a different kind of
+    signal than those two — Sleeper's own data provider's opinion rather than
+    FSE's or ESPN's — filling the same role, not literally replacing them.
+
+    MUST be overall, not within-position: fseRank/espnProjectionRank in
+    DraftLab's own fixtures sit right next to adpOverallPick (Josh Allen
+    adp-overall 25, fseRank 28; Bijan Robinson adp-overall 2, fseRank 3) —
+    confirming they are ranks across the whole draftable pool, the same scale
+    value.ts diffs against ADP. An earlier version of this ranked within
+    position, which silently compared "RB35" against an overall pick number
+    120+ slots later and produced nonsense +100-capped "value" for random
+    bench players — plausible output, no error, wrong answer, exactly the
+    failure mode this project keeps hitting.
+
+    KNOWN LIMITATION, stated rather than hidden: this ranks by raw projected
+    points with no positional-scarcity adjustment, so it will rank QBs
+    earlier than a human analyst would (QBs score more gross points per
+    season, but a redraft league only starts one). fseRank/espnProjectionRank
+    are analyst big-boards that already bake scarcity in; this mechanical
+    fallback does not. It is a fallback, not a replacement, precisely because
+    of gaps like this one.
+
+    projections_for() is per-week; there is no season-total endpoint. Summing
+    18 weeks of an undocumented, best-effort source is the whole reason this
+    reports weeks_found — if the season is far off and few weeks have
+    projections populated yet, the rank is that much less "season-long" than
+    it claims, and a consumer should be able to see that.
+    """
+    field, label = scoring_field(league_id)
+    totals: dict[str, float] = defaultdict(float)
+    weeks_found = 0
+    for week in range(1, last_regular_week(season) + 1):
+        proj = projections_for(str(season), week)
+        if not proj:
+            continue
+        weeks_found += 1
+        for pid in proj:
+            totals[pid] += proj_points(pid, proj, field)
+
+    rows = [
+        (pid, pts) for pid, pts in totals.items()
+        if (sleeper_players.get(pid) or {}).get("position") in FACTORS
+    ]
+    rows.sort(key=lambda r: r[1], reverse=True)
+    ranks = {pid: i + 1 for i, (pid, _pts) in enumerate(rows)}
+
+    return ranks, dict(totals), weeks_found, label
+
+
 def bio_for(sid: str | None, sleeper_players: dict) -> dict:
     """Age, experience and draft year from Sleeper's player map.
 
@@ -340,7 +401,8 @@ def classify_miss(measured: dict, all_pos: dict, name: str, position: str) -> st
 
 def build_player(p: dict, measured: dict, sid: str | None,
                  sleeper_players: dict, finishers: dict[tuple[int, str], set[str]],
-                 finish_seasons: list[int],
+                 finish_seasons: list[int], projection_ranks: dict[str, int],
+                 projection_points: dict[str, float],
                  fallback: dict | None = None) -> dict:
     pos = (p.get("position") or "").upper()
     adp_team = to_nflverse_team((p.get("team") or "").upper())
@@ -414,6 +476,12 @@ def build_player(p: dict, measured: dict, sid: str | None,
         "adp": p.get("adp"),
         "adp_round_pick": p.get("adp_formatted"),
         "adp_source": p.get("adp_source"),
+        # Mechanical fallback for fseRank/espnProjectionRank: season-long
+        # projected-points rank within position, from Sleeper's own
+        # (undocumented, best-effort) weekly projections. None when the
+        # player has no sleeper_id or no projection was found for them.
+        "projected_rank": projection_ranks.get(sid) if sid else None,
+        "projected_points": round(projection_points[sid], 2) if sid in projection_points else None,
         "games_played": hit["games"] if hit else 0,
         "matched": bool(hit),
         "recovered_from_season": recovered_from,
@@ -476,12 +544,20 @@ def main() -> int:
           f"by full-PPR season total ...")
     finishers = top12_finishers_by_season(DEFAULT_SEASONS)
 
+    print(f"  projections: summing {adp_season} weekly projections (Sleeper, "
+          f"undocumented/best-effort) ...")
+    projection_ranks, projection_points, proj_weeks_found, proj_label = \
+        season_projection_ranks(adp_season, args.league, sleeper_players)
+    print(f"  projections: {proj_weeks_found} week(s) found, {proj_label} scoring, "
+          f"{len(projection_ranks)} players ranked")
+
     all_pos = all_positions_index(args.season)
     index = sleeper_id_index()
     players = []
     for p in universe:
         sid = lookup_sleeper_id(index, p.get("name"), p.get("position"), p.get("team"))
-        row = build_player(p, measured, sid, sleeper_players, finishers, DEFAULT_SEASONS)
+        row = build_player(p, measured, sid, sleeper_players, finishers, DEFAULT_SEASONS,
+                            projection_ranks, projection_points)
         # Only pay for the recovery scan on players the main path missed.
         if not row["matched"] and args.lookback:
             for back in range(0, args.lookback + 1):
@@ -490,7 +566,8 @@ def main() -> int:
                 if fb:
                     row = build_player(dict(p, _target_season=args.season),
                                        measured, sid, sleeper_players, finishers,
-                                       DEFAULT_SEASONS, fallback=fb)
+                                       DEFAULT_SEASONS, projection_ranks, projection_points,
+                                       fallback=fb)
                     break
         players.append(row)
 
@@ -552,7 +629,7 @@ def main() -> int:
 
     by_pos = Counter(p["position"] for p in players)
     doc = {
-        "schema_version": 2,
+        "schema_version": 3,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "basis": {
             "player_factors": f"measured:{args.season}",
@@ -565,6 +642,15 @@ def main() -> int:
             "adp": f"{fetched.get('format_used')} (format-matched, for QB accuracy); "
                    f"RB/WR/TE depth backfilled from ppr where the {fetched.get('format_used')} "
                    f"pool ran out — see each player's adp_source",
+            "projected_rank": f"sum of {adp_season} weekly projections (Sleeper, "
+                              f"undocumented/best-effort), {proj_label} scoring, "
+                              f"{proj_weeks_found} week(s) found as of generation, ranked "
+                              f"OVERALL across all positions by raw points — mechanical "
+                              f"fallback for fseRank/espnProjectionRank, not a replacement "
+                              f"for them if a licensed source is ever added. No positional-"
+                              f"scarcity adjustment: ranks QBs earlier than an analyst "
+                              f"big-board would, since raw season points don't reflect "
+                              f"that only one QB starts.",
         },
         "counts": {
             "players": len(players),
@@ -577,6 +663,7 @@ def main() -> int:
             "provenance": dict(prov),
             "bio_provenance": dict(bio_prov),
             "top12_finish_counts": {str(k): v for k, v in sorted(finish_counts.items())},
+            "projected_rank_missing": sum(1 for p in players if p["projected_rank"] is None),
         },
         "note": (
             "Factor values are format-invariant; only benchmark cohorts vary by "
@@ -584,7 +671,10 @@ def main() -> int:
             "'measured' is current, 'stale:team_changed' describes the player's "
             "previous offence, 'missing:*' has no value at all. bio.top12_finish_count "
             "is a measurement (how many times), not a classification — DraftLab's "
-            "classifyRb turns it into an archetype (schema_version 2, added for that)."
+            "classifyRb turns it into an archetype (schema_version 2, added for that). "
+            "projected_rank (schema_version 3) is Sleeper's own undocumented weekly "
+            "projections summed for the season and ranked within position — an honest "
+            "mechanical fallback, not a licensed projection."
         ),
         "players": players,
     }
