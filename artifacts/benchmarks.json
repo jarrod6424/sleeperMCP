@@ -1,6 +1,6 @@
 {
-  "schema_version": 1,
-  "generated_at": "2026-08-07T22:58:19+00:00",
+  "schema_version": 2,
+  "generated_at": "2026-08-09T15:39:25+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -108,6 +108,36 @@
       "draftlab": 1.38,
       "computed": 1.758,
       "error_pct": 27.4
+    },
+    "RB.touches": {
+      "draftlab": 21.5,
+      "computed": 21.386,
+      "error_pct": 0.5
+    },
+    "RB.rush_attempts": {
+      "draftlab": 17.3,
+      "computed": 17.512,
+      "error_pct": 1.2
+    },
+    "RB.targets": {
+      "draftlab": 5.4,
+      "computed": 4.941,
+      "error_pct": 8.5
+    },
+    "RB.receptions": {
+      "draftlab": 4.25,
+      "computed": 3.874,
+      "error_pct": 8.8
+    },
+    "RB.touchdowns": {
+      "draftlab": 0.98,
+      "computed": 1.025,
+      "error_pct": 4.6
+    },
+    "RB.off_ppg_rank": {
+      "draftlab": 9.5,
+      "computed": 9.939,
+      "error_pct": 4.6
     }
   },
   "warnings": [],
@@ -122,6 +152,12 @@
             "half": 34.702,
             "ppr": 34.702
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 2.931,
+            "se": 0.884,
+            "relative_se": 0.025
+          },
           "note": null
         },
         {
@@ -131,6 +167,12 @@
             "std": 2.144,
             "half": 2.144,
             "ppr": 2.144
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.233,
+            "se": 0.07,
+            "relative_se": 0.033
           },
           "note": null
         },
@@ -142,6 +184,12 @@
             "half": 5.18,
             "ppr": 5.18
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 1.534,
+            "se": 0.463,
+            "relative_se": 0.089
+          },
           "note": null
         },
         {
@@ -151,6 +199,12 @@
             "std": 0.328,
             "half": 0.328,
             "ppr": 0.328
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.157,
+            "se": 0.047,
+            "relative_se": 0.145
           },
           "note": null
         },
@@ -162,48 +216,61 @@
             "half": 4.212,
             "ppr": 4.212
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 1.875,
+            "se": 0.565,
+            "relative_se": 0.134
+          },
           "note": null
         },
         {
           "factor_id": "ol_pass_block_rank",
           "source": "licensed:PFF",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (PFF); manual import"
         },
         {
           "factor_id": "deep_ball_attempts",
           "source": "nflverse:pbp",
           "benchmark": null,
+          "dispersion": null,
           "note": "available from nflverse play-by-play; not yet implemented"
         },
         {
           "factor_id": "qbr_rank",
           "source": "licensed:ESPN",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (ESPN); manual import"
         },
         {
           "factor_id": "red_zone_attempts",
           "source": "nflverse:pbp",
           "benchmark": null,
+          "dispersion": null,
           "note": "available from nflverse play-by-play; not yet implemented"
         },
         {
           "factor_id": "adp",
           "source": "fantasyfootballcalculator",
           "benchmark": null,
+          "dispersion": null,
           "note": "use get_adp from the MCP server"
         },
         {
           "factor_id": "neutral_pace_rank",
           "source": "nflverse:pbp",
           "benchmark": null,
+          "dispersion": null,
           "note": "available from nflverse play-by-play; not yet implemented"
         },
         {
           "factor_id": "pass_dvoa_rank",
           "source": "licensed:FTN",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (FTN); manual import"
         }
       ],
@@ -220,6 +287,12 @@
             "half": 21.386,
             "ppr": 21.196
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 1.669,
+            "se": 0.503,
+            "relative_se": 0.024
+          },
           "note": null
         },
         {
@@ -229,6 +302,12 @@
             "std": 17.911,
             "half": 17.512,
             "ppr": 16.899
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 1.695,
+            "se": 0.511,
+            "relative_se": 0.029
           },
           "note": null
         },
@@ -240,6 +319,12 @@
             "half": 4.941,
             "ppr": 5.484
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 1.355,
+            "se": 0.408,
+            "relative_se": 0.083
+          },
           "note": null
         },
         {
@@ -249,6 +334,12 @@
             "std": 1.019,
             "half": 1.025,
             "ppr": 0.971
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.162,
+            "se": 0.049,
+            "relative_se": 0.048
           },
           "note": null
         },
@@ -260,18 +351,26 @@
             "half": 9.939,
             "ppr": 11.424
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 5.161,
+            "se": 1.556,
+            "relative_se": 0.157
+          },
           "note": null
         },
         {
           "factor_id": "ol_run_block_rank",
           "source": "licensed:PFF",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (PFF); manual import"
         },
         {
           "factor_id": "rz_touch_share",
           "source": "nflverse:pbp",
           "benchmark": null,
+          "dispersion": null,
           "note": "available from nflverse play-by-play; not yet implemented"
         },
         {
@@ -282,30 +381,40 @@
             "half": 0.717,
             "ppr": 0.726
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.066,
+            "se": 0.02,
+            "relative_se": 0.028
+          },
           "note": null
         },
         {
           "factor_id": "gl_carry_share",
           "source": "nflverse:pbp",
           "benchmark": null,
+          "dispersion": null,
           "note": "available from nflverse play-by-play; not yet implemented"
         },
         {
           "factor_id": "neutral_run_rate",
           "source": "nflverse:pbp",
           "benchmark": null,
+          "dispersion": null,
           "note": "available from nflverse play-by-play; not yet implemented"
         },
         {
           "factor_id": "archetype",
           "source": "categorical",
           "benchmark": null,
+          "dispersion": null,
           "note": "categorical, graded by DraftLab rather than benchmarked"
         },
         {
           "factor_id": "injury_concern",
           "source": "categorical",
           "benchmark": null,
+          "dispersion": null,
           "note": "categorical, graded by DraftLab rather than benchmarked"
         }
       ],
@@ -322,6 +431,12 @@
             "half": 10.306,
             "ppr": 10.306
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.691,
+            "se": 0.208,
+            "relative_se": 0.02
+          },
           "note": null
         },
         {
@@ -331,6 +446,12 @@
             "std": 6.901,
             "half": 7.075,
             "ppr": 7.075
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.47,
+            "se": 0.142,
+            "relative_se": 0.02
           },
           "note": null
         },
@@ -342,6 +463,12 @@
             "half": 0.727,
             "ppr": 0.727
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.125,
+            "se": 0.038,
+            "relative_se": 0.052
+          },
           "note": null
         },
         {
@@ -352,12 +479,19 @@
             "half": 7.818,
             "ppr": 7.818
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 3.897,
+            "se": 1.175,
+            "relative_se": 0.15
+          },
           "note": null
         },
         {
           "factor_id": "qb_pff_rank",
           "source": "licensed:PFF",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (PFF); manual import"
         },
         {
@@ -368,42 +502,54 @@
             "half": 588.758,
             "ppr": 588.758
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 22.66,
+            "se": 6.832,
+            "relative_se": 0.012
+          },
           "note": null
         },
         {
           "factor_id": "secondary_target",
           "source": "categorical",
           "benchmark": null,
+          "dispersion": null,
           "note": "categorical, graded by DraftLab rather than benchmarked"
         },
         {
           "factor_id": "ol_pass_block_rank",
           "source": "licensed:PFF",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (PFF); manual import"
         },
         {
           "factor_id": "yprr",
           "source": "licensed:PFF",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (PFF); manual import"
         },
         {
           "factor_id": "reception_perception",
           "source": "licensed:RP",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (RP); manual import"
         },
         {
           "factor_id": "archetype",
           "source": "categorical",
           "benchmark": null,
+          "dispersion": null,
           "note": "categorical, graded by DraftLab rather than benchmarked"
         },
         {
           "factor_id": "injury_concern",
           "source": "categorical",
           "benchmark": null,
+          "dispersion": null,
           "note": "categorical, graded by DraftLab rather than benchmarked"
         }
       ],
@@ -420,6 +566,12 @@
             "half": 7.854,
             "ppr": 8.072
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.634,
+            "se": 0.191,
+            "relative_se": 0.024
+          },
           "note": null
         },
         {
@@ -429,6 +581,12 @@
             "std": 5.27,
             "half": 5.595,
             "ppr": 5.756
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.506,
+            "se": 0.153,
+            "relative_se": 0.027
           },
           "note": null
         },
@@ -440,6 +598,12 @@
             "half": 0.476,
             "ppr": 0.466
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.138,
+            "se": 0.042,
+            "relative_se": 0.087
+          },
           "note": null
         },
         {
@@ -450,12 +614,19 @@
             "half": 11.758,
             "ppr": 12.303
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 6.074,
+            "se": 1.831,
+            "relative_se": 0.156
+          },
           "note": null
         },
         {
           "factor_id": "qb_qbr_rank",
           "source": "licensed:ESPN",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (ESPN); manual import"
         },
         {
@@ -465,6 +636,12 @@
             "std": 15.03,
             "half": 13.485,
             "ppr": 13.364
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 4.545,
+            "se": 1.37,
+            "relative_se": 0.102
           },
           "note": null
         },
@@ -476,6 +653,12 @@
             "half": 1.515,
             "ppr": 1.333
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.721,
+            "se": 0.217,
+            "relative_se": 0.143
+          },
           "note": null
         },
         {
@@ -486,30 +669,40 @@
             "half": 1.758,
             "ppr": 1.636
           },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.651,
+            "se": 0.196,
+            "relative_se": 0.112
+          },
           "note": null
         },
         {
           "factor_id": "route_participation",
           "source": "licensed:PFF",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (PFF); manual import"
         },
         {
           "factor_id": "inline_pct",
           "source": "licensed:PFF",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (PFF); manual import"
         },
         {
           "factor_id": "yprr_rank",
           "source": "licensed:PFF",
           "benchmark": null,
+          "dispersion": null,
           "note": "not freely redistributable (PFF); manual import"
         },
         {
           "factor_id": "injury_concern",
           "source": "categorical",
           "benchmark": null,
+          "dispersion": null,
           "note": "categorical, graded by DraftLab rather than benchmarked"
         }
       ],

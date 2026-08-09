@@ -154,6 +154,15 @@ DRAFTLAB_PUBLISHED = {
     "TE": {"targets": 8.1, "receptions": 5.71, "touchdowns": 0.56,
            "off_ppg_rank": 11.78, "team_pass_att_rank": 11.81,
            "team_target_rank": 1.43, "rec_td_rank": 1.38},
+    # Added once DraftLab's RB benchmarks left provisional:0 — sourced from a
+    # different video than the QB/WR/TE set above (an FSE league-winner
+    # analysis), transcribed by hand the same way. Same caveat applies: a
+    # reference, not ground truth. Three of DraftLab's RB factors —
+    # yards_per_carry, yards_per_touch, team_wins — have no counterpart here
+    # yet; this pipeline has no yardage or team win/loss aggregation, only
+    # attempts/receptions/tds. Not included until that's built.
+    "RB": {"touches": 21.5, "rush_attempts": 17.3, "targets": 5.4,
+           "receptions": 4.25, "touchdowns": 0.98, "off_ppg_rank": 9.5},
 }
 
 # Not every factor is a per-game rate. Getting this wrong silently divides a
