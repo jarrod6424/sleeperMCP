@@ -320,6 +320,16 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
         maxweek = last_regular_week(season)
         agg: dict[tuple, dict] = {}
         team_weeks: dict[str, set] = defaultdict(set)
+        # Team-level pass-attempt/points totals, keyed off each ROW's own team —
+        # never off a player's collapsed season entry. A player traded mid-season
+        # (Joe Flacco: CLE weeks 1-4, CIN weeks 6-18) gets exactly one "team" on
+        # his agg row (whichever appeared first), so summing team totals from agg
+        # silently drops his attempts from every team but that first one. That
+        # starved CIN's 2025 team_pass_attempts by 256 (640 real vs 384 measured)
+        # and dragged down off_ppg_rank/team_pass_attempts for every teammate
+        # (e.g. Ja'Marr Chase) who never changed teams at all — a plausible wrong
+        # number, not an error, exactly the failure mode this file warns about.
+        team_totals: dict[str, dict] = defaultdict(lambda: {"pass_attempts": 0.0, "fp_total": 0.0})
         for r in rows:
             try:
                 week = int(float(r.get("week") or 0))
@@ -334,6 +344,10 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
             team = (r.get("team") or "").upper()
             if team:
                 team_weeks[team].add(week)
+                team_totals[team]["pass_attempts"] += safe_float(r.get("attempts"))
+                team_totals[team]["fp_total"] += (
+                    safe_float(r.get("fantasy_points")) + safe_float(r.get("fantasy_points_ppr"))
+                ) / 2
             a = agg.setdefault((name, pos, season), {
                 "name": name, "position": pos, "season": season, "games": 0,
                 "team": team,
@@ -355,12 +369,12 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
             pcts = snap_by_player.get(a["name"], [])
             a["snap_share"] = statistics.mean(pcts) if pcts else None
 
-        _attach_team_context(list(agg.values()), team_weeks)
+        _attach_team_context(list(agg.values()), team_weeks, team_totals)
         out.extend(agg.values())
     return out
 
 
-def _attach_team_context(season_rows: list[dict], team_weeks: dict) -> None:
+def _attach_team_context(season_rows: list[dict], team_weeks: dict, team_totals: dict) -> None:
     """Team-level ranks and totals, computed from the same weekly rows.
 
     Four of DraftLab's factors are about the offence a player sits in rather
@@ -382,12 +396,13 @@ def _attach_team_context(season_rows: list[dict], team_weeks: dict) -> None:
             by_team[r["team"]].append(r)
 
     totals = {}
-    for team, players in by_team.items():
+    for team in team_weeks:
         games = max(len(team_weeks.get(team, ())), 1)
+        t = team_totals.get(team, {"fp_total": 0.0, "pass_attempts": 0.0})
         totals[team] = {
-            "fp_total": sum(p["fp_half"] for p in players),
+            "fp_total": t["fp_total"],
             "games": games,
-            "pass_attempts": sum(p["attempts"] for p in players),
+            "pass_attempts": t["pass_attempts"],
         }
 
     att_order = sorted(totals, key=lambda t: totals[t]["pass_attempts"], reverse=True)

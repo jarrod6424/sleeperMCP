@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "generated_at": "2026-08-09T19:19:06+00:00",
+ "generated_at": "2026-08-09T21:25:47+00:00",
  "basis": {
   "player_factors": "measured:2025",
   "universe": "FantasyFootballCalculator ADP 2026",
@@ -872,7 +872,7 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "team_pass_attempts": {
-     "value": 384.0,
+     "value": 640.0,
      "provenance": "measured",
      "note": null
     },
@@ -4568,7 +4568,7 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "team_pass_attempts": {
-     "value": 384.0,
+     "value": 640.0,
      "provenance": "measured",
      "note": null
     },
@@ -6115,7 +6115,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 20,
+     "value": 21,
      "provenance": "measured",
      "note": null
     },
@@ -6388,7 +6388,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 2,
+     "value": 1,
      "provenance": "measured",
      "note": null
     },
@@ -8191,7 +8191,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 17,
+     "value": 18,
      "provenance": "measured",
      "note": null
     },
@@ -9532,7 +9532,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 26,
+     "value": 27,
      "provenance": "measured",
      "note": null
     },
@@ -9714,7 +9714,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 1,
+     "value": 16,
      "provenance": "measured",
      "note": null
     },
@@ -10438,7 +10438,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 18,
+     "value": 19,
      "provenance": "measured",
      "note": null
     },
@@ -11351,7 +11351,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 23,
+     "value": 24,
      "provenance": "measured",
      "note": null
     },
@@ -11898,7 +11898,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 31,
+     "value": 32,
      "provenance": "measured",
      "note": null
     },
@@ -13977,7 +13977,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 24,
+     "value": 25,
      "provenance": "measured",
      "note": null
     },
@@ -14071,7 +14071,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 22,
+     "value": 23,
      "provenance": "measured",
      "note": null
     },
@@ -14338,7 +14338,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 31,
+     "value": 32,
      "provenance": "stale:team_changed",
      "note": "describes BAL, player now on NYG"
     },
@@ -15330,7 +15330,7 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "team_pass_attempts": {
-     "value": 813.0,
+     "value": 557.0,
      "provenance": "measured",
      "note": null
     },
@@ -17479,7 +17479,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 27,
+     "value": 28,
      "provenance": "measured",
      "note": null
     },
@@ -19443,7 +19443,7 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "team_pass_att_rank": {
-     "value": 29,
+     "value": 30,
      "provenance": "measured",
      "note": null
     },
