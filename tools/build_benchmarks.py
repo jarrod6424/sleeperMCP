@@ -177,6 +177,7 @@ FACTOR_KIND = {
     "team_target_rank": "rank",
     "rec_td_rank": "rank",
     "snap_share": "rate",          # already a percentage
+    "neutral_pace_rank": "rank",
 }
 
 # DraftLab's factor ids per position, in its own order. Factors we cannot
@@ -221,7 +222,9 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "targets", "receptions", "touchdowns", "touches", "snap_share",
               # team context, aggregated from the same weekly stats file
               "off_ppg_rank", "team_pass_attempts", "team_pass_att_rank",
-              "team_target_rank", "rec_td_rank"}
+              "team_target_rank", "rec_td_rank",
+              # QB-only, from play-by-play (see load_qb_pbp_season)
+              "deep_ball_attempts", "red_zone_attempts", "neutral_pace_rank"}
 
 
 _POINTS_CACHE: dict[int, dict] = {}
@@ -300,6 +303,137 @@ def last_regular_week(season: int) -> int:
     return 18 if season >= 2021 else 17
 
 
+QB_DEEP_BALL_AIR_YARDS = 20.0  # standard NFL-analytics "deep ball" threshold
+QB_RED_ZONE_YARDLINE = 20.0    # yardline_100 <= 20 = inside the 20
+
+_QB_NAME_SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
+
+
+def _qb_name_key(name: str) -> str:
+    """First-initial + last-name key, e.g. 'Josh Allen' / 'J.Allen' -> 'jallen'.
+
+    Bridges stats_player_week's full display names against play-by-play's
+    abbreviated passer/rusher names. This project has never fetched
+    play-by-play before, so the exact live format of passer_player_name is
+    unverified from here (sandboxed, no network) -- if the real join rate
+    comes back low when this actually runs, print diagnostics and check the
+    real column value rather than trusting this blind.
+    """
+    parts = [p for p in (name or "").replace(".", " ").split()
+             if p.strip(".").lower() not in _QB_NAME_SUFFIXES]
+    if not parts:
+        return ""
+    return (parts[0][0] + "".join(parts[1:])).lower()
+
+
+def _neutral_script(row: dict) -> bool:
+    """Within two scores and outside the two-minute drill of either half.
+
+    Standard neutral-pace definition (e.g. Football Outsiders): garbage time
+    and hurry-up both distort plays-per-game in ways that have nothing to do
+    with how fast an offense actually wants to play.
+    """
+    diff, qtr_raw, secs = (row.get("score_differential"), row.get("qtr"),
+                           row.get("game_seconds_remaining"))
+    if diff in (None, "") or qtr_raw in (None, "") or secs in (None, ""):
+        return False
+    if abs(safe_float(diff)) > 8:
+        return False
+    try:
+        qtr = int(float(qtr_raw))
+    except (TypeError, ValueError):
+        return False
+    return not (qtr in (2, 4) and safe_float(secs) < 120)
+
+
+def load_qb_pbp_season(season: int) -> tuple[dict, dict]:
+    """QB deep-ball rate, red-zone involvement, and team neutral-script pace,
+    from one season's play-by-play.
+
+    Returns (qb_stats, team_neutral_plays):
+      qb_stats[_qb_name_key(name)] = {"weeks": {wk, ...}, "deep": n, "rz": n}
+        -- summed across every team the player threw/ran for that season,
+        same team-agnostic-season-total convention as every other factor in
+        this file (only TEAM-level aggregates need the team-locking guard
+        _attach_team_context has; an individual's own counting stats never
+        did, see build_benchmarks's team-attribution fix).
+      team_neutral_plays[team][week] = neutral-script offensive play count.
+
+    Filtered during parsing: nflverse's play-by-play file is multi-hundred-MB
+    per season -- team_points_per_game's own docstring calls that out as the
+    file this ISN'T. Building every column into a dict per play would repeat
+    the OOM risk nflverse_csv's row_filter exists to avoid (see its
+    depth_charts example).
+
+    Best-effort: returns ({}, {}) on any failure (network blocked, file not
+    yet published for this season) so the caller leaves these three factors
+    unset rather than fabricate zeros.
+    """
+    def keep(row):
+        st = row.get("season_type")
+        if st and st != "REG":
+            return False
+        return (row.get("play_type") or "") in ("pass", "run")
+
+    rows = nflverse_csv("pbp", f"play_by_play_{season}.csv", row_filter=keep,
+                        ttl=STATS_CACHE_TTL)
+    if not rows:
+        return {}, {}
+
+    all_passers = {_qb_name_key(r.get("passer_player_name"))
+                   for r in rows
+                   if r.get("play_type") == "pass" and r.get("passer_player_name")}
+    all_passers.discard("")
+
+    qb_stats: dict[str, dict] = defaultdict(lambda: {"weeks": set(), "deep": 0, "rz": 0})
+    team_neutral_plays: dict[str, dict[str, int]] = defaultdict(lambda: defaultdict(int))
+
+    for r in rows:
+        team = to_nflverse_team(r.get("posteam"))
+        week = str(r.get("week") or "")
+        play_type = r.get("play_type")
+
+        if team and week and _neutral_script(r):
+            team_neutral_plays[team][week] += 1
+
+        if not week:
+            continue
+
+        if play_type == "pass":
+            key = _qb_name_key(r.get("passer_player_name"))
+            if not key:
+                continue
+            s = qb_stats[key]
+            s["weeks"].add(week)
+            air = r.get("air_yards")
+            if air not in (None, "") and safe_float(air) >= QB_DEEP_BALL_AIR_YARDS:
+                s["deep"] += 1
+            yl = r.get("yardline_100")
+            if yl not in (None, "") and safe_float(yl) <= QB_RED_ZONE_YARDLINE:
+                s["rz"] += 1
+        elif play_type == "run":
+            key = _qb_name_key(r.get("rusher_player_name"))
+            if not key or key not in all_passers:
+                continue  # not a QB scramble/sneak -- a real rusher's carry
+            s = qb_stats[key]
+            s["weeks"].add(week)
+            yl = r.get("yardline_100")
+            if yl not in (None, "") and safe_float(yl) <= QB_RED_ZONE_YARDLINE:
+                s["rz"] += 1
+
+    return dict(qb_stats), {t: dict(w) for t, w in team_neutral_plays.items()}
+
+
+def neutral_pace_ranks(team_neutral_plays: dict) -> dict[str, int]:
+    """Team rank by neutral-script plays/game, 1 = fastest (most plays)."""
+    avg = {}
+    for team, weeks in team_neutral_plays.items():
+        if weeks:
+            avg[team] = sum(weeks.values()) / len(weeks)
+    order = sorted(avg, key=lambda t: avg[t], reverse=True)
+    return {t: i + 1 for i, t in enumerate(order)}
+
+
 def load_player_seasons(seasons: list[int]) -> list[dict]:
     """One row per player-season: totals, games played, and snap share."""
     out: list[dict] = []
@@ -370,6 +504,31 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
             a["snap_share"] = statistics.mean(pcts) if pcts else None
 
         _attach_team_context(list(agg.values()), team_weeks, team_totals)
+
+        # QB-only play-by-play enrichment. Best-effort: an empty fetch (network
+        # blocked, or this season's file not yet published) must not silently
+        # zero out deep_ball_attempts/red_zone_attempts/neutral_pace_rank for
+        # every QB -- it leaves them unset, same as any other unsourced factor.
+        qb_stats, team_neutral = load_qb_pbp_season(season)
+        if qb_stats:
+            pace_rank = neutral_pace_ranks(team_neutral)
+            qb_rows = [a for a in agg.values() if a["position"] == "QB"]
+            matched = 0
+            for a in qb_rows:
+                stats = qb_stats.get(_qb_name_key(a["name"]))
+                if stats and stats["weeks"]:
+                    a["deep_ball_count"] = stats["deep"]
+                    a["rz_count"] = stats["rz"]
+                    a["pbp_games"] = len(stats["weeks"])
+                    matched += 1
+                if a["team"] in pace_rank:
+                    a["neutral_pace_rank"] = pace_rank[a["team"]]
+            print(f"  play-by-play {season}: matched {matched}/{len(qb_rows)} QBs "
+                  f"to deep_ball_attempts/red_zone_attempts", file=sys.stderr)
+        else:
+            print(f"  WARNING: no play-by-play for {season}; deep_ball_attempts/"
+                  f"red_zone_attempts/neutral_pace_rank left unset", file=sys.stderr)
+
         out.extend(agg.values())
     return out
 
@@ -459,7 +618,7 @@ def per_game(ps: dict) -> dict:
     """Factor values for one player-season, scaled per FACTOR_KIND."""
     g = max(ps["games"], 1)
     passthrough = {k: ps.get(k) for k in FACTOR_KIND if k in ps}
-    return {**passthrough, **{
+    out = {**passthrough, **{
         "pass_attempts": ps["attempts"] / g,
         "passing_tds": ps["passing_tds"] / g,
         "rush_attempts": ps["carries"] / g,
@@ -469,6 +628,17 @@ def per_game(ps: dict) -> dict:
         "touchdowns": (ps["rushing_tds"] + ps["receiving_tds"]) / g,
         "touches": (ps["carries"] + ps["receptions"]) / g,
     }}
+    # QB play-by-play factors: only present when load_qb_pbp_season actually
+    # matched this player, scaled by the games pbp saw him play (not the
+    # weekly-stats game count -- the two sources can disagree by a game or two
+    # on a bye/injury week boundary).
+    if "deep_ball_count" in ps:
+        pbp_g = max(ps.get("pbp_games", g), 1)
+        out["deep_ball_attempts"] = ps["deep_ball_count"] / pbp_g
+    if "rz_count" in ps:
+        pbp_g = max(ps.get("pbp_games", g), 1)
+        out["red_zone_attempts"] = ps["rz_count"] / pbp_g
+    return out
 
 
 def fantasy_points(ps: dict, fmt: str) -> float:

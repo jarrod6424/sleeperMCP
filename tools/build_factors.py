@@ -101,7 +101,7 @@ from sleeper_core.stats import to_nflverse_team     # noqa: E402
 # Factors describing the offence rather than the player. These go stale the
 # moment a player changes teams.
 TEAM_CONTEXT = {"off_ppg_rank", "team_pass_attempts", "team_pass_att_rank",
-                "team_target_rank", "rec_td_rank"}
+                "team_target_rank", "rec_td_rank", "neutral_pace_rank"}
 
 # "Finished top-12" is a season-total ranking question, not a per-game one —
 # it is asking where a player landed in the field, the same way "RB12" is

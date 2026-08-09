@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-09T15:39:25+00:00",
+  "generated_at": "2026-08-09T22:57:44+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -71,7 +71,7 @@
     },
     "WR.team_pass_attempts": {
       "draftlab": 594.94,
-      "computed": 588.758,
+      "computed": 588.727,
       "error_pct": 1.0
     },
     "TE.targets": {
@@ -96,8 +96,8 @@
     },
     "TE.team_pass_att_rank": {
       "draftlab": 11.81,
-      "computed": 13.485,
-      "error_pct": 14.2
+      "computed": 13.091,
+      "error_pct": 10.8
     },
     "TE.team_target_rank": {
       "draftlab": 1.43,
@@ -234,9 +234,18 @@
         {
           "factor_id": "deep_ball_attempts",
           "source": "nflverse:pbp",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "available from nflverse play-by-play; not yet implemented"
+          "benchmark": {
+            "std": 4.397,
+            "half": 4.397,
+            "ppr": 4.397
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.312,
+            "se": 0.094,
+            "relative_se": 0.021
+          },
+          "note": null
         },
         {
           "factor_id": "qbr_rank",
@@ -248,9 +257,18 @@
         {
           "factor_id": "red_zone_attempts",
           "source": "nflverse:pbp",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "available from nflverse play-by-play; not yet implemented"
+          "benchmark": {
+            "std": 6.848,
+            "half": 6.848,
+            "ppr": 6.848
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.915,
+            "se": 0.276,
+            "relative_se": 0.04
+          },
+          "note": null
         },
         {
           "factor_id": "adp",
@@ -262,9 +280,18 @@
         {
           "factor_id": "neutral_pace_rank",
           "source": "nflverse:pbp",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "available from nflverse play-by-play; not yet implemented"
+          "benchmark": {
+            "std": 12.697,
+            "half": 12.697,
+            "ppr": 12.697
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 2.818,
+            "se": 0.85,
+            "relative_se": 0.067
+          },
+          "note": null
         },
         {
           "factor_id": "pass_dvoa_rank",
@@ -274,7 +301,7 @@
           "note": "not freely redistributable (FTN); manual import"
         }
       ],
-      "computed": 5,
+      "computed": 8,
       "total": 12
     },
     "RB": {
@@ -499,13 +526,13 @@
           "source": "nflverse",
           "benchmark": {
             "std": 589.667,
-            "half": 588.758,
-            "ppr": 588.758
+            "half": 588.727,
+            "ppr": 588.727
           },
           "dispersion": {
             "seasons": 11,
-            "sd": 22.66,
-            "se": 6.832,
+            "sd": 22.678,
+            "se": 6.838,
             "relative_se": 0.012
           },
           "note": null
@@ -633,15 +660,15 @@
           "factor_id": "team_pass_att_rank",
           "source": "nflverse",
           "benchmark": {
-            "std": 15.03,
-            "half": 13.485,
-            "ppr": 13.364
+            "std": 14.818,
+            "half": 13.091,
+            "ppr": 12.909
           },
           "dispersion": {
             "seasons": 11,
-            "sd": 4.545,
-            "se": 1.37,
-            "relative_se": 0.102
+            "sd": 5.009,
+            "se": 1.51,
+            "relative_se": 0.115
           },
           "note": null
         },

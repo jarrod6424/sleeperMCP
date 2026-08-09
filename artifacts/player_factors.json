@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "generated_at": "2026-08-09T21:25:47+00:00",
+ "generated_at": "2026-08-09T22:56:04+00:00",
  "basis": {
   "player_factors": "measured:2025",
   "universe": "FantasyFootballCalculator ADP 2026",
@@ -31,13 +31,13 @@
   "team_changed": 39,
   "recovered": 6,
   "provenance": {
-   "measured": 989,
-   "unsourced": 1410,
-   "stale:team_changed": 63,
-   "missing:no_prior_season": 119,
-   "missing:not_recorded": 5,
+   "measured": 1081,
+   "unsourced": 1302,
+   "stale:team_changed": 68,
+   "missing:no_prior_season": 125,
+   "missing:not_recorded": 9,
    "measured:2024": 14,
-   "missing:no_team_context": 9,
+   "missing:no_team_context": 10,
    "measured:2025": 7
   },
   "bio_provenance": {
@@ -132,9 +132,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.25,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -142,9 +142,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 6.5,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -152,9 +152,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 21,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -412,9 +412,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.154,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -422,9 +422,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5.077,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -432,9 +432,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -595,9 +595,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.118,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -605,9 +605,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5.882,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -615,9 +615,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 8,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -782,9 +782,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.5,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -792,9 +792,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5.75,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -802,9 +802,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 15,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -974,9 +974,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.882,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -984,9 +984,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 6.941,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -994,9 +994,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 17,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -1161,9 +1161,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 2.571,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -1171,9 +1171,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.429,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -1181,9 +1181,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 29,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -1444,9 +1444,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.062,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -1454,9 +1454,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5.188,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -1464,9 +1464,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -1537,9 +1537,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.412,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -1547,9 +1547,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 6.706,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -1557,9 +1557,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 19,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -1628,9 +1628,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.889,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -1638,9 +1638,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 7.444,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -1648,9 +1648,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 9,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -1723,9 +1723,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5.294,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -1733,9 +1733,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 6.765,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -1743,9 +1743,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -1821,9 +1821,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.714,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -1831,9 +1831,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 7.714,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -1841,9 +1841,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -2104,9 +2104,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 2.294,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -2114,9 +2114,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5.882,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -2124,9 +2124,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 24,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -2195,9 +2195,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.824,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -2205,9 +2205,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5.765,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -2215,9 +2215,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -2290,9 +2290,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.0,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -2300,9 +2300,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 6.312,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -2310,9 +2310,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 18,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -2562,9 +2562,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.214,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -2572,9 +2572,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5.5,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -2582,9 +2582,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 13,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -2932,9 +2932,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.235,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -2942,9 +2942,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 6.412,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -2952,9 +2952,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 1,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -3487,9 +3487,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.059,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -3497,9 +3497,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.706,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -3507,9 +3507,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -4393,9 +4393,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.545,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -4403,9 +4403,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.545,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -4413,9 +4413,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 27,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -4664,9 +4664,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.133,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -4674,9 +4674,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.933,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -4684,9 +4684,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -4755,9 +4755,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.118,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -4765,9 +4765,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.412,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -4775,9 +4775,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -5305,9 +5305,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.2,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -5315,9 +5315,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5.0,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -5325,9 +5325,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 25,
+     "provenance": "stale:team_changed",
+     "note": "describes ARI, player now on MIN"
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -6301,8 +6301,8 @@
     },
     "deep_ball_attempts": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "qbr_rank": {
      "value": null,
@@ -6311,8 +6311,8 @@
     },
     "red_zone_attempts": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "adp": {
      "value": null,
@@ -6320,9 +6320,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 6,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -6662,9 +6662,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 2.846,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -6672,9 +6672,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 6.231,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -6682,9 +6682,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 16,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -7201,9 +7201,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 2.0,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -7211,9 +7211,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.25,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -7221,9 +7221,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3,
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on MIA"
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -8105,9 +8105,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 2.438,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -8115,9 +8115,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5.188,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -8125,9 +8125,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 20,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -8643,9 +8643,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.235,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -8653,9 +8653,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.882,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -8663,9 +8663,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 30,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -9899,9 +9899,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 2.933,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -9909,9 +9909,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.867,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -9919,9 +9919,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 28,
+     "provenance": "stale:team_changed",
+     "note": "describes LV, player now on NYJ"
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -10351,9 +10351,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.286,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -10361,9 +10361,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 7.214,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -10371,9 +10371,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 25,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -10628,9 +10628,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.0,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -10638,9 +10638,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 5.25,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -10648,9 +10648,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 10,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -12084,8 +12084,8 @@
     },
     "deep_ball_attempts": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "qbr_rank": {
      "value": null,
@@ -12094,8 +12094,8 @@
     },
     "red_zone_attempts": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "adp": {
      "value": null,
@@ -12104,8 +12104,8 @@
     },
     "neutral_pace_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -12622,8 +12622,8 @@
     },
     "deep_ball_attempts": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "qbr_rank": {
      "value": null,
@@ -12632,8 +12632,8 @@
     },
     "red_zone_attempts": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "adp": {
      "value": null,
@@ -12642,8 +12642,8 @@
     },
     "neutral_pace_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -12908,9 +12908,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 2.5,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -12918,9 +12918,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.8,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -12928,9 +12928,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 2,
+     "provenance": "stale:team_changed",
+     "note": "describes ATL, player now on LV"
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -12997,9 +12997,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.889,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -13007,9 +13007,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.0,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -13017,9 +13017,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 2,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -13266,9 +13266,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 2.357,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -13276,9 +13276,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 4.571,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -13286,9 +13286,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 31,
+     "provenance": "stale:team_changed",
+     "note": "describes MIA, player now on ATL"
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -13891,9 +13891,9 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "deep_ball_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 3.5,
+     "provenance": "measured",
+     "note": null
     },
     "qbr_rank": {
      "value": null,
@@ -13901,9 +13901,9 @@
      "note": "not freely redistributable (ESPN); manual import"
     },
     "red_zone_attempts": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 2.375,
+     "provenance": "measured",
+     "note": null
     },
     "adp": {
      "value": null,
@@ -13911,9 +13911,9 @@
      "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "value": 22,
+     "provenance": "measured",
+     "note": null
     },
     "pass_dvoa_rank": {
      "value": null,
@@ -14255,8 +14255,8 @@
     },
     "deep_ball_attempts": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "qbr_rank": {
      "value": null,
@@ -14265,8 +14265,8 @@
     },
     "red_zone_attempts": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "adp": {
      "value": null,
@@ -14275,8 +14275,8 @@
     },
     "neutral_pace_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "available from nflverse play-by-play; not yet implemented"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "pass_dvoa_rank": {
      "value": null,
