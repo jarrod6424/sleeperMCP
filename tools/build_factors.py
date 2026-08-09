@@ -83,8 +83,8 @@ if str(ROOT) not in sys.path:
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from build_benchmarks import (                      # noqa: E402
-    COMPUTABLE, FACTORS, _OFF_PPG_SOURCE, _gap_note,
-    load_player_seasons, per_game,
+    COMPUTABLE, DEFAULT_SEASONS, FACTORS, _OFF_PPG_SOURCE, _gap_note,
+    fantasy_points, load_player_seasons, per_game,
 )
 from sleeper_core.offense import safe_float        # noqa: E402
 from sleeper_core import values                     # noqa: E402
@@ -94,12 +94,23 @@ from sleeper_core.adp import (                      # noqa: E402
 )
 from sleeper_core.config import DEFAULT_LEAGUE_ID, STATS_CACHE_TTL  # noqa: E402
 from sleeper_core.http import nflverse_csv         # noqa: E402
+from sleeper_core.players import load_players as load_sleeper_players  # noqa: E402
 from sleeper_core.stats import to_nflverse_team     # noqa: E402
 
 # Factors describing the offence rather than the player. These go stale the
 # moment a player changes teams.
 TEAM_CONTEXT = {"off_ppg_rank", "team_pass_attempts", "team_pass_att_rank",
                 "team_target_rank", "rec_td_rank"}
+
+# "Finished top-12" is a season-total ranking question, not a per-game one —
+# it is asking where a player landed in the field, the same way "RB12" is
+# used in the FSE video transcript DraftLab's RB benchmarks came from. Ranked
+# on full PPR since that is this league's format (see `basis.format` below).
+TOP_N_FINISH = 12
+# A one-game garbage-time cameo shouldn't occupy a "finish" the way a full
+# healthy season does. Half a season is the bar for the ranking to mean
+# anything.
+FINISH_MIN_GAMES = 8
 
 
 def index_measurements(season: int) -> dict:
@@ -219,6 +230,71 @@ def recover(season: int, name: str) -> dict | None:
     }
 
 
+def top12_finishers_by_season(seasons: list[int]) -> dict[tuple[int, str], set[str]]:
+    """(season, position) -> name_keys of that season's top-12 fantasy scorers.
+
+    Ranked by full-PPR season total among players with at least
+    FINISH_MIN_GAMES played. This is DraftLab's own vocabulary — his RB
+    archetype split (classifyRb) distinguishes a player with zero, one, or
+    2+ prior top-12 finishes, and had no source for the count before this.
+    """
+    rows = load_player_seasons(seasons)
+    by_season_pos: dict[tuple[int, str], list[dict]] = defaultdict(list)
+    for r in rows:
+        if r["games"] >= FINISH_MIN_GAMES:
+            by_season_pos[(r["season"], r["position"])].append(r)
+
+    out: dict[tuple[int, str], set[str]] = {}
+    for key, pool in by_season_pos.items():
+        pool.sort(key=lambda r: fantasy_points(r, "ppr"), reverse=True)
+        keys: set[str] = set()
+        for r in pool[:TOP_N_FINISH]:
+            keys.update(name_keys(r["name"]))
+        out[key] = keys
+    return out
+
+
+def top12_finish_history(name: str, position: str,
+                         finishers: dict[tuple[int, str], set[str]],
+                         seasons: list[int]) -> dict:
+    """How many of `seasons` this player finished top-12 at `position`, and which."""
+    keys = set(name_keys(name))
+    hit = [s for s in seasons if keys & finishers.get((s, position), set())]
+    return {"count": len(hit), "seasons": sorted(hit)}
+
+
+def bio_for(sid: str | None, sleeper_players: dict) -> dict:
+    """Age, experience and draft year from Sleeper's player map.
+
+    Verified against DraftLab's own seed data before trusting the mapping:
+    Sleeper's `years_exp` for Jahmyr Gibbs (drafted 2023) reads 3 in this
+    (pre-2026-season) snapshot, matching seed-players.ts's
+    `seasonsInLeague: 3` for the same player exactly — no off-by-one to
+    correct. `metadata.rookie_year` likewise matches `draftYear` directly.
+    """
+    if not sid:
+        return {"age": None, "seasons_in_league": None, "draft_year": None,
+                "status": None, "provenance": "missing:no_sleeper_id"}
+    info = sleeper_players.get(sid)
+    if not info:
+        return {"age": None, "seasons_in_league": None, "draft_year": None,
+                "status": None, "provenance": "missing:not_in_sleeper_map"}
+    rookie_year = None
+    raw_year = (info.get("metadata") or {}).get("rookie_year")
+    if raw_year:
+        try:
+            rookie_year = int(raw_year)
+        except (TypeError, ValueError):
+            rookie_year = None
+    return {
+        "age": info.get("age"),
+        "seasons_in_league": info.get("years_exp"),
+        "draft_year": rookie_year,
+        "status": info.get("status"),
+        "provenance": "measured",
+    }
+
+
 def surname(name: str) -> str:
     """Last name, suffix removed.
 
@@ -263,6 +339,8 @@ def classify_miss(measured: dict, all_pos: dict, name: str, position: str) -> st
 
 
 def build_player(p: dict, measured: dict, sid: str | None,
+                 sleeper_players: dict, finishers: dict[tuple[int, str], set[str]],
+                 finish_seasons: list[int],
                  fallback: dict | None = None) -> dict:
     pos = (p.get("position") or "").upper()
     adp_team = to_nflverse_team((p.get("team") or "").upper())
@@ -321,6 +399,11 @@ def build_player(p: dict, measured: dict, sid: str | None,
             continue
         factors[fid] = {"value": round(raw, 3), "provenance": "measured", "note": None}
 
+    bio = bio_for(sid, sleeper_players)
+    finish = top12_finish_history(p.get("name") or "", pos, finishers, finish_seasons)
+    bio["top12_finish_count"] = finish["count"]
+    bio["top12_finish_seasons"] = finish["seasons"]
+
     return {
         "sleeper_id": sid,
         "name": p.get("name"),
@@ -333,6 +416,7 @@ def build_player(p: dict, measured: dict, sid: str | None,
         "games_played": hit["games"] if hit else 0,
         "matched": bool(hit),
         "recovered_from_season": recovered_from,
+        "bio": bio,
         "factors": factors,
     }
 
@@ -380,12 +464,20 @@ def main() -> int:
     print(f"  measured: {len(measured['by_key_pos'])} name/position keys "
           f"from {args.season}")
 
+    print(f"  bio: loading Sleeper player map ...")
+    sleeper_players = load_sleeper_players()
+    print(f"  bio: {len(sleeper_players)} players in the Sleeper map")
+
+    print(f"  top-12 finishes: ranking {DEFAULT_SEASONS[0]}-{DEFAULT_SEASONS[-1]} "
+          f"by full-PPR season total ...")
+    finishers = top12_finishers_by_season(DEFAULT_SEASONS)
+
     all_pos = all_positions_index(args.season)
     index = sleeper_id_index()
     players = []
     for p in universe:
         sid = lookup_sleeper_id(index, p.get("name"), p.get("position"), p.get("team"))
-        row = build_player(p, measured, sid)
+        row = build_player(p, measured, sid, sleeper_players, finishers, DEFAULT_SEASONS)
         # Only pay for the recovery scan on players the main path missed.
         if not row["matched"] and args.lookback:
             for back in range(0, args.lookback + 1):
@@ -393,7 +485,8 @@ def main() -> int:
                 fb = recover(yr, p.get("name") or "")
                 if fb:
                     row = build_player(dict(p, _target_season=args.season),
-                                       measured, sid, fallback=fb)
+                                       measured, sid, sleeper_players, finishers,
+                                       DEFAULT_SEASONS, fallback=fb)
                     break
         players.append(row)
 
@@ -410,6 +503,9 @@ def main() -> int:
         for f in p["factors"].values():
             prov[f["provenance"]] += 1
 
+    bio_prov = Counter(p["bio"]["provenance"] for p in players)
+    finish_counts = Counter(p["bio"]["top12_finish_count"] for p in players)
+
     print(f"\njoins:")
     print(f"  matched to {args.season} stats   {len(players)-len(unmatched)}/{len(players)}")
     print(f"  resolved to a Sleeper ID      {len(players)-len(no_sid)}/{len(players)}")
@@ -423,6 +519,13 @@ def main() -> int:
     print("\nfactor provenance:")
     for k, n in prov.most_common():
         print(f"  {k:28} {n}")
+
+    print("\nbio provenance:")
+    for k, n in bio_prov.most_common():
+        print(f"  {k:28} {n}")
+    print("\ntop-12 finish history (count of players by number of prior finishes):")
+    for k in sorted(finish_counts):
+        print(f"  {k} finish(es): {finish_counts[k]} players")
 
     if unmatched:
         reasons = {}
@@ -445,13 +548,16 @@ def main() -> int:
 
     by_pos = Counter(p["position"] for p in players)
     doc = {
-        "schema_version": 1,
+        "schema_version": 2,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "basis": {
             "player_factors": f"measured:{args.season}",
             "universe": f"FantasyFootballCalculator ADP {adp_season}",
             "format": fmt,
             "off_ppg_rank_source": _OFF_PPG_SOURCE["used"],
+            "bio": "Sleeper player map (age, years_exp, metadata.rookie_year)",
+            "top12_finish_window": f"{DEFAULT_SEASONS[0]}-{DEFAULT_SEASONS[-1]}, full PPR, "
+                                   f"min {FINISH_MIN_GAMES} games played",
         },
         "counts": {
             "players": len(players),
@@ -462,12 +568,16 @@ def main() -> int:
             "team_changed": len(changed),
             "recovered": len(recovered),
             "provenance": dict(prov),
+            "bio_provenance": dict(bio_prov),
+            "top12_finish_counts": {str(k): v for k, v in sorted(finish_counts.items())},
         },
         "note": (
             "Factor values are format-invariant; only benchmark cohorts vary by "
             "scoring format. Check each factor's provenance before use: "
             "'measured' is current, 'stale:team_changed' describes the player's "
-            "previous offence, 'missing:*' has no value at all."
+            "previous offence, 'missing:*' has no value at all. bio.top12_finish_count "
+            "is a measurement (how many times), not a classification — DraftLab's "
+            "classifyRb turns it into an archetype (schema_version 2, added for that)."
         ),
         "players": players,
     }
