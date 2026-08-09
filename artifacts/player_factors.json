@@ -1,6 +1,6 @@
 {
  "schema_version": 2,
- "generated_at": "2026-08-09T17:35:53+00:00",
+ "generated_at": "2026-08-09T18:05:18+00:00",
  "basis": {
   "player_factors": "measured:2025",
   "universe": "FantasyFootballCalculator ADP 2026",
@@ -12,39 +12,40 @@
   },
   "off_ppg_rank_source": "points_scored",
   "bio": "Sleeper player map (age, years_exp, metadata.rookie_year)",
-  "top12_finish_window": "2015-2025, full PPR, min 8 games played"
+  "top12_finish_window": "2015-2025, full PPR, min 8 games played",
+  "adp": "2qb (format-matched, for QB accuracy); RB/WR/TE depth backfilled from ppr where the 2qb pool ran out \u2014 see each player's adp_source"
  },
  "counts": {
-  "players": 187,
+  "players": 218,
   "by_position": {
    "QB": 36,
-   "RB": 52,
-   "WR": 79,
-   "TE": 20
+   "RB": 68,
+   "WR": 90,
+   "TE": 24
   },
-  "matched": 173,
-  "unmatched": 14,
+  "matched": 196,
+  "unmatched": 22,
   "missing_sleeper_id": 0,
-  "team_changed": 34,
-  "recovered": 5,
+  "team_changed": 39,
+  "recovered": 6,
   "provenance": {
-   "measured": 870,
-   "unsourced": 1217,
-   "stale:team_changed": 55,
-   "missing:no_prior_season": 74,
-   "missing:not_recorded": 3,
+   "measured": 989,
+   "unsourced": 1410,
+   "stale:team_changed": 63,
+   "missing:no_prior_season": 119,
+   "missing:not_recorded": 5,
    "measured:2024": 14,
-   "missing:no_team_context": 8,
-   "measured:2025": 3
+   "missing:no_team_context": 9,
+   "measured:2025": 7
   },
   "bio_provenance": {
-   "measured": 187
+   "measured": 218
   },
   "top12_finish_counts": {
-   "0": 94,
-   "1": 39,
+   "0": 121,
+   "1": 41,
    "2": 13,
-   "3": 10,
+   "3": 12,
    "4": 11,
    "5": 8,
    "6": 5,
@@ -64,6 +65,7 @@
    "team_changed": false,
    "adp": 1.4,
    "adp_round_pick": "1.01",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -156,6 +158,7 @@
    "team_changed": false,
    "adp": 2.2,
    "adp_round_pick": "1.02",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -244,6 +247,7 @@
    "team_changed": false,
    "adp": 2.7,
    "adp_round_pick": "1.03",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -332,6 +336,7 @@
    "team_changed": false,
    "adp": 5.7,
    "adp_round_pick": "1.06",
+   "adp_source": "2qb",
    "games_played": 13,
    "matched": true,
    "recovered_from_season": null,
@@ -421,6 +426,7 @@
    "team_changed": false,
    "adp": 5.9,
    "adp_round_pick": "1.06",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -508,6 +514,7 @@
    "team_changed": false,
    "adp": 6.1,
    "adp_round_pick": "1.06",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -594,6 +601,7 @@
    "team_changed": false,
    "adp": 6.5,
    "adp_round_pick": "1.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -683,6 +691,7 @@
    "team_changed": false,
    "adp": 6.7,
    "adp_round_pick": "1.07",
+   "adp_source": "2qb",
    "games_played": 8,
    "matched": true,
    "recovered_from_season": null,
@@ -771,6 +780,7 @@
    "team_changed": false,
    "adp": 9.7,
    "adp_round_pick": "1.10",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -861,6 +871,7 @@
    "team_changed": false,
    "adp": 10.6,
    "adp_round_pick": "1.11",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -953,6 +964,7 @@
    "team_changed": false,
    "adp": 11.8,
    "adp_round_pick": "1.12",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -1044,6 +1056,7 @@
    "team_changed": false,
    "adp": 12.4,
    "adp_round_pick": "1.12",
+   "adp_source": "2qb",
    "games_played": 7,
    "matched": true,
    "recovered_from_season": null,
@@ -1130,6 +1143,7 @@
    "team_changed": false,
    "adp": 13.9,
    "adp_round_pick": "2.02",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -1221,6 +1235,7 @@
    "team_changed": false,
    "adp": 14.1,
    "adp_round_pick": "2.02",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -1308,6 +1323,7 @@
    "team_changed": false,
    "adp": 15.7,
    "adp_round_pick": "2.04",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -1398,6 +1414,7 @@
    "team_changed": false,
    "adp": 15.8,
    "adp_round_pick": "2.04",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -1486,6 +1503,7 @@
    "team_changed": false,
    "adp": 17.0,
    "adp_round_pick": "2.05",
+   "adp_source": "2qb",
    "games_played": 9,
    "matched": true,
    "recovered_from_season": null,
@@ -1572,6 +1590,7 @@
    "team_changed": false,
    "adp": 17.9,
    "adp_round_pick": "2.06",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -1662,6 +1681,7 @@
    "team_changed": false,
    "adp": 18.2,
    "adp_round_pick": "2.06",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -1755,6 +1775,7 @@
    "team_changed": false,
    "adp": 19.0,
    "adp_round_pick": "2.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -1844,6 +1865,7 @@
    "team_changed": false,
    "adp": 19.4,
    "adp_round_pick": "2.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -1932,6 +1954,7 @@
    "team_changed": false,
    "adp": 22.3,
    "adp_round_pick": "2.10",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -2023,6 +2046,7 @@
    "team_changed": false,
    "adp": 22.4,
    "adp_round_pick": "2.10",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -2109,6 +2133,7 @@
    "team_changed": false,
    "adp": 22.7,
    "adp_round_pick": "2.11",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -2199,6 +2224,7 @@
    "team_changed": false,
    "adp": 24.6,
    "adp_round_pick": "3.01",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -2286,6 +2312,7 @@
    "team_changed": false,
    "adp": 25.4,
    "adp_round_pick": "3.01",
+   "adp_source": "2qb",
    "games_played": 12,
    "matched": true,
    "recovered_from_season": null,
@@ -2372,6 +2399,7 @@
    "team_changed": false,
    "adp": 26.2,
    "adp_round_pick": "3.02",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -2456,6 +2484,7 @@
    "team_changed": false,
    "adp": 26.5,
    "adp_round_pick": "3.03",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -2545,6 +2574,7 @@
    "team_changed": false,
    "adp": 28.3,
    "adp_round_pick": "3.04",
+   "adp_source": "2qb",
    "games_played": 13,
    "matched": true,
    "recovered_from_season": null,
@@ -2633,6 +2663,7 @@
    "team_changed": false,
    "adp": 29.3,
    "adp_round_pick": "3.05",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -2719,6 +2750,7 @@
    "team_changed": false,
    "adp": 29.8,
    "adp_round_pick": "3.06",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -2806,6 +2838,7 @@
    "team_changed": false,
    "adp": 31.6,
    "adp_round_pick": "3.08",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -2895,6 +2928,7 @@
    "team_changed": false,
    "adp": 32.8,
    "adp_round_pick": "3.09",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -2984,6 +3018,7 @@
    "team_changed": false,
    "adp": 34.2,
    "adp_round_pick": "3.10",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -3070,6 +3105,7 @@
    "team_changed": true,
    "adp": 34.4,
    "adp_round_pick": "3.10",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -3159,6 +3195,7 @@
    "team_changed": false,
    "adp": 36.9,
    "adp_round_pick": "4.01",
+   "adp_source": "2qb",
    "games_played": 9,
    "matched": true,
    "recovered_from_season": null,
@@ -3243,6 +3280,7 @@
    "team_changed": false,
    "adp": 37.2,
    "adp_round_pick": "4.01",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -3331,6 +3369,7 @@
    "team_changed": false,
    "adp": 37.9,
    "adp_round_pick": "4.02",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -3418,6 +3457,7 @@
    "team_changed": false,
    "adp": 39.1,
    "adp_round_pick": "4.03",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -3505,6 +3545,7 @@
    "team_changed": false,
    "adp": 39.5,
    "adp_round_pick": "4.03",
+   "adp_source": "2qb",
    "games_played": 8,
    "matched": true,
    "recovered_from_season": null,
@@ -3589,6 +3630,7 @@
    "team_changed": false,
    "adp": 42.1,
    "adp_round_pick": "4.06",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -3675,6 +3717,7 @@
    "team_changed": true,
    "adp": 42.9,
    "adp_round_pick": "4.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -3759,6 +3802,7 @@
    "team_changed": false,
    "adp": 43.1,
    "adp_round_pick": "4.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -3845,6 +3889,7 @@
    "team_changed": false,
    "adp": 43.3,
    "adp_round_pick": "4.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -3933,6 +3978,7 @@
    "team_changed": false,
    "adp": 47.1,
    "adp_round_pick": "4.11",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -4019,6 +4065,7 @@
    "team_changed": false,
    "adp": 47.1,
    "adp_round_pick": "4.11",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -4103,6 +4150,7 @@
    "team_changed": false,
    "adp": 49.5,
    "adp_round_pick": "5.02",
+   "adp_source": "2qb",
    "games_played": 11,
    "matched": true,
    "recovered_from_season": null,
@@ -4187,6 +4235,7 @@
    "team_changed": false,
    "adp": 49.6,
    "adp_round_pick": "5.02",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -4273,6 +4322,7 @@
    "team_changed": false,
    "adp": 50.2,
    "adp_round_pick": "5.02",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -4357,6 +4407,7 @@
    "team_changed": false,
    "adp": 51.2,
    "adp_round_pick": "5.03",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -4443,6 +4494,7 @@
    "team_changed": false,
    "adp": 51.4,
    "adp_round_pick": "5.03",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -4529,6 +4581,7 @@
    "team_changed": false,
    "adp": 52.6,
    "adp_round_pick": "5.05",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -4613,6 +4666,7 @@
    "team_changed": false,
    "adp": 52.7,
    "adp_round_pick": "5.05",
+   "adp_source": "2qb",
    "games_played": 8,
    "matched": true,
    "recovered_from_season": null,
@@ -4697,6 +4751,7 @@
    "team_changed": false,
    "adp": 53.0,
    "adp_round_pick": "5.05",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -4781,6 +4836,7 @@
    "team_changed": false,
    "adp": 53.4,
    "adp_round_pick": "5.05",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -4874,6 +4930,7 @@
    "team_changed": false,
    "adp": 55.4,
    "adp_round_pick": "5.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -4960,6 +5017,7 @@
    "team_changed": true,
    "adp": 56.4,
    "adp_round_pick": "5.08",
+   "adp_source": "2qb",
    "games_played": 5,
    "matched": true,
    "recovered_from_season": null,
@@ -5049,6 +5107,7 @@
    "team_changed": false,
    "adp": 57.5,
    "adp_round_pick": "5.09",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -5135,6 +5194,7 @@
    "team_changed": false,
    "adp": 58.5,
    "adp_round_pick": "5.10",
+   "adp_source": "2qb",
    "games_played": 7,
    "matched": true,
    "recovered_from_season": null,
@@ -5221,6 +5281,7 @@
    "team_changed": true,
    "adp": 59.0,
    "adp_round_pick": "5.11",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -5308,6 +5369,7 @@
    "team_changed": false,
    "adp": 59.4,
    "adp_round_pick": "5.11",
+   "adp_source": "2qb",
    "games_played": 4,
    "matched": true,
    "recovered_from_season": null,
@@ -5394,6 +5456,7 @@
    "team_changed": false,
    "adp": 62.1,
    "adp_round_pick": "6.02",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -5478,6 +5541,7 @@
    "team_changed": false,
    "adp": 62.7,
    "adp_round_pick": "6.03",
+   "adp_source": "2qb",
    "games_played": 12,
    "matched": true,
    "recovered_from_season": null,
@@ -5562,6 +5626,7 @@
    "team_changed": false,
    "adp": 62.7,
    "adp_round_pick": "6.03",
+   "adp_source": "2qb",
    "games_played": 10,
    "matched": true,
    "recovered_from_season": null,
@@ -5648,6 +5713,7 @@
    "team_changed": false,
    "adp": 63.3,
    "adp_round_pick": "6.03",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -5732,6 +5798,7 @@
    "team_changed": false,
    "adp": 63.6,
    "adp_round_pick": "6.04",
+   "adp_source": "2qb",
    "games_played": 12,
    "matched": true,
    "recovered_from_season": null,
@@ -5819,6 +5886,7 @@
    "team_changed": false,
    "adp": 65.0,
    "adp_round_pick": "6.05",
+   "adp_source": "2qb",
    "games_played": 10,
    "matched": true,
    "recovered_from_season": null,
@@ -5903,6 +5971,7 @@
    "team_changed": false,
    "adp": 65.0,
    "adp_round_pick": "6.05",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -5989,6 +6058,7 @@
    "team_changed": false,
    "adp": 66.2,
    "adp_round_pick": "6.06",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -6077,6 +6147,7 @@
    "team_changed": false,
    "adp": 67.6,
    "adp_round_pick": "6.08",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -6161,6 +6232,7 @@
    "team_changed": false,
    "adp": 68.4,
    "adp_round_pick": "6.08",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -6245,6 +6317,7 @@
    "team_changed": false,
    "adp": 70.7,
    "adp_round_pick": "6.11",
+   "adp_source": "2qb",
    "games_played": 13,
    "matched": true,
    "recovered_from_season": null,
@@ -6331,6 +6404,7 @@
    "team_changed": true,
    "adp": 72.6,
    "adp_round_pick": "7.01",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -6418,6 +6492,7 @@
    "team_changed": false,
    "adp": 72.7,
    "adp_round_pick": "7.01",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -6502,6 +6577,7 @@
    "team_changed": false,
    "adp": 74.0,
    "adp_round_pick": "7.02",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -6586,6 +6662,7 @@
    "team_changed": false,
    "adp": 74.4,
    "adp_round_pick": "7.02",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -6670,6 +6747,7 @@
    "team_changed": true,
    "adp": 74.5,
    "adp_round_pick": "7.02",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -6756,6 +6834,7 @@
    "team_changed": true,
    "adp": 74.7,
    "adp_round_pick": "7.03",
+   "adp_source": "2qb",
    "games_played": 4,
    "matched": true,
    "recovered_from_season": null,
@@ -6840,6 +6919,7 @@
    "team_changed": false,
    "adp": 75.5,
    "adp_round_pick": "7.03",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -6924,6 +7004,7 @@
    "team_changed": true,
    "adp": 77.0,
    "adp_round_pick": "7.05",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -7010,6 +7091,7 @@
    "team_changed": true,
    "adp": 79.0,
    "adp_round_pick": "7.07",
+   "adp_source": "2qb",
    "games_played": 8,
    "matched": true,
    "recovered_from_season": null,
@@ -7100,6 +7182,7 @@
    "team_changed": false,
    "adp": 79.7,
    "adp_round_pick": "7.08",
+   "adp_source": "2qb",
    "games_played": 10,
    "matched": true,
    "recovered_from_season": null,
@@ -7184,6 +7267,7 @@
    "team_changed": false,
    "adp": 81.2,
    "adp_round_pick": "7.09",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -7270,6 +7354,7 @@
    "team_changed": false,
    "adp": 81.8,
    "adp_round_pick": "7.10",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -7356,6 +7441,7 @@
    "team_changed": false,
    "adp": 82.6,
    "adp_round_pick": "7.11",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -7440,6 +7526,7 @@
    "team_changed": false,
    "adp": 83.0,
    "adp_round_pick": "7.11",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -7526,6 +7613,7 @@
    "team_changed": false,
    "adp": 84.8,
    "adp_round_pick": "8.01",
+   "adp_source": "2qb",
    "games_played": 12,
    "matched": true,
    "recovered_from_season": null,
@@ -7610,6 +7698,7 @@
    "team_changed": false,
    "adp": 88.6,
    "adp_round_pick": "8.05",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -7694,6 +7783,7 @@
    "team_changed": false,
    "adp": 88.9,
    "adp_round_pick": "8.05",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -7780,6 +7870,7 @@
    "team_changed": false,
    "adp": 90.8,
    "adp_round_pick": "8.07",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -7866,6 +7957,7 @@
    "team_changed": false,
    "adp": 91.0,
    "adp_round_pick": "8.07",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -7950,6 +8042,7 @@
    "team_changed": false,
    "adp": 91.0,
    "adp_round_pick": "8.07",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -8034,6 +8127,7 @@
    "team_changed": true,
    "adp": 92.0,
    "adp_round_pick": "8.08",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -8118,6 +8212,7 @@
    "team_changed": false,
    "adp": 93.0,
    "adp_round_pick": "8.09",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -8202,6 +8297,7 @@
    "team_changed": false,
    "adp": 94.4,
    "adp_round_pick": "8.10",
+   "adp_source": "2qb",
    "games_played": 10,
    "matched": true,
    "recovered_from_season": null,
@@ -8286,6 +8382,7 @@
    "team_changed": false,
    "adp": 94.9,
    "adp_round_pick": "8.11",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -8372,6 +8469,7 @@
    "team_changed": false,
    "adp": 96.0,
    "adp_round_pick": "8.12",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -8456,6 +8554,7 @@
    "team_changed": false,
    "adp": 97.7,
    "adp_round_pick": "9.02",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -8540,6 +8639,7 @@
    "team_changed": false,
    "adp": 98.6,
    "adp_round_pick": "9.03",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -8624,6 +8724,7 @@
    "team_changed": false,
    "adp": 99.6,
    "adp_round_pick": "9.04",
+   "adp_source": "2qb",
    "games_played": 13,
    "matched": true,
    "recovered_from_season": null,
@@ -8708,6 +8809,7 @@
    "team_changed": false,
    "adp": 99.8,
    "adp_round_pick": "9.04",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -8792,6 +8894,7 @@
    "team_changed": false,
    "adp": 101.7,
    "adp_round_pick": "9.06",
+   "adp_source": "2qb",
    "games_played": 5,
    "matched": true,
    "recovered_from_season": null,
@@ -8876,6 +8979,7 @@
    "team_changed": true,
    "adp": 102.5,
    "adp_round_pick": "9.06",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -8960,6 +9064,7 @@
    "team_changed": false,
    "adp": 103.7,
    "adp_round_pick": "9.08",
+   "adp_source": "2qb",
    "games_played": 8,
    "matched": true,
    "recovered_from_season": null,
@@ -9046,6 +9151,7 @@
    "team_changed": true,
    "adp": 104.7,
    "adp_round_pick": "9.09",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -9132,6 +9238,7 @@
    "team_changed": false,
    "adp": 105.2,
    "adp_round_pick": "9.09",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -9218,6 +9325,7 @@
    "team_changed": false,
    "adp": 106.0,
    "adp_round_pick": "9.10",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -9302,6 +9410,7 @@
    "team_changed": true,
    "adp": 106.1,
    "adp_round_pick": "9.10",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -9388,6 +9497,7 @@
    "team_changed": false,
    "adp": 107.3,
    "adp_round_pick": "9.11",
+   "adp_source": "2qb",
    "games_played": 9,
    "matched": true,
    "recovered_from_season": null,
@@ -9474,6 +9584,7 @@
    "team_changed": false,
    "adp": 107.4,
    "adp_round_pick": "9.11",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -9560,6 +9671,7 @@
    "team_changed": false,
    "adp": 108.2,
    "adp_round_pick": "9.12",
+   "adp_source": "2qb",
    "games_played": 9,
    "matched": true,
    "recovered_from_season": null,
@@ -9647,6 +9759,7 @@
    "team_changed": true,
    "adp": 108.5,
    "adp_round_pick": "10.01",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -9731,6 +9844,7 @@
    "team_changed": false,
    "adp": 108.8,
    "adp_round_pick": "10.01",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -9815,6 +9929,7 @@
    "team_changed": false,
    "adp": 109.7,
    "adp_round_pick": "10.02",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -9902,6 +10017,7 @@
    "team_changed": false,
    "adp": 110.5,
    "adp_round_pick": "10.03",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -9986,6 +10102,7 @@
    "team_changed": false,
    "adp": 112.6,
    "adp_round_pick": "10.05",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -10077,6 +10194,7 @@
    "team_changed": false,
    "adp": 112.6,
    "adp_round_pick": "10.05",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -10161,6 +10279,7 @@
    "team_changed": false,
    "adp": 114.0,
    "adp_round_pick": "10.06",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -10245,6 +10364,7 @@
    "team_changed": true,
    "adp": 114.5,
    "adp_round_pick": "10.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -10335,6 +10455,7 @@
    "team_changed": false,
    "adp": 116.4,
    "adp_round_pick": "10.08",
+   "adp_source": "2qb",
    "games_played": 12,
    "matched": true,
    "recovered_from_season": null,
@@ -10424,6 +10545,7 @@
    "team_changed": false,
    "adp": 116.4,
    "adp_round_pick": "10.08",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -10508,6 +10630,7 @@
    "team_changed": false,
    "adp": 116.7,
    "adp_round_pick": "10.09",
+   "adp_source": "2qb",
    "games_played": 9,
    "matched": true,
    "recovered_from_season": null,
@@ -10592,6 +10715,7 @@
    "team_changed": true,
    "adp": 119.9,
    "adp_round_pick": "10.12",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -10676,6 +10800,7 @@
    "team_changed": false,
    "adp": 121.9,
    "adp_round_pick": "11.02",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -10765,6 +10890,7 @@
    "team_changed": false,
    "adp": 122.0,
    "adp_round_pick": "11.02",
+   "adp_source": "2qb",
    "games_played": 11,
    "matched": true,
    "recovered_from_season": null,
@@ -10856,6 +10982,7 @@
    "team_changed": false,
    "adp": 122.9,
    "adp_round_pick": "11.03",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -10940,6 +11067,7 @@
    "team_changed": true,
    "adp": 123.6,
    "adp_round_pick": "11.04",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -11024,6 +11152,7 @@
    "team_changed": true,
    "adp": 124.4,
    "adp_round_pick": "11.04",
+   "adp_source": "2qb",
    "games_played": 18,
    "matched": true,
    "recovered_from_season": null,
@@ -11108,6 +11237,7 @@
    "team_changed": false,
    "adp": 125.2,
    "adp_round_pick": "11.05",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -11192,6 +11322,7 @@
    "team_changed": false,
    "adp": 126.7,
    "adp_round_pick": "11.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -11282,6 +11413,7 @@
    "team_changed": true,
    "adp": 127.0,
    "adp_round_pick": "11.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -11368,6 +11500,7 @@
    "team_changed": false,
    "adp": 127.3,
    "adp_round_pick": "11.07",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -11452,6 +11585,7 @@
    "team_changed": false,
    "adp": 128.5,
    "adp_round_pick": "11.09",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -11536,6 +11670,7 @@
    "team_changed": false,
    "adp": 130.6,
    "adp_round_pick": "11.11",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -11620,6 +11755,7 @@
    "team_changed": false,
    "adp": 131.2,
    "adp_round_pick": "11.11",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -11704,6 +11840,7 @@
    "team_changed": true,
    "adp": 131.8,
    "adp_round_pick": "11.12",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -11788,6 +11925,7 @@
    "team_changed": false,
    "adp": 132.1,
    "adp_round_pick": "11.12",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -11872,6 +12010,7 @@
    "team_changed": false,
    "adp": 132.9,
    "adp_round_pick": "12.01",
+   "adp_source": "2qb",
    "games_played": 7,
    "matched": true,
    "recovered_from_season": 2024,
@@ -11960,6 +12099,7 @@
    "team_changed": false,
    "adp": 133.9,
    "adp_round_pick": "12.02",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -12056,6 +12196,7 @@
    "team_changed": false,
    "adp": 134.1,
    "adp_round_pick": "12.02",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -12140,6 +12281,7 @@
    "team_changed": true,
    "adp": 134.1,
    "adp_round_pick": "12.02",
+   "adp_source": "2qb",
    "games_played": 10,
    "matched": true,
    "recovered_from_season": null,
@@ -12232,6 +12374,7 @@
    "team_changed": false,
    "adp": 135.1,
    "adp_round_pick": "12.03",
+   "adp_source": "2qb",
    "games_played": 9,
    "matched": true,
    "recovered_from_season": null,
@@ -12316,6 +12459,7 @@
    "team_changed": false,
    "adp": 135.1,
    "adp_round_pick": "12.03",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -12400,6 +12544,7 @@
    "team_changed": false,
    "adp": 135.4,
    "adp_round_pick": "12.03",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -12484,6 +12629,7 @@
    "team_changed": true,
    "adp": 136.2,
    "adp_round_pick": "12.04",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -12570,6 +12716,7 @@
    "team_changed": false,
    "adp": 136.2,
    "adp_round_pick": "12.04",
+   "adp_source": "2qb",
    "games_played": 11,
    "matched": true,
    "recovered_from_season": null,
@@ -12654,6 +12801,7 @@
    "team_changed": false,
    "adp": 138.1,
    "adp_round_pick": "12.06",
+   "adp_source": "2qb",
    "games_played": 3,
    "matched": true,
    "recovered_from_season": 2024,
@@ -12738,6 +12886,7 @@
    "team_changed": false,
    "adp": 139.0,
    "adp_round_pick": "12.07",
+   "adp_source": "2qb",
    "games_played": 7,
    "matched": true,
    "recovered_from_season": null,
@@ -12824,6 +12973,7 @@
    "team_changed": false,
    "adp": 139.5,
    "adp_round_pick": "12.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -12908,6 +13058,7 @@
    "team_changed": true,
    "adp": 140.0,
    "adp_round_pick": "12.08",
+   "adp_source": "2qb",
    "games_played": 12,
    "matched": true,
    "recovered_from_season": null,
@@ -12992,6 +13143,7 @@
    "team_changed": false,
    "adp": 140.1,
    "adp_round_pick": "12.08",
+   "adp_source": "2qb",
    "games_played": 3,
    "matched": true,
    "recovered_from_season": null,
@@ -13076,6 +13228,7 @@
    "team_changed": false,
    "adp": 140.3,
    "adp_round_pick": "12.08",
+   "adp_source": "2qb",
    "games_played": 8,
    "matched": true,
    "recovered_from_season": null,
@@ -13160,6 +13313,7 @@
    "team_changed": false,
    "adp": 141.7,
    "adp_round_pick": "12.10",
+   "adp_source": "2qb",
    "games_played": 12,
    "matched": true,
    "recovered_from_season": null,
@@ -13246,6 +13400,7 @@
    "team_changed": false,
    "adp": 142.7,
    "adp_round_pick": "12.11",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -13335,6 +13490,7 @@
    "team_changed": false,
    "adp": 143.6,
    "adp_round_pick": "12.12",
+   "adp_source": "2qb",
    "games_played": 12,
    "matched": true,
    "recovered_from_season": null,
@@ -13419,6 +13575,7 @@
    "team_changed": false,
    "adp": 143.8,
    "adp_round_pick": "12.12",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -13503,6 +13660,7 @@
    "team_changed": true,
    "adp": 143.9,
    "adp_round_pick": "12.12",
+   "adp_source": "2qb",
    "games_played": 12,
    "matched": true,
    "recovered_from_season": null,
@@ -13587,6 +13745,7 @@
    "team_changed": true,
    "adp": 145.2,
    "adp_round_pick": "13.01",
+   "adp_source": "2qb",
    "games_played": 13,
    "matched": true,
    "recovered_from_season": null,
@@ -13671,6 +13830,7 @@
    "team_changed": true,
    "adp": 146.0,
    "adp_round_pick": "13.02",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -13755,6 +13915,7 @@
    "team_changed": false,
    "adp": 147.0,
    "adp_round_pick": "13.03",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -13842,6 +14003,7 @@
    "team_changed": true,
    "adp": 147.0,
    "adp_round_pick": "13.03",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -13926,6 +14088,7 @@
    "team_changed": false,
    "adp": 148.1,
    "adp_round_pick": "13.04",
+   "adp_source": "2qb",
    "games_played": 13,
    "matched": true,
    "recovered_from_season": null,
@@ -14010,6 +14173,7 @@
    "team_changed": false,
    "adp": 149.5,
    "adp_round_pick": "13.06",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -14094,6 +14258,7 @@
    "team_changed": true,
    "adp": 149.6,
    "adp_round_pick": "13.06",
+   "adp_source": "2qb",
    "games_played": 13,
    "matched": true,
    "recovered_from_season": null,
@@ -14178,6 +14343,7 @@
    "team_changed": false,
    "adp": 150.4,
    "adp_round_pick": "13.06",
+   "adp_source": "2qb",
    "games_played": 11,
    "matched": true,
    "recovered_from_season": null,
@@ -14270,6 +14436,7 @@
    "team_changed": false,
    "adp": 150.9,
    "adp_round_pick": "13.07",
+   "adp_source": "2qb",
    "games_played": 4,
    "matched": true,
    "recovered_from_season": null,
@@ -14354,6 +14521,7 @@
    "team_changed": false,
    "adp": 151.0,
    "adp_round_pick": "13.07",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -14438,6 +14606,7 @@
    "team_changed": false,
    "adp": 151.1,
    "adp_round_pick": "13.07",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -14524,6 +14693,7 @@
    "team_changed": true,
    "adp": 152.1,
    "adp_round_pick": "13.08",
+   "adp_source": "2qb",
    "games_played": 12,
    "matched": true,
    "recovered_from_season": null,
@@ -14608,6 +14778,7 @@
    "team_changed": false,
    "adp": 152.6,
    "adp_round_pick": "13.09",
+   "adp_source": "2qb",
    "games_played": 7,
    "matched": true,
    "recovered_from_season": 2024,
@@ -14692,6 +14863,7 @@
    "team_changed": false,
    "adp": 153.3,
    "adp_round_pick": "13.09",
+   "adp_source": "2qb",
    "games_played": 13,
    "matched": true,
    "recovered_from_season": null,
@@ -14776,6 +14948,7 @@
    "team_changed": false,
    "adp": 154.2,
    "adp_round_pick": "13.10",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -14860,6 +15033,7 @@
    "team_changed": false,
    "adp": 155.5,
    "adp_round_pick": "13.11",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -14944,6 +15118,7 @@
    "team_changed": true,
    "adp": 155.7,
    "adp_round_pick": "13.12",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -15028,6 +15203,7 @@
    "team_changed": true,
    "adp": 155.8,
    "adp_round_pick": "13.12",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -15112,6 +15288,7 @@
    "team_changed": true,
    "adp": 156.1,
    "adp_round_pick": "13.12",
+   "adp_source": "2qb",
    "games_played": 13,
    "matched": true,
    "recovered_from_season": null,
@@ -15196,6 +15373,7 @@
    "team_changed": false,
    "adp": 156.3,
    "adp_round_pick": "13.12",
+   "adp_source": "2qb",
    "games_played": 7,
    "matched": true,
    "recovered_from_season": 2025,
@@ -15280,6 +15458,7 @@
    "team_changed": false,
    "adp": 156.7,
    "adp_round_pick": "14.01",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -15364,6 +15543,7 @@
    "team_changed": false,
    "adp": 157.0,
    "adp_round_pick": "14.01",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -15448,6 +15628,7 @@
    "team_changed": false,
    "adp": 157.9,
    "adp_round_pick": "14.02",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -15535,6 +15716,7 @@
    "team_changed": false,
    "adp": 161.4,
    "adp_round_pick": "14.05",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": null,
@@ -15619,6 +15801,7 @@
    "team_changed": false,
    "adp": 162.3,
    "adp_round_pick": "14.06",
+   "adp_source": "2qb",
    "games_played": 14,
    "matched": true,
    "recovered_from_season": 2024,
@@ -15703,6 +15886,7 @@
    "team_changed": false,
    "adp": 162.7,
    "adp_round_pick": "14.07",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -15787,6 +15971,7 @@
    "team_changed": false,
    "adp": 166.2,
    "adp_round_pick": "14.10",
+   "adp_source": "2qb",
    "games_played": 17,
    "matched": true,
    "recovered_from_season": null,
@@ -15877,6 +16062,7 @@
    "team_changed": true,
    "adp": 167.1,
    "adp_round_pick": "14.11",
+   "adp_source": "2qb",
    "games_played": 16,
    "matched": true,
    "recovered_from_season": null,
@@ -15961,6 +16147,7 @@
    "team_changed": false,
    "adp": 167.2,
    "adp_round_pick": "14.11",
+   "adp_source": "2qb",
    "games_played": 0,
    "matched": false,
    "recovered_from_season": null,
@@ -16045,6 +16232,7 @@
    "team_changed": true,
    "adp": 171.4,
    "adp_round_pick": "15.03",
+   "adp_source": "2qb",
    "games_played": 15,
    "matched": true,
    "recovered_from_season": null,
@@ -16107,6 +16295,2653 @@
      "value": null,
      "provenance": "unsourced",
      "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "13345",
+   "name": "Jonah Coleman",
+   "position": "RB",
+   "team": "DEN",
+   "prior_team": null,
+   "team_changed": false,
+   "adp": 140.1,
+   "adp_round_pick": "12.08",
+   "adp_source": "ppr-backfill",
+   "games_played": 0,
+   "matched": false,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 22,
+    "seasons_in_league": 0,
+    "draft_year": 2026,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "rush_attempts": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "targets": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "touchdowns": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "off_ppg_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "13293",
+   "name": "Ja'Kobi Lane",
+   "position": "WR",
+   "team": "BAL",
+   "prior_team": null,
+   "team_changed": false,
+   "adp": 150.0,
+   "adp_round_pick": "13.06",
+   "adp_source": "ppr-backfill",
+   "games_played": 0,
+   "matched": false,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 22,
+    "seasons_in_league": 0,
+    "draft_year": 2026,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "receptions": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "touchdowns": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "off_ppg_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "qb_pff_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "team_pass_attempts": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "secondary_target": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "reception_perception": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (RP); manual import"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "12457",
+   "name": "Jaydon Blue",
+   "position": "RB",
+   "team": "DAL",
+   "prior_team": "DAL",
+   "team_changed": false,
+   "adp": 152.1,
+   "adp_round_pick": "13.08",
+   "adp_source": "ppr-backfill",
+   "games_played": 5,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 22,
+    "seasons_in_league": 1,
+    "draft_year": 2025,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": 7.8,
+     "provenance": "measured",
+     "note": null
+    },
+    "rush_attempts": {
+     "value": 7.6,
+     "provenance": "measured",
+     "note": null
+    },
+    "targets": {
+     "value": 0.2,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.2,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 7,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": 0.256,
+     "provenance": "measured",
+     "note": null
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "11610",
+   "name": "Malik Washington",
+   "position": "WR",
+   "team": "MIA",
+   "prior_team": "MIA",
+   "team_changed": false,
+   "adp": 155.9,
+   "adp_round_pick": "13.12",
+   "adp_source": "ppr-backfill",
+   "games_played": 17,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 25,
+    "seasons_in_league": 2,
+    "draft_year": 2024,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": 3.824,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 2.706,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.235,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 25,
+     "provenance": "measured",
+     "note": null
+    },
+    "qb_pff_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "team_pass_attempts": {
+     "value": 479.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "secondary_target": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "reception_perception": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (RP); manual import"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "5844",
+   "name": "T.J. Hockenson",
+   "position": "TE",
+   "team": "MIN",
+   "prior_team": "MIN",
+   "team_changed": false,
+   "adp": 156.1,
+   "adp_round_pick": "13.12",
+   "adp_source": "ppr-backfill",
+   "games_played": 15,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 29,
+    "seasons_in_league": 7,
+    "draft_year": 2019,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 3,
+    "top12_finish_seasons": [
+     2020,
+     2022,
+     2023
+    ]
+   },
+   "factors": {
+    "targets": {
+     "value": 4.4,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 3.4,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.2,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 26,
+     "provenance": "measured",
+     "note": null
+    },
+    "qb_qbr_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (ESPN); manual import"
+    },
+    "team_pass_att_rank": {
+     "value": 27,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_target_rank": {
+     "value": 3,
+     "provenance": "measured",
+     "note": null
+    },
+    "rec_td_rank": {
+     "value": 3,
+     "provenance": "measured",
+     "note": null
+    },
+    "route_participation": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "inline_pct": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "7002",
+   "name": "Juwan Johnson",
+   "position": "TE",
+   "team": "NO",
+   "prior_team": "NO",
+   "team_changed": false,
+   "adp": 158.7,
+   "adp_round_pick": "14.03",
+   "adp_source": "ppr-backfill",
+   "games_played": 17,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 29,
+    "seasons_in_league": 6,
+    "draft_year": 2020,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 1,
+    "top12_finish_seasons": [
+     2025
+    ]
+   },
+   "factors": {
+    "targets": {
+     "value": 6.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 4.529,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.176,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 28,
+     "provenance": "measured",
+     "note": null
+    },
+    "qb_qbr_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (ESPN); manual import"
+    },
+    "team_pass_att_rank": {
+     "value": 6,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_target_rank": {
+     "value": 2,
+     "provenance": "measured",
+     "note": null
+    },
+    "rec_td_rank": {
+     "value": 2,
+     "provenance": "measured",
+     "note": null
+    },
+    "route_participation": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "inline_pct": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "12493",
+   "name": "Oronde Gadsden",
+   "position": "TE",
+   "team": "LAC",
+   "prior_team": "LAC",
+   "team_changed": false,
+   "adp": 160.2,
+   "adp_round_pick": "14.04",
+   "adp_source": "ppr-backfill",
+   "games_played": 15,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 23,
+    "seasons_in_league": 1,
+    "draft_year": 2025,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": 4.6,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 3.267,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.2,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 20,
+     "provenance": "measured",
+     "note": null
+    },
+    "qb_qbr_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (ESPN); manual import"
+    },
+    "team_pass_att_rank": {
+     "value": 13,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_target_rank": {
+     "value": 4,
+     "provenance": "measured",
+     "note": null
+    },
+    "rec_td_rank": {
+     "value": 4,
+     "provenance": "measured",
+     "note": null
+    },
+    "route_participation": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "inline_pct": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "12467",
+   "name": "Jordan James",
+   "position": "RB",
+   "team": "SF",
+   "prior_team": "SF",
+   "team_changed": false,
+   "adp": 161.6,
+   "adp_round_pick": "14.06",
+   "adp_source": "ppr-backfill",
+   "games_played": 1,
+   "matched": true,
+   "recovered_from_season": 2025,
+   "bio": {
+    "age": 22,
+    "seasons_in_league": 1,
+    "draft_year": 2025,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": 7.0,
+     "provenance": "measured:2025",
+     "note": "no 2025 season; measured from 2025"
+    },
+    "rush_attempts": {
+     "value": 6.0,
+     "provenance": "measured:2025",
+     "note": "no 2025 season; measured from 2025"
+    },
+    "targets": {
+     "value": 1.0,
+     "provenance": "measured:2025",
+     "note": "no 2025 season; measured from 2025"
+    },
+    "touchdowns": {
+     "value": 0.0,
+     "provenance": "measured:2025",
+     "note": "no 2025 season; measured from 2025"
+    },
+    "off_ppg_rank": {
+     "value": null,
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2025; team context for that season describes a different situation"
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": null,
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "13414",
+   "name": "Kaelon Black",
+   "position": "RB",
+   "team": "SF",
+   "prior_team": null,
+   "team_changed": false,
+   "adp": 161.9,
+   "adp_round_pick": "14.06",
+   "adp_source": "ppr-backfill",
+   "games_played": 0,
+   "matched": false,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 24,
+    "seasons_in_league": 0,
+    "draft_year": 2026,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "rush_attempts": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "targets": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "touchdowns": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "off_ppg_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "11575",
+   "name": "Ray Davis",
+   "position": "RB",
+   "team": "BUF",
+   "prior_team": "BUF",
+   "team_changed": false,
+   "adp": 162.0,
+   "adp_round_pick": "14.06",
+   "adp_source": "ppr-backfill",
+   "games_played": 17,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 26,
+    "seasons_in_league": 2,
+    "draft_year": 2024,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": 4.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "rush_attempts": {
+     "value": 3.412,
+     "provenance": "measured",
+     "note": null
+    },
+    "targets": {
+     "value": 0.765,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.118,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 5,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": 0.163,
+     "provenance": "measured",
+     "note": null
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "6828",
+   "name": "AJ Dillon",
+   "position": "RB",
+   "team": "CAR",
+   "prior_team": "PHI",
+   "team_changed": true,
+   "adp": 163.5,
+   "adp_round_pick": "14.08",
+   "adp_source": "ppr-backfill",
+   "games_played": 6,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 28,
+    "seasons_in_league": 6,
+    "draft_year": 2020,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": 2.5,
+     "provenance": "measured",
+     "note": null
+    },
+    "rush_attempts": {
+     "value": 2.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "targets": {
+     "value": 0.5,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 19,
+     "provenance": "stale:team_changed",
+     "note": "describes PHI, player now on CAR"
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": 0.119,
+     "provenance": "measured",
+     "note": null
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "13305",
+   "name": "Mike Washington Jr.",
+   "position": "RB",
+   "team": "LV",
+   "prior_team": null,
+   "team_changed": false,
+   "adp": 163.7,
+   "adp_round_pick": "14.08",
+   "adp_source": "ppr-backfill",
+   "games_played": 0,
+   "matched": false,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 23,
+    "seasons_in_league": 0,
+    "draft_year": 2026,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "rush_attempts": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "targets": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "touchdowns": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "off_ppg_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "5995",
+   "name": "Justice Hill",
+   "position": "RB",
+   "team": "BAL",
+   "prior_team": "BAL",
+   "team_changed": false,
+   "adp": 164.1,
+   "adp_round_pick": "14.08",
+   "adp_source": "ppr-backfill",
+   "games_played": 10,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 28,
+    "seasons_in_league": 7,
+    "draft_year": 2019,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": 3.9,
+     "provenance": "measured",
+     "note": null
+    },
+    "rush_attempts": {
+     "value": 1.8,
+     "provenance": "measured",
+     "note": null
+    },
+    "targets": {
+     "value": 2.7,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.3,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 11,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": 0.371,
+     "provenance": "measured",
+     "note": null
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "13413",
+   "name": "Cyrus Allen",
+   "position": "WR",
+   "team": "KC",
+   "prior_team": null,
+   "team_changed": false,
+   "adp": 164.3,
+   "adp_round_pick": "14.08",
+   "adp_source": "ppr-backfill",
+   "games_played": 0,
+   "matched": false,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 23,
+    "seasons_in_league": 0,
+    "draft_year": 2026,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "receptions": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "touchdowns": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "off_ppg_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "qb_pff_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "team_pass_attempts": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "secondary_target": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "reception_perception": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (RP); manual import"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "12469",
+   "name": "Dylan Sampson",
+   "position": "RB",
+   "team": "CLE",
+   "prior_team": "CLE",
+   "team_changed": false,
+   "adp": 165.3,
+   "adp_round_pick": "14.09",
+   "adp_source": "ppr-backfill",
+   "games_played": 15,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 21,
+    "seasons_in_league": 1,
+    "draft_year": 2025,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": 6.533,
+     "provenance": "measured",
+     "note": null
+    },
+    "rush_attempts": {
+     "value": 4.333,
+     "provenance": "measured",
+     "note": null
+    },
+    "targets": {
+     "value": 2.667,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.133,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 31,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": 0.265,
+     "provenance": "measured",
+     "note": null
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "13288",
+   "name": "Nicholas Singleton",
+   "position": "RB",
+   "team": "TEN",
+   "prior_team": null,
+   "team_changed": false,
+   "adp": 165.3,
+   "adp_round_pick": "14.09",
+   "adp_source": "ppr-backfill",
+   "games_played": 0,
+   "matched": false,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 22,
+    "seasons_in_league": 0,
+    "draft_year": 2026,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "rush_attempts": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "targets": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "touchdowns": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "off_ppg_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "4147",
+   "name": "Samaje Perine",
+   "position": "RB",
+   "team": "CIN",
+   "prior_team": "CIN",
+   "team_changed": false,
+   "adp": 165.4,
+   "adp_round_pick": "14.09",
+   "adp_source": "ppr-backfill",
+   "games_played": 15,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 30,
+    "seasons_in_league": 9,
+    "draft_year": 2017,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": 6.733,
+     "provenance": "measured",
+     "note": null
+    },
+    "rush_attempts": {
+     "value": 5.6,
+     "provenance": "measured",
+     "note": null
+    },
+    "targets": {
+     "value": 1.4,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.2,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 12,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": 0.351,
+     "provenance": "measured",
+     "note": null
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "8154",
+   "name": "Brian Robinson Jr.",
+   "position": "RB",
+   "team": "ATL",
+   "prior_team": "SF",
+   "team_changed": true,
+   "adp": 165.6,
+   "adp_round_pick": "14.10",
+   "adp_source": "ppr-backfill",
+   "games_played": 17,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 27,
+    "seasons_in_league": 4,
+    "draft_year": 2022,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": 5.882,
+     "provenance": "measured",
+     "note": null
+    },
+    "rush_attempts": {
+     "value": 5.412,
+     "provenance": "measured",
+     "note": null
+    },
+    "targets": {
+     "value": 0.706,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.118,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 10,
+     "provenance": "stale:team_changed",
+     "note": "describes SF, player now on ATL"
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": null,
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "13347",
+   "name": "Demond Claiborne",
+   "position": "RB",
+   "team": "MIN",
+   "prior_team": null,
+   "team_changed": false,
+   "adp": 168.4,
+   "adp_round_pick": "14.12",
+   "adp_source": "ppr-backfill",
+   "games_played": 0,
+   "matched": false,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 22,
+    "seasons_in_league": 0,
+    "draft_year": 2026,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "rush_attempts": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "targets": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "touchdowns": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "off_ppg_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "4137",
+   "name": "James Conner",
+   "position": "RB",
+   "team": "ARI",
+   "prior_team": "ARI",
+   "team_changed": false,
+   "adp": 168.9,
+   "adp_round_pick": "15.01",
+   "adp_source": "ppr-backfill",
+   "games_played": 3,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 31,
+    "seasons_in_league": 9,
+    "draft_year": 2017,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 3,
+    "top12_finish_seasons": [
+     2018,
+     2021,
+     2024
+    ]
+   },
+   "factors": {
+    "touches": {
+     "value": 13.333,
+     "provenance": "measured",
+     "note": null
+    },
+    "rush_attempts": {
+     "value": 10.667,
+     "provenance": "measured",
+     "note": null
+    },
+    "targets": {
+     "value": 3.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.667,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 23,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": 0.5,
+     "provenance": "measured",
+     "note": null
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "11647",
+   "name": "Kimani Vidal",
+   "position": "RB",
+   "team": "LAC",
+   "prior_team": "LAC",
+   "team_changed": false,
+   "adp": 168.9,
+   "adp_round_pick": "15.01",
+   "adp_source": "ppr-backfill",
+   "games_played": 13,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 24,
+    "seasons_in_league": 2,
+    "draft_year": 2024,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": 13.154,
+     "provenance": "measured",
+     "note": null
+    },
+    "rush_attempts": {
+     "value": 11.923,
+     "provenance": "measured",
+     "note": null
+    },
+    "targets": {
+     "value": 1.692,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.308,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 20,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": 0.572,
+     "provenance": "measured",
+     "note": null
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "6039",
+   "name": "Ty Johnson",
+   "position": "RB",
+   "team": "BUF",
+   "prior_team": "BUF",
+   "team_changed": false,
+   "adp": 170.9,
+   "adp_round_pick": "15.03",
+   "adp_source": "ppr-backfill",
+   "games_played": 17,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 28,
+    "seasons_in_league": 7,
+    "draft_year": 2019,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "touches": {
+     "value": 4.353,
+     "provenance": "measured",
+     "note": null
+    },
+    "rush_attempts": {
+     "value": 2.941,
+     "provenance": "measured",
+     "note": null
+    },
+    "targets": {
+     "value": 1.941,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.294,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 5,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_run_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "rz_touch_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "snap_share": {
+     "value": 0.296,
+     "provenance": "measured",
+     "note": null
+    },
+    "gl_carry_share": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "neutral_run_rate": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "available from nflverse play-by-play; not yet implemented"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "9504",
+   "name": "Kayshon Boutte",
+   "position": "WR",
+   "team": "NE",
+   "prior_team": "NE",
+   "team_changed": false,
+   "adp": 171.2,
+   "adp_round_pick": "15.03",
+   "adp_source": "ppr-backfill",
+   "games_played": 14,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 24,
+    "seasons_in_league": 3,
+    "draft_year": 2023,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": 3.286,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 2.357,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.429,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 2,
+     "provenance": "measured",
+     "note": null
+    },
+    "qb_pff_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "team_pass_attempts": {
+     "value": 502.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "secondary_target": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "reception_perception": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (RP); manual import"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "12497",
+   "name": "Tory Horton",
+   "position": "WR",
+   "team": "SEA",
+   "prior_team": "SEA",
+   "team_changed": false,
+   "adp": 172.2,
+   "adp_round_pick": "15.04",
+   "adp_source": "ppr-backfill",
+   "games_played": 8,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 23,
+    "seasons_in_league": 1,
+    "draft_year": 2025,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": 2.75,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 1.625,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.625,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 3,
+     "provenance": "measured",
+     "note": null
+    },
+    "qb_pff_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "team_pass_attempts": {
+     "value": 481.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "secondary_target": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "reception_perception": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (RP); manual import"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "13320",
+   "name": "Zachariah Branch",
+   "position": "WR",
+   "team": "ATL",
+   "prior_team": null,
+   "team_changed": false,
+   "adp": 172.3,
+   "adp_round_pick": "15.04",
+   "adp_source": "ppr-backfill",
+   "games_played": 0,
+   "matched": false,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 22,
+    "seasons_in_league": 0,
+    "draft_year": 2026,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "receptions": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "touchdowns": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "off_ppg_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "qb_pff_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "team_pass_attempts": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "secondary_target": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "reception_perception": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (RP); manual import"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "9486",
+   "name": "Dontayvion Wicks",
+   "position": "WR",
+   "team": "PHI",
+   "prior_team": "GB",
+   "team_changed": true,
+   "adp": 176.6,
+   "adp_round_pick": "15.09",
+   "adp_source": "ppr-backfill",
+   "games_played": 13,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 25,
+    "seasons_in_league": 3,
+    "draft_year": 2023,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": 3.538,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 2.308,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.154,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 16,
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on PHI"
+    },
+    "qb_pff_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "team_pass_attempts": {
+     "value": 489.0,
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on PHI"
+    },
+    "secondary_target": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "reception_perception": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (RP); manual import"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "8172",
+   "name": "Greg Dulcich",
+   "position": "TE",
+   "team": "MIA",
+   "prior_team": "MIA",
+   "team_changed": false,
+   "adp": 177.2,
+   "adp_round_pick": "15.09",
+   "adp_source": "ppr-backfill",
+   "games_played": 9,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 26,
+    "seasons_in_league": 4,
+    "draft_year": 2022,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": 3.667,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 2.889,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.111,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 25,
+     "provenance": "measured",
+     "note": null
+    },
+    "qb_qbr_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (ESPN); manual import"
+    },
+    "team_pass_att_rank": {
+     "value": 29,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_target_rank": {
+     "value": 4,
+     "provenance": "measured",
+     "note": null
+    },
+    "rec_td_rank": {
+     "value": 5,
+     "provenance": "measured",
+     "note": null
+    },
+    "route_participation": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "inline_pct": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "8188",
+   "name": "Tyquan Thornton",
+   "position": "WR",
+   "team": "KC",
+   "prior_team": "KC",
+   "team_changed": false,
+   "adp": 178.9,
+   "adp_round_pick": "15.11",
+   "adp_source": "ppr-backfill",
+   "games_played": 12,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 26,
+    "seasons_in_league": 4,
+    "draft_year": 2022,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": 3.083,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 1.583,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.25,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 21,
+     "provenance": "measured",
+     "note": null
+    },
+    "qb_pff_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "team_pass_attempts": {
+     "value": 584.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "secondary_target": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "reception_perception": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (RP); manual import"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "7090",
+   "name": "Darnell Mooney",
+   "position": "WR",
+   "team": "NYG",
+   "prior_team": "ATL",
+   "team_changed": true,
+   "adp": 179.4,
+   "adp_round_pick": "15.11",
+   "adp_source": "ppr-backfill",
+   "games_played": 15,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 28,
+    "seasons_in_league": 6,
+    "draft_year": 2020,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": 4.8,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 2.133,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.067,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 24,
+     "provenance": "stale:team_changed",
+     "note": "describes ATL, player now on NYG"
+    },
+    "qb_pff_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "team_pass_attempts": {
+     "value": 545.0,
+     "provenance": "stale:team_changed",
+     "note": "describes ATL, player now on NYG"
+    },
+    "secondary_target": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "reception_perception": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (RP); manual import"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "6149",
+   "name": "Darius Slayton",
+   "position": "WR",
+   "team": "NYG",
+   "prior_team": "NYG",
+   "team_changed": false,
+   "adp": 180.0,
+   "adp_round_pick": "15.12",
+   "adp_source": "ppr-backfill",
+   "games_played": 14,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 29,
+    "seasons_in_league": 7,
+    "draft_year": 2019,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 0,
+    "top12_finish_seasons": []
+   },
+   "factors": {
+    "targets": {
+     "value": 4.5,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 2.643,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.071,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 17,
+     "provenance": "measured",
+     "note": null
+    },
+    "qb_pff_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "team_pass_attempts": {
+     "value": 526.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "secondary_target": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "reception_perception": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (RP); manual import"
+    },
+    "archetype": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "injury_concern": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    }
+   }
+  },
+  {
+   "sleeper_id": "4950",
+   "name": "Christian Kirk",
+   "position": "WR",
+   "team": "SF",
+   "prior_team": "HOU",
+   "team_changed": true,
+   "adp": 181.4,
+   "adp_round_pick": "16.01",
+   "adp_source": "ppr-backfill",
+   "games_played": 11,
+   "matched": true,
+   "recovered_from_season": null,
+   "bio": {
+    "age": 29,
+    "seasons_in_league": 8,
+    "draft_year": 2018,
+    "status": "Active",
+    "provenance": "measured",
+    "top12_finish_count": 1,
+    "top12_finish_seasons": [
+     2022
+    ]
+   },
+   "factors": {
+    "targets": {
+     "value": 4.727,
+     "provenance": "measured",
+     "note": null
+    },
+    "receptions": {
+     "value": 2.545,
+     "provenance": "measured",
+     "note": null
+    },
+    "touchdowns": {
+     "value": 0.091,
+     "provenance": "measured",
+     "note": null
+    },
+    "off_ppg_rank": {
+     "value": 13,
+     "provenance": "stale:team_changed",
+     "note": "describes HOU, player now on SF"
+    },
+    "qb_pff_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "team_pass_attempts": {
+     "value": 582.0,
+     "provenance": "stale:team_changed",
+     "note": "describes HOU, player now on SF"
+    },
+    "secondary_target": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "categorical, graded by DraftLab rather than benchmarked"
+    },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "yprr": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (PFF); manual import"
+    },
+    "reception_perception": {
+     "value": null,
+     "provenance": "unsourced",
+     "note": "not freely redistributable (RP); manual import"
     },
     "archetype": {
      "value": null,

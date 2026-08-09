@@ -126,6 +126,71 @@ def fetch_adp(fmt: dict, season: int, teams: int | None = None) -> dict:
             "teams": teams, "meta": {}, "attempts": attempts}
 
 
+def fetch_adp_hybrid(fmt: dict, season: int, teams: int | None = None) -> dict:
+    """Format-accurate ADP for QB, backfilled with PPR-format depth for RB/WR/TE.
+
+    QB valuation changes drastically between 1-QB and 2-QB leagues — a 2-QB
+    league's ADP is the only correct source for QB, which is exactly what
+    fetch_adp's format_chain already prioritizes. But that same format-match
+    logic makes the OVERALL universe only as deep as FFC's sample for that one
+    format: fewer people run 2-QB mock drafts than standard ones, so the 2qb
+    pool tops out around 217 players (2,464 drafts) against ppr's 249+
+    (4,767 drafts, per the module docstring's own numbers). That shallower
+    pool was never a deliberate limit — build_factors.py's own --limit is 300,
+    well above either number — it's just what the format-matched source has.
+
+    RB/WR/TE ADP does not reorder nearly as much between formats — the main
+    effect of a second QB slot is pushing every other position later by
+    roughly a uniform offset, not reshuffling them relative to each other.
+    So once the primary (format-matched) pool is exhausted, backfill deeper
+    RB/WR/TE names from the ppr pool. QB is never backfilled this way: a
+    ppr-pool QB's ADP reflects a 1-QB league and would misprice him if used
+    for a 2-QB league's universe.
+
+    Backfilled players are appended after the primary list (sorted among
+    themselves by their own ppr ADP) rather than interleaved by raw ADP
+    value — the two format's ADP numbers are not on a directly comparable
+    scale, and pretending otherwise would invent a false cross-format rank.
+    Each backfilled player is tagged `adp_source: 'ppr-backfill'` so a
+    consumer can see the caveat rather than silently trusting a mismatched
+    number as equivalent to the primary format's.
+    """
+    primary = fetch_adp(fmt, season, teams)
+    for p in primary["players"]:
+        p.setdefault("adp_source", primary.get("format_used"))
+    if not primary["players"]:
+        return primary
+
+    teams = teams or fmt.get("numTeams") or 12
+    seen = {(p.get("name"), p.get("position")) for p in primary["players"]}
+
+    backfill_players: list[dict] = []
+    for year in (season, season - 1):
+        raw = _fetch("ppr", teams, year)
+        candidates = (raw or {}).get("players") or []
+        if len(candidates) >= MIN_PLAYERS:
+            backfill_players = candidates
+            break
+
+    added = []
+    for p in backfill_players:
+        if p.get("position") == "QB":
+            continue  # format mismatch would misprice QB — never backfill it
+        key = (p.get("name"), p.get("position"))
+        if key in seen:
+            continue
+        seen.add(key)
+        added.append({**p, "adp_source": "ppr-backfill"})
+
+    added.sort(key=lambda r: (r.get("adp") is None, r.get("adp")))
+
+    return {
+        **primary,
+        "players": [*primary["players"], *added],
+        "backfilled_from_ppr": len(added),
+    }
+
+
 _NON_ALNUM = re.compile(r"[^a-z0-9]")
 
 # Sleeper drops generational suffixes ("Michael Pittman", "Brian Thomas");

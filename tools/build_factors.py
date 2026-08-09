@@ -89,7 +89,7 @@ from build_benchmarks import (                      # noqa: E402
 from sleeper_core.offense import safe_float        # noqa: E402
 from sleeper_core import values                     # noqa: E402
 from sleeper_core.adp import (                      # noqa: E402
-    fetch_adp, name_keys, normalize_name, strip_suffix,
+    fetch_adp_hybrid, name_keys, normalize_name, strip_suffix,
     sleeper_id_index, lookup_sleeper_id,
 )
 from sleeper_core.config import DEFAULT_LEAGUE_ID, STATS_CACHE_TTL  # noqa: E402
@@ -413,6 +413,7 @@ def build_player(p: dict, measured: dict, sid: str | None,
         "team_changed": team_changed,
         "adp": p.get("adp"),
         "adp_round_pick": p.get("adp_formatted"),
+        "adp_source": p.get("adp_source"),
         "games_played": hit["games"] if hit else 0,
         "matched": bool(hit),
         "recovered_from_season": recovered_from,
@@ -441,7 +442,10 @@ def main() -> int:
 
     print(f"Measuring factors from {args.season}; universe = {adp_season} ADP ...")
     fmt = values.league_format(args.league)
-    fetched = fetch_adp(fmt, adp_season)
+    fetched = fetch_adp_hybrid(fmt, adp_season)
+    if fetched.get("backfilled_from_ppr"):
+        print(f"  ADP: {fetched['format_used']} pool backfilled with "
+              f"{fetched['backfilled_from_ppr']} RB/WR/TE from ppr (QB never backfilled)")
 
     # ADP covers K and DEF; DraftLab models only QB/RB/WR/TE. Leaving them in
     # would stack ~30 guaranteed non-matches into the unmatched report and bury
@@ -558,6 +562,9 @@ def main() -> int:
             "bio": "Sleeper player map (age, years_exp, metadata.rookie_year)",
             "top12_finish_window": f"{DEFAULT_SEASONS[0]}-{DEFAULT_SEASONS[-1]}, full PPR, "
                                    f"min {FINISH_MIN_GAMES} games played",
+            "adp": f"{fetched.get('format_used')} (format-matched, for QB accuracy); "
+                   f"RB/WR/TE depth backfilled from ppr where the {fetched.get('format_used')} "
+                   f"pool ran out — see each player's adp_source",
         },
         "counts": {
             "players": len(players),
