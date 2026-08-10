@@ -127,7 +127,68 @@ fmt     = values.league_format("1312218810614300672")
 That path skips MCP entirely — no JSON-RPC, no session handshake, no auth,
 since every upstream is a public read. Use it for anything latency-sensitive.
 
-## Setup
+## Install and connect
+
+Three ways to run this, in order of how much setup they need:
+
+1. **Use the deployed remote server** — nothing to install, just add a
+   connector. What most clients should do.
+2. **Run it locally over stdio** — for Claude Desktop, when you want your own
+   league config or you're developing against it.
+3. **Run it locally over HTTP** — for Claude Code, Cursor, or anything that
+   speaks Streamable HTTP, pointed at your own machine instead of the deploy.
+
+All three run the exact same 36 tools against the exact same read-only
+upstreams — the difference is only where the process lives and how a client
+reaches it.
+
+### 1. Deployed remote server (no install)
+
+Already running on [Prefect Horizon](https://gofastmcp.com/deployment/prefect-horizon)
+at **`https://jlg-sleeper.fastmcp.app/mcp`**, entrypoint `server.py:mcp`, behind
+Horizon's built-in OAuth. One connector registration covers Claude web,
+desktop **and** mobile — Anthropic's infrastructure makes the request, not
+your device, which is also why a `localhost` URL can never work as a custom
+connector (see option 3 for that case).
+
+**Claude (web / desktop / mobile).** Settings → Connectors → Add custom
+connector → paste the URL above → Connect, then complete the OAuth prompt in
+the popup that opens. Configured once, available in every conversation on
+every device signed into that account.
+
+**Claude Code.**
+
+```bash
+claude mcp add --transport http sleeper https://jlg-sleeper.fastmcp.app/mcp
+```
+
+Follow the OAuth prompt on first use. `claude mcp list` confirms it connected;
+`get_nfl_state` is a good first call since it takes no arguments.
+
+**Cursor.** Add to `.cursor/mcp.json` (project) or `~/.cursor/mcp.json`
+(global):
+
+```json
+{
+  "mcpServers": {
+    "sleeper": {
+      "url": "https://jlg-sleeper.fastmcp.app/mcp"
+    }
+  }
+}
+```
+
+Cursor prompts for the OAuth flow the first time the server is used.
+
+**Access is not open.** Horizon's OAuth restricts connections to the deploying
+account's org — this is not "share the URL and anyone can connect." Adding a
+second person means adding them on the Horizon/FastMCP Cloud side first;
+confirm that's available on the current plan before promising someone else
+access. See [Custom connectors via remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp)
+and [Connector authentication](https://claude.com/docs/connectors/building/authentication)
+for how the OAuth handshake itself works.
+
+### 2. Local install (stdio or HTTP)
 
 Requires Python 3.10+.
 
@@ -137,7 +198,11 @@ source .venv/bin/activate          # Windows: .venv\Scripts\Activate.ps1
 pip install -r requirements.txt -r requirements-dev.txt
 ```
 
-### Claude Desktop (stdio)
+Copy `.env.example` to `.env` and adjust league/identity values if this isn't
+your league — see [Configuration](#configuration) below for what each
+variable does.
+
+### 3a. Claude Desktop, local (stdio)
 
 Edit `claude_desktop_config.json` (`%APPDATA%\Claude\` on Windows,
 `~/Library/Application Support/Claude/` on macOS):
@@ -158,18 +223,33 @@ Edit `claude_desktop_config.json` (`%APPDATA%\Claude\` on Windows,
 }
 ```
 
-### Remote (HTTP)
+No `MCP_HTTP` here — leaving it unset is what makes the server speak stdio.
+Restart Claude Desktop after editing.
+
+### 3b. Claude Code / Cursor, local (HTTP)
+
+Start the server:
 
 ```bash
 MCP_HTTP=1 python server.py        # Streamable HTTP on :8000
 python tests/smoke_http.py         # verify: handshake, tool list, live call
 ```
 
-Deployed on [Prefect Horizon](https://gofastmcp.com/deployment/prefect-horizon)
-with entrypoint `server.py:mcp` and OAuth enabled. One connector registration
-covers every Claude client including mobile — Anthropic's infrastructure makes
-the request, not your device, which is why a localhost URL will not work as a
-custom connector.
+Then point a client at `http://localhost:8000/mcp` the same way you would the
+deployed URL in option 1, minus OAuth — a local server has none:
+
+```bash
+claude mcp add --transport http sleeper-local http://localhost:8000/mcp
+```
+
+```json
+// .cursor/mcp.json
+{ "mcpServers": { "sleeper-local": { "url": "http://localhost:8000/mcp" } } }
+```
+
+Useful for testing a change before it's deployed, since the remote instance
+runs whatever was last pushed to `main` and redeployed on Horizon — a local
+HTTP server reflects your working tree instead.
 
 ## Configuration
 
