@@ -1,0 +1,7 @@
+# Dependencies for the DraftLab data job (Fly / local uvicorn).
+# Separate from Horizon's requirements.txt so MCP deploys stay minimal.
+
+-r requirements.txt
+
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.30,<1.0

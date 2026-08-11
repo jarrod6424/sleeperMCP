@@ -958,39 +958,33 @@ def _artifact_warnings() -> list[str]:
     return out
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--seasons", nargs="+", type=int, default=DEFAULT_SEASONS)
-    ap.add_argument("--cohort", type=int, default=DEFAULT_COHORT)
-    ap.add_argument("--out", default="artifacts/benchmarks.json")
-    ap.add_argument("--spread", action="store_true",
-                    help="report season-to-season dispersion and whether each gap "
-                         "against DraftLab exceeds sampling noise")
-    args = ap.parse_args()
-
-    print(f"Loading nflverse for {args.seasons} ...")
-    rows = load_player_seasons(args.seasons)
+def build_benchmarks_artifact(
+    seasons: list[int] | None = None,
+    cohort: int = DEFAULT_COHORT,
+) -> dict:
+    """Build the benchmarks.json payload (no disk I/O). Used by CLI and data_api."""
+    seasons = list(seasons or DEFAULT_SEASONS)
+    print(f"Loading nflverse for {seasons} ...")
+    rows = load_player_seasons(seasons)
     counts = defaultdict(int)
     for r in rows:
         counts[r["position"]] += 1
     print("  player-seasons: " + ", ".join(f"{k} {v}" for k, v in sorted(counts.items())))
 
-    cal = calibration(rows, args.cohort)
-    if args.spread:
-        spread_report(rows, args.cohort)
-    bench = build(rows, args.cohort)
+    cal = calibration(rows, cohort)
+    bench = build(rows, cohort)
 
-    payload = {
+    return {
         "schema_version": 2,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "source": "nflverse stats_player_week + snap_counts",
-        "seasons": args.seasons,
+        "seasons": seasons,
         # Provenance, stated positively. An empty `warnings` list is only
         # implicit evidence that the real scores were used; a reader should
         # not have to infer where a number came from from something absent.
         "off_ppg_rank_source": _OFF_PPG_SOURCE["used"],
         "method": {
-            "cohort": f"top {args.cohort} by fantasy points in the given format, "
+            "cohort": f"top {cohort} by fantasy points in the given format, "
                       f"per season, then averaged across seasons",
             "divisor": "games in which the player appeared",
             "regular_season_only": True,
@@ -1003,7 +997,29 @@ def main() -> int:
         "benchmarks": bench,
     }
 
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--seasons", nargs="+", type=int, default=DEFAULT_SEASONS)
+    ap.add_argument("--cohort", type=int, default=DEFAULT_COHORT)
+    ap.add_argument("--out", default="artifacts/benchmarks.json")
+    ap.add_argument("--spread", action="store_true",
+                    help="report season-to-season dispersion and whether each gap "
+                         "against DraftLab exceeds sampling noise")
+    args = ap.parse_args()
+
+    if args.spread:
+        print(f"Loading nflverse for {args.seasons} ...")
+        rows = load_player_seasons(args.seasons)
+        spread_report(rows, args.cohort)
+
+    payload = build_benchmarks_artifact(seasons=args.seasons, cohort=args.cohort)
+    cal = payload["reference_comparison"]
+    bench = payload["benchmarks"]
+
     out = Path(args.out)
+    if not out.is_absolute():
+        out = ROOT / out
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(payload, indent=2))
 

@@ -561,26 +561,24 @@ def build_player(p: dict, measured: dict, sid: str | None,
     }
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser()
-    ap.add_argument("--season", type=int, default=2025,
-                    help="season to measure factors from (default: last completed)")
-    ap.add_argument("--adp-season", type=int, default=None,
-                    help="ADP season defining the draftable universe (default: season+1)")
-    ap.add_argument("--limit", type=int, default=300,
-                    help="how deep into ADP to go")
-    ap.add_argument("--league", default=DEFAULT_LEAGUE_ID,
-                    help="league whose scoring format selects the ADP variant")
-    ap.add_argument("--lookback", type=int, default=2,
-                    help="seasons to search back when the target year is empty "
-                         "(recovers injured veterans; 0 disables)")
-    ap.add_argument("--out", default="artifacts/player_factors.json")
-    args = ap.parse_args()
+class EmptyUniverseError(RuntimeError):
+    """ADP returned no draftable QB/RB/WR/TE players."""
 
-    adp_season = args.adp_season or (args.season + 1)
 
-    print(f"Measuring factors from {args.season}; universe = {adp_season} ADP ...")
-    fmt = values.league_format(args.league)
+def build_player_factors_artifact(
+    *,
+    season: int = 2025,
+    adp_season: int | None = None,
+    limit: int = 300,
+    league: str = DEFAULT_LEAGUE_ID,
+    lookback: int = 2,
+    report: bool = True,
+) -> dict:
+    """Build the player_factors.json payload (no disk I/O). Used by CLI and data_api."""
+    adp_season = adp_season or (season + 1)
+
+    print(f"Measuring factors from {season}; universe = {adp_season} ADP ...")
+    fmt = values.league_format(league)
     fetched = fetch_adp_hybrid(fmt, adp_season)
     if fetched.get("backfilled_from_ppr"):
         print(f"  ADP: {fetched['format_used']} pool backfilled with "
@@ -592,20 +590,19 @@ def main() -> int:
     ranked = fetched["players"]
     skipped = [p for p in ranked if (p.get("position") or "").upper() not in FACTORS]
     universe = [p for p in ranked
-                if (p.get("position") or "").upper() in FACTORS][:args.limit]
+                if (p.get("position") or "").upper() in FACTORS][:limit]
     if skipped:
         pos_counts = Counter((p.get("position") or "?").upper() for p in skipped)
         print(f"  skipping unmodelled positions: {dict(pos_counts)}")
     if not universe:
-        print("  ERROR: no ADP returned; cannot define a draftable universe.",
-              file=sys.stderr)
-        print(f"  attempts: {fetched.get('attempts')}", file=sys.stderr)
-        return 1
+        raise EmptyUniverseError(
+            f"no ADP returned; attempts={fetched.get('attempts')}"
+        )
     print(f"  universe: {len(universe)} players")
 
-    measured = index_measurements(args.season)
+    measured = index_measurements(season)
     print(f"  measured: {len(measured['by_key_pos'])} name/position keys "
-          f"from {args.season}")
+          f"from {season}")
 
     print(f"  bio: loading Sleeper player map ...")
     sleeper_players = load_sleeper_players()
@@ -618,15 +615,15 @@ def main() -> int:
     print(f"  projections: summing {adp_season} weekly projections (Sleeper, "
           f"undocumented/best-effort) ...")
     projection_ranks, projection_points, proj_weeks_found, proj_label = \
-        season_projection_ranks(adp_season, args.league, sleeper_players)
+        season_projection_ranks(adp_season, league, sleeper_players)
     print(f"  projections: {proj_weeks_found} week(s) found, {proj_label} scoring, "
           f"{len(projection_ranks)} players ranked")
 
     print(f"  team position ranks: WR by targets, RB by touches, within "
-          f"{args.season} team+position groups ...")
-    team_pos_ranks = team_position_ranks(args.season)
+          f"{season} team+position groups ...")
+    team_pos_ranks = team_position_ranks(season)
 
-    all_pos = all_positions_index(args.season)
+    all_pos = all_positions_index(season)
     index = sleeper_id_index()
     players = []
     for p in universe:
@@ -634,12 +631,12 @@ def main() -> int:
         row = build_player(p, measured, sid, sleeper_players, finishers, DEFAULT_SEASONS,
                             projection_ranks, projection_points, team_pos_ranks)
         # Only pay for the recovery scan on players the main path missed.
-        if not row["matched"] and args.lookback:
-            for back in range(0, args.lookback + 1):
-                yr = args.season - back
+        if not row["matched"] and lookback:
+            for back in range(0, lookback + 1):
+                yr = season - back
                 fb = recover(yr, p.get("name") or "")
                 if fb:
-                    row = build_player(dict(p, _target_season=args.season),
+                    row = build_player(dict(p, _target_season=season),
                                        measured, sid, sleeper_players, finishers,
                                        DEFAULT_SEASONS, projection_ranks, projection_points,
                                        team_pos_ranks, fallback=fb)
@@ -668,57 +665,58 @@ def main() -> int:
         1 for p in players if p["position"] in ("WR", "RB") and p["team_position_rank"] == 1
     )
 
-    print(f"\njoins:")
-    print(f"  matched to {args.season} stats   {len(players)-len(unmatched)}/{len(players)}")
-    print(f"  resolved to a Sleeper ID      {len(players)-len(no_sid)}/{len(players)}")
-    print(f"  changed teams since {args.season}    {len(changed)}")
-    if recovered:
-        print(f"  recovered from an earlier season {len(recovered)}")
-        for r in recovered:
-            why = ("filed under another position" if r["recovered_from_season"] == args.season
-                   else "no season played that year")
-            print(f"    {r['position']:3} {r['name']:22} <- {r['recovered_from_season']}  ({why})")
-    print("\nfactor provenance:")
-    for k, n in prov.most_common():
-        print(f"  {k:28} {n}")
+    if report:
+        print(f"\njoins:")
+        print(f"  matched to {season} stats   {len(players)-len(unmatched)}/{len(players)}")
+        print(f"  resolved to a Sleeper ID      {len(players)-len(no_sid)}/{len(players)}")
+        print(f"  changed teams since {season}    {len(changed)}")
+        if recovered:
+            print(f"  recovered from an earlier season {len(recovered)}")
+            for r in recovered:
+                why = ("filed under another position" if r["recovered_from_season"] == season
+                       else "no season played that year")
+                print(f"    {r['position']:3} {r['name']:22} <- {r['recovered_from_season']}  ({why})")
+        print("\nfactor provenance:")
+        for k, n in prov.most_common():
+            print(f"  {k:28} {n}")
 
-    print("\nbio provenance:")
-    for k, n in bio_prov.most_common():
-        print(f"  {k:28} {n}")
-    print("\ntop-12 finish history (count of players by number of prior finishes):")
-    for k in sorted(finish_counts):
-        print(f"  {k} finish(es): {finish_counts[k]} players")
+        print("\nbio provenance:")
+        for k, n in bio_prov.most_common():
+            print(f"  {k:28} {n}")
+        print("\ntop-12 finish history (count of players by number of prior finishes):")
+        for k in sorted(finish_counts):
+            print(f"  {k} finish(es): {finish_counts[k]} players")
 
-    print(f"\nteam position rank (WR by targets, RB by touches): "
-          f"{lead_options} team-lead options (rank 1)")
-    for k, n in team_pos_rank_prov.most_common():
-        print(f"  {k:28} {n}")
+        print(f"\nteam position rank (WR by targets, RB by touches): "
+              f"{lead_options} team-lead options (rank 1)")
+        for k, n in team_pos_rank_prov.most_common():
+            print(f"  {k:28} {n}")
 
-    if unmatched:
-        reasons = {}
-        for p in unmatched:
-            reasons[p["name"]] = classify_miss(measured, all_pos, p["name"], p["position"])
-        bugs = {n: r for n, r in reasons.items() if r.startswith(("JOIN BUG", "DROPPED"))}
-        variants = {n: r for n, r in reasons.items() if r.startswith("possible")}
+        if unmatched:
+            reasons = {}
+            for p in unmatched:
+                reasons[p["name"]] = classify_miss(measured, all_pos, p["name"], p["position"])
+            bugs = {n: r for n, r in reasons.items() if r.startswith(("JOIN BUG", "DROPPED"))}
+            variants = {n: r for n, r in reasons.items() if r.startswith("possible")}
 
-        print(f"\nunmatched: {len(unmatched)}")
-        for p in unmatched:
-            r = reasons[p["name"]]
-            mark = "  <-- FIX" if r.startswith(("JOIN BUG", "DROPPED", "possible")) else ""
-            print(f"  {p['position']:3} {p['name']:24} {r}{mark}")
-        if bugs or variants:
-            print(f"\n  {len(bugs)} join bug(s), {len(variants)} possible name variant(s).")
-            print("  These are recoverable data, not missing players.")
-        else:
-            print("\n  All misses are players with no season in the source —")
-            print("  rookies and anyone who sat out. Nothing to fix in the join.")
+            print(f"\nunmatched: {len(unmatched)}")
+            for p in unmatched:
+                r = reasons[p["name"]]
+                mark = "  <-- FIX" if r.startswith(("JOIN BUG", "DROPPED", "possible")) else ""
+                print(f"  {p['position']:3} {p['name']:24} {r}{mark}")
+            if bugs or variants:
+                print(f"\n  {len(bugs)} join bug(s), {len(variants)} possible name variant(s).")
+                print("  These are recoverable data, not missing players.")
+            else:
+                print("\n  All misses are players with no season in the source —")
+                print("  rookies and anyone who sat out. Nothing to fix in the join.")
 
     by_pos = Counter(p["position"] for p in players)
-    doc = {
+    return {
         "schema_version": 4,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "basis": {
-            "player_factors": f"measured:{args.season}",
+            "player_factors": f"measured:{season}",
             "universe": f"FantasyFootballCalculator ADP {adp_season}",
             "format": fmt,
             "off_ppg_rank_source": _OFF_PPG_SOURCE["used"],
@@ -737,7 +735,7 @@ def main() -> int:
                               f"scarcity adjustment: ranks QBs earlier than an analyst "
                               f"big-board would, since raw season points don't reflect "
                               f"that only one QB starts.",
-            "team_position_rank": f"within-{args.season}-team rank by targets (WR) or "
+            "team_position_rank": f"within-{season}-team rank by targets (WR) or "
                                   f"touches (RB); 1 = clear lead option. QB and TE don't "
                                   f"get this — TE's version is DraftLab's "
                                   f"failsTargetShareGate against team_target_rank instead.",
@@ -770,6 +768,35 @@ def main() -> int:
         ),
         "players": players,
     }
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--season", type=int, default=2025,
+                    help="season to measure factors from (default: last completed)")
+    ap.add_argument("--adp-season", type=int, default=None,
+                    help="ADP season defining the draftable universe (default: season+1)")
+    ap.add_argument("--limit", type=int, default=300,
+                    help="how deep into ADP to go")
+    ap.add_argument("--league", default=DEFAULT_LEAGUE_ID,
+                    help="league whose scoring format selects the ADP variant")
+    ap.add_argument("--lookback", type=int, default=2,
+                    help="seasons to search back when the target year is empty "
+                         "(recovers injured veterans; 0 disables)")
+    ap.add_argument("--out", default="artifacts/player_factors.json")
+    args = ap.parse_args()
+
+    try:
+        doc = build_player_factors_artifact(
+            season=args.season,
+            adp_season=args.adp_season,
+            limit=args.limit,
+            league=args.league,
+            lookback=args.lookback,
+        )
+    except EmptyUniverseError as exc:
+        print(f"  ERROR: {exc}", file=sys.stderr)
+        return 1
 
     out = ROOT / args.out
     out.parent.mkdir(parents=True, exist_ok=True)
