@@ -19,23 +19,29 @@ upstreams, deployed on Prefect Horizon at `jlg-sleeper.fastmcp.app/mcp`.
 ```
 server.py          36 @mcp.tool() definitions — thin wrappers, no logic
 sleeper_core/      the data layer. No MCP imports anywhere, by design
-tools/             artifact generation (see below)
-artifacts/         generated JSON consumed by DraftLab
+tools/             artifact generation (CLI + importable rebuild APIs)
+data_api/          optional local HTTP rebuild (NOT production; NOT Horizon)
+.github/workflows/ publish-artifacts.yml → Cloudflare R2 for DraftLab
+artifacts/         generated JSON (CLI + Action build outputs)
 tests/             golden-output regression harness
-docs/              BUILD_NOTES, INTEGRATION_PROPOSAL, SCORING_COMPARISON, HANDOFF
+docs/              BUILD_NOTES, INTEGRATION_PROPOSAL, GO_LIVE_ACTIONS_R2, HANDOFF
 ```
 
 `sleeper_core` is importable without MCP — no JSON-RPC, no auth, every upstream
-is a public read. Batch jobs use that path.
+is a public read. Production handoff is **GitHub Actions → R2**. DraftLab never
+calls Horizon MCP.
 
 ## Commands
 
 ```bash
 pytest tests/test_golden.py -q          # after any change
+pytest tests/test_check_artifact_count.py tests/test_data_api.py -q
 python tests/capture_golden.py          # ONLY when output changed on purpose
 python tools/build_benchmarks.py --spread   # -> artifacts/benchmarks.json
 python tools/build_factors.py               # -> artifacts/player_factors.json
+python tools/check_artifact_count.py --new artifacts/player_factors.json
 python tools/check_contract.py ../fantasy-football-draft-optimizer
+# Production publish: GitHub Actions → publish-artifacts (or workflow_dispatch)
 MCP_HTTP=1 python server.py             # local HTTP; then python tests/smoke_http.py
 ```
 

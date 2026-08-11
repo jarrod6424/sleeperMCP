@@ -1,0 +1,100 @@
+# Build sleeperMCP artifacts and upload to DraftLab's R2 bucket.
+# No Fly / no live HTTP rebuild — DraftLab reads R2 only.
+#
+# Secrets (repo settings → Actions):
+#   CLOUDFLARE_API_TOKEN   — R2 edit on draftlab-artifacts
+#   CLOUDFLARE_ACCOUNT_ID  — Cloudflare account id
+
+name: publish-artifacts
+
+on:
+  schedule:
+    - cron: "0 12 * * 1" # Mondays 12:00 UTC
+  workflow_dispatch:
+
+env:
+  R2_BUCKET: draftlab-artifacts
+  FACTORS_KEY: artifacts/player_factors.json
+  BENCHMARKS_KEY: artifacts/benchmarks.json
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python deps
+        run: pip install -r requirements.txt
+
+      - name: Cache sleeper-mcp HTTP cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/sleeper-mcp
+          key: sleeper-mcp-${{ runner.os }}-${{ hashFiles('tools/build_*.py', 'sleeper_core/**/*.py') }}
+          restore-keys: |
+            sleeper-mcp-${{ runner.os }}-
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Fetch baseline player_factors for sanity check
+        id: baseline
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set +e
+          npx --yes wrangler@4 r2 object get "${R2_BUCKET}/${FACTORS_KEY}" \
+            --file=baseline_player_factors.json \
+            --remote
+          status=$?
+          set -e
+          if [ "$status" -eq 0 ] && [ -s baseline_player_factors.json ]; then
+            echo "path=baseline_player_factors.json" >> "$GITHUB_OUTPUT"
+            echo "Using R2 object as baseline"
+          elif [ -f artifacts/player_factors.json ]; then
+            cp artifacts/player_factors.json baseline_player_factors.json
+            echo "path=baseline_player_factors.json" >> "$GITHUB_OUTPUT"
+            echo "Using committed artifacts/player_factors.json as baseline"
+          else
+            echo "path=" >> "$GITHUB_OUTPUT"
+            echo "No baseline available; sanity check will be skipped"
+          fi
+
+      - name: Build benchmarks
+        run: python tools/build_benchmarks.py
+
+      - name: Build player factors
+        run: python tools/build_factors.py
+
+      - name: Sanity-check player count
+        run: |
+          EXTRA=()
+          if [ -n "${{ steps.baseline.outputs.path }}" ] && [ -f "${{ steps.baseline.outputs.path }}" ]; then
+            EXTRA=(--baseline "${{ steps.baseline.outputs.path }}")
+          fi
+          python tools/check_artifact_count.py \
+            --new artifacts/player_factors.json \
+            "${EXTRA[@]}"
+
+      - name: Upload artifacts to R2
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx --yes wrangler@4 r2 object put "${R2_BUCKET}/${FACTORS_KEY}" \
+            --file=artifacts/player_factors.json \
+            --content-type=application/json \
+            --remote
+          npx --yes wrangler@4 r2 object put "${R2_BUCKET}/${BENCHMARKS_KEY}" \
+            --file=artifacts/benchmarks.json \
+            --content-type=application/json \
+            --remote
+          echo "Uploaded ${FACTORS_KEY} and ${BENCHMARKS_KEY} to r2://${R2_BUCKET}"
