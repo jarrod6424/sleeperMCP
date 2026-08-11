@@ -122,6 +122,7 @@ if os.environ.get("USE_OS_TRUSTSTORE"):
 
     truststore.inject_into_ssl()
 
+from sleeper_core.adp import name_keys               # noqa: E402
 from sleeper_core.config import CACHE_DIR, STATS_CACHE_TTL   # noqa: E402
 from sleeper_core.http import nflverse_csv         # noqa: E402
 from sleeper_core.offense import safe_float        # noqa: E402
@@ -187,6 +188,9 @@ FACTOR_KIND = {
     "rec_td_rank": "rank",
     "snap_share": "rate",          # already a percentage
     "neutral_pace_rank": "rank",
+    "qbr_rank": "rank",
+    "qb_qbr_rank": "rank",
+    "route_participation": "rate",  # already a percentage
     "rz_touch_share": "rate",      # already a percentage, see load_rb_pbp_season
     "gl_carry_share": "rate",
     "neutral_run_rate": "rate",
@@ -200,9 +204,10 @@ FACTORS = {
         ("pass_attempts", "nflverse"), ("passing_tds", "nflverse"),
         ("rush_attempts", "nflverse"), ("rushing_tds", "nflverse"),
         ("off_ppg_rank", "nflverse"), ("ol_pass_block_rank", "licensed:PFF"),
-        ("deep_ball_attempts", "nflverse:pbp"), ("qbr_rank", "licensed:ESPN"),
+        ("deep_ball_attempts", "nflverse:pbp"), ("qbr_rank", "nflverse:espn_qbr"),
         ("red_zone_attempts", "nflverse:pbp"), ("adp", "fantasyfootballcalculator"),
         ("neutral_pace_rank", "nflverse:pbp"), ("pass_dvoa_rank", "licensed:FTN"),
+        ("injury_concern", "nflverse:injuries"),
     ],
     "RB": [
         ("touches", "nflverse"), ("rush_attempts", "nflverse"),
@@ -210,7 +215,7 @@ FACTORS = {
         ("off_ppg_rank", "nflverse"), ("ol_run_block_rank", "licensed:PFF"),
         ("rz_touch_share", "nflverse:pbp"), ("snap_share", "nflverse"),
         ("gl_carry_share", "nflverse:pbp"), ("neutral_run_rate", "nflverse:pbp"),
-        ("archetype", "categorical"), ("injury_concern", "categorical"),
+        ("archetype", "categorical"), ("injury_concern", "nflverse:injuries"),
     ],
     "WR": [
         ("targets", "nflverse"), ("receptions", "nflverse"),
@@ -218,15 +223,15 @@ FACTORS = {
         ("qb_pff_rank", "licensed:PFF"), ("team_pass_attempts", "nflverse"),
         ("secondary_target", "categorical"), ("ol_pass_block_rank", "licensed:PFF"),
         ("yprr", "licensed:PFF"), ("reception_perception", "licensed:RP"),
-        ("archetype", "categorical"), ("injury_concern", "categorical"),
+        ("archetype", "categorical"), ("injury_concern", "nflverse:injuries"),
     ],
     "TE": [
         ("targets", "nflverse"), ("receptions", "nflverse"),
         ("touchdowns", "nflverse"), ("off_ppg_rank", "nflverse"),
-        ("qb_qbr_rank", "licensed:ESPN"), ("team_pass_att_rank", "nflverse"),
+        ("qb_qbr_rank", "nflverse:espn_qbr"), ("team_pass_att_rank", "nflverse"),
         ("team_target_rank", "nflverse"), ("rec_td_rank", "nflverse"),
-        ("route_participation", "licensed:PFF"), ("inline_pct", "licensed:PFF"),
-        ("yprr_rank", "licensed:PFF"), ("injury_concern", "categorical"),
+        ("route_participation", "nflverse:participation"), ("inline_pct", "licensed:PFF"),
+        ("yprr_rank", "licensed:PFF"), ("injury_concern", "nflverse:injuries"),
     ],
 }
 
@@ -237,6 +242,10 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "team_target_rank", "rec_td_rank",
               # QB-only, from play-by-play (see load_qb_pbp_season)
               "deep_ball_attempts", "red_zone_attempts", "neutral_pace_rank",
+              # QB/TE, from ESPN QBR via nflverse (see load_espn_qbr_season)
+              "qbr_rank", "qb_qbr_rank",
+              # TE-only, from nflverse participation (see load_te_route_participation)
+              "route_participation",
               # RB-only, from play-by-play (see load_rb_pbp_season)
               "rz_touch_share", "gl_carry_share", "neutral_run_rate"}
 
@@ -549,6 +558,157 @@ def load_rb_pbp_season(season: int) -> tuple[dict, dict, dict, dict]:
             {t: dict(v) for t, v in team_neutral_runs.items()})
 
 
+def _route_rates_from_events(events: list[dict]) -> dict[str, float]:
+    """Convert pre-aggregated TE pass-play participation to percentages."""
+    out = {}
+    for event in events:
+        denom = event["team_pass_plays"]
+        if denom <= 0:
+            continue
+        out[event["player_key"]] = round(100.0 * event["on_pass"] / denom, 3)
+    return out
+
+
+def load_te_route_participation(season: int) -> dict[str, float]:
+    """TE route participation % proxy from pbp_participation + play-by-play.
+
+    nflverse's participation ``route`` is the primary receiver's route type,
+    not a per-player route flag. This instead measures 100 * (regular-season
+    team pass plays where a TE's GSIS id appears in ``offense_players``) /
+    (team pass plays in games where that TE participated). Best-effort: {} on
+    failure. Attribution: FTN via nflverse for 2023+ (CC-BY-SA).
+    """
+    try:
+        participation = nflverse_csv(
+            "pbp_participation", f"pbp_participation_{season}.csv",
+            ttl=STATS_CACHE_TTL,
+        )
+        if not participation:
+            return {}
+        pbp = nflverse_csv(
+            "pbp", f"play_by_play_{season}.csv",
+            row_filter=lambda row: (
+                row.get("season_type") == "REG" and row.get("play_type") == "pass"
+            ),
+            ttl=STATS_CACHE_TTL,
+        )
+        stats_rows = nflverse_csv(
+            "stats_player", f"stats_player_week_{season}.csv",
+            ttl=STATS_CACHE_TTL,
+        )
+        if not pbp or not stats_rows:
+            return {}
+
+        required_participation = {"nflverse_game_id", "play_id", "offense_players"}
+        required_pbp = {"game_id", "play_id", "posteam"}
+        required_stats = {"player_id", "player_display_name", "position", "team"}
+        if (not required_participation <= set(participation[0])
+                or not required_pbp <= set(pbp[0])
+                or not required_stats <= set(stats_rows[0])):
+            return {}
+
+        te_by_gsis = {
+            row["player_id"]: {
+                "player_key": _qb_name_key(row["player_display_name"]),
+                "team": to_nflverse_team(row["team"]),
+            }
+            for row in stats_rows
+            if (row.get("position") or "").upper() == "TE"
+            and row.get("player_id") and row.get("player_display_name")
+            and to_nflverse_team(row.get("team"))
+        }
+        if not te_by_gsis:
+            return {}
+
+        participation_by_play = {
+            (row["nflverse_game_id"], str(row["play_id"])): row["offense_players"]
+            for row in participation
+            if row.get("nflverse_game_id") and row.get("play_id") not in (None, "")
+            and row.get("offense_players")
+        }
+        active_games_by_gsis: dict[str, set[str]] = defaultdict(set)
+        for row in participation:
+            game_id = row.get("nflverse_game_id")
+            if not game_id:
+                continue
+            for gsis_id in (row.get("offense_players") or "").replace(";", " ").split():
+                if gsis_id in te_by_gsis:
+                    active_games_by_gsis[gsis_id].add(game_id)
+
+        team_pass_plays: dict[tuple[str, str], int] = defaultdict(int)
+        te_on_pass: dict[str, int] = defaultdict(int)
+        for row in pbp:
+            team = to_nflverse_team(row["posteam"])
+            game_id = row["game_id"]
+            if not team or not game_id:
+                continue
+            team_pass_plays[(game_id, team)] += 1
+            offense_players = participation_by_play.get((game_id, str(row["play_id"])))
+            if offense_players:
+                for gsis_id in offense_players.replace(";", " ").split():
+                    if gsis_id in te_by_gsis:
+                        te_on_pass[gsis_id] += 1
+
+        player_totals: dict[str, dict[str, int]] = defaultdict(
+            lambda: {"team_pass_plays": 0, "on_pass": 0})
+        for gsis_id, te in te_by_gsis.items():
+            key = te["player_key"]
+            team = te["team"]
+            player_totals[key]["team_pass_plays"] += sum(
+                team_pass_plays[(game_id, team)]
+                for game_id in active_games_by_gsis[gsis_id]
+            )
+            player_totals[key]["on_pass"] += te_on_pass[gsis_id]
+        return _route_rates_from_events([
+            {"player_key": key, **totals} for key, totals in player_totals.items()
+        ])
+    except Exception:  # noqa: BLE001
+        return {}
+
+
+def load_espn_qbr_season(season: int) -> dict:
+    """Season Total QBR ranks from nflverse espn_data release.
+
+    File is multi-season (`qbr_season_level.csv`); filter to `season`.
+    Rank qualified QBs by qbr_total descending (1 = best). Best-effort: {} on failure.
+    """
+    rows = nflverse_csv("espn_data", "qbr_season_level.csv", ttl=STATS_CACHE_TTL)
+    if not rows:
+        return {}
+    season_rows = []
+    for r in rows:
+        try:
+            if int(float(r.get("season") or 0)) != season:
+                continue
+        except (TypeError, ValueError):
+            continue
+        # Accept qualified True/true/1; if column absent, keep row with qb_plays >= 1
+        qual = str(r.get("qualified") or "True").lower()
+        if qual in ("false", "0", "no"):
+            continue
+        name = r.get("name_display") or r.get("player_name") or ""
+        qbr = safe_float(r.get("qbr_total") or r.get("qbr"))
+        if not name or qbr <= 0:
+            continue
+        season_rows.append({
+            "key": _qb_name_key(name),
+            "name": name,
+            "qbr": qbr,
+            "qb_plays": int(safe_float(r.get("qb_plays"))),
+            "team": to_nflverse_team(r.get("team_abb") or r.get("team")),
+        })
+    season_rows.sort(key=lambda x: x["qbr"], reverse=True)
+    out = {}
+    for i, row in enumerate(season_rows, start=1):
+        out[row["key"]] = {
+            "qbr": row["qbr"],
+            "qb_plays": row["qb_plays"],
+            "team": row["team"],
+            "rank": i,
+        }
+    return out
+
+
 def load_player_seasons(seasons: list[int]) -> list[dict]:
     """One row per player-season: totals, games played, and snap share."""
     out: list[dict] = []
@@ -668,6 +828,60 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
         else:
             print(f"  WARNING: no play-by-play for {season}; rz_touch_share/"
                   f"gl_carry_share/neutral_run_rate left unset", file=sys.stderr)
+
+        route_rates = load_te_route_participation(season)
+        if route_rates:
+            te_rows = [a for a in agg.values() if a["position"] == "TE"]
+            matched = 0
+            for a in te_rows:
+                rate = route_rates.get(_qb_name_key(a["name"]))
+                if rate is not None:
+                    a["route_participation"] = rate
+                    matched += 1
+            print(f"  participation {season}: matched {matched}/{len(te_rows)} TEs "
+                  f"to route_participation", file=sys.stderr)
+        else:
+            print(f"  WARNING: no participation for {season}; route_participation "
+                  f"left unset", file=sys.stderr)
+
+        qbr = load_espn_qbr_season(season)
+        if qbr:
+            # QB personal rank
+            for a in agg.values():
+                if a["position"] != "QB":
+                    continue
+                hit = None
+                qb_name_key = _qb_name_key(a["name"])
+                for k in name_keys(a["name"]):
+                    if k in qbr:
+                        hit = qbr[k]
+                        break
+                    # also try _qb_name_key form
+                    if qb_name_key in qbr:
+                        hit = qbr[qb_name_key]
+                        break
+                if hit:
+                    a["qbr_rank"] = hit["rank"]
+
+            # Primary QB per team = max qb_plays among QBs with QBR on that team
+            primary_by_team: dict[str, int] = {}
+            candidates: dict[str, list] = defaultdict(list)
+            for entry in qbr.values():
+                if entry.get("team"):
+                    candidates[entry["team"]].append(entry)
+            for team, ents in candidates.items():
+                ents.sort(key=lambda e: e["qb_plays"], reverse=True)
+                primary_by_team[team] = ents[0]["rank"]
+
+            for a in agg.values():
+                if a["position"] != "TE":
+                    continue
+                team = a.get("team")
+                if team and team in primary_by_team:
+                    a["qb_qbr_rank"] = primary_by_team[team]
+        else:
+            print(f"  WARNING: no ESPN QBR for {season}; qbr_rank/qb_qbr_rank "
+                  f"left unset", file=sys.stderr)
 
         out.extend(agg.values())
     return out
@@ -875,6 +1089,8 @@ def _gap_note(src: str | None) -> str:
         # RB's three (rz_touch_share / gl_carry_share / neutral_run_rate) and
         # QB's three are COMPUTABLE today, so they ship note: null instead.
         return "available from nflverse play-by-play; not yet implemented"
+    if src == "nflverse:injuries":
+        return "categorical; sourced via nflverse injuries, not cohort-benchmarked"
     if src == "fantasyfootballcalculator":
         return "use get_adp from the MCP server"
     return "unavailable"

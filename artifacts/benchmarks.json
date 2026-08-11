@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-11T03:45:49+00:00",
+  "generated_at": "2026-08-11T14:42:19+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -249,10 +249,19 @@
         },
         {
           "factor_id": "qbr_rank",
-          "source": "licensed:ESPN",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "not freely redistributable (ESPN); manual import"
+          "source": "nflverse:espn_qbr",
+          "benchmark": {
+            "std": 16.818,
+            "half": 16.818,
+            "ppr": 16.818
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 6.962,
+            "se": 2.099,
+            "relative_se": 0.125
+          },
+          "note": null
         },
         {
           "factor_id": "red_zone_attempts",
@@ -299,10 +308,17 @@
           "benchmark": null,
           "dispersion": null,
           "note": "not freely redistributable (FTN); manual import"
+        },
+        {
+          "factor_id": "injury_concern",
+          "source": "nflverse:injuries",
+          "benchmark": null,
+          "dispersion": null,
+          "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
-      "computed": 8,
-      "total": 12
+      "computed": 9,
+      "total": 13
     },
     "RB": {
       "factors": [
@@ -466,10 +482,10 @@
         },
         {
           "factor_id": "injury_concern",
-          "source": "categorical",
+          "source": "nflverse:injuries",
           "benchmark": null,
           "dispersion": null,
-          "note": "categorical, graded by DraftLab rather than benchmarked"
+          "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
       "computed": 9,
@@ -601,10 +617,10 @@
         },
         {
           "factor_id": "injury_concern",
-          "source": "categorical",
+          "source": "nflverse:injuries",
           "benchmark": null,
           "dispersion": null,
-          "note": "categorical, graded by DraftLab rather than benchmarked"
+          "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
       "computed": 5,
@@ -678,10 +694,19 @@
         },
         {
           "factor_id": "qb_qbr_rank",
-          "source": "licensed:ESPN",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "not freely redistributable (ESPN); manual import"
+          "source": "nflverse:espn_qbr",
+          "benchmark": {
+            "std": 22.212,
+            "half": 20.0,
+            "ppr": 19.727
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 5.018,
+            "se": 1.513,
+            "relative_se": 0.076
+          },
+          "note": null
         },
         {
           "factor_id": "team_pass_att_rank",
@@ -733,10 +758,19 @@
         },
         {
           "factor_id": "route_participation",
-          "source": "licensed:PFF",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "not freely redistributable (PFF); manual import"
+          "source": "nflverse:participation",
+          "benchmark": {
+            "std": 85.621,
+            "half": 90.547,
+            "ppr": 92.514
+          },
+          "dispersion": {
+            "seasons": 10,
+            "sd": 7.425,
+            "se": 2.348,
+            "relative_se": 0.026
+          },
+          "note": null
         },
         {
           "factor_id": "inline_pct",
@@ -754,13 +788,13 @@
         },
         {
           "factor_id": "injury_concern",
-          "source": "categorical",
+          "source": "nflverse:injuries",
           "benchmark": null,
           "dispersion": null,
-          "note": "categorical, graded by DraftLab rather than benchmarked"
+          "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
-      "computed": 7,
+      "computed": 9,
       "total": 12
     }
   }
