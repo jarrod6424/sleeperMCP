@@ -693,6 +693,17 @@ def load_route_participation(season: int, position: str) -> dict[str, float]:
             and row.get("player_id") and row.get("player_display_name")
             and to_nflverse_team(row.get("team"))
         }
+        gsis_ids_by_key: dict[str, set[str]] = defaultdict(set)
+        for gsis_id, player in player_by_gsis.items():
+            gsis_ids_by_key[player["player_key"]].add(gsis_id)
+        colliding_keys = {
+            key for key, gsis_ids in gsis_ids_by_key.items() if len(gsis_ids) > 1
+        }
+        player_by_gsis = {
+            gsis_id: player
+            for gsis_id, player in player_by_gsis.items()
+            if player["player_key"] not in colliding_keys
+        }
         if not player_by_gsis:
             return {}
 

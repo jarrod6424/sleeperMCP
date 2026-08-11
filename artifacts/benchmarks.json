@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-11T17:22:26+00:00",
+  "generated_at": "2026-08-11T17:54:33+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -593,15 +593,15 @@
           "factor_id": "route_participation",
           "source": "nflverse:participation",
           "benchmark": {
-            "std": 91.075,
-            "half": 90.781,
-            "ppr": 90.781
+            "std": 92.595,
+            "half": 92.147,
+            "ppr": 92.147
           },
           "dispersion": {
             "seasons": 10,
-            "sd": 6.213,
-            "se": 1.965,
-            "relative_se": 0.022
+            "sd": 3.086,
+            "se": 0.976,
+            "relative_se": 0.011
           },
           "note": null
         },

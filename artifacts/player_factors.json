@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "generated_at": "2026-08-11T17:25:49+00:00",
+ "generated_at": "2026-08-11T17:57:19+00:00",
  "basis": {
   "player_factors": "measured:2025",
   "universe": "FantasyFootballCalculator ADP 2026",
@@ -31,9 +31,9 @@
   "team_changed": 39,
   "recovered": 6,
   "provenance": {
-   "measured": 1682,
+   "measured": 1681,
    "unsourced": 652,
-   "missing:not_recorded": 34,
+   "missing:not_recorded": 35,
    "stale:team_changed": 145,
    "missing:no_prior_season": 186,
    "measured:2024": 14,
@@ -7742,9 +7742,9 @@
      "note": "describes CHI, player now on BUF"
     },
     "route_participation": {
-     "value": 74.603,
-     "provenance": "measured",
-     "note": null
+     "value": null,
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "secondary_target": {
      "value": 90.0,

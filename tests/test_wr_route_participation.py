@@ -44,3 +44,26 @@ def test_loader_scopes_team_pass_denominator_to_wr_active_games() -> None:
 
     with patch.object(bb, "nflverse_csv", side_effect=load_rows):
         assert bb.load_route_participation(2024, "WR") == {"thill": 66.667}
+
+
+def test_loader_drops_name_key_shared_by_multiple_wr_gsis_ids() -> None:
+    participation = [
+        {"nflverse_game_id": "2024_01_CAR_TB", "play_id": "1",
+         "offense_players": "00-0031234;00-0035678"},
+    ]
+    pbp = [
+        {"season_type": "REG", "play_type": "pass", "game_id": "2024_01_CAR_TB",
+         "play_id": "1", "posteam": "CAR"},
+    ]
+    stats = [
+        {"player_id": "00-0031234", "player_display_name": "DJ Moore",
+         "position": "WR", "team": "CAR"},
+        {"player_id": "00-0035678", "player_display_name": "David Moore",
+         "position": "WR", "team": "CAR"},
+    ]
+
+    def load_rows(tag: str, *_args, **_kwargs) -> list[dict]:
+        return {"pbp_participation": participation, "pbp": pbp, "stats_player": stats}[tag]
+
+    with patch.object(bb, "nflverse_csv", side_effect=load_rows):
+        assert bb.load_route_participation(2024, "WR") == {}
