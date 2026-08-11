@@ -190,6 +190,7 @@ FACTOR_KIND = {
     "neutral_pace_rank": "rank",
     "qbr_rank": "rank",
     "qb_qbr_rank": "rank",
+    "route_participation": "rate",  # already a percentage
     "rz_touch_share": "rate",      # already a percentage, see load_rb_pbp_season
     "gl_carry_share": "rate",
     "neutral_run_rate": "rate",
@@ -228,7 +229,7 @@ FACTORS = {
         ("touchdowns", "nflverse"), ("off_ppg_rank", "nflverse"),
         ("qb_qbr_rank", "nflverse:espn_qbr"), ("team_pass_att_rank", "nflverse"),
         ("team_target_rank", "nflverse"), ("rec_td_rank", "nflverse"),
-        ("route_participation", "licensed:PFF"), ("inline_pct", "licensed:PFF"),
+        ("route_participation", "nflverse:participation"), ("inline_pct", "licensed:PFF"),
         ("yprr_rank", "licensed:PFF"), ("injury_concern", "categorical"),
     ],
 }
@@ -242,6 +243,8 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "deep_ball_attempts", "red_zone_attempts", "neutral_pace_rank",
               # QB/TE, from ESPN QBR via nflverse (see load_espn_qbr_season)
               "qbr_rank", "qb_qbr_rank",
+              # TE-only, from nflverse participation (see load_te_route_participation)
+              "route_participation",
               # RB-only, from play-by-play (see load_rb_pbp_season)
               "rz_touch_share", "gl_carry_share", "neutral_run_rate"}
 
@@ -554,6 +557,95 @@ def load_rb_pbp_season(season: int) -> tuple[dict, dict, dict, dict]:
             {t: dict(v) for t, v in team_neutral_runs.items()})
 
 
+def _route_rates_from_events(events: list[dict]) -> dict[str, float]:
+    """Convert pre-aggregated TE pass-play participation to percentages."""
+    out = {}
+    for event in events:
+        denom = event["team_pass_plays"]
+        if denom <= 0:
+            continue
+        out[event["player_key"]] = round(100.0 * event["on_pass"] / denom, 3)
+    return out
+
+
+def load_te_route_participation(season: int) -> dict[str, float]:
+    """TE route participation % proxy from pbp_participation + play-by-play.
+
+    nflverse's participation ``route`` is the primary receiver's route type,
+    not a per-player route flag. This instead measures 100 * (regular-season
+    team pass plays where a TE's GSIS id appears in ``offense_players``) /
+    (team pass plays). Best-effort: {} on failure. Attribution: FTN via
+    nflverse for 2023+ (CC-BY-SA).
+    """
+    try:
+        participation = nflverse_csv(
+            "pbp_participation", f"pbp_participation_{season}.csv",
+            ttl=STATS_CACHE_TTL,
+        )
+        if not participation:
+            return {}
+        pbp = nflverse_csv(
+            "pbp", f"play_by_play_{season}.csv",
+            row_filter=lambda row: (
+                row.get("season_type") == "REG" and row.get("play_type") == "pass"
+            ),
+            ttl=STATS_CACHE_TTL,
+        )
+        stats_rows = nflverse_csv(
+            "stats_player", f"stats_player_week_{season}.csv",
+            ttl=STATS_CACHE_TTL,
+        )
+        if not pbp or not stats_rows:
+            return {}
+
+        required_participation = {"nflverse_game_id", "play_id", "offense_players"}
+        required_pbp = {"game_id", "play_id", "posteam"}
+        required_stats = {"player_id", "player_display_name", "position"}
+        if (not required_participation <= set(participation[0])
+                or not required_pbp <= set(pbp[0])
+                or not required_stats <= set(stats_rows[0])):
+            return {}
+
+        te_by_gsis = {
+            row["player_id"]: _qb_name_key(row["player_display_name"])
+            for row in stats_rows
+            if (row.get("position") or "").upper() == "TE"
+            and row.get("player_id") and row.get("player_display_name")
+        }
+        if not te_by_gsis:
+            return {}
+
+        participation_by_play = {
+            (row["nflverse_game_id"], str(row["play_id"])): row["offense_players"]
+            for row in participation
+            if row.get("nflverse_game_id") and row.get("play_id") not in (None, "")
+            and row.get("offense_players")
+        }
+        team_pass_plays: dict[str, int] = defaultdict(int)
+        te_on_pass: dict[tuple[str, str], int] = defaultdict(int)
+        for row in pbp:
+            team = to_nflverse_team(row["posteam"])
+            offense_players = participation_by_play.get((row["game_id"], str(row["play_id"])))
+            if not team or not offense_players:
+                continue
+            team_pass_plays[team] += 1
+            for gsis_id in offense_players.replace(";", " ").split():
+                key = te_by_gsis.get(gsis_id)
+                if key:
+                    te_on_pass[(key, team)] += 1
+
+        player_totals: dict[str, dict[str, int]] = defaultdict(
+            lambda: {"team_pass_plays": 0, "on_pass": 0})
+        for (key, team), on_pass in te_on_pass.items():
+            player_totals[key]["team_pass_plays"] += team_pass_plays[team]
+            player_totals[key]["on_pass"] += on_pass
+        return _route_rates_from_events([
+            {"player_key": key, **totals} for key, totals in player_totals.items()
+        ])
+    except Exception:  # noqa: BLE001
+        return {}
+
+
 def load_espn_qbr_season(season: int) -> dict:
     """Season Total QBR ranks from nflverse espn_data release.
 
@@ -716,6 +808,21 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
         else:
             print(f"  WARNING: no play-by-play for {season}; rz_touch_share/"
                   f"gl_carry_share/neutral_run_rate left unset", file=sys.stderr)
+
+        route_rates = load_te_route_participation(season)
+        if route_rates:
+            te_rows = [a for a in agg.values() if a["position"] == "TE"]
+            matched = 0
+            for a in te_rows:
+                rate = route_rates.get(_qb_name_key(a["name"]))
+                if rate is not None:
+                    a["route_participation"] = rate
+                    matched += 1
+            print(f"  participation {season}: matched {matched}/{len(te_rows)} TEs "
+                  f"to route_participation", file=sys.stderr)
+        else:
+            print(f"  WARNING: no participation for {season}; route_participation "
+                  f"left unset", file=sys.stderr)
 
         qbr = load_espn_qbr_season(season)
         if qbr:
