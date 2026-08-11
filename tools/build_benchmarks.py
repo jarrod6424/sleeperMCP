@@ -197,6 +197,7 @@ FACTOR_KIND = {
     "neutral_run_rate": "rate",
     "target_share": "rate",
     "yprr": "rate",
+    "reception_perception": "rate",
 }
 
 # DraftLab's factor ids per position, in its own order. Factors we cannot
@@ -231,7 +232,7 @@ FACTORS = {
         ("qb_pff_rank", "nflverse:espn_qbr"), ("team_pass_attempts", "nflverse"),
         ("route_participation", "nflverse:participation"),
         ("secondary_target", "nflverse"), ("ol_pass_block_rank", "licensed:PFF"),
-        ("yprr", "nflverse:participation"), ("reception_perception", "licensed:RP"),
+        ("yprr", "nflverse:participation"), ("reception_perception", "nflverse:ngs"),
         ("archetype", "categorical"), ("injury_concern", "nflverse:injuries"),
     ],
     "TE": [
@@ -261,6 +262,8 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "yards_per_catch", "yac_per_reception", "target_share",
               # WR-only, from participation on_pass counts (see load_route_details)
               "yprr",
+              # WR-only, from Next Gen Stats receiving (see load_ngs_catch_pct)
+              "reception_perception",
               # RB-only efficiency + team context (see per_game / load_team_wins_season)
               "yards_per_carry", "yards_per_touch", "team_wins",
               # RB-only, from play-by-play (see load_rb_pbp_season)
@@ -659,6 +662,47 @@ def compute_yprr(receiving_yards: float, on_pass: int) -> float | None:
     return float(receiving_yards) / float(on_pass)
 
 
+def load_ngs_catch_pct(season: int) -> dict[str, float]:
+    """Season catch % from nflverse Next Gen Stats receiving (week 0).
+
+    Returns {} on failure. Values are 0–100. Attribution: NFL Next Gen Stats
+    via nflverse.
+    """
+    try:
+        rows = nflverse_csv(
+            "nextgen_stats", "ngs_receiving.csv", ttl=STATS_CACHE_TTL,
+        )
+        if not rows:
+            return {}
+        out: dict[str, float] = {}
+        for r in rows:
+            try:
+                if int(float(r.get("season") or 0)) != season:
+                    continue
+            except (TypeError, ValueError):
+                continue
+            if (r.get("season_type") or "").upper() not in ("REG", "REGULAR", ""):
+                if r.get("season_type") not in (None, ""):
+                    continue
+            try:
+                week = int(float(r.get("week")))
+            except (TypeError, ValueError):
+                continue
+            if week != 0:
+                continue
+            name = r.get("player_display_name") or ""
+            if not name:
+                continue
+            raw = safe_float(r.get("catch_percentage"))
+            if raw <= 0:
+                continue
+            pct = raw * 100.0 if raw <= 1.0 else raw
+            out[_qb_name_key(name)] = pct
+        return out
+    except Exception:  # noqa: BLE001
+        return {}
+
+
 def load_team_wins_season(season: int) -> dict[str, int]:
     """Regular-season win totals by team from nflverse schedules/games.csv.
 
@@ -1051,6 +1095,21 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                   f"qb_pff_rank left unset", file=sys.stderr)
 
         _attach_wr_secondary_targets(list(agg.values()))
+
+        catch_pct = load_ngs_catch_pct(season)
+        if catch_pct:
+            wr_rows = [a for a in agg.values() if a["position"] == "WR"]
+            matched = 0
+            for a in wr_rows:
+                pct = catch_pct.get(_qb_name_key(a["name"]))
+                if pct is not None:
+                    a["reception_perception"] = pct
+                    matched += 1
+            print(f"  ngs {season}: matched {matched}/{len(wr_rows)} WRs to "
+                  f"reception_perception", file=sys.stderr)
+        else:
+            print(f"  WARNING: no NGS receiving for {season}; "
+                  f"reception_perception left unset", file=sys.stderr)
 
         out.extend(agg.values())
     return out
