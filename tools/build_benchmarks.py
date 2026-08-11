@@ -195,6 +195,9 @@ FACTOR_KIND = {
     "rz_touch_share": "rate",      # already a percentage, see load_rb_pbp_season
     "gl_carry_share": "rate",
     "neutral_run_rate": "rate",
+    "target_share": "rate",
+    "yprr": "rate",
+    "reception_perception": "rate",
 }
 
 # DraftLab's factor ids per position, in its own order. Factors we cannot
@@ -223,11 +226,13 @@ FACTORS = {
     ],
     "WR": [
         ("targets", "nflverse"), ("receptions", "nflverse"),
+        ("yards_per_catch", "nflverse"), ("yac_per_reception", "nflverse"),
+        ("target_share", "nflverse"),
         ("touchdowns", "nflverse"), ("off_ppg_rank", "nflverse"),
         ("qb_pff_rank", "nflverse:espn_qbr"), ("team_pass_attempts", "nflverse"),
         ("route_participation", "nflverse:participation"),
         ("secondary_target", "nflverse"), ("ol_pass_block_rank", "licensed:PFF"),
-        ("yprr", "licensed:PFF"), ("reception_perception", "licensed:RP"),
+        ("yprr", "nflverse:participation"), ("reception_perception", "nflverse:ngs"),
         ("archetype", "categorical"), ("injury_concern", "nflverse:injuries"),
     ],
     "TE": [
@@ -253,6 +258,12 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "route_participation",
               # WR-only, from same-team target competition (see _attach_wr_secondary_targets)
               "secondary_target",
+              # WR-only volume efficiency (see _efficiency_yards / load_player_seasons)
+              "yards_per_catch", "yac_per_reception", "target_share",
+              # WR-only, from participation on_pass counts (see load_route_details)
+              "yprr",
+              # WR-only, from Next Gen Stats receiving (see load_ngs_catch_pct)
+              "reception_perception",
               # RB-only efficiency + team context (see per_game / load_team_wins_season)
               "yards_per_carry", "yards_per_touch", "team_wins",
               # RB-only, from play-by-play (see load_rb_pbp_season)
@@ -645,6 +656,53 @@ def _route_rates_from_events(events: list[dict]) -> dict[str, float]:
     return out
 
 
+def compute_yprr(receiving_yards: float, on_pass: int) -> float | None:
+    if not on_pass or on_pass <= 0:
+        return None
+    return float(receiving_yards) / float(on_pass)
+
+
+def load_ngs_catch_pct(season: int) -> dict[str, float]:
+    """Season catch % from nflverse Next Gen Stats receiving (week 0).
+
+    Returns {} on failure. Values are 0–100. Attribution: NFL Next Gen Stats
+    via nflverse.
+    """
+    try:
+        rows = nflverse_csv(
+            "nextgen_stats", "ngs_receiving.csv", ttl=STATS_CACHE_TTL,
+        )
+        if not rows:
+            return {}
+        out: dict[str, float] = {}
+        for r in rows:
+            try:
+                if int(float(r.get("season") or 0)) != season:
+                    continue
+            except (TypeError, ValueError):
+                continue
+            if (r.get("season_type") or "").upper() not in ("REG", "REGULAR", ""):
+                if r.get("season_type") not in (None, ""):
+                    continue
+            try:
+                week = int(float(r.get("week")))
+            except (TypeError, ValueError):
+                continue
+            if week != 0:
+                continue
+            name = r.get("player_display_name") or ""
+            if not name:
+                continue
+            raw = safe_float(r.get("catch_percentage"))
+            if raw <= 0:
+                continue
+            pct = raw * 100.0 if raw <= 1.0 else raw
+            out[_qb_name_key(name)] = pct
+        return out
+    except Exception:  # noqa: BLE001
+        return {}
+
+
 def load_team_wins_season(season: int) -> dict[str, int]:
     """Regular-season win totals by team from nflverse schedules/games.csv.
 
@@ -680,15 +738,15 @@ def load_team_wins_season(season: int) -> dict[str, int]:
     return dict(wins)
 
 
-def load_route_participation(season: int, position: str) -> dict[str, float]:
-    """Route participation % proxy from pbp_participation + play-by-play.
+def load_route_details(season: int, position: str) -> dict[str, dict[str, float | int]]:
+    """Route participation rate and on_pass counts from pbp_participation + pbp.
 
     nflverse's participation ``route`` is the primary receiver's route type,
     not a per-player route flag. This instead measures 100 * (regular-season
     team pass plays where the player's GSIS id appears in ``offense_players``) /
-    (team pass plays in games where that player participated). ``position`` must
-    be ``TE`` or ``WR``. Best-effort: {} on failure. Attribution: FTN via
-    nflverse for 2023+ (CC-BY-SA).
+    (team pass plays in games where that player participated), plus raw
+    ``on_pass`` counts for YPRR proxy. ``position`` must be ``TE`` or ``WR``.
+    Best-effort: {} on failure. Attribution: FTN via nflverse for 2023+ (CC-BY-SA).
     """
     position = (position or "").upper()
     if position not in {"TE", "WR"}:
@@ -785,11 +843,23 @@ def load_route_participation(season: int, position: str) -> dict[str, float]:
                 for game_id in active_games_by_gsis[gsis_id]
             )
             player_totals[key]["on_pass"] += on_pass[gsis_id]
-        return _route_rates_from_events([
+
+        rates = _route_rates_from_events([
             {"player_key": key, **totals} for key, totals in player_totals.items()
         ])
+        return {
+            key: {"rate": rates[key], "on_pass": totals["on_pass"]}
+            for key, totals in player_totals.items()
+            if key in rates
+        }
     except Exception:  # noqa: BLE001
         return {}
+
+
+def load_route_participation(season: int, position: str) -> dict[str, float]:
+    """Route participation % only; see load_route_details for on_pass counts."""
+    details = load_route_details(season, position)
+    return {k: float(v["rate"]) for k, v in details.items() if "rate" in v}
 
 
 def load_te_route_participation(season: int) -> dict[str, float]:
@@ -893,6 +963,8 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                 "attempts": 0.0, "passing_tds": 0.0, "carries": 0.0,
                 "rushing_tds": 0.0, "rushing_yards": 0.0,
                 "targets": 0.0, "receptions": 0.0, "receiving_yards": 0.0,
+                "yac_sum": 0.0, "yac_n": 0,
+                "target_share_sum": 0.0, "target_share_n": 0,
                 "receiving_tds": 0.0, "fp_std": 0.0, "fp_ppr": 0.0,
             })
             a["games"] += 1
@@ -905,9 +977,19 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                              ("fantasy_points", "fp_std"),
                              ("fantasy_points_ppr", "fp_ppr")):
                 a[dst] += safe_float(r.get(src))
+            if r.get("receiving_yards_after_catch") not in (None, ""):
+                a["yac_sum"] += safe_float(r.get("receiving_yards_after_catch"))
+                a["yac_n"] += 1
+            if r.get("target_share") not in (None, ""):
+                a["target_share_sum"] += safe_float(r.get("target_share"))
+                a["target_share_n"] += 1
             a["fp_half"] = (a["fp_std"] + a["fp_ppr"]) / 2
 
         for key, a in agg.items():
+            if a.get("yac_n"):
+                a["receiving_yards_after_catch"] = a["yac_sum"]
+            if a.get("target_share_n"):
+                a["target_share"] = a["target_share_sum"] / a["target_share_n"]
             pcts = snap_by_player.get(a["name"], [])
             a["snap_share"] = statistics.mean(pcts) if pcts else None
 
@@ -977,17 +1059,30 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                   f"gl_carry_share/neutral_run_rate left unset", file=sys.stderr)
 
         for pos in ("TE", "WR"):
-            route_rates = load_route_participation(season, pos)
-            if route_rates:
+            details = load_route_details(season, pos)
+            if details:
                 pos_rows = [a for a in agg.values() if a["position"] == pos]
                 matched = 0
+                yprr_matched = 0
                 for a in pos_rows:
-                    rate = route_rates.get(_qb_name_key(a["name"]))
-                    if rate is not None:
-                        a["route_participation"] = rate
+                    d = details.get(_qb_name_key(a["name"]))
+                    if not d:
+                        continue
+                    if "rate" in d:
+                        a["route_participation"] = d["rate"]
                         matched += 1
-                print(f"  participation {season}: matched {matched}/{len(pos_rows)} "
-                      f"{pos}s to route_participation", file=sys.stderr)
+                    if pos == "WR":
+                        yprr = compute_yprr(
+                            a.get("receiving_yards") or 0.0, int(d.get("on_pass") or 0),
+                        )
+                        if yprr is not None:
+                            a["yprr"] = yprr
+                            yprr_matched += 1
+                msg = (f"  participation {season}: matched {matched}/{len(pos_rows)} "
+                       f"{pos}s to route_participation")
+                if pos == "WR":
+                    msg += f", {yprr_matched} to yprr"
+                print(msg, file=sys.stderr)
             else:
                 print(f"  WARNING: no participation for {season} {pos}; "
                       f"route_participation left unset", file=sys.stderr)
@@ -1000,6 +1095,21 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                   f"qb_pff_rank left unset", file=sys.stderr)
 
         _attach_wr_secondary_targets(list(agg.values()))
+
+        catch_pct = load_ngs_catch_pct(season)
+        if catch_pct:
+            wr_rows = [a for a in agg.values() if a["position"] == "WR"]
+            matched = 0
+            for a in wr_rows:
+                pct = catch_pct.get(_qb_name_key(a["name"]))
+                if pct is not None:
+                    a["reception_perception"] = pct
+                    matched += 1
+            print(f"  ngs {season}: matched {matched}/{len(wr_rows)} WRs to "
+                  f"reception_perception", file=sys.stderr)
+        else:
+            print(f"  WARNING: no NGS receiving for {season}; "
+                  f"reception_perception left unset", file=sys.stderr)
 
         out.extend(agg.values())
     return out
@@ -1098,6 +1208,10 @@ def _efficiency_yards(ps: dict) -> dict[str, float]:
     touches = carries + rec
     if touches > 0:
         out["yards_per_touch"] = (rush_yd + rec_yd) / touches
+    if rec > 0:
+        out["yards_per_catch"] = rec_yd / rec
+        if "receiving_yards_after_catch" in ps:
+            out["yac_per_reception"] = ps["receiving_yards_after_catch"] / rec
     return out
 
 
