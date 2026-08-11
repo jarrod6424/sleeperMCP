@@ -101,7 +101,8 @@ from sleeper_core.stats import to_nflverse_team     # noqa: E402
 # Factors describing the offence rather than the player. These go stale the
 # moment a player changes teams.
 TEAM_CONTEXT = {"off_ppg_rank", "team_pass_attempts", "team_pass_att_rank",
-                "team_target_rank", "rec_td_rank", "neutral_pace_rank",
+                "team_target_rank", "rec_td_rank", "qb_qbr_rank",
+                "neutral_pace_rank",
                 # RB shares of a team resource (TDD-001) -- go stale on a
                 # trade the same way team_target_rank does.
                 "rz_touch_share", "gl_carry_share", "neutral_run_rate"}

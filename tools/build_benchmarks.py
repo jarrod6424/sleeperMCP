@@ -122,6 +122,7 @@ if os.environ.get("USE_OS_TRUSTSTORE"):
 
     truststore.inject_into_ssl()
 
+from sleeper_core.adp import name_keys               # noqa: E402
 from sleeper_core.config import CACHE_DIR, STATS_CACHE_TTL   # noqa: E402
 from sleeper_core.http import nflverse_csv         # noqa: E402
 from sleeper_core.offense import safe_float        # noqa: E402
@@ -187,6 +188,8 @@ FACTOR_KIND = {
     "rec_td_rank": "rank",
     "snap_share": "rate",          # already a percentage
     "neutral_pace_rank": "rank",
+    "qbr_rank": "rank",
+    "qb_qbr_rank": "rank",
     "rz_touch_share": "rate",      # already a percentage, see load_rb_pbp_season
     "gl_carry_share": "rate",
     "neutral_run_rate": "rate",
@@ -200,7 +203,7 @@ FACTORS = {
         ("pass_attempts", "nflverse"), ("passing_tds", "nflverse"),
         ("rush_attempts", "nflverse"), ("rushing_tds", "nflverse"),
         ("off_ppg_rank", "nflverse"), ("ol_pass_block_rank", "licensed:PFF"),
-        ("deep_ball_attempts", "nflverse:pbp"), ("qbr_rank", "licensed:ESPN"),
+        ("deep_ball_attempts", "nflverse:pbp"), ("qbr_rank", "nflverse:espn_qbr"),
         ("red_zone_attempts", "nflverse:pbp"), ("adp", "fantasyfootballcalculator"),
         ("neutral_pace_rank", "nflverse:pbp"), ("pass_dvoa_rank", "licensed:FTN"),
     ],
@@ -223,7 +226,7 @@ FACTORS = {
     "TE": [
         ("targets", "nflverse"), ("receptions", "nflverse"),
         ("touchdowns", "nflverse"), ("off_ppg_rank", "nflverse"),
-        ("qb_qbr_rank", "licensed:ESPN"), ("team_pass_att_rank", "nflverse"),
+        ("qb_qbr_rank", "nflverse:espn_qbr"), ("team_pass_att_rank", "nflverse"),
         ("team_target_rank", "nflverse"), ("rec_td_rank", "nflverse"),
         ("route_participation", "licensed:PFF"), ("inline_pct", "licensed:PFF"),
         ("yprr_rank", "licensed:PFF"), ("injury_concern", "categorical"),
@@ -237,6 +240,8 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "team_target_rank", "rec_td_rank",
               # QB-only, from play-by-play (see load_qb_pbp_season)
               "deep_ball_attempts", "red_zone_attempts", "neutral_pace_rank",
+              # QB/TE, from ESPN QBR via nflverse (see load_espn_qbr_season)
+              "qbr_rank", "qb_qbr_rank",
               # RB-only, from play-by-play (see load_rb_pbp_season)
               "rz_touch_share", "gl_carry_share", "neutral_run_rate"}
 
@@ -549,6 +554,49 @@ def load_rb_pbp_season(season: int) -> tuple[dict, dict, dict, dict]:
             {t: dict(v) for t, v in team_neutral_runs.items()})
 
 
+def load_espn_qbr_season(season: int) -> dict:
+    """Season Total QBR ranks from nflverse espn_data release.
+
+    File is multi-season (`qbr_season_level.csv`); filter to `season`.
+    Rank qualified QBs by qbr_total descending (1 = best). Best-effort: {} on failure.
+    """
+    rows = nflverse_csv("espn_data", "qbr_season_level.csv", ttl=STATS_CACHE_TTL)
+    if not rows:
+        return {}
+    season_rows = []
+    for r in rows:
+        try:
+            if int(float(r.get("season") or 0)) != season:
+                continue
+        except (TypeError, ValueError):
+            continue
+        # Accept qualified True/true/1; if column absent, keep row with qb_plays >= 1
+        qual = str(r.get("qualified") or "True").lower()
+        if qual in ("false", "0", "no"):
+            continue
+        name = r.get("name_display") or r.get("player_name") or ""
+        qbr = safe_float(r.get("qbr_total") or r.get("qbr"))
+        if not name or qbr <= 0:
+            continue
+        season_rows.append({
+            "key": _qb_name_key(name),
+            "name": name,
+            "qbr": qbr,
+            "qb_plays": int(safe_float(r.get("qb_plays"))),
+            "team": to_nflverse_team(r.get("team_abb") or r.get("team")),
+        })
+    season_rows.sort(key=lambda x: x["qbr"], reverse=True)
+    out = {}
+    for i, row in enumerate(season_rows, start=1):
+        out[row["key"]] = {
+            "qbr": row["qbr"],
+            "qb_plays": row["qb_plays"],
+            "team": row["team"],
+            "rank": i,
+        }
+    return out
+
+
 def load_player_seasons(seasons: list[int]) -> list[dict]:
     """One row per player-season: totals, games played, and snap share."""
     out: list[dict] = []
@@ -668,6 +716,45 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
         else:
             print(f"  WARNING: no play-by-play for {season}; rz_touch_share/"
                   f"gl_carry_share/neutral_run_rate left unset", file=sys.stderr)
+
+        qbr = load_espn_qbr_season(season)
+        if qbr:
+            # QB personal rank
+            for a in agg.values():
+                if a["position"] != "QB":
+                    continue
+                hit = None
+                for k in name_keys(a["name"]):
+                    if k in qbr:
+                        hit = qbr[k]
+                        break
+                    # also try _qb_name_key form
+                    kk = _qb_name_key(a["name"])
+                    if kk in qbr:
+                        hit = qbr[kk]
+                        break
+                if hit:
+                    a["qbr_rank"] = hit["rank"]
+
+            # Primary QB per team = max qb_plays among QBs with QBR on that team
+            primary_by_team: dict[str, int] = {}
+            candidates: dict[str, list] = defaultdict(list)
+            for entry in qbr.values():
+                if entry.get("team"):
+                    candidates[entry["team"]].append(entry)
+            for team, ents in candidates.items():
+                ents.sort(key=lambda e: e["qb_plays"], reverse=True)
+                primary_by_team[team] = ents[0]["rank"]
+
+            for a in agg.values():
+                if a["position"] != "TE":
+                    continue
+                team = a.get("team")
+                if team and team in primary_by_team:
+                    a["qb_qbr_rank"] = primary_by_team[team]
+        else:
+            print(f"  WARNING: no ESPN QBR for {season}; qbr_rank/qb_qbr_rank "
+                  f"left unset", file=sys.stderr)
 
         out.extend(agg.values())
     return out
