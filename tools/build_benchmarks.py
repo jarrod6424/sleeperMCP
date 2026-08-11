@@ -102,6 +102,7 @@ import argparse
 import csv
 import io
 import json
+import os
 import statistics
 import sys
 import time
@@ -112,6 +113,14 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
+
+# Same opt-in as server.py: corporate/local networks that TLS-inspect (e.g.
+# antivirus HTTPS scanning) present a private root certifi does not trust.
+# Set USE_OS_TRUSTSTORE=1 locally; unnecessary and skipped on a clean host.
+if os.environ.get("USE_OS_TRUSTSTORE"):
+    import truststore
+
+    truststore.inject_into_ssl()
 
 from sleeper_core.config import CACHE_DIR, STATS_CACHE_TTL   # noqa: E402
 from sleeper_core.http import nflverse_csv         # noqa: E402
@@ -178,6 +187,9 @@ FACTOR_KIND = {
     "rec_td_rank": "rank",
     "snap_share": "rate",          # already a percentage
     "neutral_pace_rank": "rank",
+    "rz_touch_share": "rate",      # already a percentage, see load_rb_pbp_season
+    "gl_carry_share": "rate",
+    "neutral_run_rate": "rate",
 }
 
 # DraftLab's factor ids per position, in its own order. Factors we cannot
@@ -224,7 +236,9 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "off_ppg_rank", "team_pass_attempts", "team_pass_att_rank",
               "team_target_rank", "rec_td_rank",
               # QB-only, from play-by-play (see load_qb_pbp_season)
-              "deep_ball_attempts", "red_zone_attempts", "neutral_pace_rank"}
+              "deep_ball_attempts", "red_zone_attempts", "neutral_pace_rank",
+              # RB-only, from play-by-play (see load_rb_pbp_season)
+              "rz_touch_share", "gl_carry_share", "neutral_run_rate"}
 
 
 _POINTS_CACHE: dict[int, dict] = {}
@@ -434,6 +448,107 @@ def neutral_pace_ranks(team_neutral_plays: dict) -> dict[str, int]:
     return {t: i + 1 for i, t in enumerate(order)}
 
 
+def load_rb_pbp_season(season: int) -> tuple[dict, dict, dict, dict]:
+    """RB red-zone touch share, goal-line carry share, and team neutral-script
+    run rate, from one season's play-by-play. TDD-001.
+
+    Returns (rb_stats, team_rz_totals, team_gl_totals, team_neutral_runs):
+      rb_stats[_qb_name_key(name)] = {"weeks": {wk, ...}, "rz_touches": n,
+        "gl_carries": n} -- this player's own red-zone touches (rush attempts
+        + targets, yardline_100 <= 20) and goal-line carries (rush attempts
+        with goal_to_go == 1), summed across the season. Built from every
+        rusher and targeted receiver in the file, not RB-filtered at parse
+        time -- rushing and targets aren't position-locked the way passing is
+        for load_qb_pbp_season's QB-only qb_stats, so this dict is looked up
+        selectively later, only for rows load_player_seasons has already
+        classified as RB.
+      team_rz_totals[team] = team's total red-zone touches, EVERY position.
+        An RB-only denominator would be trivially ~100% for any team with one
+        healthy back and would not discriminate between players -- the
+        fantasy-relevant question is whether the offense features this back
+        near the goal line at all, not whether he has a backup.
+      team_gl_totals[team] = team's total goal-line carries, every position
+        INCLUDING QB -- a goal-line sneak is real competition for that touch,
+        not a different category of play (resolved decision, TDD-001; a team
+        with a rushing QB will structurally show lower gl_carry_share for its
+        RB1 than an otherwise-identical team without one -- documented
+        behaviour, not a bug).
+      team_neutral_runs[team] = {"runs": n, "plays": n} -- neutral-script run
+        plays and total offensive plays. neutral_run_rate = runs / plays,
+        team-level, attached to every RB on that team the same way
+        off_ppg_rank is.
+
+    goal_to_go is a confirmed real column in nflfastR's released pbp schema
+    (data-raw/pbp_datatypes.csv, numeric) -- verified against the source
+    rather than assumed, unlike this file's other pbp thresholds. Used
+    directly; no yardline cutoff invented for "goal line".
+
+    Best-effort: returns ({}, {}, {}, {}) on any failure (network blocked,
+    file not yet published for this season), same convention as
+    load_qb_pbp_season -- leaves these three factors unset for the caller
+    rather than fabricate zeros.
+    """
+    def keep(row):
+        st = row.get("season_type")
+        if st and st != "REG":
+            return False
+        return (row.get("play_type") or "") in ("pass", "run")
+
+    rows = nflverse_csv("pbp", f"play_by_play_{season}.csv", row_filter=keep,
+                        ttl=STATS_CACHE_TTL)
+    if not rows:
+        return {}, {}, {}, {}
+
+    rb_stats: dict[str, dict] = defaultdict(
+        lambda: {"weeks": set(), "rz_touches": 0, "gl_carries": 0})
+    team_rz_totals: dict[str, int] = defaultdict(int)
+    team_gl_totals: dict[str, int] = defaultdict(int)
+    team_neutral_runs: dict[str, dict[str, int]] = defaultdict(
+        lambda: {"runs": 0, "plays": 0})
+
+    for r in rows:
+        team = to_nflverse_team(r.get("posteam"))
+        week = str(r.get("week") or "")
+        play_type = r.get("play_type")
+        yl = r.get("yardline_100")
+        in_red_zone = yl not in (None, "") and safe_float(yl) <= QB_RED_ZONE_YARDLINE
+        goal_to_go = safe_float(r.get("goal_to_go")) == 1
+
+        if team and _neutral_script(r):
+            team_neutral_runs[team]["plays"] += 1
+            if play_type == "run":
+                team_neutral_runs[team]["runs"] += 1
+
+        if not week:
+            continue
+
+        if play_type == "run":
+            if in_red_zone and team:
+                team_rz_totals[team] += 1
+            if goal_to_go and team:
+                team_gl_totals[team] += 1
+            key = _qb_name_key(r.get("rusher_player_name"))
+            if key:
+                s = rb_stats[key]
+                s["weeks"].add(week)
+                if in_red_zone:
+                    s["rz_touches"] += 1
+                if goal_to_go:
+                    s["gl_carries"] += 1
+        elif play_type == "pass":
+            receiver = r.get("receiver_player_name")
+            if in_red_zone and team and receiver:
+                team_rz_totals[team] += 1
+            key = _qb_name_key(receiver)
+            if key and in_red_zone:
+                s = rb_stats[key]
+                s["weeks"].add(week)
+                s["rz_touches"] += 1
+
+    return (dict(rb_stats), dict(team_rz_totals), dict(team_gl_totals),
+            {t: dict(v) for t, v in team_neutral_runs.items()})
+
+
 def load_player_seasons(seasons: list[int]) -> list[dict]:
     """One row per player-season: totals, games played, and snap share."""
     out: list[dict] = []
@@ -528,6 +643,31 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
         else:
             print(f"  WARNING: no play-by-play for {season}; deep_ball_attempts/"
                   f"red_zone_attempts/neutral_pace_rank left unset", file=sys.stderr)
+
+        # RB-only play-by-play enrichment, TDD-001. Same best-effort contract
+        # as the QB block above: an empty fetch must leave these three unset
+        # for every RB, not silently zero them out.
+        rb_stats, team_rz, team_gl, team_neutral = load_rb_pbp_season(season)
+        if rb_stats:
+            rb_rows = [a for a in agg.values() if a["position"] == "RB"]
+            matched = 0
+            for a in rb_rows:
+                stats = rb_stats.get(_qb_name_key(a["name"]))
+                team = a["team"]
+                if stats and stats["weeks"] and team in team_rz and team_rz[team]:
+                    a["rz_touch_share"] = stats["rz_touches"] / team_rz[team]
+                    matched += 1
+                if stats and stats["weeks"] and team in team_gl and team_gl[team]:
+                    a["gl_carry_share"] = stats["gl_carries"] / team_gl[team]
+                if team in team_neutral and team_neutral[team]["plays"]:
+                    a["neutral_run_rate"] = (
+                        team_neutral[team]["runs"] / team_neutral[team]["plays"]
+                    )
+            print(f"  play-by-play {season}: matched {matched}/{len(rb_rows)} RBs "
+                  f"to rz_touch_share/gl_carry_share", file=sys.stderr)
+        else:
+            print(f"  WARNING: no play-by-play for {season}; rz_touch_share/"
+                  f"gl_carry_share/neutral_run_rate left unset", file=sys.stderr)
 
         out.extend(agg.values())
     return out
@@ -731,6 +871,9 @@ def _gap_note(src: str | None) -> str:
     if src == "categorical":
         return "categorical, graded by DraftLab rather than benchmarked"
     if src == "nflverse:pbp":
+        # Retained for any future pbp-tagged factor not yet in COMPUTABLE.
+        # RB's three (rz_touch_share / gl_carry_share / neutral_run_rate) and
+        # QB's three are COMPUTABLE today, so they ship note: null instead.
         return "available from nflverse play-by-play; not yet implemented"
     if src == "fantasyfootballcalculator":
         return "use get_adp from the MCP server"
