@@ -53,12 +53,22 @@ ITEM-004 adds public nflverse sources for RB ceiling factors:
 | RB | `yards_per_touch` | nflverse (total yards / touches) |
 | RB | `team_wins` | nflverse `schedules/games.csv` |
 
+ITEM-005 adds public nflverse sources for WR ceiling factors:
+
+| Position | Factor | Source |
+|---|---|---|
+| WR | `yards_per_catch` | nflverse weekly stats (`receiving_yards / receptions`) |
+| WR | `yac_per_reception` | nflverse weekly stats (`receiving_yards_after_catch / receptions`) |
+| WR | `target_share` | nflverse weekly stats (mean weekly target share) |
+| WR | `yprr` | nflverse participation data (`receiving_yards / on_pass` routes; FTN attribution, CC-BY-SA) |
+| WR | `reception_perception` | nflverse Next Gen Stats receiving (`catch_percentage`, week 0) |
+
 Remaining gaps are blocked on licensed data, not an engineering gap:
 
 **Blocked — licensed data:**
 - QB: ol_pass_block_rank (PFF), pass_dvoa_rank (FTN)
 - RB: ol_run_block_rank (PFF)
-- WR: ol_pass_block_rank, yprr (PFF); reception_perception (RP)
+- WR: ol_pass_block_rank (PFF)
 - TE: inline_pct, yprr_rank (PFF)
 
 Every blocked factor already has a real DraftLab benchmark waiting; only

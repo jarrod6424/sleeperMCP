@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-11T18:37:09+00:00",
+  "generated_at": "2026-08-11T19:51:10+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -605,6 +605,54 @@
           "note": null
         },
         {
+          "factor_id": "yards_per_catch",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 14.026,
+            "half": 13.772,
+            "ppr": 13.772
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.664,
+            "se": 0.2,
+            "relative_se": 0.015
+          },
+          "note": null
+        },
+        {
+          "factor_id": "yac_per_reception",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 4.945,
+            "half": 4.773,
+            "ppr": 4.773
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.887,
+            "se": 0.267,
+            "relative_se": 0.056
+          },
+          "note": null
+        },
+        {
+          "factor_id": "target_share",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 0.293,
+            "half": 0.299,
+            "ppr": 0.299
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.018,
+            "se": 0.005,
+            "relative_se": 0.018
+          },
+          "note": null
+        },
+        {
           "factor_id": "touchdowns",
           "source": "nflverse",
           "benchmark": {
@@ -709,17 +757,35 @@
         },
         {
           "factor_id": "yprr",
-          "source": "licensed:PFF",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "not freely redistributable (PFF); manual import"
+          "source": "nflverse:participation",
+          "benchmark": {
+            "std": 2.682,
+            "half": 2.739,
+            "ppr": 2.739
+          },
+          "dispersion": {
+            "seasons": 10,
+            "sd": 0.355,
+            "se": 0.112,
+            "relative_se": 0.041
+          },
+          "note": null
         },
         {
           "factor_id": "reception_perception",
-          "source": "licensed:RP",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "not freely redistributable (RP); manual import"
+          "source": "nflverse:ngs",
+          "benchmark": {
+            "std": 68.025,
+            "half": 68.864,
+            "ppr": 68.864
+          },
+          "dispersion": {
+            "seasons": 10,
+            "sd": 4.778,
+            "se": 1.511,
+            "relative_se": 0.022
+          },
+          "note": null
         },
         {
           "factor_id": "archetype",
@@ -736,8 +802,8 @@
           "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
-      "computed": 8,
-      "total": 13
+      "computed": 13,
+      "total": 16
     },
     "TE": {
       "factors": [
