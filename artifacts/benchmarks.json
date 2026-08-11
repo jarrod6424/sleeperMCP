@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-11T03:45:49+00:00",
+  "generated_at": "2026-08-11T14:20:05+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -249,10 +249,14 @@
         },
         {
           "factor_id": "qbr_rank",
-          "source": "licensed:ESPN",
-          "benchmark": null,
+          "source": "nflverse:espn_qbr",
+          "benchmark": {
+            "std": null,
+            "half": null,
+            "ppr": null
+          },
           "dispersion": null,
-          "note": "not freely redistributable (ESPN); manual import"
+          "note": null
         },
         {
           "factor_id": "red_zone_attempts",
@@ -299,10 +303,17 @@
           "benchmark": null,
           "dispersion": null,
           "note": "not freely redistributable (FTN); manual import"
+        },
+        {
+          "factor_id": "injury_concern",
+          "source": "nflverse:injuries",
+          "benchmark": null,
+          "dispersion": null,
+          "note": "unavailable"
         }
       ],
-      "computed": 8,
-      "total": 12
+      "computed": 9,
+      "total": 13
     },
     "RB": {
       "factors": [
@@ -466,10 +477,10 @@
         },
         {
           "factor_id": "injury_concern",
-          "source": "categorical",
+          "source": "nflverse:injuries",
           "benchmark": null,
           "dispersion": null,
-          "note": "categorical, graded by DraftLab rather than benchmarked"
+          "note": "unavailable"
         }
       ],
       "computed": 9,
@@ -601,10 +612,10 @@
         },
         {
           "factor_id": "injury_concern",
-          "source": "categorical",
+          "source": "nflverse:injuries",
           "benchmark": null,
           "dispersion": null,
-          "note": "categorical, graded by DraftLab rather than benchmarked"
+          "note": "unavailable"
         }
       ],
       "computed": 5,
@@ -678,10 +689,14 @@
         },
         {
           "factor_id": "qb_qbr_rank",
-          "source": "licensed:ESPN",
-          "benchmark": null,
+          "source": "nflverse:espn_qbr",
+          "benchmark": {
+            "std": null,
+            "half": null,
+            "ppr": null
+          },
           "dispersion": null,
-          "note": "not freely redistributable (ESPN); manual import"
+          "note": null
         },
         {
           "factor_id": "team_pass_att_rank",
@@ -733,10 +748,14 @@
         },
         {
           "factor_id": "route_participation",
-          "source": "licensed:PFF",
-          "benchmark": null,
+          "source": "nflverse:participation",
+          "benchmark": {
+            "std": 79.201,
+            "half": 84.471,
+            "ppr": 84.471
+          },
           "dispersion": null,
-          "note": "not freely redistributable (PFF); manual import"
+          "note": null
         },
         {
           "factor_id": "inline_pct",
@@ -754,13 +773,13 @@
         },
         {
           "factor_id": "injury_concern",
-          "source": "categorical",
+          "source": "nflverse:injuries",
           "benchmark": null,
           "dispersion": null,
-          "note": "categorical, graded by DraftLab rather than benchmarked"
+          "note": "unavailable"
         }
       ],
-      "computed": 7,
+      "computed": 9,
       "total": 12
     }
   }

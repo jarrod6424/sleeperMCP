@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "generated_at": "2026-08-11T03:47:30+00:00",
+ "generated_at": "2026-08-11T14:22:45+00:00",
  "basis": {
   "player_factors": "measured:2025",
   "universe": "FantasyFootballCalculator ADP 2026",
@@ -31,11 +31,11 @@
   "team_changed": 39,
   "recovered": 6,
   "provenance": {
-   "measured": 1214,
-   "unsourced": 1098,
-   "stale:team_changed": 110,
-   "missing:no_prior_season": 146,
-   "missing:not_recorded": 11,
+   "measured": 1499,
+   "unsourced": 832,
+   "missing:not_recorded": 22,
+   "stale:team_changed": 112,
+   "missing:no_prior_season": 150,
    "measured:2024": 14,
    "missing:no_team_context": 16,
    "measured:2025": 7
@@ -137,9 +137,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 6.5,
@@ -160,6 +160,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -250,9 +256,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -343,9 +350,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -359,7 +367,7 @@
    "adp": 5.7,
    "adp_round_pick": "1.06",
    "adp_source": "2qb",
-   "projected_rank": 10,
+   "projected_rank": 11,
    "projected_points": 345.18,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -417,9 +425,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 5.077,
@@ -440,6 +448,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -529,9 +543,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -600,9 +615,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 35,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 5.882,
@@ -623,6 +638,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -714,9 +735,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -788,8 +810,8 @@
     },
     "qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "red_zone_attempts": {
      "value": 5.75,
@@ -810,6 +832,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -902,9 +930,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -918,8 +947,8 @@
    "adp": 10.7,
    "adp_round_pick": "1.11",
    "adp_source": "2qb",
-   "projected_rank": 11,
-   "projected_points": 343.35,
+   "projected_rank": 8,
+   "projected_points": 348.46,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
    "games_played": 17,
@@ -979,9 +1008,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 6.941,
@@ -1002,6 +1031,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -1015,7 +1050,7 @@
    "adp": 11.8,
    "adp_round_pick": "1.12",
    "adp_source": "2qb",
-   "projected_rank": 5,
+   "projected_rank": 6,
    "projected_points": 352.76,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -1095,9 +1130,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -1111,8 +1147,8 @@
    "adp": 12.3,
    "adp_round_pick": "1.12",
    "adp_source": "2qb",
-   "projected_rank": 7,
-   "projected_points": 349.45,
+   "projected_rank": 5,
+   "projected_points": 353.59,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
    "games_played": 7,
@@ -1167,8 +1203,8 @@
     },
     "qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "red_zone_attempts": {
      "value": 4.429,
@@ -1189,6 +1225,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -1282,9 +1324,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -1298,7 +1341,7 @@
    "adp": 13.8,
    "adp_round_pick": "2.02",
    "adp_source": "2qb",
-   "projected_rank": 6,
+   "projected_rank": 7,
    "projected_points": 351.04,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -1374,9 +1417,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -1449,9 +1493,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 34,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 5.188,
@@ -1472,6 +1516,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -1542,9 +1592,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 40,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 6.706,
@@ -1565,6 +1615,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -1633,9 +1689,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 28,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 7.444,
@@ -1656,6 +1712,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -1728,9 +1790,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 26,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 6.765,
@@ -1751,6 +1813,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -1826,9 +1894,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 10,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 7.714,
@@ -1849,6 +1917,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -1940,9 +2014,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -1956,7 +2031,7 @@
    "adp": 19.4,
    "adp_round_pick": "2.07",
    "adp_source": "2qb",
-   "projected_rank": 29,
+   "projected_rank": 30,
    "projected_points": 302.41,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -2033,9 +2108,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -2049,7 +2125,7 @@
    "adp": 22.7,
    "adp_round_pick": "2.11",
    "adp_source": "2qb",
-   "projected_rank": 9,
+   "projected_rank": 10,
    "projected_points": 347.02,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -2104,9 +2180,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 27,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 5.765,
@@ -2127,6 +2203,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -2199,9 +2281,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 41,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 6.312,
@@ -2222,6 +2304,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -2295,9 +2383,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 5.882,
@@ -2318,6 +2406,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -2331,8 +2425,8 @@
    "adp": 24.7,
    "adp_round_pick": "3.01",
    "adp_source": "2qb",
-   "projected_rank": 32,
-   "projected_points": 297.56,
+   "projected_rank": 34,
+   "projected_points": 294.94,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
    "games_played": 16,
@@ -2407,9 +2501,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -2498,9 +2593,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -2514,7 +2610,7 @@
    "adp": 25.9,
    "adp_round_pick": "3.02",
    "adp_source": "2qb",
-   "projected_rank": 8,
+   "projected_rank": 9,
    "projected_points": 347.45,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -2567,9 +2663,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 22,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 5.5,
@@ -2590,6 +2686,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -2603,7 +2705,7 @@
    "adp": 26.6,
    "adp_round_pick": "3.03",
    "adp_source": "2qb",
-   "projected_rank": 69,
+   "projected_rank": 68,
    "projected_points": 235.29,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -2681,9 +2783,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -2697,7 +2800,7 @@
    "adp": 28.0,
    "adp_round_pick": "3.04",
    "adp_source": "2qb",
-   "projected_rank": 33,
+   "projected_rank": 32,
    "projected_points": 296.24,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
@@ -2774,9 +2877,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -2865,9 +2969,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -2937,9 +3042,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 20,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 6.412,
@@ -2960,6 +3065,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -2973,7 +3084,7 @@
    "adp": 31.5,
    "adp_round_pick": "3.08",
    "adp_source": "2qb",
-   "projected_rank": 37,
+   "projected_rank": 38,
    "projected_points": 286.0,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -3051,9 +3162,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -3067,7 +3179,7 @@
    "adp": 32.4,
    "adp_round_pick": "3.08",
    "adp_source": "2qb",
-   "projected_rank": 65,
+   "projected_rank": 62,
    "projected_points": 241.09,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -3145,9 +3257,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -3161,8 +3274,8 @@
    "adp": 34.2,
    "adp_round_pick": "3.10",
    "adp_source": "2qb",
-   "projected_rank": 41,
-   "projected_points": 277.48,
+   "projected_rank": 40,
+   "projected_points": 279.28,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
    "games_played": 17,
@@ -3236,9 +3349,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -3252,8 +3366,8 @@
    "adp": 34.4,
    "adp_round_pick": "3.10",
    "adp_source": "2qb",
-   "projected_rank": 39,
-   "projected_points": 278.76,
+   "projected_rank": 41,
+   "projected_points": 277.09,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
    "games_played": 15,
@@ -3330,9 +3444,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -3419,9 +3534,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -3492,9 +3608,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 17,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 4.706,
@@ -3515,6 +3631,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -3528,7 +3650,7 @@
    "adp": 37.6,
    "adp_round_pick": "4.02",
    "adp_source": "2qb",
-   "projected_rank": 36,
+   "projected_rank": 37,
    "projected_points": 287.18,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -3604,9 +3726,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -3693,9 +3816,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -3709,7 +3833,7 @@
    "adp": 39.1,
    "adp_round_pick": "4.03",
    "adp_source": "2qb",
-   "projected_rank": 30,
+   "projected_rank": 31,
    "projected_points": 298.65,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -3785,9 +3909,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -3801,7 +3926,7 @@
    "adp": 41.8,
    "adp_round_pick": "4.06",
    "adp_source": "2qb",
-   "projected_rank": 56,
+   "projected_rank": 57,
    "projected_points": 251.06,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -3876,9 +4001,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -3967,9 +4093,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4056,9 +4183,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4072,7 +4200,7 @@
    "adp": 43.3,
    "adp_round_pick": "4.07",
    "adp_source": "2qb",
-   "projected_rank": 67,
+   "projected_rank": 64,
    "projected_points": 237.71,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -4149,9 +4277,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4165,8 +4294,8 @@
    "adp": 46.9,
    "adp_round_pick": "4.11",
    "adp_source": "2qb",
-   "projected_rank": 57,
-   "projected_points": 249.4,
+   "projected_rank": 61,
+   "projected_points": 241.25,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
    "games_played": 16,
@@ -4240,9 +4369,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4329,9 +4459,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4345,8 +4476,8 @@
    "adp": 49.2,
    "adp_round_pick": "5.01",
    "adp_source": "2qb",
-   "projected_rank": 40,
-   "projected_points": 278.73,
+   "projected_rank": 35,
+   "projected_points": 293.82,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
    "games_played": 11,
@@ -4398,9 +4529,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 29,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 3.545,
@@ -4421,6 +4552,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4434,8 +4571,8 @@
    "adp": 49.5,
    "adp_round_pick": "5.02",
    "adp_source": "2qb",
-   "projected_rank": 70,
-   "projected_points": 234.18,
+   "projected_rank": 65,
+   "projected_points": 237.36,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
    "games_played": 16,
@@ -4509,9 +4646,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4598,9 +4736,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4669,9 +4808,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 24,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 4.412,
@@ -4692,6 +4831,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4760,9 +4905,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 4.933,
@@ -4783,6 +4928,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4796,7 +4947,7 @@
    "adp": 52.1,
    "adp_round_pick": "5.04",
    "adp_source": "2qb",
-   "projected_rank": 98,
+   "projected_rank": 96,
    "projected_points": 197.08,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -4869,9 +5020,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4885,8 +5037,8 @@
    "adp": 52.8,
    "adp_round_pick": "5.05",
    "adp_source": "2qb",
-   "projected_rank": 60,
-   "projected_points": 244.95,
+   "projected_rank": 71,
+   "projected_points": 233.04,
    "team_position_rank": 3,
    "team_position_rank_provenance": "measured",
    "games_played": 8,
@@ -4958,9 +5110,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -4974,7 +5127,7 @@
    "adp": 53.1,
    "adp_round_pick": "5.05",
    "adp_source": "2qb",
-   "projected_rank": 64,
+   "projected_rank": 60,
    "projected_points": 241.73,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -5047,9 +5200,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -5145,9 +5299,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -5236,9 +5391,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -5252,7 +5408,7 @@
    "adp": 56.4,
    "adp_round_pick": "5.08",
    "adp_source": "2qb",
-   "projected_rank": 34,
+   "projected_rank": 33,
    "projected_points": 295.14,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -5311,8 +5467,8 @@
     },
     "qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "red_zone_attempts": {
      "value": 5.0,
@@ -5333,6 +5489,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -5346,7 +5508,7 @@
    "adp": 58.0,
    "adp_round_pick": "5.10",
    "adp_source": "2qb",
-   "projected_rank": 66,
+   "projected_rank": 63,
    "projected_points": 237.88,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
@@ -5421,9 +5583,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -5438,7 +5601,7 @@
    "adp_round_pick": "5.11",
    "adp_source": "2qb",
    "projected_rank": 79,
-   "projected_points": 221.2,
+   "projected_points": 216.96,
    "team_position_rank": 3,
    "team_position_rank_provenance": "measured",
    "games_played": 4,
@@ -5512,9 +5675,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -5529,7 +5693,7 @@
    "adp_round_pick": "5.11",
    "adp_source": "2qb",
    "projected_rank": 78,
-   "projected_points": 224.49,
+   "projected_points": 221.09,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
    "games_played": 7,
@@ -5603,9 +5767,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -5619,7 +5784,7 @@
    "adp": 59.0,
    "adp_round_pick": "5.11",
    "adp_source": "2qb",
-   "projected_rank": 100,
+   "projected_rank": 98,
    "projected_points": 195.28,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
@@ -5695,9 +5860,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -5784,9 +5950,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -5800,7 +5967,7 @@
    "adp": 61.8,
    "adp_round_pick": "6.02",
    "adp_source": "2qb",
-   "projected_rank": 102,
+   "projected_rank": 101,
    "projected_points": 194.49,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -5873,9 +6040,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -5889,7 +6057,7 @@
    "adp": 63.0,
    "adp_round_pick": "6.03",
    "adp_source": "2qb",
-   "projected_rank": 68,
+   "projected_rank": 66,
    "projected_points": 236.99,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
@@ -5964,9 +6132,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -6021,9 +6190,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 38,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 21,
@@ -6041,9 +6210,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 68.512,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -6056,9 +6225,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -6072,7 +6242,7 @@
    "adp": 63.5,
    "adp_round_pick": "6.04",
    "adp_source": "2qb",
-   "projected_rank": 99,
+   "projected_rank": 97,
    "projected_points": 195.63,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -6145,9 +6315,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -6234,9 +6405,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -6250,7 +6422,7 @@
    "adp": 65.3,
    "adp_round_pick": "6.05",
    "adp_source": "2qb",
-   "projected_rank": 28,
+   "projected_rank": 29,
    "projected_points": 303.67,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -6305,9 +6477,9 @@
      "note": "player matched but factor absent from source"
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 37,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": null,
@@ -6328,6 +6500,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -6342,7 +6520,7 @@
    "adp_round_pick": "6.06",
    "adp_source": "2qb",
    "projected_rank": 45,
-   "projected_points": 269.0,
+   "projected_points": 266.21,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
    "games_played": 17,
@@ -6383,9 +6561,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 32,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 1,
@@ -6403,9 +6581,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 93.944,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -6418,9 +6596,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -6434,7 +6613,7 @@
    "adp": 68.0,
    "adp_round_pick": "6.08",
    "adp_source": "2qb",
-   "projected_rank": 80,
+   "projected_rank": 77,
    "projected_points": 221.16,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
@@ -6507,9 +6686,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -6523,8 +6703,8 @@
    "adp": 68.4,
    "adp_round_pick": "6.08",
    "adp_source": "2qb",
-   "projected_rank": 91,
-   "projected_points": 201.11,
+   "projected_rank": 99,
+   "projected_points": 195.16,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
    "games_played": 15,
@@ -6596,9 +6776,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -6612,8 +6793,8 @@
    "adp": 70.2,
    "adp_round_pick": "6.10",
    "adp_source": "2qb",
-   "projected_rank": 31,
-   "projected_points": 298.32,
+   "projected_rank": 28,
+   "projected_points": 305.34,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
    "games_played": 13,
@@ -6667,9 +6848,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 13,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 6.231,
@@ -6690,6 +6871,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -6776,9 +6963,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -6792,7 +6980,7 @@
    "adp": 72.9,
    "adp_round_pick": "7.01",
    "adp_source": "2qb",
-   "projected_rank": 55,
+   "projected_rank": 56,
    "projected_points": 252.02,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
@@ -6868,9 +7056,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -6957,9 +7146,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7046,9 +7236,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7062,8 +7253,8 @@
    "adp": 74.5,
    "adp_round_pick": "7.03",
    "adp_source": "2qb",
-   "projected_rank": 38,
-   "projected_points": 283.52,
+   "projected_rank": 39,
+   "projected_points": 283.38,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
    "games_played": 4,
@@ -7116,8 +7307,8 @@
     },
     "qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "red_zone_attempts": {
      "value": 3.25,
@@ -7138,6 +7329,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7151,8 +7348,8 @@
    "adp": 74.8,
    "adp_round_pick": "7.03",
    "adp_source": "2qb",
-   "projected_rank": 61,
-   "projected_points": 244.34,
+   "projected_rank": 72,
+   "projected_points": 230.6,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
    "games_played": 17,
@@ -7226,9 +7423,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7242,8 +7440,8 @@
    "adp": 75.5,
    "adp_round_pick": "7.04",
    "adp_source": "2qb",
-   "projected_rank": 63,
-   "projected_points": 242.81,
+   "projected_rank": 55,
+   "projected_points": 253.83,
    "team_position_rank": 4,
    "team_position_rank_provenance": "measured",
    "games_played": 15,
@@ -7315,9 +7513,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7331,7 +7530,7 @@
    "adp": 76.4,
    "adp_round_pick": "7.04",
    "adp_source": "2qb",
-   "projected_rank": 92,
+   "projected_rank": 91,
    "projected_points": 200.69,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
@@ -7406,9 +7605,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7501,9 +7701,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7517,7 +7718,7 @@
    "adp": 79.5,
    "adp_round_pick": "7.08",
    "adp_source": "2qb",
-   "projected_rank": 71,
+   "projected_rank": 69,
    "projected_points": 234.12,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
@@ -7590,9 +7791,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7606,7 +7808,7 @@
    "adp": 81.4,
    "adp_round_pick": "7.09",
    "adp_source": "2qb",
-   "projected_rank": 93,
+   "projected_rank": 92,
    "projected_points": 199.16,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -7681,9 +7883,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7737,9 +7940,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 27,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 11,
@@ -7757,9 +7960,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 63.0,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -7772,9 +7975,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7861,9 +8065,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7877,7 +8082,7 @@
    "adp": 83.3,
    "adp_round_pick": "7.11",
    "adp_source": "2qb",
-   "projected_rank": 124,
+   "projected_rank": 123,
    "projected_points": 171.92,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -7952,9 +8157,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -7968,8 +8174,8 @@
    "adp": 85.0,
    "adp_round_pick": "8.01",
    "adp_source": "2qb",
-   "projected_rank": 109,
-   "projected_points": 186.82,
+   "projected_rank": 114,
+   "projected_points": 182.53,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
    "games_played": 12,
@@ -8041,9 +8247,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -8057,7 +8264,7 @@
    "adp": 88.5,
    "adp_round_pick": "8.05",
    "adp_source": "2qb",
-   "projected_rank": 35,
+   "projected_rank": 36,
    "projected_points": 291.1,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -8110,9 +8317,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 30,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 5.188,
@@ -8133,6 +8340,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -8186,9 +8399,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 13,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 18,
@@ -8206,9 +8419,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 89.31,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -8221,9 +8434,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -8237,7 +8451,7 @@
    "adp": 90.4,
    "adp_round_pick": "8.06",
    "adp_source": "2qb",
-   "projected_rank": 113,
+   "projected_rank": 112,
    "projected_points": 184.25,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
@@ -8312,9 +8526,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -8328,7 +8543,7 @@
    "adp": 90.5,
    "adp_round_pick": "8.06",
    "adp_source": "2qb",
-   "projected_rank": 101,
+   "projected_rank": 100,
    "projected_points": 194.92,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -8401,9 +8616,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -8490,9 +8706,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -8506,7 +8723,7 @@
    "adp": 91.5,
    "adp_round_pick": "8.07",
    "adp_source": "2qb",
-   "projected_rank": 95,
+   "projected_rank": 94,
    "projected_points": 198.31,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
@@ -8579,9 +8796,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -8648,9 +8866,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 39,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 3.882,
@@ -8671,6 +8889,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -8757,9 +8981,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -8773,7 +8998,7 @@
    "adp": 94.5,
    "adp_round_pick": "8.10",
    "adp_source": "2qb",
-   "projected_rank": 111,
+   "projected_rank": 110,
    "projected_points": 185.88,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
@@ -8848,9 +9073,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -8937,9 +9163,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -8953,7 +9180,7 @@
    "adp": 97.5,
    "adp_round_pick": "9.01",
    "adp_source": "2qb",
-   "projected_rank": 103,
+   "projected_rank": 102,
    "projected_points": 194.07,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
@@ -9026,9 +9253,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -9042,7 +9270,7 @@
    "adp": 98.6,
    "adp_round_pick": "9.03",
    "adp_source": "2qb",
-   "projected_rank": 114,
+   "projected_rank": 113,
    "projected_points": 183.63,
    "team_position_rank": null,
    "team_position_rank_provenance": "missing:not_recorded",
@@ -9115,9 +9343,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -9131,7 +9360,7 @@
    "adp": 98.9,
    "adp_round_pick": "9.03",
    "adp_source": "2qb",
-   "projected_rank": 110,
+   "projected_rank": 109,
    "projected_points": 186.58,
    "team_position_rank": 3,
    "team_position_rank_provenance": "measured",
@@ -9204,9 +9433,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -9293,9 +9523,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -9309,8 +9540,8 @@
    "adp": 102.2,
    "adp_round_pick": "9.06",
    "adp_source": "2qb",
-   "projected_rank": 140,
-   "projected_points": 156.54,
+   "projected_rank": 133,
+   "projected_points": 160.01,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
    "games_played": 16,
@@ -9382,9 +9613,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -9398,7 +9630,7 @@
    "adp": 102.2,
    "adp_round_pick": "9.06",
    "adp_source": "2qb",
-   "projected_rank": 72,
+   "projected_rank": 70,
    "projected_points": 233.05,
    "team_position_rank": 5,
    "team_position_rank_provenance": "measured",
@@ -9471,9 +9703,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -9487,7 +9720,7 @@
    "adp": 103.5,
    "adp_round_pick": "9.07",
    "adp_source": "2qb",
-   "projected_rank": 94,
+   "projected_rank": 93,
    "projected_points": 198.58,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -9527,9 +9760,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 27,
@@ -9547,9 +9780,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 43.16,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -9562,9 +9795,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -9653,9 +9887,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -9742,9 +9977,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -9758,8 +9994,8 @@
    "adp": 106.6,
    "adp_round_pick": "9.11",
    "adp_source": "2qb",
-   "projected_rank": 62,
-   "projected_points": 243.04,
+   "projected_rank": 67,
+   "projected_points": 235.89,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
    "games_played": 15,
@@ -9813,9 +10049,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 38,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 4.867,
@@ -9836,6 +10072,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -9890,8 +10132,8 @@
     },
     "qb_qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_att_rank": {
      "value": 16,
@@ -9909,9 +10151,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 72.25,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -9924,9 +10166,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -9940,7 +10183,7 @@
    "adp": 107.5,
    "adp_round_pick": "9.11",
    "adp_source": "2qb",
-   "projected_rank": 112,
+   "projected_rank": 111,
    "projected_points": 185.3,
    "team_position_rank": 4,
    "team_position_rank_provenance": "measured",
@@ -10015,9 +10258,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -10031,8 +10275,8 @@
    "adp": 107.6,
    "adp_round_pick": "9.12",
    "adp_source": "2qb",
-   "projected_rank": 97,
-   "projected_points": 197.75,
+   "projected_rank": 103,
+   "projected_points": 193.6,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
    "games_played": 17,
@@ -10106,9 +10350,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -10122,8 +10367,8 @@
    "adp": 108.0,
    "adp_round_pick": "9.12",
    "adp_source": "2qb",
-   "projected_rank": 77,
-   "projected_points": 225.23,
+   "projected_rank": 80,
+   "projected_points": 215.69,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
    "games_played": 14,
@@ -10175,9 +10420,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 32,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 7.214,
@@ -10198,6 +10443,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -10252,9 +10503,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 8,
@@ -10272,9 +10523,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 43.78,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -10287,9 +10538,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -10376,9 +10628,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -10392,7 +10645,7 @@
    "adp": 110.0,
    "adp_round_pick": "10.02",
    "adp_source": "2qb",
-   "projected_rank": 96,
+   "projected_rank": 95,
    "projected_points": 198.21,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -10434,8 +10687,8 @@
     },
     "qb_qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_att_rank": {
      "value": 19,
@@ -10453,9 +10706,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 95.797,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -10468,9 +10721,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -10557,9 +10811,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -10646,9 +10901,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -10722,9 +10978,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 42,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 5.25,
@@ -10745,6 +11001,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -10837,9 +11099,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -10853,8 +11116,8 @@
    "adp": 114.2,
    "adp_round_pick": "10.06",
    "adp_source": "2qb",
-   "projected_rank": 144,
-   "projected_points": 149.73,
+   "projected_rank": 143,
+   "projected_points": 152.27,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
    "games_played": 17,
@@ -10926,9 +11189,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -10942,7 +11206,7 @@
    "adp": 116.5,
    "adp_round_pick": "10.08",
    "adp_source": "2qb",
-   "projected_rank": 120,
+   "projected_rank": 119,
    "projected_points": 177.53,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -11015,9 +11279,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -11109,9 +11374,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -11198,9 +11464,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -11257,9 +11524,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 34,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 24,
@@ -11277,9 +11544,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 77.632,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -11292,9 +11559,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -11308,8 +11576,8 @@
    "adp": 121.4,
    "adp_round_pick": "11.01",
    "adp_source": "2qb",
-   "projected_rank": 119,
-   "projected_points": 177.72,
+   "projected_rank": 122,
+   "projected_points": 174.09,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
    "games_played": 16,
@@ -11381,9 +11649,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -11470,9 +11739,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -11486,7 +11756,7 @@
    "adp": 123.5,
    "adp_round_pick": "11.03",
    "adp_source": "2qb",
-   "projected_rank": 128,
+   "projected_rank": 127,
    "projected_points": 169.89,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
@@ -11559,9 +11829,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -11620,9 +11891,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 15,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 10,
@@ -11640,9 +11911,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 49.751,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -11655,9 +11926,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -11671,7 +11943,7 @@
    "adp": 124.4,
    "adp_round_pick": "11.04",
    "adp_source": "2qb",
-   "projected_rank": 142,
+   "projected_rank": 140,
    "projected_points": 155.24,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
@@ -11744,9 +12016,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -11833,9 +12106,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -11849,7 +12123,7 @@
    "adp": 126.6,
    "adp_round_pick": "11.07",
    "adp_source": "2qb",
-   "projected_rank": 122,
+   "projected_rank": 121,
    "projected_points": 176.33,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -11893,9 +12167,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 32,
@@ -11913,9 +12187,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 71.888,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -11928,9 +12202,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -11944,7 +12219,7 @@
    "adp": 127.2,
    "adp_round_pick": "11.07",
    "adp_source": "2qb",
-   "projected_rank": 125,
+   "projected_rank": 124,
    "projected_points": 171.36,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
@@ -12019,9 +12294,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -12089,8 +12365,8 @@
     },
     "qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "red_zone_attempts": {
      "value": null,
@@ -12111,6 +12387,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -12124,7 +12406,7 @@
    "adp": 128.9,
    "adp_round_pick": "11.09",
    "adp_source": "2qb",
-   "projected_rank": 126,
+   "projected_rank": 125,
    "projected_points": 170.16,
    "team_position_rank": 4,
    "team_position_rank_provenance": "measured",
@@ -12197,9 +12479,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -12252,8 +12535,8 @@
     },
     "qb_qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_att_rank": {
      "value": null,
@@ -12272,8 +12555,8 @@
     },
     "route_participation": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "inline_pct": {
      "value": null,
@@ -12286,9 +12569,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -12375,9 +12659,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -12464,9 +12749,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -12553,9 +12839,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -12570,7 +12857,7 @@
    "adp_round_pick": "12.02",
    "adp_source": "2qb",
    "projected_rank": 165,
-   "projected_points": 115.5,
+   "projected_points": 115.57,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
    "games_played": 7,
@@ -12627,8 +12914,8 @@
     },
     "qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "red_zone_attempts": {
      "value": null,
@@ -12649,6 +12936,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -12662,7 +12955,7 @@
    "adp": 134.6,
    "adp_round_pick": "12.03",
    "adp_source": "2qb",
-   "projected_rank": 121,
+   "projected_rank": 120,
    "projected_points": 177.41,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
@@ -12735,9 +13028,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -12801,9 +13095,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 10,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 7,
@@ -12821,9 +13115,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 87.322,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -12836,9 +13130,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -12914,8 +13209,8 @@
     },
     "qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "red_zone_attempts": {
      "value": 3.8,
@@ -12936,6 +13231,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -13022,9 +13323,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -13093,9 +13395,9 @@
      "note": null
     },
     "qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 36,
+     "provenance": "measured",
+     "note": null
     },
     "red_zone_attempts": {
      "value": 4.571,
@@ -13116,6 +13418,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -13202,9 +13510,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -13272,8 +13581,8 @@
     },
     "qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "red_zone_attempts": {
      "value": 4.0,
@@ -13294,6 +13603,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -13308,7 +13623,7 @@
    "adp_round_pick": "12.05",
    "adp_source": "2qb",
    "projected_rank": 163,
-   "projected_points": 120.5,
+   "projected_points": 120.39,
    "team_position_rank": null,
    "team_position_rank_provenance": "missing:no_team_context",
    "games_played": 3,
@@ -13380,9 +13695,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -13469,9 +13785,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -13560,9 +13877,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -13649,9 +13967,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -13738,9 +14057,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -13808,8 +14128,8 @@
     },
     "qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "red_zone_attempts": {
      "value": 2.375,
@@ -13830,6 +14150,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -13916,9 +14242,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14005,9 +14332,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14021,7 +14349,7 @@
    "adp": 142.4,
    "adp_round_pick": "12.10",
    "adp_source": "2qb",
-   "projected_rank": 141,
+   "projected_rank": 139,
    "projected_points": 155.78,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -14061,9 +14389,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 25,
@@ -14081,9 +14409,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 35.912,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -14096,9 +14424,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14112,8 +14441,8 @@
    "adp": 143.1,
    "adp_round_pick": "12.11",
    "adp_source": "2qb",
-   "projected_rank": 139,
-   "projected_points": 156.55,
+   "projected_rank": 141,
+   "projected_points": 154.81,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
    "games_played": 17,
@@ -14155,9 +14484,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 35,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 23,
@@ -14175,9 +14504,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 84.727,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -14190,9 +14519,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14244,9 +14574,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 40,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 14,
@@ -14264,9 +14594,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 52.902,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -14279,9 +14609,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14349,8 +14680,8 @@
     },
     "qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "red_zone_attempts": {
      "value": null,
@@ -14371,6 +14702,12 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (FTN); manual import"
+    },
+    "injury_concern": {
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14384,8 +14721,8 @@
    "adp": 143.9,
    "adp_round_pick": "12.12",
    "adp_source": "2qb",
-   "projected_rank": 123,
-   "projected_points": 173.28,
+   "projected_rank": 130,
+   "projected_points": 164.53,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
    "games_played": 12,
@@ -14422,9 +14759,9 @@
      "note": "describes BAL, player now on NYG"
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 14,
+     "provenance": "stale:team_changed",
+     "note": "describes BAL, player now on NYG"
     },
     "team_pass_att_rank": {
      "value": 32,
@@ -14442,9 +14779,9 @@
      "note": "describes BAL, player now on NYG"
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 51.073,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -14457,9 +14794,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14546,9 +14884,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14600,9 +14939,9 @@
      "note": "describes TEN, player now on WAS"
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 39,
+     "provenance": "stale:team_changed",
+     "note": "describes TEN, player now on WAS"
     },
     "team_pass_att_rank": {
      "value": 12,
@@ -14620,9 +14959,9 @@
      "note": "describes TEN, player now on WAS"
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 69.342,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -14635,9 +14974,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14651,7 +14991,7 @@
    "adp": 146.3,
    "adp_round_pick": "13.02",
    "adp_source": "2qb",
-   "projected_rank": 130,
+   "projected_rank": 129,
    "projected_points": 167.83,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -14692,9 +15032,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 3,
@@ -14712,9 +15052,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 77.523,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -14727,9 +15067,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14816,9 +15157,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14832,8 +15174,8 @@
    "adp": 147.0,
    "adp_round_pick": "13.03",
    "adp_source": "2qb",
-   "projected_rank": 201,
-   "projected_points": 81.1,
+   "projected_rank": 204,
+   "projected_points": 78.68,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
    "games_played": 17,
@@ -14905,9 +15247,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -14994,9 +15337,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -15083,9 +15427,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -15099,7 +15444,7 @@
    "adp": 150.8,
    "adp_round_pick": "13.07",
    "adp_source": "2qb",
-   "projected_rank": 203,
+   "projected_rank": 202,
    "projected_points": 80.03,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -15180,9 +15525,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -15196,7 +15542,7 @@
    "adp": 151.0,
    "adp_round_pick": "13.07",
    "adp_source": "2qb",
-   "projected_rank": 179,
+   "projected_rank": 180,
    "projected_points": 102.71,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
@@ -15271,9 +15617,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -15360,9 +15707,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -15449,9 +15797,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -15538,9 +15887,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -15555,7 +15905,7 @@
    "adp_round_pick": "13.09",
    "adp_source": "2qb",
    "projected_rank": 328,
-   "projected_points": 32.4,
+   "projected_points": 32.39,
    "team_position_rank": null,
    "team_position_rank_provenance": "missing:no_team_context",
    "games_played": 7,
@@ -15627,9 +15977,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -15643,7 +15994,7 @@
    "adp": 153.4,
    "adp_round_pick": "13.09",
    "adp_source": "2qb",
-   "projected_rank": 167,
+   "projected_rank": 166,
    "projected_points": 114.01,
    "team_position_rank": 3,
    "team_position_rank_provenance": "measured",
@@ -15716,9 +16067,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -15805,9 +16157,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -15821,8 +16174,8 @@
    "adp": 154.2,
    "adp_round_pick": "13.10",
    "adp_source": "2qb",
-   "projected_rank": 182,
-   "projected_points": 99.22,
+   "projected_rank": 177,
+   "projected_points": 104.75,
    "team_position_rank": 1,
    "team_position_rank_provenance": "measured",
    "games_played": 16,
@@ -15894,9 +16247,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -15983,9 +16337,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -16072,9 +16427,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -16088,8 +16444,8 @@
    "adp": 156.7,
    "adp_round_pick": "14.01",
    "adp_source": "2qb",
-   "projected_rank": 132,
-   "projected_points": 163.53,
+   "projected_rank": 144,
+   "projected_points": 149.15,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
    "games_played": 17,
@@ -16161,9 +16517,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -16177,7 +16534,7 @@
    "adp": 157.1,
    "adp_round_pick": "14.01",
    "adp_source": "2qb",
-   "projected_rank": 177,
+   "projected_rank": 178,
    "projected_points": 103.61,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
@@ -16253,9 +16610,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -16342,9 +16700,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -16358,7 +16717,7 @@
    "adp": 157.6,
    "adp_round_pick": "14.02",
    "adp_source": "2qb",
-   "projected_rank": 133,
+   "projected_rank": 132,
    "projected_points": 161.37,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
@@ -16431,9 +16790,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -16447,7 +16807,7 @@
    "adp": 157.7,
    "adp_round_pick": "14.02",
    "adp_source": "2qb",
-   "projected_rank": 178,
+   "projected_rank": 179,
    "projected_points": 102.98,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
@@ -16520,9 +16880,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -16609,9 +16970,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -16626,7 +16988,7 @@
    "adp_round_pick": "14.06",
    "adp_source": "2qb",
    "projected_rank": 206,
-   "projected_points": 77.58,
+   "projected_points": 77.55,
    "team_position_rank": null,
    "team_position_rank_provenance": "missing:no_team_context",
    "games_played": 14,
@@ -16698,9 +17060,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -16787,9 +17150,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -16803,7 +17167,7 @@
    "adp": 166.2,
    "adp_round_pick": "14.10",
    "adp_source": "2qb",
-   "projected_rank": 143,
+   "projected_rank": 142,
    "projected_points": 152.7,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -16847,9 +17211,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 37,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 9,
@@ -16867,9 +17231,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 84.065,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -16882,9 +17246,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -16971,9 +17336,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17060,9 +17426,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17149,9 +17516,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17238,9 +17606,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17327,9 +17696,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17386,8 +17756,8 @@
     },
     "qb_qbr_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_att_rank": {
      "value": 28,
@@ -17405,9 +17775,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 77.879,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -17420,9 +17790,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17474,9 +17845,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 41,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 13,
@@ -17494,9 +17865,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 60.96,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -17509,9 +17880,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17525,7 +17897,7 @@
    "adp": 155.3,
    "adp_round_pick": "13.11",
    "adp_source": "ppr-backfill",
-   "projected_rank": 257,
+   "projected_rank": 256,
    "projected_points": 52.69,
    "team_position_rank": null,
    "team_position_rank_provenance": "missing:not_recorded",
@@ -17598,9 +17970,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17614,8 +17987,8 @@
    "adp": 156.3,
    "adp_round_pick": "13.12",
    "adp_source": "ppr-backfill",
-   "projected_rank": 166,
-   "projected_points": 114.87,
+   "projected_rank": 167,
+   "projected_points": 113.71,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
    "games_played": 17,
@@ -17687,9 +18060,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17703,7 +18077,7 @@
    "adp": 156.6,
    "adp_round_pick": "14.01",
    "adp_source": "ppr-backfill",
-   "projected_rank": 129,
+   "projected_rank": 128,
    "projected_points": 168.02,
    "team_position_rank": null,
    "team_position_rank_provenance": "unsourced",
@@ -17743,9 +18117,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 29,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 6,
@@ -17763,9 +18137,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 82.362,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -17778,9 +18152,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "concerned",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17867,9 +18242,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17956,9 +18332,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -17972,8 +18349,8 @@
    "adp": 161.6,
    "adp_round_pick": "14.06",
    "adp_source": "ppr-backfill",
-   "projected_rank": 256,
-   "projected_points": 52.71,
+   "projected_rank": 258,
+   "projected_points": 52.62,
    "team_position_rank": null,
    "team_position_rank_provenance": "missing:no_team_context",
    "games_played": 1,
@@ -18045,9 +18422,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -18134,9 +18512,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -18223,9 +18602,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -18312,9 +18692,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -18401,9 +18782,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -18490,9 +18872,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -18579,9 +18962,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -18668,9 +19052,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -18757,9 +19142,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -18846,9 +19232,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "some",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -18935,9 +19322,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -19028,9 +19416,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -19117,9 +19506,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -19206,9 +19596,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -19295,9 +19686,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -19349,9 +19741,9 @@
      "note": null
     },
     "qb_qbr_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (ESPN); manual import"
+     "value": 36,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_att_rank": {
      "value": 30,
@@ -19369,9 +19761,9 @@
      "note": null
     },
     "route_participation": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 27.799,
+     "provenance": "measured",
+     "note": null
     },
     "inline_pct": {
      "value": null,
@@ -19384,9 +19776,10 @@
      "note": "not freely redistributable (PFF); manual import"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "minimal",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -19473,9 +19866,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -19564,9 +19958,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -19653,9 +20048,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -19742,9 +20138,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   },
@@ -19758,7 +20155,7 @@
    "adp": 182.6,
    "adp_round_pick": "16.03",
    "adp_source": "ppr-backfill",
-   "projected_rank": 180,
+   "projected_rank": 181,
    "projected_points": 102.06,
    "team_position_rank": 5,
    "team_position_rank_provenance": "measured",
@@ -19831,9 +20228,10 @@
      "note": "categorical, graded by DraftLab rather than benchmarked"
     },
     "injury_concern": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 1,
+     "categorical": "serious",
+     "provenance": "measured",
+     "note": null
     }
    }
   }
