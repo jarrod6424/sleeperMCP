@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-11T14:20:05+00:00",
+  "generated_at": "2026-08-11T14:30:05+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -251,11 +251,16 @@
           "factor_id": "qbr_rank",
           "source": "nflverse:espn_qbr",
           "benchmark": {
-            "std": null,
-            "half": null,
-            "ppr": null
+            "std": 16.818,
+            "half": 16.818,
+            "ppr": 16.818
           },
-          "dispersion": null,
+          "dispersion": {
+            "seasons": 11,
+            "sd": 6.962,
+            "se": 2.099,
+            "relative_se": 0.125
+          },
           "note": null
         },
         {
@@ -691,11 +696,16 @@
           "factor_id": "qb_qbr_rank",
           "source": "nflverse:espn_qbr",
           "benchmark": {
-            "std": null,
-            "half": null,
-            "ppr": null
+            "std": 22.212,
+            "half": 20.0,
+            "ppr": 19.727
           },
-          "dispersion": null,
+          "dispersion": {
+            "seasons": 11,
+            "sd": 5.018,
+            "se": 1.513,
+            "relative_se": 0.076
+          },
           "note": null
         },
         {
@@ -750,11 +760,16 @@
           "factor_id": "route_participation",
           "source": "nflverse:participation",
           "benchmark": {
-            "std": 79.201,
-            "half": 84.471,
-            "ppr": 84.471
+            "std": 82.066,
+            "half": 84.814,
+            "ppr": 86.781
           },
-          "dispersion": null,
+          "dispersion": {
+            "seasons": 10,
+            "sd": 7.862,
+            "se": 2.486,
+            "relative_se": 0.029
+          },
           "note": null
         },
         {
