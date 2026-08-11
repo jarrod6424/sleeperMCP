@@ -898,7 +898,7 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                 "attempts": 0.0, "passing_tds": 0.0, "carries": 0.0,
                 "rushing_tds": 0.0, "rushing_yards": 0.0,
                 "targets": 0.0, "receptions": 0.0, "receiving_yards": 0.0,
-                "receiving_yards_after_catch": 0.0,
+                "yac_sum": 0.0, "yac_n": 0,
                 "target_share_sum": 0.0, "target_share_n": 0,
                 "receiving_tds": 0.0, "fp_std": 0.0, "fp_ppr": 0.0,
             })
@@ -912,13 +912,17 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                              ("fantasy_points", "fp_std"),
                              ("fantasy_points_ppr", "fp_ppr")):
                 a[dst] += safe_float(r.get(src))
-            a["receiving_yards_after_catch"] += safe_float(r.get("receiving_yards_after_catch"))
+            if r.get("receiving_yards_after_catch") not in (None, ""):
+                a["yac_sum"] += safe_float(r.get("receiving_yards_after_catch"))
+                a["yac_n"] += 1
             if r.get("target_share") not in (None, ""):
                 a["target_share_sum"] += safe_float(r.get("target_share"))
                 a["target_share_n"] += 1
             a["fp_half"] = (a["fp_std"] + a["fp_ppr"]) / 2
 
         for key, a in agg.items():
+            if a.get("yac_n"):
+                a["receiving_yards_after_catch"] = a["yac_sum"]
             if a.get("target_share_n"):
                 a["target_share"] = a["target_share_sum"] / a["target_share_n"]
             pcts = snap_by_player.get(a["name"], [])
@@ -1105,7 +1109,6 @@ def _efficiency_yards(ps: dict) -> dict[str, float]:
     rec = ps.get("receptions") or 0
     rush_yd = ps.get("rushing_yards") or 0
     rec_yd = ps.get("receiving_yards") or 0
-    yac = ps.get("receiving_yards_after_catch") or 0
     out: dict[str, float] = {}
     if carries > 0:
         out["yards_per_carry"] = rush_yd / carries
@@ -1114,7 +1117,8 @@ def _efficiency_yards(ps: dict) -> dict[str, float]:
         out["yards_per_touch"] = (rush_yd + rec_yd) / touches
     if rec > 0:
         out["yards_per_catch"] = rec_yd / rec
-        out["yac_per_reception"] = yac / rec
+        if "receiving_yards_after_catch" in ps:
+            out["yac_per_reception"] = ps["receiving_yards_after_catch"] / rec
     return out
 
 

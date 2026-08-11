@@ -1,7 +1,5 @@
 from __future__ import annotations
 
-from unittest.mock import patch
-
 import build_benchmarks as bb
 
 
@@ -43,6 +41,7 @@ def test_per_game_zero_receptions_omits_catch_rates() -> None:
     out = bb.per_game(ps)
     assert "yards_per_catch" not in out
     assert "yac_per_reception" not in out
+    assert "target_share" not in out
 
 
 def test_wr_factors_include_volume_efficiency() -> None:
