@@ -190,6 +190,7 @@ FACTOR_KIND = {
     "neutral_pace_rank": "rank",
     "qbr_rank": "rank",
     "qb_qbr_rank": "rank",
+    "qb_pff_rank": "rank",
     "route_participation": "rate",  # already a percentage
     "rz_touch_share": "rate",      # already a percentage, see load_rb_pbp_season
     "gl_carry_share": "rate",
@@ -220,7 +221,7 @@ FACTORS = {
     "WR": [
         ("targets", "nflverse"), ("receptions", "nflverse"),
         ("touchdowns", "nflverse"), ("off_ppg_rank", "nflverse"),
-        ("qb_pff_rank", "licensed:PFF"), ("team_pass_attempts", "nflverse"),
+        ("qb_pff_rank", "nflverse:espn_qbr"), ("team_pass_attempts", "nflverse"),
         ("route_participation", "nflverse:participation"),
         ("secondary_target", "categorical"), ("ol_pass_block_rank", "licensed:PFF"),
         ("yprr", "licensed:PFF"), ("reception_perception", "licensed:RP"),
@@ -243,8 +244,8 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "team_target_rank", "rec_td_rank",
               # QB-only, from play-by-play (see load_qb_pbp_season)
               "deep_ball_attempts", "red_zone_attempts", "neutral_pace_rank",
-              # QB/TE, from ESPN QBR via nflverse (see load_espn_qbr_season)
-              "qbr_rank", "qb_qbr_rank",
+              # QB/TE/WR, from ESPN QBR via nflverse (see load_espn_qbr_season)
+              "qbr_rank", "qb_qbr_rank", "qb_pff_rank",
               # TE/WR, from nflverse participation (see load_route_participation)
               "route_participation",
               # RB-only, from play-by-play (see load_rb_pbp_season)
@@ -348,6 +349,42 @@ def _qb_name_key(name: str) -> str:
     if not parts:
         return ""
     return (parts[0][0] + "".join(parts[1:])).lower()
+
+
+def _attach_team_qbr_ranks(agg: dict, qbr: dict) -> None:
+    """Attach QB personal qbr_rank and team-primary ranks to WR/TE rows."""
+    for a in agg.values():
+        if a["position"] != "QB":
+            continue
+        hit = None
+        qb_name_key = _qb_name_key(a["name"])
+        for k in name_keys(a["name"]):
+            if k in qbr:
+                hit = qbr[k]
+                break
+            if qb_name_key in qbr:
+                hit = qbr[qb_name_key]
+                break
+        if hit:
+            a["qbr_rank"] = hit["rank"]
+
+    primary_by_team: dict[str, int] = {}
+    candidates: dict[str, list] = defaultdict(list)
+    for entry in qbr.values():
+        if entry.get("team"):
+            candidates[entry["team"]].append(entry)
+    for team, ents in candidates.items():
+        ents.sort(key=lambda e: e["qb_plays"], reverse=True)
+        primary_by_team[team] = ents[0]["rank"]
+
+    for a in agg.values():
+        team = a.get("team")
+        if not team or team not in primary_by_team:
+            continue
+        if a["position"] == "TE":
+            a["qb_qbr_rank"] = primary_by_team[team]
+        elif a["position"] == "WR":
+            a["qb_pff_rank"] = primary_by_team[team]
 
 
 def _neutral_script(row: dict) -> bool:
@@ -856,42 +893,10 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
 
         qbr = load_espn_qbr_season(season)
         if qbr:
-            # QB personal rank
-            for a in agg.values():
-                if a["position"] != "QB":
-                    continue
-                hit = None
-                qb_name_key = _qb_name_key(a["name"])
-                for k in name_keys(a["name"]):
-                    if k in qbr:
-                        hit = qbr[k]
-                        break
-                    # also try _qb_name_key form
-                    if qb_name_key in qbr:
-                        hit = qbr[qb_name_key]
-                        break
-                if hit:
-                    a["qbr_rank"] = hit["rank"]
-
-            # Primary QB per team = max qb_plays among QBs with QBR on that team
-            primary_by_team: dict[str, int] = {}
-            candidates: dict[str, list] = defaultdict(list)
-            for entry in qbr.values():
-                if entry.get("team"):
-                    candidates[entry["team"]].append(entry)
-            for team, ents in candidates.items():
-                ents.sort(key=lambda e: e["qb_plays"], reverse=True)
-                primary_by_team[team] = ents[0]["rank"]
-
-            for a in agg.values():
-                if a["position"] != "TE":
-                    continue
-                team = a.get("team")
-                if team and team in primary_by_team:
-                    a["qb_qbr_rank"] = primary_by_team[team]
+            _attach_team_qbr_ranks(agg, qbr)
         else:
-            print(f"  WARNING: no ESPN QBR for {season}; qbr_rank/qb_qbr_rank "
-                  f"left unset", file=sys.stderr)
+            print(f"  WARNING: no ESPN QBR for {season}; qbr_rank/qb_qbr_rank/"
+                  f"qb_pff_rank left unset", file=sys.stderr)
 
         out.extend(agg.values())
     return out
