@@ -192,6 +192,7 @@ FACTOR_KIND = {
     "qb_qbr_rank": "rank",
     "qb_pff_rank": "rank",
     "route_participation": "rate",  # already a percentage
+    "secondary_target": "season_total",
     "rz_touch_share": "rate",      # already a percentage, see load_rb_pbp_season
     "gl_carry_share": "rate",
     "neutral_run_rate": "rate",
@@ -223,7 +224,7 @@ FACTORS = {
         ("touchdowns", "nflverse"), ("off_ppg_rank", "nflverse"),
         ("qb_pff_rank", "nflverse:espn_qbr"), ("team_pass_attempts", "nflverse"),
         ("route_participation", "nflverse:participation"),
-        ("secondary_target", "categorical"), ("ol_pass_block_rank", "licensed:PFF"),
+        ("secondary_target", "nflverse"), ("ol_pass_block_rank", "licensed:PFF"),
         ("yprr", "licensed:PFF"), ("reception_perception", "licensed:RP"),
         ("archetype", "categorical"), ("injury_concern", "nflverse:injuries"),
     ],
@@ -248,6 +249,8 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "qbr_rank", "qb_qbr_rank", "qb_pff_rank",
               # TE/WR, from nflverse participation (see load_route_participation)
               "route_participation",
+              # WR-only, from same-team target competition (see _attach_wr_secondary_targets)
+              "secondary_target",
               # RB-only, from play-by-play (see load_rb_pbp_season)
               "rz_touch_share", "gl_carry_share", "neutral_run_rate"}
 
@@ -385,6 +388,37 @@ def _attach_team_qbr_ranks(agg: dict, qbr: dict) -> None:
             a["qb_qbr_rank"] = primary_by_team[team]
         elif a["position"] == "WR":
             a["qb_pff_rank"] = primary_by_team[team]
+
+
+def classify_secondary_target(player_targets: float, secondary_targets: float) -> str:
+    r = secondary_targets / player_targets
+    if r < 0.75:
+        return "less"
+    if r < 1.00:
+        return "same"
+    return "more"
+
+
+def _attach_wr_secondary_targets(season_rows: list[dict]) -> None:
+    """Same-team WR target competition: max teammate season targets + band."""
+    by_team: dict[str, list[dict]] = defaultdict(list)
+    for r in season_rows:
+        if r.get("position") == "WR" and r.get("team"):
+            by_team[r["team"]].append(r)
+
+    for wrs in by_team.values():
+        if len(wrs) < 2:
+            continue
+        for wr in wrs:
+            player_targets = wr.get("targets") or 0
+            if player_targets <= 0:
+                continue
+            others = [w for w in wrs if w is not wr]
+            secondary_targets = max(w["targets"] for w in others)
+            wr["secondary_target"] = secondary_targets
+            wr["secondary_target_cat"] = classify_secondary_target(
+                player_targets, secondary_targets
+            )
 
 
 def _neutral_script(row: dict) -> bool:
@@ -898,6 +932,8 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
             print(f"  WARNING: no ESPN QBR for {season}; qbr_rank/qb_qbr_rank/"
                   f"qb_pff_rank left unset", file=sys.stderr)
 
+        _attach_wr_secondary_targets(list(agg.values()))
+
         out.extend(agg.values())
     return out
 
@@ -1007,6 +1043,8 @@ def per_game(ps: dict) -> dict:
     if "rz_count" in ps:
         pbp_g = max(ps.get("pbp_games", g), 1)
         out["red_zone_attempts"] = ps["rz_count"] / pbp_g
+    if "secondary_target_cat" in ps:
+        out["secondary_target_cat"] = ps["secondary_target_cat"]
     return out
 
 
