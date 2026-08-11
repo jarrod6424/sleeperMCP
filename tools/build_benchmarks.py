@@ -195,6 +195,7 @@ FACTOR_KIND = {
     "rz_touch_share": "rate",      # already a percentage, see load_rb_pbp_season
     "gl_carry_share": "rate",
     "neutral_run_rate": "rate",
+    "target_share": "rate",
 }
 
 # DraftLab's factor ids per position, in its own order. Factors we cannot
@@ -223,6 +224,8 @@ FACTORS = {
     ],
     "WR": [
         ("targets", "nflverse"), ("receptions", "nflverse"),
+        ("yards_per_catch", "nflverse"), ("yac_per_reception", "nflverse"),
+        ("target_share", "nflverse"),
         ("touchdowns", "nflverse"), ("off_ppg_rank", "nflverse"),
         ("qb_pff_rank", "nflverse:espn_qbr"), ("team_pass_attempts", "nflverse"),
         ("route_participation", "nflverse:participation"),
@@ -253,6 +256,8 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "route_participation",
               # WR-only, from same-team target competition (see _attach_wr_secondary_targets)
               "secondary_target",
+              # WR-only volume efficiency (see _efficiency_yards / load_player_seasons)
+              "yards_per_catch", "yac_per_reception", "target_share",
               # RB-only efficiency + team context (see per_game / load_team_wins_season)
               "yards_per_carry", "yards_per_touch", "team_wins",
               # RB-only, from play-by-play (see load_rb_pbp_season)
@@ -893,6 +898,8 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                 "attempts": 0.0, "passing_tds": 0.0, "carries": 0.0,
                 "rushing_tds": 0.0, "rushing_yards": 0.0,
                 "targets": 0.0, "receptions": 0.0, "receiving_yards": 0.0,
+                "receiving_yards_after_catch": 0.0,
+                "target_share_sum": 0.0, "target_share_n": 0,
                 "receiving_tds": 0.0, "fp_std": 0.0, "fp_ppr": 0.0,
             })
             a["games"] += 1
@@ -905,9 +912,15 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                              ("fantasy_points", "fp_std"),
                              ("fantasy_points_ppr", "fp_ppr")):
                 a[dst] += safe_float(r.get(src))
+            a["receiving_yards_after_catch"] += safe_float(r.get("receiving_yards_after_catch"))
+            if r.get("target_share") not in (None, ""):
+                a["target_share_sum"] += safe_float(r.get("target_share"))
+                a["target_share_n"] += 1
             a["fp_half"] = (a["fp_std"] + a["fp_ppr"]) / 2
 
         for key, a in agg.items():
+            if a.get("target_share_n"):
+                a["target_share"] = a["target_share_sum"] / a["target_share_n"]
             pcts = snap_by_player.get(a["name"], [])
             a["snap_share"] = statistics.mean(pcts) if pcts else None
 
@@ -1092,12 +1105,16 @@ def _efficiency_yards(ps: dict) -> dict[str, float]:
     rec = ps.get("receptions") or 0
     rush_yd = ps.get("rushing_yards") or 0
     rec_yd = ps.get("receiving_yards") or 0
+    yac = ps.get("receiving_yards_after_catch") or 0
     out: dict[str, float] = {}
     if carries > 0:
         out["yards_per_carry"] = rush_yd / carries
     touches = carries + rec
     if touches > 0:
         out["yards_per_touch"] = (rush_yd + rec_yd) / touches
+    if rec > 0:
+        out["yards_per_catch"] = rec_yd / rec
+        out["yac_per_reception"] = yac / rec
     return out
 
 
