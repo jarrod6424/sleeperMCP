@@ -1,0 +1,36 @@
+# DEPRECATED — production handoff is GitHub Actions → R2
+# (see docs/GO_LIVE_ACTIONS_R2.md and .github/workflows/publish-artifacts.yml).
+# Kept only if someone still wants a local/experimental Fly deploy of data_api.
+# Set secrets: fly secrets set DRAFTLAB_DATA_TOKEN=...
+
+app = "draftlab-sleeper-data"
+primary_region = "ord"
+
+[build]
+
+[env]
+  ARTIFACTS_DIR = "/data/artifacts"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+  [[http_service.checks]]
+    interval = "30s"
+    timeout = "5s"
+    grace_period = "30s"
+    method = "GET"
+    path = "/healthz"
+
+[[mounts]]
+  source = "sleeper_data_artifacts"
+  destination = "/data"
+
+[[vm]]
+  memory = "2gb"
+  cpu_kind = "shared"
+  cpus = 1

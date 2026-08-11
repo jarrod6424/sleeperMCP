@@ -275,12 +275,17 @@ See `.env.example`.
 
 ```bash
 python tools/build_benchmarks.py            # -> artifacts/benchmarks.json
-python tools/build_benchmarks.py --cohort 3 --seasons 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025
+python tools/build_factors.py               # -> artifacts/player_factors.json
 ```
 
-Computes CeilingScore benchmarks for QB/RB/WR/TE from nflverse and writes a
-versioned artifact for [DraftLab](https://github.com/darknegan/fantasy-football-draft-optimizer)
-to import.
+CLI builders still write JSON under `artifacts/`. DraftLab's happy path is
+**GitHub Actions → Cloudflare R2** (not Horizon MCP, not Fly):
+
+- Workflow: [`.github/workflows/publish-artifacts.yml`](.github/workflows/publish-artifacts.yml)
+- Go-live: [`docs/GO_LIVE_ACTIONS_R2.md`](docs/GO_LIVE_ACTIONS_R2.md)
+- Design: [`docs/superpowers/specs/2026-08-10-draftlab-data-job-r2-design.md`](docs/superpowers/specs/2026-08-10-draftlab-data-job-r2-design.md)
+
+Optional local HTTP (`data_api/` + uvicorn) remains for hacking only.
 
 The split with DraftLab: this repo owns **what the numbers are** — factors,
 benchmarks, the player-ID crosswalk. DraftLab owns **what they mean** — grading,
