@@ -7,7 +7,7 @@ Smoke-test a running MCP server over Streamable HTTP.
 
 Runs a real MCP conversation: initialize, notifications/initialized,
 tools/list, then one actual tool call. That last step matters — a server can
-advertise 36 tools and still fail the moment one of them touches the network,
+advertise 37 tools and still fail the moment one of them touches the network,
 which is exactly what a cold container or a blocked datacenter IP looks like.
 
 Use it twice: once against localhost to confirm the server works on your

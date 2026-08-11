@@ -1,6 +1,6 @@
 # Sleeper MCP — build record and next steps
 
-**Status: deployed and working.** `https://jlg-sleeper.fastmcp.app/mcp`, OAuth, reachable from every Claude client including mobile. 36 tools, four upstreams, one 15-commit session on 2026-08-06.
+**Status: deployed and working.** `https://jlg-sleeper.fastmcp.app/mcp`, OAuth, reachable from every Claude client including mobile. 37 tools, four upstreams, one 15-commit session on 2026-08-06.
 
 This started as a plan for making a local stdio server reachable from a phone. It's now a record of what was actually built, what broke, and what's left — written for the version of you that comes back to this in three weeks, and for your friend who wasn't here.
 
@@ -9,7 +9,7 @@ This started as a plan for making a local stdio server reachable from a phone. I
 ## 1. What exists
 
 ```
-server.py              1367   36 @mcp.tool() definitions, nothing else of substance
+server.py              1367   37 @mcp.tool() definitions, nothing else of substance
 sleeper_core/
   config.py             110   endpoints, identity defaults, cache paths, TTLs
   http.py               276   5 clients, caches, conditional GET, gzip preference
@@ -71,7 +71,7 @@ Locally, `USE_OS_TRUSTSTORE=1` is needed on a corporate network doing TLS inspec
 
 ## 3. The golden harness
 
-62 cases covering all 36 tools. Run `pytest tests/test_golden.py -q` after any change.
+63 cases covering all 37 tools. Run `pytest tests/test_golden.py -q` after any change.
 
 Two modes, because not everything is stable:
 
@@ -184,7 +184,7 @@ Draft-day notes that still hold:
 
 - **Load the world once at draft start.** Player map, ADP, values, depth charts for teams you care about. Then run off memory. `players.warm()` exists for this.
 - **Only `get_draft_picks` needs to be live.** Poll 2-5s inside your window, back off between. Sleeper has no pick webhook.
-- **All 36 tools are synchronous.** Under HTTP, FastMCP runs them in a threadpool, so each in-flight call holds a thread blocked on I/O. Irrelevant for one person on a phone, a real ceiling for a polling app with two users. In-process you control your own concurrency — another reason the app should import rather than call over MCP.
+- **All 37 tools are synchronous.** Under HTTP, FastMCP runs them in a threadpool, so each in-flight call holds a thread blocked on I/O. Irrelevant for one person on a phone, a real ceiling for a polling app with two users. In-process you control your own concurrency — another reason the app should import rather than call over MCP.
 - **Auction and rookie drafts need different math.** Auction wants budget-aware nomination; rookie drafts want pick-value curves rather than ADP. `values.league_format` is the right foundation; `draft.type` and `draft.settings` extend it.
 
 ### Known data gaps

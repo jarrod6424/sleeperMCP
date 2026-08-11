@@ -1,7 +1,7 @@
 {
   "_meta": {
     "captured_at": "2026-08-07 14:17:44",
-    "case_count": 62,
+    "case_count": 63,
     "fixtures": {
       "draft_id": "1312218810626887680",
       "league_season": "2026",
@@ -17,7 +17,49 @@
     "week": 10
   },
   "cases": {
-    "adp": {
+    "auction_budgets": {
+      "kwargs": {
+        "limit": 25
+      },
+      "mode": "shape",
+      "tool": "get_auction_budgets",
+      "value": {
+        "assumed_auction": "bool",
+        "budget": "number",
+        "draft_id": "null",
+        "format": {
+          "isDynasty": "bool",
+          "numQbs": "number",
+          "numTeams": "number",
+          "ppr": "number"
+        },
+        "league_id": "str",
+        "league_name": "str",
+        "method": {
+          "ceiling_pct": "number",
+          "note": "str",
+          "source": "str",
+          "tail_mass": "number"
+        },
+        "note": "str",
+        "num_teams": "number",
+        "players": [
+          {
+            "fair": "number",
+            "market_value": "number",
+            "max": "number",
+            "name": "str",
+            "overall_rank": "number",
+            "position": "str",
+            "position_rank": "number",
+            "sleeper_id": "str",
+            "team": "str"
+          }
+        ],
+        "roster_spots": "number",
+        "sum_fair": "number"
+      }
+    },    "adp": {
       "kwargs": {
         "limit": 25
       },

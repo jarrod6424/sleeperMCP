@@ -9,7 +9,7 @@ It is **read-only by construction**. The Sleeper API
 write paths, and this server only ever issues those reads. It cannot set
 lineups, make trades, drop players, or change anything in your league.
 
-36 tools across five data sources. See [docs/BUILD_NOTES.md](docs/BUILD_NOTES.md)
+37 tools across five data sources. See [docs/BUILD_NOTES.md](docs/BUILD_NOTES.md)
 for architecture, deployment details, and a record of what broke while building
 it.
 
@@ -78,6 +78,7 @@ that do not depend on it. Tools drawing on unofficial sources are marked
 | `get_projections` | Weekly projections in your league's scoring format |
 | `start_sit_advice` | Optimal lineup versus current, with the point gap |
 | `get_trade_values` | FantasyCalc values for your exact format |
+| `get_auction_budgets` | FantasyCalc values scaled into auction $ fair/max bids |
 | `value_my_roster` | Total roster value, each player valued and ranked |
 | `analyze_trade` | Compare two sides of a trade |
 | `get_adp` | ADP joined to trade value — where the market drafts a player versus what it thinks he is worth |
@@ -101,7 +102,7 @@ guidance.
 ## Layout
 
 ```
-server.py          36 @mcp.tool() definitions — thin wrappers, no logic
+server.py          37 @mcp.tool() definitions — thin wrappers, no logic
 sleeper_core/      the data layer. No MCP imports anywhere, by design
   config.py        endpoints, identity defaults, cache paths, TTLs
   http.py          HTTP clients, caching, conditional GET
@@ -109,9 +110,11 @@ sleeper_core/      the data layer. No MCP imports anywhere, by design
   league.py        rosters, standings, identity, matchups, transactions
   projections.py   projections and lineup optimization
   values.py        FantasyCalc trade values
+  auction.py       FantasyCalc → auction $ fair/max bid targets
   adp.py           FantasyFootballCalculator ADP
   stats.py         nflverse stats and depth charts
   offense.py       usage concentration and OC tiers
+tools/             artifact generation + auction_budget.py CLI
 tests/             golden-output regression harness
 ```
 
@@ -138,7 +141,7 @@ Three ways to run this, in order of how much setup they need:
 3. **Run it locally over HTTP** — for Claude Code, Cursor, or anything that
    speaks Streamable HTTP, pointed at your own machine instead of the deploy.
 
-All three run the exact same 36 tools against the exact same read-only
+All three run the exact same 37 tools against the exact same read-only
 upstreams — the difference is only where the process lives and how a client
 reaches it.
 
@@ -297,7 +300,7 @@ pytest tests/test_golden.py -q     # after any change
 python tests/capture_golden.py     # only when output changes on purpose
 ```
 
-62 golden cases covering all 36 tools, captured against live APIs and compared
+63 golden cases covering all 37 tools, captured against live APIs and compared
 on every run. Two modes: exact equality where output is stable once week and
 season are pinned, and structural comparison where numbers legitimately drift
 (projections get revised, trade values move daily).

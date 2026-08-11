@@ -246,7 +246,7 @@ def resolve_fixtures() -> dict:
 
 
 def build_cases(fixtures: dict) -> list[tuple[str, str, dict, str]]:
-    """Return (case_id, tool_name, kwargs, mode) for all 36 tools.
+    """Return (case_id, tool_name, kwargs, mode) for all 37 tools.
 
     case_id is what pytest reports on failure, so it is kept readable.
     """
@@ -307,6 +307,7 @@ def build_cases(fixtures: dict) -> list[tuple[str, str, dict, str]]:
         # -- trade values (FantasyCalc moves daily) --------------------------
         ("trade_values", "get_trade_values", {"limit": 25}, SHAPE),
         ("trade_values_te", "get_trade_values", {"position": "TE", "limit": 10}, SHAPE),
+        ("auction_budgets", "get_auction_budgets", {"limit": 25}, SHAPE),
         ("value_my_roster", "value_my_roster", {}, SHAPE),
         ("analyze_trade", "analyze_trade", {"give": TRADE_GIVE, "get": TRADE_GET}, SHAPE),
         ("adp", "get_adp", {"limit": 25}, SHAPE),

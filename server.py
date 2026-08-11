@@ -33,6 +33,7 @@ if os.environ.get("USE_OS_TRUSTSTORE"):
 from fastmcp import FastMCP
 
 from sleeper_core import adp as _adp
+from sleeper_core import auction as _auction
 from sleeper_core import http as _http
 from sleeper_core import league as _league_mod
 from sleeper_core import offense as _offense
@@ -612,6 +613,27 @@ def get_trade_values(
         rows = [r for r in rows if r["position"] == pos]
     rows.sort(key=lambda r: r["value"] or 0, reverse=True)
     return {"format": fmt, "source": FC_SOURCE, "players": rows[:limit]}
+
+
+@mcp.tool()
+def get_auction_budgets(
+    limit: int = 80,
+    position: str | None = None,
+    league_id: str | None = None,
+    ceiling_pct: float = 0.12,
+) -> dict:
+    """[UNOFFICIAL] Convert FantasyCalc trade values into auction-dollar bid
+    targets for your league. Returns fair and max ($) for each player, scaled
+    to the league's auction budget when one exists (otherwise assumes $200).
+    Superflex / PPR / team count are detected from league settings. Optionally
+    filter by position. Source is the third-party FantasyCalc API."""
+    lid = _league_mod.resolve_league_id(league_id)
+    return _auction.auction_budgets(
+        lid,
+        limit=limit,
+        ceiling_pct=ceiling_pct,
+        position=position,
+    )
 
 
 @mcp.tool()

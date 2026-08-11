@@ -1,7 +1,7 @@
 # Sleeper MCP — working notes for Claude
 
 Read-only MCP server exposing a Sleeper fantasy football league, plus a data
-pipeline that feeds DraftLab (a separate draft/trade app). 36 tools, five
+pipeline that feeds DraftLab (a separate draft/trade app). 37 tools, five
 upstreams, deployed on Prefect Horizon at `jlg-sleeper.fastmcp.app/mcp`.
 
 ## Environment
@@ -17,7 +17,7 @@ upstreams, deployed on Prefect Horizon at `jlg-sleeper.fastmcp.app/mcp`.
 ## Layout
 
 ```
-server.py          36 @mcp.tool() definitions — thin wrappers, no logic
+server.py          37 @mcp.tool() definitions — thin wrappers, no logic
 sleeper_core/      the data layer. No MCP imports anywhere, by design
 tools/             artifact generation (see below)
 artifacts/         generated JSON consumed by DraftLab
@@ -35,6 +35,7 @@ pytest tests/test_golden.py -q          # after any change
 python tests/capture_golden.py          # ONLY when output changed on purpose
 python tools/build_benchmarks.py --spread   # -> artifacts/benchmarks.json
 python tools/build_factors.py               # -> artifacts/player_factors.json
+python tools/auction_budget.py --league <id>  # FantasyCalc -> auction $ targets
 python tools/check_contract.py ../fantasy-football-draft-optimizer
 MCP_HTTP=1 python server.py             # local HTTP; then python tests/smoke_http.py
 ```
