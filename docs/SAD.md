@@ -34,12 +34,22 @@ ITEM-002 makes the following factors COMPUTABLE from public nflverse feeds:
 | TE | `route_participation` | nflverse participation data (FTN attribution, CC-BY-SA) |
 | QB/RB/WR/TE | `injury_concern` categorical | nflverse weekly injuries |
 
+ITEM-003 adds public nflverse sources for WR ceiling factors:
+
+| Position | Factor | Source |
+|---|---|---|
+| WR | `qb_pff_rank` | Primary team QB's ESPN QBR rank via nflverse |
+| WR | `route_participation` | nflverse participation data (FTN attribution, CC-BY-SA) |
+| WR | `secondary_target` categorical | nflverse receiving data |
+
+Route participation is now sourced for both WR and TE.
+
 Remaining gaps are blocked on licensed data, not an engineering gap:
 
 **Blocked — licensed data:**
 - QB: ol_pass_block_rank (PFF), pass_dvoa_rank (FTN)
 - RB: ol_run_block_rank (PFF)
-- WR: qb_pff_rank, ol_pass_block_rank, yprr (PFF); reception_perception (RP)
+- WR: ol_pass_block_rank, yprr (PFF); reception_perception (RP)
 - TE: inline_pct, yprr_rank (PFF)
 
 Every blocked factor already has a real DraftLab benchmark waiting; only
@@ -47,9 +57,8 @@ the per-player input is missing, and no pipeline work closes that without
 a license.
 
 Also still unsourced on the DraftLab side (not sleeperMCP buildables):
-QB `adp` as a ceiling factor input, WR `secondary_target` categorical,
-and DraftLab-only RB extras (receptions / YPC / YPT / team_wins) that this
-repo never emits.
+QB `adp` as a ceiling factor input and DraftLab-only RB extras
+(receptions / YPC / YPT / team_wins) that this repo never emits.
 
 ## MCP tool surface
 

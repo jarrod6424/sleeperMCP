@@ -101,8 +101,8 @@ from sleeper_core.stats import to_nflverse_team     # noqa: E402
 # Factors describing the offence rather than the player. These go stale the
 # moment a player changes teams.
 TEAM_CONTEXT = {"off_ppg_rank", "team_pass_attempts", "team_pass_att_rank",
-                "team_target_rank", "rec_td_rank", "qb_qbr_rank",
-                "neutral_pace_rank",
+                "team_target_rank", "rec_td_rank", "qb_qbr_rank", "qb_pff_rank",
+                "secondary_target", "neutral_pace_rank",
                 # RB shares of a team resource (TDD-001) -- go stale on a
                 # trade the same way team_target_rank does.
                 "rz_touch_share", "gl_carry_share", "neutral_run_rate"}
@@ -530,6 +530,43 @@ def build_player(p: dict, measured: dict, sid: str | None,
                 "categorical": severity,
                 "provenance": "measured",
                 "note": None,
+            }
+            continue
+        if fid == "secondary_target":
+            if not hit:
+                factors[fid] = {
+                    "value": None, "categorical": None,
+                    "provenance": "missing:no_prior_season",
+                    "note": "no measured season for this player",
+                }
+                continue
+            if recovered_from:
+                factors[fid] = {
+                    "value": None, "categorical": None,
+                    "provenance": "missing:no_team_context",
+                    "note": f"player recovered from {recovered_from}; team context "
+                            f"for that season describes a different situation",
+                }
+                continue
+            raw = hit["values"].get(fid)
+            cat = hit["values"].get("secondary_target_cat")
+            if raw is None:
+                factors[fid] = {
+                    "value": None, "categorical": None,
+                    "provenance": "missing:no_secondary",
+                    "note": "no teammate WR with targets on this team",
+                }
+                continue
+            if team_changed:
+                factors[fid] = {
+                    "value": round(raw, 3), "categorical": cat,
+                    "provenance": "stale:team_changed",
+                    "note": f"describes {prior_team}, player now on {adp_team}",
+                }
+                continue
+            factors[fid] = {
+                "value": round(raw, 3), "categorical": cat,
+                "provenance": "measured", "note": None,
             }
             continue
         if fid not in COMPUTABLE:
