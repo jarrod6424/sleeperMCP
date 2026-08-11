@@ -118,6 +118,55 @@ TOP_N_FINISH = 12
 FINISH_MIN_GAMES = 8
 
 
+_SEVERITY_ORDER = ["minimal", "some", "concerned", "serious"]
+
+
+def _status_base(status: str) -> str:
+    s = (status or "").lower()
+    if "out" in s or "injured reserve" in s or s.strip() == "ir" or " inactive" in f" {s}":
+        return "serious"
+    if "doubtful" in s:
+        return "concerned"
+    if "questionable" in s:
+        return "some"
+    return "minimal"
+
+
+def classify_injury_concern(week_statuses: list[str]) -> str:
+    """Classify a player's prior-season injury concern from weekly statuses."""
+    if not week_statuses:
+        return "minimal"
+    base = "minimal"
+    for status in week_statuses:
+        severity = _status_base(status)
+        if _SEVERITY_ORDER.index(severity) > _SEVERITY_ORDER.index(base):
+            base = severity
+    if len(week_statuses) >= 3 and base != "serious":
+        base = _SEVERITY_ORDER[min(_SEVERITY_ORDER.index(base) + 1, 3)]
+    return base
+
+
+def load_injury_concern_season(season: int) -> dict[str, str]:
+    """Load one full season of nflverse injury reports keyed by player name."""
+    rows = nflverse_csv("injuries", f"injuries_{season}.csv", ttl=STATS_CACHE_TTL)
+    if not rows:
+        return {}
+    by_player: dict[str, list[str]] = defaultdict(list)
+    weeks_seen: dict[str, set] = defaultdict(set)
+    for row in rows:
+        name = row.get("full_name") or row.get("player_name") or ""
+        week = str(row.get("week") or "")
+        status = row.get("report_status") or row.get("practice_status") or ""
+        if not name or not status:
+            continue
+        key = next(iter(name_keys(name)), None)
+        if not key or week in weeks_seen[key]:
+            continue
+        weeks_seen[key].add(week)
+        by_player[key].append(status)
+    return {key: classify_injury_concern(statuses) for key, statuses in by_player.items()}
+
+
 def index_measurements(season: int) -> dict:
     """Per-game factor values for one season, plus indexes for diagnosing misses.
 
@@ -451,6 +500,7 @@ def build_player(p: dict, measured: dict, sid: str | None,
                  sleeper_players: dict, finishers: dict[tuple[int, str], set[str]],
                  finish_seasons: list[int], projection_ranks: dict[str, int],
                  projection_points: dict[str, float], team_pos_ranks: dict[tuple[str, str], int],
+                 injury_map: dict[str, str],
                  fallback: dict | None = None) -> dict:
     pos = (p.get("position") or "").upper()
     adp_team = to_nflverse_team((p.get("team") or "").upper())
@@ -469,6 +519,19 @@ def build_player(p: dict, measured: dict, sid: str | None,
 
     factors: dict[str, dict] = {}
     for fid, src in FACTORS.get(pos, []):
+        if fid == "injury_concern":
+            severity = next(
+                (injury_map[key] for key in name_keys(p.get("name") or "")
+                 if key in injury_map),
+                "minimal",
+            )
+            factors[fid] = {
+                "value": 1,
+                "categorical": severity,
+                "provenance": "measured",
+                "note": None,
+            }
+            continue
         if fid not in COMPUTABLE:
             factors[fid] = {"value": None, "provenance": "unsourced",
                             "note": _gap_note(src)}
@@ -604,6 +667,8 @@ def build_player_factors_artifact(
     measured = index_measurements(season)
     print(f"  measured: {len(measured['by_key_pos'])} name/position keys "
           f"from {season}")
+    injury_map = load_injury_concern_season(season)
+    print(f"  injuries: {len(injury_map)} players listed in {season}")
 
     print(f"  bio: loading Sleeper player map ...")
     sleeper_players = load_sleeper_players()
@@ -630,7 +695,7 @@ def build_player_factors_artifact(
     for p in universe:
         sid = lookup_sleeper_id(index, p.get("name"), p.get("position"), p.get("team"))
         row = build_player(p, measured, sid, sleeper_players, finishers, DEFAULT_SEASONS,
-                            projection_ranks, projection_points, team_pos_ranks)
+                            projection_ranks, projection_points, team_pos_ranks, injury_map)
         # Only pay for the recovery scan on players the main path missed.
         if not row["matched"] and lookback:
             for back in range(0, lookback + 1):
@@ -640,7 +705,7 @@ def build_player_factors_artifact(
                     row = build_player(dict(p, _target_season=season),
                                        measured, sid, sleeper_players, finishers,
                                        DEFAULT_SEASONS, projection_ranks, projection_points,
-                                       team_pos_ranks, fallback=fb)
+                                       team_pos_ranks, injury_map, fallback=fb)
                     break
         players.append(row)
 

@@ -207,6 +207,7 @@ FACTORS = {
         ("deep_ball_attempts", "nflverse:pbp"), ("qbr_rank", "nflverse:espn_qbr"),
         ("red_zone_attempts", "nflverse:pbp"), ("adp", "fantasyfootballcalculator"),
         ("neutral_pace_rank", "nflverse:pbp"), ("pass_dvoa_rank", "licensed:FTN"),
+        ("injury_concern", "nflverse:injuries"),
     ],
     "RB": [
         ("touches", "nflverse"), ("rush_attempts", "nflverse"),
@@ -214,7 +215,7 @@ FACTORS = {
         ("off_ppg_rank", "nflverse"), ("ol_run_block_rank", "licensed:PFF"),
         ("rz_touch_share", "nflverse:pbp"), ("snap_share", "nflverse"),
         ("gl_carry_share", "nflverse:pbp"), ("neutral_run_rate", "nflverse:pbp"),
-        ("archetype", "categorical"), ("injury_concern", "categorical"),
+        ("archetype", "categorical"), ("injury_concern", "nflverse:injuries"),
     ],
     "WR": [
         ("targets", "nflverse"), ("receptions", "nflverse"),
@@ -222,7 +223,7 @@ FACTORS = {
         ("qb_pff_rank", "licensed:PFF"), ("team_pass_attempts", "nflverse"),
         ("secondary_target", "categorical"), ("ol_pass_block_rank", "licensed:PFF"),
         ("yprr", "licensed:PFF"), ("reception_perception", "licensed:RP"),
-        ("archetype", "categorical"), ("injury_concern", "categorical"),
+        ("archetype", "categorical"), ("injury_concern", "nflverse:injuries"),
     ],
     "TE": [
         ("targets", "nflverse"), ("receptions", "nflverse"),
@@ -230,7 +231,7 @@ FACTORS = {
         ("qb_qbr_rank", "nflverse:espn_qbr"), ("team_pass_att_rank", "nflverse"),
         ("team_target_rank", "nflverse"), ("rec_td_rank", "nflverse"),
         ("route_participation", "nflverse:participation"), ("inline_pct", "licensed:PFF"),
-        ("yprr_rank", "licensed:PFF"), ("injury_concern", "categorical"),
+        ("yprr_rank", "licensed:PFF"), ("injury_concern", "nflverse:injuries"),
     ],
 }
 
