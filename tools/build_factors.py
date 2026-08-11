@@ -105,7 +105,8 @@ TEAM_CONTEXT = {"off_ppg_rank", "team_pass_attempts", "team_pass_att_rank",
                 "secondary_target", "neutral_pace_rank",
                 # RB shares of a team resource (TDD-001) -- go stale on a
                 # trade the same way team_target_rank does.
-                "rz_touch_share", "gl_carry_share", "neutral_run_rate"}
+                "rz_touch_share", "gl_carry_share", "neutral_run_rate",
+                "team_wins"}
 
 # "Finished top-12" is a season-total ranking question, not a per-game one —
 # it is asking where a player landed in the field, the same way "RB12" is

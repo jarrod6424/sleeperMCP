@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-11T17:54:33+00:00",
+  "generated_at": "2026-08-11T18:37:09+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -138,6 +138,21 @@
       "draftlab": 9.5,
       "computed": 9.939,
       "error_pct": 4.6
+    },
+    "RB.yards_per_carry": {
+      "draftlab": 4.89,
+      "computed": 4.859,
+      "error_pct": 0.6
+    },
+    "RB.yards_per_touch": {
+      "draftlab": 5.82,
+      "computed": 5.606,
+      "error_pct": 3.7
+    },
+    "RB.team_wins": {
+      "draftlab": 9.85,
+      "computed": 9.848,
+      "error_pct": 0.0
     }
   },
   "warnings": [],
@@ -371,6 +386,22 @@
           "note": null
         },
         {
+          "factor_id": "receptions",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 3.604,
+            "half": 3.874,
+            "ppr": 4.296
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 1.06,
+            "se": 0.32,
+            "relative_se": 0.082
+          },
+          "note": null
+        },
+        {
           "factor_id": "touchdowns",
           "source": "nflverse",
           "benchmark": {
@@ -408,6 +439,54 @@
           "benchmark": null,
           "dispersion": null,
           "note": "not freely redistributable (PFF); manual import"
+        },
+        {
+          "factor_id": "yards_per_carry",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 4.838,
+            "half": 4.859,
+            "ppr": 4.75
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.358,
+            "se": 0.108,
+            "relative_se": 0.022
+          },
+          "note": null
+        },
+        {
+          "factor_id": "yards_per_touch",
+          "source": "nflverse",
+          "benchmark": {
+            "std": 5.536,
+            "half": 5.606,
+            "ppr": 5.606
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 0.387,
+            "se": 0.117,
+            "relative_se": 0.021
+          },
+          "note": null
+        },
+        {
+          "factor_id": "team_wins",
+          "source": "nflverse:schedules",
+          "benchmark": {
+            "std": 9.606,
+            "half": 9.848,
+            "ppr": 9.682
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 1.715,
+            "se": 0.517,
+            "relative_se": 0.053
+          },
+          "note": null
         },
         {
           "factor_id": "rz_touch_share",
@@ -488,8 +567,8 @@
           "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
-      "computed": 9,
-      "total": 12
+      "computed": 13,
+      "total": 16
     },
     "WR": {
       "factors": [

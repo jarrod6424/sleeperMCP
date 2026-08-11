@@ -44,6 +44,15 @@ ITEM-003 adds public nflverse sources for WR ceiling factors:
 
 Route participation is now sourced for both WR and TE.
 
+ITEM-004 adds public nflverse sources for RB ceiling factors:
+
+| Position | Factor | Source |
+|---|---|---|
+| RB | `receptions` | nflverse weekly stats |
+| RB | `yards_per_carry` | nflverse (`rushing_yards / carries`) |
+| RB | `yards_per_touch` | nflverse (total yards / touches) |
+| RB | `team_wins` | nflverse `schedules/games.csv` |
+
 Remaining gaps are blocked on licensed data, not an engineering gap:
 
 **Blocked — licensed data:**
@@ -57,8 +66,7 @@ the per-player input is missing, and no pipeline work closes that without
 a license.
 
 Also still unsourced on the DraftLab side (not sleeperMCP buildables):
-QB `adp` as a ceiling factor input and DraftLab-only RB extras
-(receptions / YPC / YPT / team_wins) that this repo never emits.
+QB `adp` as a ceiling factor input.
 
 ## MCP tool surface
 
