@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "generated_at": "2026-08-11T14:45:15+00:00",
+ "generated_at": "2026-08-11T17:25:49+00:00",
  "basis": {
   "player_factors": "measured:2025",
   "universe": "FantasyFootballCalculator ADP 2026",
@@ -31,13 +31,13 @@
   "team_changed": 39,
   "recovered": 6,
   "provenance": {
-   "measured": 1499,
-   "unsourced": 832,
-   "missing:not_recorded": 22,
-   "stale:team_changed": 112,
-   "missing:no_prior_season": 150,
+   "measured": 1682,
+   "unsourced": 652,
+   "missing:not_recorded": 34,
+   "stale:team_changed": 145,
+   "missing:no_prior_season": 186,
    "measured:2024": 14,
-   "missing:no_team_context": 16,
+   "missing:no_team_context": 22,
    "measured:2025": 7
   },
   "bio_provenance": {
@@ -508,19 +508,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 26,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 597.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 79.11,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 114.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -895,19 +901,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 33,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 640.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 96.557,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 98.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -1382,19 +1394,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 24,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 481.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 93.281,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 70.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -1979,19 +1997,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 582.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 90.792,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 102.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -2559,18 +2583,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_attempts": {
      "value": 545.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 95.025,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 72.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -2842,19 +2872,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 624.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 78.689,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 137.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -3128,18 +3164,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_attempts": {
      "value": 484.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 96.161,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 79.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -3314,19 +3356,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 624.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 89.297,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 117.0,
+     "categorical": "same",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -3409,19 +3457,25 @@
      "note": "describes PHI, player now on NE"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 34,
+     "provenance": "stale:team_changed",
+     "note": "describes PHI, player now on NE"
     },
     "team_pass_attempts": {
      "value": 497.0,
      "provenance": "stale:team_changed",
      "note": "describes PHI, player now on NE"
     },
+    "route_participation": {
+     "value": 95.484,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 113.0,
+     "categorical": "same",
+     "provenance": "stale:team_changed",
+     "note": "describes PHI, player now on NE"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -3781,19 +3835,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 10,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 584.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 77.743,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 74.0,
+     "categorical": "same",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -3874,19 +3934,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 37,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 582.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 83.67,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 68.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -3966,19 +4032,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 29,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 591.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 92.617,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 92.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -4058,19 +4130,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 422.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 95.064,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 39.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -4701,19 +4779,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 33,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 640.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 87.925,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 185.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -4985,19 +5069,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 17,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 558.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 83.028,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 62.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -5165,19 +5255,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 30,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 515.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 94.374,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 64.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -5264,19 +5360,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 26,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 597.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 83.368,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 166.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -5356,19 +5458,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 34,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 497.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 90.226,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 121.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -5548,19 +5656,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 582.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 95.477,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 172.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -5640,19 +5754,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 22,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 526.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 85.417,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 140.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -5733,18 +5853,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_attempts": {
      "value": 493.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 94.286,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 36.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -6005,19 +6131,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 27,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 574.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 91.489,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 85.0,
+     "categorical": "same",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -6098,18 +6230,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_attempts": {
      "value": 469.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 76.08,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 99.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -6651,19 +6789,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 41,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 569.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 89.655,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 122.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -6928,19 +7072,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 13,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 546.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 88.824,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 111.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -7021,19 +7171,25 @@
      "note": "describes MIA, player now on DEN"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 36,
+     "provenance": "stale:team_changed",
+     "note": "describes MIA, player now on DEN"
     },
     "team_pass_attempts": {
      "value": 479.0,
      "provenance": "stale:team_changed",
      "note": "describes MIA, player now on DEN"
     },
+    "route_participation": {
+     "value": 80.368,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 65.0,
+     "categorical": "less",
+     "provenance": "stale:team_changed",
+     "note": "describes MIA, player now on DEN"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -7478,19 +7634,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 27,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 574.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 43.156,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 90.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -7570,19 +7732,25 @@
      "note": "describes CHI, player now on BUF"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 27,
+     "provenance": "stale:team_changed",
+     "note": "describes CHI, player now on BUF"
     },
     "team_pass_attempts": {
      "value": 574.0,
      "provenance": "stale:team_changed",
      "note": "describes CHI, player now on BUF"
     },
+    "route_participation": {
+     "value": 74.603,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 90.0,
+     "categorical": "more",
+     "provenance": "stale:team_changed",
+     "note": "describes CHI, player now on BUF"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -7666,19 +7834,25 @@
      "note": "describes TB, player now on SF"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 17,
+     "provenance": "stale:team_changed",
+     "note": "describes TB, player now on SF"
     },
     "team_pass_attempts": {
      "value": 558.0,
      "provenance": "stale:team_changed",
      "note": "describes TB, player now on SF"
     },
+    "route_participation": {
+     "value": 70.667,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 127.0,
+     "categorical": "more",
+     "provenance": "stale:team_changed",
+     "note": "describes TB, player now on SF"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -7756,19 +7930,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 489.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 71.384,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 85.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -7848,19 +8028,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 42,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 550.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 91.886,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 55.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -8030,19 +8216,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 20,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 613.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 92.188,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 104.0,
+     "categorical": "same",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -8212,19 +8404,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 32,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 648.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 76.496,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 126.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -8491,19 +8689,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 40,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 563.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 84.008,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 95.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -8581,19 +8785,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 40,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 563.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 66.434,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 91.0,
+     "categorical": "same",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -8672,18 +8882,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -9309,18 +9525,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -9398,19 +9620,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 41,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 569.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 87.205,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 122.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -9489,18 +9717,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_attempts": {
      "value": 484.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 90.385,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 141.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -9578,19 +9812,25 @@
      "note": "describes LV, player now on JAX"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 38,
+     "provenance": "stale:team_changed",
+     "note": "describes LV, player now on JAX"
     },
     "team_pass_attempts": {
      "value": 515.0,
      "provenance": "stale:team_changed",
      "note": "describes LV, player now on JAX"
     },
+    "route_participation": {
+     "value": 153.231,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 92.0,
+     "categorical": "same",
+     "provenance": "stale:team_changed",
+     "note": "describes LV, player now on JAX"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -9668,19 +9908,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 489.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 53.646,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 85.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -9853,18 +10099,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_attempts": {
      "value": 469.0,
      "provenance": "stale:team_changed",
      "note": "describes WAS, player now on SF"
     },
+    "route_participation": {
+     "value": 82.869,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 60.0,
+     "categorical": "less",
+     "provenance": "stale:team_changed",
+     "note": "describes WAS, player now on SF"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -9942,19 +10194,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 10,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 584.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 72.797,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 78.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -10223,19 +10481,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 17,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 558.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 77.636,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 127.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -10315,19 +10579,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 32,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 648.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 84.789,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 73.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -10593,19 +10863,25 @@
      "note": "describes IND, player now on PIT"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 13,
+     "provenance": "stale:team_changed",
+     "note": "describes IND, player now on PIT"
     },
     "team_pass_attempts": {
      "value": 546.0,
      "provenance": "stale:team_changed",
      "note": "describes IND, player now on PIT"
     },
+    "route_participation": {
+     "value": 89.138,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 88.0,
+     "categorical": "same",
+     "provenance": "stale:team_changed",
+     "note": "describes IND, player now on PIT"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -10867,18 +11143,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -11064,19 +11346,25 @@
      "note": "describes NE, player now on WAS"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 35,
+     "provenance": "stale:team_changed",
+     "note": "describes NE, player now on WAS"
     },
     "team_pass_attempts": {
      "value": 502.0,
      "provenance": "stale:team_changed",
      "note": "describes NE, player now on WAS"
     },
+    "route_participation": {
+     "value": 66.182,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 65.0,
+     "categorical": "less",
+     "provenance": "stale:team_changed",
+     "note": "describes NE, player now on WAS"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -11429,19 +11717,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 15,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 574.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 84.81,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 90.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -11614,19 +11908,25 @@
      "note": "describes GB, player now on NE"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 4,
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on NE"
     },
     "team_pass_attempts": {
      "value": 489.0,
      "provenance": "stale:team_changed",
      "note": "describes GB, player now on NE"
     },
+    "route_participation": {
+     "value": 76.984,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 55.0,
+     "categorical": "less",
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on NE"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -11794,19 +12094,25 @@
      "note": "describes NYG, player now on TEN"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 22,
+     "provenance": "stale:team_changed",
+     "note": "describes NYG, player now on TEN"
     },
     "team_pass_attempts": {
      "value": 526.0,
      "provenance": "stale:team_changed",
      "note": "describes NYG, player now on TEN"
     },
+    "route_participation": {
+     "value": 92.751,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 63.0,
+     "categorical": "less",
+     "provenance": "stale:team_changed",
+     "note": "describes NYG, player now on TEN"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -11981,19 +12287,25 @@
      "note": "describes NO, player now on SEA"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 29,
+     "provenance": "stale:team_changed",
+     "note": "describes NO, player now on SEA"
     },
     "team_pass_attempts": {
      "value": 591.0,
      "provenance": "stale:team_changed",
      "note": "describes NO, player now on SEA"
     },
+    "route_participation": {
+     "value": 153.177,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 156.0,
+     "categorical": "more",
+     "provenance": "stale:team_changed",
+     "note": "describes NO, player now on SEA"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -12444,19 +12756,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 489.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 58.645,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 85.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -12624,19 +12942,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 13,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 546.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 67.617,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 111.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -12805,18 +13129,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -12993,19 +13323,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 37,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 582.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 55.935,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 120.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -13288,19 +13624,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 495.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 75.957,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 59.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -13475,19 +13817,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 30,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 515.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 80.415,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 122.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -13842,19 +14190,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 39,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 570.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 57.736,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 89.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -14022,19 +14376,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 38,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 515.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 96.54,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 110.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -14297,19 +14657,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 36,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 479.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 43.373,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 100.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -14849,19 +15215,25 @@
      "note": "describes PHI, player now on CAR"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 34,
+     "provenance": "stale:team_changed",
+     "note": "describes PHI, player now on CAR"
     },
     "team_pass_attempts": {
      "value": 497.0,
      "provenance": "stale:team_changed",
      "note": "describes PHI, player now on CAR"
     },
+    "route_participation": {
+     "value": 82.578,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 121.0,
+     "categorical": "more",
+     "provenance": "stale:team_changed",
+     "note": "describes PHI, player now on CAR"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -15393,18 +15765,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -15583,18 +15961,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_attempts": {
      "value": 557.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 91.461,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 44.0,
+     "categorical": "less",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -15672,19 +16056,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 17,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 558.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 55.396,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 127.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -15763,18 +16153,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -15852,19 +16248,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 422.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 78.667,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 118.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -15943,18 +16345,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_team_context",
      "note": "player recovered from 2024; team context for that season describes a different situation"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -16032,19 +16440,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 624.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 42.553,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 137.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -16303,18 +16717,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -16393,18 +16813,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2025; team context for that season describes a different situation"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_team_context",
      "note": "player recovered from 2025; team context for that season describes a different situation"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2025; team context for that season describes a different situation"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -16483,18 +16909,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_attempts": {
      "value": 484.0,
      "provenance": "stale:team_changed",
      "note": "describes MIN, player now on LV"
     },
+    "route_participation": {
+     "value": 72.578,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 141.0,
+     "categorical": "more",
+     "provenance": "stale:team_changed",
+     "note": "describes MIN, player now on LV"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -16575,19 +17007,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 24,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 481.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 84.025,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 163.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -16666,18 +17104,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -16755,19 +17199,25 @@
      "note": "describes SF, player now on MIN"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 15,
+     "provenance": "stale:team_changed",
+     "note": "describes SF, player now on MIN"
     },
     "team_pass_attempts": {
      "value": 574.0,
      "provenance": "stale:team_changed",
      "note": "describes SF, player now on MIN"
     },
+    "route_participation": {
+     "value": 85.965,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 53.0,
+     "categorical": "less",
+     "provenance": "stale:team_changed",
+     "note": "describes SF, player now on MIN"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -16935,19 +17385,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 582.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 47.011,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 172.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -17026,18 +17482,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_team_context",
      "note": "player recovered from 2024; team context for that season describes a different situation"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -17301,19 +17763,25 @@
      "note": "describes IND, player now on NYJ"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 13,
+     "provenance": "stale:team_changed",
+     "note": "describes IND, player now on NYJ"
     },
     "team_pass_attempts": {
      "value": 546.0,
      "provenance": "stale:team_changed",
      "note": "describes IND, player now on NYJ"
     },
+    "route_participation": {
+     "value": 107.326,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 111.0,
+     "categorical": "more",
+     "provenance": "stale:team_changed",
+     "note": "describes IND, player now on NYJ"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -17392,18 +17860,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -17936,18 +18410,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -18025,19 +18505,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 36,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 479.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 65.637,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 100.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -18658,18 +19144,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -19287,19 +19779,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 24,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 481.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 59.649,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 163.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -19562,18 +20060,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "team_pass_attempts": {
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "route_participation": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "secondary_target": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "categorical": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -19651,19 +20155,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 35,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 502.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 73.085,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 102.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -19831,19 +20341,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 22,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 526.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 82.881,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 140.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -19923,19 +20439,25 @@
      "note": "describes HOU, player now on SF"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 37,
+     "provenance": "stale:team_changed",
+     "note": "describes HOU, player now on SF"
     },
     "team_pass_attempts": {
      "value": 582.0,
      "provenance": "stale:team_changed",
      "note": "describes HOU, player now on SF"
     },
+    "route_participation": {
+     "value": 57.634,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 120.0,
+     "categorical": "more",
+     "provenance": "stale:team_changed",
+     "note": "describes HOU, player now on SF"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -20014,18 +20536,24 @@
     },
     "qb_pff_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
     },
     "team_pass_attempts": {
      "value": 545.0,
      "provenance": "stale:team_changed",
      "note": "describes ATL, player now on NYG"
     },
+    "route_participation": {
+     "value": 90.081,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 112.0,
+     "categorical": "more",
+     "provenance": "stale:team_changed",
+     "note": "describes ATL, player now on NYG"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -20103,19 +20631,25 @@
      "note": "describes GB, player now on PHI"
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 4,
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on PHI"
     },
     "team_pass_attempts": {
      "value": 489.0,
      "provenance": "stale:team_changed",
      "note": "describes GB, player now on PHI"
     },
+    "route_participation": {
+     "value": 52.336,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 85.0,
+     "categorical": "more",
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on PHI"
     },
     "ol_pass_block_rank": {
      "value": null,
@@ -20193,19 +20727,25 @@
      "note": null
     },
     "qb_pff_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 10,
+     "provenance": "measured",
+     "note": null
     },
     "team_pass_attempts": {
      "value": 584.0,
      "provenance": "measured",
      "note": null
     },
+    "route_participation": {
+     "value": 42.989,
+     "provenance": "measured",
+     "note": null
+    },
     "secondary_target": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "categorical, graded by DraftLab rather than benchmarked"
+     "value": 78.0,
+     "categorical": "more",
+     "provenance": "measured",
+     "note": null
     },
     "ol_pass_block_rank": {
      "value": null,
