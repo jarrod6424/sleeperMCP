@@ -575,8 +575,8 @@ def load_te_route_participation(season: int) -> dict[str, float]:
     nflverse's participation ``route`` is the primary receiver's route type,
     not a per-player route flag. This instead measures 100 * (regular-season
     team pass plays where a TE's GSIS id appears in ``offense_players``) /
-    (team pass plays). Best-effort: {} on failure. Attribution: FTN via
-    nflverse for 2023+ (CC-BY-SA).
+    (team pass plays in games where that TE participated). Best-effort: {} on
+    failure. Attribution: FTN via nflverse for 2023+ (CC-BY-SA).
     """
     try:
         participation = nflverse_csv(
@@ -601,17 +601,21 @@ def load_te_route_participation(season: int) -> dict[str, float]:
 
         required_participation = {"nflverse_game_id", "play_id", "offense_players"}
         required_pbp = {"game_id", "play_id", "posteam"}
-        required_stats = {"player_id", "player_display_name", "position"}
+        required_stats = {"player_id", "player_display_name", "position", "team"}
         if (not required_participation <= set(participation[0])
                 or not required_pbp <= set(pbp[0])
                 or not required_stats <= set(stats_rows[0])):
             return {}
 
         te_by_gsis = {
-            row["player_id"]: _qb_name_key(row["player_display_name"])
+            row["player_id"]: {
+                "player_key": _qb_name_key(row["player_display_name"]),
+                "team": to_nflverse_team(row["team"]),
+            }
             for row in stats_rows
             if (row.get("position") or "").upper() == "TE"
             and row.get("player_id") and row.get("player_display_name")
+            and to_nflverse_team(row.get("team"))
         }
         if not te_by_gsis:
             return {}
@@ -622,24 +626,39 @@ def load_te_route_participation(season: int) -> dict[str, float]:
             if row.get("nflverse_game_id") and row.get("play_id") not in (None, "")
             and row.get("offense_players")
         }
-        team_pass_plays: dict[str, int] = defaultdict(int)
-        te_on_pass: dict[tuple[str, str], int] = defaultdict(int)
+        active_games_by_gsis: dict[str, set[str]] = defaultdict(set)
+        for row in participation:
+            game_id = row.get("nflverse_game_id")
+            if not game_id:
+                continue
+            for gsis_id in (row.get("offense_players") or "").replace(";", " ").split():
+                if gsis_id in te_by_gsis:
+                    active_games_by_gsis[gsis_id].add(game_id)
+
+        team_pass_plays: dict[tuple[str, str], int] = defaultdict(int)
+        te_on_pass: dict[str, int] = defaultdict(int)
         for row in pbp:
             team = to_nflverse_team(row["posteam"])
-            offense_players = participation_by_play.get((row["game_id"], str(row["play_id"])))
-            if not team or not offense_players:
+            game_id = row["game_id"]
+            if not team or not game_id:
                 continue
-            team_pass_plays[team] += 1
-            for gsis_id in offense_players.replace(";", " ").split():
-                key = te_by_gsis.get(gsis_id)
-                if key:
-                    te_on_pass[(key, team)] += 1
+            team_pass_plays[(game_id, team)] += 1
+            offense_players = participation_by_play.get((game_id, str(row["play_id"])))
+            if offense_players:
+                for gsis_id in offense_players.replace(";", " ").split():
+                    if gsis_id in te_by_gsis:
+                        te_on_pass[gsis_id] += 1
 
         player_totals: dict[str, dict[str, int]] = defaultdict(
             lambda: {"team_pass_plays": 0, "on_pass": 0})
-        for (key, team), on_pass in te_on_pass.items():
-            player_totals[key]["team_pass_plays"] += team_pass_plays[team]
-            player_totals[key]["on_pass"] += on_pass
+        for gsis_id, te in te_by_gsis.items():
+            key = te["player_key"]
+            team = te["team"]
+            player_totals[key]["team_pass_plays"] += sum(
+                team_pass_plays[(game_id, team)]
+                for game_id in active_games_by_gsis[gsis_id]
+            )
+            player_totals[key]["on_pass"] += te_on_pass[gsis_id]
         return _route_rates_from_events([
             {"player_key": key, **totals} for key, totals in player_totals.items()
         ])
@@ -832,14 +851,14 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                 if a["position"] != "QB":
                     continue
                 hit = None
+                qb_name_key = _qb_name_key(a["name"])
                 for k in name_keys(a["name"]):
                     if k in qbr:
                         hit = qbr[k]
                         break
                     # also try _qb_name_key form
-                    kk = _qb_name_key(a["name"])
-                    if kk in qbr:
-                        hit = qbr[kk]
+                    if qb_name_key in qbr:
+                        hit = qbr[qb_name_key]
                         break
                 if hit:
                     a["qbr_rank"] = hit["rank"]
@@ -1070,6 +1089,8 @@ def _gap_note(src: str | None) -> str:
         # RB's three (rz_touch_share / gl_carry_share / neutral_run_rate) and
         # QB's three are COMPUTABLE today, so they ship note: null instead.
         return "available from nflverse play-by-play; not yet implemented"
+    if src == "nflverse:injuries":
+        return "categorical; sourced via nflverse injuries, not cohort-benchmarked"
     if src == "fantasyfootballcalculator":
         return "use get_adp from the MCP server"
     return "unavailable"

@@ -32,3 +32,9 @@ def test_qbr_factors_computable() -> None:
 def test_qbr_factors_are_rank_kind() -> None:
     for fid in ("qbr_rank", "qb_qbr_rank"):
         assert bb.FACTOR_KIND.get(fid) == "rank", fid
+
+
+def test_injury_data_source_has_categorical_gap_note() -> None:
+    assert bb._gap_note("nflverse:injuries") == (
+        "categorical; sourced via nflverse injuries, not cohort-benchmarked"
+    )

@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-11T14:31:22+00:00",
+  "generated_at": "2026-08-11T14:42:19+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -314,7 +314,7 @@
           "source": "nflverse:injuries",
           "benchmark": null,
           "dispersion": null,
-          "note": "unavailable"
+          "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
       "computed": 9,
@@ -485,7 +485,7 @@
           "source": "nflverse:injuries",
           "benchmark": null,
           "dispersion": null,
-          "note": "unavailable"
+          "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
       "computed": 9,
@@ -620,7 +620,7 @@
           "source": "nflverse:injuries",
           "benchmark": null,
           "dispersion": null,
-          "note": "unavailable"
+          "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
       "computed": 5,
@@ -760,15 +760,15 @@
           "factor_id": "route_participation",
           "source": "nflverse:participation",
           "benchmark": {
-            "std": 82.066,
-            "half": 84.814,
-            "ppr": 86.781
+            "std": 85.621,
+            "half": 90.547,
+            "ppr": 92.514
           },
           "dispersion": {
             "seasons": 10,
-            "sd": 7.862,
-            "se": 2.486,
-            "relative_se": 0.029
+            "sd": 7.425,
+            "se": 2.348,
+            "relative_se": 0.026
           },
           "note": null
         },
@@ -791,7 +791,7 @@
           "source": "nflverse:injuries",
           "benchmark": null,
           "dispersion": null,
-          "note": "unavailable"
+          "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
       "computed": 9,

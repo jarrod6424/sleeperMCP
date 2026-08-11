@@ -21,17 +21,25 @@ def test_te_on_field_for_pass_counts_toward_rate() -> None:
     assert rates["n.gray"] == 50.0
 
 
-def test_loader_uses_all_joined_team_pass_plays_as_denominator() -> None:
+def test_loader_scopes_team_pass_denominator_to_te_active_games() -> None:
     participation = [
         {"nflverse_game_id": "2024_01_BAL_KC", "play_id": "1",
          "offense_players": "00-0030506;00-0030001"},
         {"nflverse_game_id": "2024_01_BAL_KC", "play_id": "2",
+         "offense_players": "00-0030001"},
+        {"nflverse_game_id": "2024_02_KC_CIN", "play_id": "1",
+         "offense_players": "00-0030001"},
+        {"nflverse_game_id": "2024_02_KC_CIN", "play_id": "2",
          "offense_players": "00-0030001"},
     ]
     pbp = [
         {"season_type": "REG", "play_type": "pass", "game_id": "2024_01_BAL_KC",
          "play_id": "1", "posteam": "KC"},
         {"season_type": "REG", "play_type": "pass", "game_id": "2024_01_BAL_KC",
+         "play_id": "2", "posteam": "KC"},
+        {"season_type": "REG", "play_type": "pass", "game_id": "2024_02_KC_CIN",
+         "play_id": "1", "posteam": "KC"},
+        {"season_type": "REG", "play_type": "pass", "game_id": "2024_02_KC_CIN",
          "play_id": "2", "posteam": "KC"},
     ]
     stats = [{"player_id": "00-0030506", "player_display_name": "Travis Kelce",
