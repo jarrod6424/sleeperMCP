@@ -168,11 +168,9 @@ DRAFTLAB_PUBLISHED = {
     # different video than the QB/WR/TE set above (an FSE league-winner
     # analysis), transcribed by hand the same way. Same caveat applies: a
     # reference, not ground truth. Three of DraftLab's RB factors —
-    # yards_per_carry, yards_per_touch, team_wins — have no counterpart here
-    # yet; this pipeline has no yardage or team win/loss aggregation, only
-    # attempts/receptions/tds. Not included until that's built.
     "RB": {"touches": 21.5, "rush_attempts": 17.3, "targets": 5.4,
-           "receptions": 4.25, "touchdowns": 0.98, "off_ppg_rank": 9.5},
+           "receptions": 4.25, "touchdowns": 0.98, "off_ppg_rank": 9.5,
+           "yards_per_carry": 4.89, "yards_per_touch": 5.82, "team_wins": 9.85},
 }
 
 # Not every factor is a per-game rate. Getting this wrong silently divides a
@@ -193,6 +191,7 @@ FACTOR_KIND = {
     "qb_pff_rank": "rank",
     "route_participation": "rate",  # already a percentage
     "secondary_target": "season_total",
+    "team_wins": "season_total",
     "rz_touch_share": "rate",      # already a percentage, see load_rb_pbp_season
     "gl_carry_share": "rate",
     "neutral_run_rate": "rate",
@@ -213,8 +212,11 @@ FACTORS = {
     ],
     "RB": [
         ("touches", "nflverse"), ("rush_attempts", "nflverse"),
-        ("targets", "nflverse"), ("touchdowns", "nflverse"),
+        ("targets", "nflverse"), ("receptions", "nflverse"),
+        ("touchdowns", "nflverse"),
         ("off_ppg_rank", "nflverse"), ("ol_run_block_rank", "licensed:PFF"),
+        ("yards_per_carry", "nflverse"), ("yards_per_touch", "nflverse"),
+        ("team_wins", "nflverse:schedules"),
         ("rz_touch_share", "nflverse:pbp"), ("snap_share", "nflverse"),
         ("gl_carry_share", "nflverse:pbp"), ("neutral_run_rate", "nflverse:pbp"),
         ("archetype", "categorical"), ("injury_concern", "nflverse:injuries"),
@@ -251,6 +253,8 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "route_participation",
               # WR-only, from same-team target competition (see _attach_wr_secondary_targets)
               "secondary_target",
+              # RB-only efficiency + team context (see per_game / load_team_wins_season)
+              "yards_per_carry", "yards_per_touch", "team_wins",
               # RB-only, from play-by-play (see load_rb_pbp_season)
               "rz_touch_share", "gl_carry_share", "neutral_run_rate"}
 
@@ -641,6 +645,41 @@ def _route_rates_from_events(events: list[dict]) -> dict[str, float]:
     return out
 
 
+def load_team_wins_season(season: int) -> dict[str, int]:
+    """Regular-season win totals by team from nflverse schedules/games.csv.
+
+    Best-effort: {} on failure. Ties and unfinished scores are skipped.
+    """
+    rows = nflverse_csv(
+        "schedules", "games.csv", ttl=STATS_CACHE_TTL, prefer_gzip=False,
+    )
+    if not rows:
+        return {}
+    wins: dict[str, int] = defaultdict(int)
+    for r in rows:
+        try:
+            if int(float(r.get("season") or 0)) != season:
+                continue
+        except (TypeError, ValueError):
+            continue
+        if (r.get("game_type") or "REG") != "REG":
+            continue
+        home = (r.get("home_team") or "").upper()
+        away = (r.get("away_team") or "").upper()
+        if not home or not away:
+            continue
+        try:
+            hs = float(r.get("home_score") or "")
+            as_ = float(r.get("away_score") or "")
+        except (TypeError, ValueError):
+            continue
+        if hs > as_:
+            wins[home] += 1
+        elif as_ > hs:
+            wins[away] += 1
+    return dict(wins)
+
+
 def load_route_participation(season: int, position: str) -> dict[str, float]:
     """Route participation % proxy from pbp_participation + play-by-play.
 
@@ -852,13 +891,16 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                 "name": name, "position": pos, "season": season, "games": 0,
                 "team": team,
                 "attempts": 0.0, "passing_tds": 0.0, "carries": 0.0,
-                "rushing_tds": 0.0, "targets": 0.0, "receptions": 0.0,
+                "rushing_tds": 0.0, "rushing_yards": 0.0,
+                "targets": 0.0, "receptions": 0.0, "receiving_yards": 0.0,
                 "receiving_tds": 0.0, "fp_std": 0.0, "fp_ppr": 0.0,
             })
             a["games"] += 1
             for src, dst in (("attempts", "attempts"), ("passing_tds", "passing_tds"),
                              ("carries", "carries"), ("rushing_tds", "rushing_tds"),
+                             ("rushing_yards", "rushing_yards"),
                              ("targets", "targets"), ("receptions", "receptions"),
+                             ("receiving_yards", "receiving_yards"),
                              ("receiving_tds", "receiving_tds"),
                              ("fantasy_points", "fp_std"),
                              ("fantasy_points_ppr", "fp_ppr")):
@@ -870,6 +912,20 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
             a["snap_share"] = statistics.mean(pcts) if pcts else None
 
         _attach_team_context(list(agg.values()), team_weeks, team_totals)
+
+        team_wins = load_team_wins_season(season)
+        if team_wins:
+            matched = 0
+            for a in agg.values():
+                team = a.get("team")
+                if team and team in team_wins:
+                    a["team_wins"] = team_wins[team]
+                    matched += 1
+            print(f"  schedules {season}: matched {matched}/{len(agg)} players "
+                  f"to team_wins", file=sys.stderr)
+        else:
+            print(f"  WARNING: no schedules for {season}; team_wins left unset",
+                  file=sys.stderr)
 
         # QB-only play-by-play enrichment. Best-effort: an empty fetch (network
         # blocked, or this season's file not yet published) must not silently
@@ -1030,6 +1086,21 @@ def _attach_team_context(season_rows: list[dict], team_weeks: dict, team_totals:
             p["rec_td_rank"] = td_rank.get(id(p))
 
 
+def _efficiency_yards(ps: dict) -> dict[str, float]:
+    """Season-efficiency rates from aggregated yardage and volume."""
+    carries = ps.get("carries") or 0
+    rec = ps.get("receptions") or 0
+    rush_yd = ps.get("rushing_yards") or 0
+    rec_yd = ps.get("receiving_yards") or 0
+    out: dict[str, float] = {}
+    if carries > 0:
+        out["yards_per_carry"] = rush_yd / carries
+    touches = carries + rec
+    if touches > 0:
+        out["yards_per_touch"] = (rush_yd + rec_yd) / touches
+    return out
+
+
 def per_game(ps: dict) -> dict:
     """Factor values for one player-season, scaled per FACTOR_KIND."""
     g = max(ps["games"], 1)
@@ -1044,6 +1115,7 @@ def per_game(ps: dict) -> dict:
         "touchdowns": (ps["rushing_tds"] + ps["receiving_tds"]) / g,
         "touches": (ps["carries"] + ps["receptions"]) / g,
     }}
+    out.update(_efficiency_yards(ps))
     # QB play-by-play factors: only present when load_qb_pbp_season actually
     # matched this player, scaled by the games pbp saw him play (not the
     # weekly-stats game count -- the two sources can disagree by a game or two

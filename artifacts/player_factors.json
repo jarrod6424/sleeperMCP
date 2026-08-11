@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "generated_at": "2026-08-11T17:57:19+00:00",
+ "generated_at": "2026-08-11T18:39:56+00:00",
  "basis": {
   "player_factors": "measured:2025",
   "universe": "FantasyFootballCalculator ADP 2026",
@@ -31,14 +31,14 @@
   "team_changed": 39,
   "recovered": 6,
   "provenance": {
-   "measured": 1681,
+   "measured": 1903,
    "unsourced": 652,
-   "missing:not_recorded": 35,
-   "stale:team_changed": 145,
-   "missing:no_prior_season": 186,
-   "measured:2024": 14,
-   "missing:no_team_context": 22,
-   "measured:2025": 7
+   "missing:not_recorded": 39,
+   "stale:team_changed": 159,
+   "missing:no_prior_season": 214,
+   "measured:2024": 15,
+   "missing:no_team_context": 24,
+   "measured:2025": 8
   },
   "bio_provenance": {
    "measured": 218
@@ -215,6 +215,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 4.529,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 1.059,
      "provenance": "measured",
@@ -229,6 +234,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.033,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.747,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 9,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.374,
@@ -309,6 +329,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 4.647,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.647,
      "provenance": "measured",
@@ -323,6 +348,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.15,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 6.279,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 8,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.485,
@@ -700,6 +740,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.706,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 1.176,
      "provenance": "measured",
@@ -714,6 +759,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.907,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.32,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 8,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.409,
@@ -1101,6 +1161,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 6.0,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 1.0,
      "provenance": "measured",
@@ -1115,6 +1180,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.865,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.148,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.529,
@@ -1295,6 +1375,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.882,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.941,
      "provenance": "measured",
@@ -1309,6 +1394,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.195,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.419,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 8,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.401,
@@ -2091,6 +2191,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.941,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.824,
      "provenance": "measured",
@@ -2105,6 +2210,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.246,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.591,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.312,
@@ -2484,6 +2604,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 4.188,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.75,
      "provenance": "measured",
@@ -2498,6 +2623,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.672,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 6.026,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.314,
@@ -2772,6 +2912,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.312,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.562,
      "provenance": "measured",
@@ -2786,6 +2931,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.071,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.457,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.344,
@@ -2964,6 +3124,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 3.235,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.588,
      "provenance": "measured",
@@ -2978,6 +3143,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.665,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.115,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.413,
@@ -3258,6 +3438,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.4,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.933,
      "provenance": "measured",
@@ -3272,6 +3457,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.97,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.485,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 9,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.356,
@@ -3547,6 +3747,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 3.556,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.556,
      "provenance": "measured",
@@ -3561,6 +3766,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.395,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.724,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.183,
@@ -3739,6 +3959,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 4.059,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.647,
      "provenance": "measured",
@@ -3753,6 +3978,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.392,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.837,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 6,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.348,
@@ -4220,6 +4460,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.824,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.294,
      "provenance": "measured",
@@ -4234,6 +4479,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.647,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.194,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 14,
+     "provenance": "stale:team_changed",
+     "note": "describes SEA, player now on KC"
     },
     "rz_touch_share": {
      "value": 0.23,
@@ -4314,6 +4574,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.118,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.765,
      "provenance": "measured",
@@ -4328,6 +4593,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.834,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.197,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.323,
@@ -4406,6 +4686,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.25,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.312,
      "provenance": "measured",
@@ -4420,6 +4705,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.383,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.072,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.266,
@@ -4496,6 +4796,11 @@
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "receptions": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "touchdowns": {
      "value": null,
      "provenance": "missing:no_prior_season",
@@ -4510,6 +4815,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "yards_per_touch": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "team_wins": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "rz_touch_share": {
      "value": null,
@@ -4683,6 +5003,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.188,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.812,
      "provenance": "measured",
@@ -4697,6 +5022,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.766,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.662,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.402,
@@ -5159,6 +5499,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 3.0,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.875,
      "provenance": "measured",
@@ -5173,6 +5518,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.059,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.936,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.169,
@@ -5945,6 +6305,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.118,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.765,
      "provenance": "measured",
@@ -5959,6 +6324,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.258,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.726,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 13,
+     "provenance": "stale:team_changed",
+     "note": "describes JAX, player now on NO"
     },
     "rz_touch_share": {
      "value": 0.338,
@@ -6035,6 +6415,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.125,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.625,
      "provenance": "measured",
@@ -6049,6 +6434,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.874,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.393,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.243,
@@ -6412,6 +6812,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.857,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.5,
      "provenance": "measured",
@@ -6426,6 +6831,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.596,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 3.898,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 5,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.288,
@@ -6502,6 +6922,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 3.0,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.4,
      "provenance": "measured",
@@ -6516,6 +6941,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.399,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.261,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 8,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.155,
@@ -6879,6 +7319,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.667,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.467,
      "provenance": "measured",
@@ -6893,6 +7338,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.699,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.151,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 13,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.139,
@@ -7261,6 +7721,11 @@
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "receptions": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "touchdowns": {
      "value": null,
      "provenance": "missing:no_prior_season",
@@ -7275,6 +7740,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "yards_per_touch": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "team_wins": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "rz_touch_share": {
      "value": null,
@@ -7351,6 +7831,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.059,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.588,
      "provenance": "measured",
@@ -7365,6 +7850,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.061,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.265,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.256,
@@ -7538,6 +8038,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.412,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.471,
      "provenance": "measured",
@@ -7552,6 +8057,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.532,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.989,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 9,
+     "provenance": "stale:team_changed",
+     "note": "describes DET, player now on HOU"
     },
     "rz_touch_share": {
      "value": 0.201,
@@ -8308,6 +8828,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.941,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.294,
      "provenance": "measured",
@@ -8322,6 +8847,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.471,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.684,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.215,
@@ -8971,6 +9511,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.294,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.412,
      "provenance": "measured",
@@ -8985,6 +9530,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.559,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.993,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 8,
+     "provenance": "stale:team_changed",
+     "note": "describes CAR, player now on PIT"
     },
     "rz_touch_share": {
      "value": 0.286,
@@ -9156,6 +9716,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.1,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.4,
      "provenance": "measured",
@@ -9170,6 +9735,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.046,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.933,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": null,
@@ -9248,6 +9828,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.286,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.643,
      "provenance": "measured",
@@ -9262,6 +9847,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.638,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.852,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.205,
@@ -9338,6 +9938,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.5,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.5,
      "provenance": "measured",
@@ -9352,6 +9957,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.54,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.143,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 10,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.285,
@@ -9428,6 +10048,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.0,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.267,
      "provenance": "measured",
@@ -9442,6 +10067,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.813,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.476,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 8,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.179,
@@ -11046,6 +11686,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.059,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.294,
      "provenance": "measured",
@@ -11060,6 +11705,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.633,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.064,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.243,
@@ -11436,6 +12096,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.529,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.471,
      "provenance": "measured",
@@ -11450,6 +12115,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.6,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.745,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 5,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.229,
@@ -11526,6 +12206,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.765,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.706,
      "provenance": "measured",
@@ -11540,6 +12225,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.699,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.642,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.245,
@@ -11621,6 +12321,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.333,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.25,
      "provenance": "measured",
@@ -11635,6 +12340,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.152,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.669,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 9,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.141,
@@ -11998,6 +12718,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.471,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.353,
      "provenance": "measured",
@@ -12012,6 +12737,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.145,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.111,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.144,
@@ -12377,6 +13117,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.875,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.375,
      "provenance": "measured",
@@ -12391,6 +13136,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.767,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.676,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 9,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.222,
@@ -12565,6 +13325,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.353,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.235,
      "provenance": "measured",
@@ -12579,6 +13344,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.333,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.593,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 8,
+     "provenance": "stale:team_changed",
+     "note": "describes TB, player now on WAS"
     },
     "rz_touch_share": {
      "value": 0.204,
@@ -13032,6 +13812,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 4.294,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.471,
      "provenance": "measured",
@@ -13046,6 +13831,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.711,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.471,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 10,
+     "provenance": "stale:team_changed",
+     "note": "describes PIT, player now on TB"
     },
     "rz_touch_share": {
      "value": 0.253,
@@ -14002,6 +14802,11 @@
      "provenance": "measured:2024",
      "note": "no 2025 season; measured from 2024"
     },
+    "receptions": {
+     "value": 1.0,
+     "provenance": "measured:2024",
+     "note": "no 2025 season; measured from 2024"
+    },
     "touchdowns": {
      "value": 0.0,
      "provenance": "measured:2024",
@@ -14016,6 +14821,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": null,
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
+    },
+    "yards_per_touch": {
+     "value": null,
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
+    },
+    "team_wins": {
+     "value": null,
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
     },
     "rz_touch_share": {
      "value": null,
@@ -14092,6 +14912,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.25,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.75,
      "provenance": "measured",
@@ -14106,6 +14931,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.967,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.284,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.342,
@@ -14280,6 +15120,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.471,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.118,
      "provenance": "measured",
@@ -14294,6 +15139,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.348,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.25,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 12,
+     "provenance": "stale:team_changed",
+     "note": "describes SF, player now on ATL"
     },
     "rz_touch_share": {
      "value": 0.349,
@@ -14561,6 +15421,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.083,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.083,
      "provenance": "measured",
@@ -14575,6 +15440,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 7.091,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 7.246,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 3,
+     "provenance": "stale:team_changed",
+     "note": "describes ARI, player now on KC"
     },
     "rz_touch_share": {
      "value": 0.057,
@@ -15488,6 +16368,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.462,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.154,
      "provenance": "measured",
@@ -15502,6 +16387,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.915,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.109,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 6,
+     "provenance": "stale:team_changed",
+     "note": "describes KC, player now on DET"
     },
     "rz_touch_share": {
      "value": 0.142,
@@ -15578,6 +16478,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.824,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.471,
      "provenance": "measured",
@@ -15592,6 +16497,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.594,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 3.885,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 8,
+     "provenance": "stale:team_changed",
+     "note": "describes ATL, player now on ARI"
     },
     "rz_touch_share": {
      "value": 0.243,
@@ -15668,6 +16588,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 3.462,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.154,
      "provenance": "measured",
@@ -15682,6 +16607,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.931,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.675,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.183,
@@ -15862,6 +16802,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 3.0,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.091,
      "provenance": "measured",
@@ -15876,6 +16821,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.595,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.006,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 6,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.172,
@@ -16530,6 +17490,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.25,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.5,
      "provenance": "measured",
@@ -16544,6 +17509,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.464,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.609,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 5,
+     "provenance": "stale:team_changed",
+     "note": "describes WAS, player now on JAX"
     },
     "rz_touch_share": {
      "value": 0.236,
@@ -16620,6 +17600,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.5,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.312,
      "provenance": "measured",
@@ -16634,6 +17619,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.587,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.141,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.265,
@@ -17289,6 +18289,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.692,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.077,
      "provenance": "measured",
@@ -17303,6 +18308,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.78,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.941,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 8,
+     "provenance": "stale:team_changed",
+     "note": "describes BAL, player now on LAC"
     },
     "rz_touch_share": {
      "value": 0.086,
@@ -17571,6 +18591,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.4,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.267,
      "provenance": "measured",
@@ -17585,6 +18610,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.205,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.849,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.157,
@@ -17949,6 +18989,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.2,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.133,
      "provenance": "measured",
@@ -17963,6 +19008,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.651,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.879,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 13,
+     "provenance": "stale:team_changed",
+     "note": "describes JAX, player now on PHI"
     },
     "rz_touch_share": {
      "value": 0.095,
@@ -18039,6 +19099,11 @@
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "receptions": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "touchdowns": {
      "value": null,
      "provenance": "missing:no_prior_season",
@@ -18053,6 +19118,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "yards_per_touch": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "team_wins": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "rz_touch_share": {
      "value": null,
@@ -18129,6 +19209,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.2,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.2,
      "provenance": "measured",
@@ -18143,6 +19228,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 3.395,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 3.436,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.037,
@@ -18687,6 +19787,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.588,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.118,
      "provenance": "measured",
@@ -18701,6 +19806,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.741,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.309,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.063,
@@ -18777,6 +19897,11 @@
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "receptions": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "touchdowns": {
      "value": null,
      "provenance": "missing:no_prior_season",
@@ -18791,6 +19916,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "yards_per_touch": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "team_wins": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "rz_touch_share": {
      "value": null,
@@ -18867,6 +20007,11 @@
      "provenance": "measured:2025",
      "note": "no 2025 season; measured from 2025"
     },
+    "receptions": {
+     "value": 1.0,
+     "provenance": "measured:2025",
+     "note": "no 2025 season; measured from 2025"
+    },
     "touchdowns": {
      "value": 0.0,
      "provenance": "measured:2025",
@@ -18881,6 +20026,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": null,
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
+    },
+    "yards_per_touch": {
+     "value": null,
+     "provenance": "missing:not_recorded",
+     "note": "player matched but factor absent from source"
+    },
+    "team_wins": {
+     "value": null,
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2025; team context for that season describes a different situation"
     },
     "rz_touch_share": {
      "value": null,
@@ -18957,6 +20117,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.2,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.133,
      "provenance": "measured",
@@ -18971,6 +20136,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 2.692,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.551,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 5,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.11,
@@ -19047,6 +20227,11 @@
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "receptions": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "touchdowns": {
      "value": null,
      "provenance": "missing:no_prior_season",
@@ -19061,6 +20246,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "yards_per_touch": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "team_wins": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "rz_touch_share": {
      "value": null,
@@ -19233,6 +20433,11 @@
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "receptions": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "touchdowns": {
      "value": null,
      "provenance": "missing:no_prior_season",
@@ -19247,6 +20452,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "yards_per_touch": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "team_wins": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "rz_touch_share": {
      "value": null,
@@ -19323,6 +20543,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.1,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.3,
      "provenance": "measured",
@@ -19337,6 +20562,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.167,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 6.718,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 8,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.049,
@@ -19413,6 +20653,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.133,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.2,
      "provenance": "measured",
@@ -19427,6 +20672,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.548,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.644,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 6,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.121,
@@ -19503,6 +20763,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.231,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.308,
      "provenance": "measured",
@@ -19517,6 +20782,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.148,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 4.556,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.209,
@@ -19593,6 +20873,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 0.5,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.0,
      "provenance": "measured",
@@ -19607,6 +20892,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 5.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 5.4,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 11,
+     "provenance": "stale:team_changed",
+     "note": "describes PHI, player now on CAR"
     },
     "rz_touch_share": {
      "value": 0.02,
@@ -19683,6 +20983,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 1.412,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.294,
      "provenance": "measured",
@@ -19697,6 +21002,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 4.0,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 6.257,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.259,
@@ -19873,6 +21193,11 @@
      "provenance": "measured",
      "note": null
     },
+    "receptions": {
+     "value": 2.667,
+     "provenance": "measured",
+     "note": null
+    },
     "touchdowns": {
      "value": 0.667,
      "provenance": "measured",
@@ -19887,6 +21212,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": 2.969,
+     "provenance": "measured",
+     "note": null
+    },
+    "yards_per_touch": {
+     "value": 3.325,
+     "provenance": "measured",
+     "note": null
+    },
+    "team_wins": {
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "rz_touch_share": {
      "value": 0.038,
@@ -19963,6 +21303,11 @@
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "receptions": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "touchdowns": {
      "value": null,
      "provenance": "missing:no_prior_season",
@@ -19977,6 +21322,21 @@
      "value": null,
      "provenance": "unsourced",
      "note": "not freely redistributable (PFF); manual import"
+    },
+    "yards_per_carry": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "yards_per_touch": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "team_wins": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "rz_touch_share": {
      "value": null,
