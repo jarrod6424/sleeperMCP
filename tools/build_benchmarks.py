@@ -247,8 +247,7 @@ FACTORS = {
         ("route_participation", "nflverse:participation"),
         ("ol_pass_block_rank", "nflverse:pbp:proxy"),
         ("neutral_pace_rank", "nflverse:pbp"),
-        ("inline_pct", "licensed:PFF"),
-        ("yprr_rank", "licensed:PFF"), ("injury_concern", "nflverse:injuries"),
+        ("yprr", "nflverse:participation"), ("injury_concern", "nflverse:injuries"),
     ],
 }
 
@@ -267,7 +266,7 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               "secondary_target",
               # WR-only volume efficiency (see _efficiency_yards / load_player_seasons)
               "yards_per_catch", "yac_per_reception", "target_share",
-              # WR-only, from participation on_pass counts (see load_route_details)
+              # TE/WR, from participation on_pass counts (see load_route_details)
               "yprr",
               # WR-only, from Next Gen Stats receiving (see load_ngs_catch_pct)
               "reception_perception",
@@ -1215,7 +1214,7 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                     if "rate" in d:
                         a["route_participation"] = d["rate"]
                         matched += 1
-                    if pos == "WR":
+                    if pos in ("WR", "TE"):
                         yprr = compute_yprr(
                             a.get("receiving_yards") or 0.0, int(d.get("on_pass") or 0),
                         )
@@ -1223,9 +1222,7 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                             a["yprr"] = yprr
                             yprr_matched += 1
                 msg = (f"  participation {season}: matched {matched}/{len(pos_rows)} "
-                       f"{pos}s to route_participation")
-                if pos == "WR":
-                    msg += f", {yprr_matched} to yprr"
+                       f"{pos}s to route_participation, {yprr_matched} to yprr")
                 print(msg, file=sys.stderr)
             else:
                 print(f"  WARNING: no participation for {season} {pos}; "
