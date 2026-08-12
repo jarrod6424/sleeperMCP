@@ -109,11 +109,10 @@ TEAM_CONTEXT = {"off_ppg_rank", "team_pass_attempts", "team_pass_att_rank",
                 "rz_touch_share", "gl_carry_share", "neutral_run_rate",
                 "team_wins"}
 
-# "Finished top-12" is a season-total ranking question, not a per-game one —
-# it is asking where a player landed in the field, the same way "RB12" is
-# used in the FSE video transcript DraftLab's RB benchmarks came from. Ranked
-# on full PPR since that is this league's format (see `basis.format` below).
-TOP_N_FINISH = 12
+# A positional finish is a season-total ranking question, not a per-game one:
+# it asks where a player landed in the full field. Ranked on full PPR since
+# that is this league's format (see `basis.format` below).
+FINISH_CUTOFFS = (5, 8, 12)
 # A one-game garbage-time cameo shouldn't occupy a "finish" the way a full
 # healthy season does. Half a season is the bar for the ranking to mean
 # anything.
@@ -286,13 +285,13 @@ def recover(season: int, name: str) -> dict | None:
     }
 
 
-def top12_finishers_by_season(seasons: list[int]) -> dict[tuple[int, str], set[str]]:
-    """(season, position) -> name_keys of that season's top-12 fantasy scorers.
+def finishers_by_season(
+    seasons: list[int], top_n: int,
+) -> dict[tuple[int, str], set[str]]:
+    """(season, position) -> name_keys of that season's top-N fantasy scorers.
 
     Ranked by full-PPR season total among players with at least
-    FINISH_MIN_GAMES played. This is DraftLab's own vocabulary — his RB
-    archetype split (classifyRb) distinguishes a player with zero, one, or
-    2+ prior top-12 finishes, and had no source for the count before this.
+    FINISH_MIN_GAMES played.
     """
     rows = load_player_seasons(seasons)
     by_season_pos: dict[tuple[int, str], list[dict]] = defaultdict(list)
@@ -304,16 +303,16 @@ def top12_finishers_by_season(seasons: list[int]) -> dict[tuple[int, str], set[s
     for key, pool in by_season_pos.items():
         pool.sort(key=lambda r: fantasy_points(r, "ppr"), reverse=True)
         keys: set[str] = set()
-        for r in pool[:TOP_N_FINISH]:
+        for r in pool[:top_n]:
             keys.update(name_keys(r["name"]))
         out[key] = keys
     return out
 
 
-def top12_finish_history(name: str, position: str,
-                         finishers: dict[tuple[int, str], set[str]],
-                         seasons: list[int]) -> dict:
-    """How many of `seasons` this player finished top-12 at `position`, and which."""
+def finish_history(name: str, position: str,
+                   finishers: dict[tuple[int, str], set[str]],
+                   seasons: list[int]) -> dict:
+    """How many ranked `seasons` this player hit at `position`, and which."""
     keys = set(name_keys(name))
     hit = [s for s in seasons if keys & finishers.get((s, position), set())]
     return {"count": len(hit), "seasons": sorted(hit)}
@@ -499,7 +498,8 @@ def classify_miss(measured: dict, all_pos: dict, name: str, position: str) -> st
 
 
 def build_player(p: dict, measured: dict, sid: str | None,
-                 sleeper_players: dict, finishers: dict[tuple[int, str], set[str]],
+                 sleeper_players: dict,
+                 finishers: dict[int, dict[tuple[int, str], set[str]]],
                  finish_seasons: list[int], projection_ranks: dict[str, int],
                  projection_points: dict[str, float], team_pos_ranks: dict[tuple[str, str], int],
                  injury_map: dict[str, str],
@@ -612,9 +612,16 @@ def build_player(p: dict, measured: dict, sid: str | None,
         factors[fid] = {"value": round(raw, 3), "provenance": "measured", "note": None}
 
     bio = bio_for(sid, sleeper_players)
-    finish = top12_finish_history(p.get("name") or "", pos, finishers, finish_seasons)
-    bio["top12_finish_count"] = finish["count"]
-    bio["top12_finish_seasons"] = finish["seasons"]
+    histories = {
+        top_n: finish_history(
+            p.get("name") or "", pos, finishers[top_n], finish_seasons
+        )
+        for top_n in FINISH_CUTOFFS
+    }
+    for top_n, history in histories.items():
+        bio[f"top{top_n}_finish_count"] = history["count"]
+        bio[f"top{top_n}_finish_seasons"] = history["seasons"]
+    assert set(histories[5]["seasons"]) <= set(histories[8]["seasons"])
 
     # Team-position rank (WR/RB only) is a team-context field, same trap as
     # off_ppg_rank etc: it describes the roster a player was on THIS season,
@@ -713,9 +720,12 @@ def build_player_factors_artifact(
     sleeper_players = load_sleeper_players()
     print(f"  bio: {len(sleeper_players)} players in the Sleeper map")
 
-    print(f"  top-12 finishes: ranking {DEFAULT_SEASONS[0]}-{DEFAULT_SEASONS[-1]} "
+    print(f"  positional finishes: ranking {DEFAULT_SEASONS[0]}-{DEFAULT_SEASONS[-1]} "
           f"by full-PPR season total ...")
-    finishers = top12_finishers_by_season(DEFAULT_SEASONS)
+    finishers = {
+        top_n: finishers_by_season(DEFAULT_SEASONS, top_n)
+        for top_n in FINISH_CUTOFFS
+    }
 
     print(f"  projections: summing {adp_season} weekly projections (Sleeper, "
           f"undocumented/best-effort) ...")
@@ -762,7 +772,10 @@ def build_player_factors_artifact(
             prov[f["provenance"]] += 1
 
     bio_prov = Counter(p["bio"]["provenance"] for p in players)
-    finish_counts = Counter(p["bio"]["top12_finish_count"] for p in players)
+    finish_counts = {
+        top_n: Counter(p["bio"][f"top{top_n}_finish_count"] for p in players)
+        for top_n in FINISH_CUTOFFS
+    }
     team_pos_rank_prov = Counter(
         p["team_position_rank_provenance"] for p in players if p["position"] in ("WR", "RB")
     )
@@ -788,9 +801,11 @@ def build_player_factors_artifact(
         print("\nbio provenance:")
         for k, n in bio_prov.most_common():
             print(f"  {k:28} {n}")
-        print("\ntop-12 finish history (count of players by number of prior finishes):")
-        for k in sorted(finish_counts):
-            print(f"  {k} finish(es): {finish_counts[k]} players")
+        for top_n in FINISH_CUTOFFS:
+            print(f"\ntop-{top_n} finish history "
+                  "(count of players by number of prior finishes):")
+            for k in sorted(finish_counts[top_n]):
+                print(f"  {k} finish(es): {finish_counts[top_n][k]} players")
 
         print(f"\nteam position rank (WR by targets, RB by touches): "
               f"{lead_options} team-lead options (rank 1)")
@@ -818,7 +833,7 @@ def build_player_factors_artifact(
 
     by_pos = Counter(p["position"] for p in players)
     return {
-        "schema_version": 4,
+        "schema_version": 5,
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "basis": {
             "player_factors": f"measured:{season}",
@@ -826,8 +841,12 @@ def build_player_factors_artifact(
             "format": fmt,
             "off_ppg_rank_source": _OFF_PPG_SOURCE["used"],
             "bio": "Sleeper player map (age, years_exp, metadata.rookie_year)",
+            "top5_finish_window": f"{DEFAULT_SEASONS[0]}-{DEFAULT_SEASONS[-1]}, full PPR, "
+                                  f"min {FINISH_MIN_GAMES} games played",
+            "top8_finish_window": f"{DEFAULT_SEASONS[0]}-{DEFAULT_SEASONS[-1]}, full PPR, "
+                                  f"min {FINISH_MIN_GAMES} games played",
             "top12_finish_window": f"{DEFAULT_SEASONS[0]}-{DEFAULT_SEASONS[-1]}, full PPR, "
-                                   f"min {FINISH_MIN_GAMES} games played",
+                                   f"min {FINISH_MIN_GAMES} games played (migration only)",
             "adp": f"{fetched.get('format_used')} (format-matched, for QB accuracy); "
                    f"RB/WR/TE depth backfilled from ppr where the {fetched.get('format_used')} "
                    f"pool ran out — see each player's adp_source",
@@ -855,7 +874,15 @@ def build_player_factors_artifact(
             "recovered": len(recovered),
             "provenance": dict(prov),
             "bio_provenance": dict(bio_prov),
-            "top12_finish_counts": {str(k): v for k, v in sorted(finish_counts.items())},
+            "top5_finish_counts": {
+                str(k): v for k, v in sorted(finish_counts[5].items())
+            },
+            "top8_finish_counts": {
+                str(k): v for k, v in sorted(finish_counts[8].items())
+            },
+            "top12_finish_counts": {
+                str(k): v for k, v in sorted(finish_counts[12].items())
+            },
             "projected_rank_missing": sum(1 for p in players if p["projected_rank"] is None),
             "team_position_rank_provenance": dict(team_pos_rank_prov),
             "team_lead_options": lead_options,
@@ -864,9 +891,9 @@ def build_player_factors_artifact(
             "Factor values are format-invariant; only benchmark cohorts vary by "
             "scoring format. Check each factor's provenance before use: "
             "'measured' is current, 'stale:team_changed' describes the player's "
-            "previous offence, 'missing:*' has no value at all. bio.top12_finish_count "
-            "is a measurement (how many times), not a classification — DraftLab's "
-            "classifyRb turns it into an archetype (schema_version 2, added for that). "
+            "previous offence, 'missing:*' has no value at all. bio.top5_finish_count "
+            "and bio.top8_finish_count are at-position measurements, not "
+            "classifications (schema_version 5; top-12 retained for migration). "
             "projected_rank (schema_version 3) is Sleeper's own undocumented weekly "
             "projections summed for the season and ranked within position — an honest "
             "mechanical fallback, not a licensed projection."
