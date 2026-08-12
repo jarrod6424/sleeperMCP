@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-11T19:51:10+00:00",
+  "generated_at": "2026-08-12T02:37:21+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -241,10 +241,19 @@
         },
         {
           "factor_id": "ol_pass_block_rank",
-          "source": "licensed:PFF",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "not freely redistributable (PFF); manual import"
+          "source": "nflverse:pbp:proxy",
+          "benchmark": {
+            "std": 11.485,
+            "half": 11.485,
+            "ppr": 11.485
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 5.058,
+            "se": 1.525,
+            "relative_se": 0.133
+          },
+          "note": null
         },
         {
           "factor_id": "deep_ball_attempts",
@@ -295,13 +304,6 @@
           "note": null
         },
         {
-          "factor_id": "adp",
-          "source": "fantasyfootballcalculator",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "use get_adp from the MCP server"
-        },
-        {
           "factor_id": "neutral_pace_rank",
           "source": "nflverse:pbp",
           "benchmark": {
@@ -332,8 +334,8 @@
           "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
-      "computed": 9,
-      "total": 13
+      "computed": 10,
+      "total": 12
     },
     "RB": {
       "factors": [
@@ -435,10 +437,19 @@
         },
         {
           "factor_id": "ol_run_block_rank",
-          "source": "licensed:PFF",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "not freely redistributable (PFF); manual import"
+          "source": "nflverse:pbp:proxy",
+          "benchmark": {
+            "std": 13.273,
+            "half": 12.97,
+            "ppr": 13.939
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 3.796,
+            "se": 1.145,
+            "relative_se": 0.088
+          },
+          "note": null
         },
         {
           "factor_id": "yards_per_carry",
@@ -567,7 +578,7 @@
           "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
-      "computed": 13,
+      "computed": 14,
       "total": 16
     },
     "WR": {
@@ -750,10 +761,35 @@
         },
         {
           "factor_id": "ol_pass_block_rank",
-          "source": "licensed:PFF",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "not freely redistributable (PFF); manual import"
+          "source": "nflverse:pbp:proxy",
+          "benchmark": {
+            "std": 13.091,
+            "half": 13.697,
+            "ppr": 13.697
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 6.078,
+            "se": 1.833,
+            "relative_se": 0.134
+          },
+          "note": null
+        },
+        {
+          "factor_id": "neutral_pace_rank",
+          "source": "nflverse:pbp",
+          "benchmark": {
+            "std": 14.697,
+            "half": 15.727,
+            "ppr": 15.727
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 4.73,
+            "se": 1.426,
+            "relative_se": 0.091
+          },
+          "note": null
         },
         {
           "factor_id": "yprr",
@@ -802,8 +838,8 @@
           "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
-      "computed": 13,
-      "total": 16
+      "computed": 15,
+      "total": 17
     },
     "TE": {
       "factors": [
@@ -952,6 +988,38 @@
           "note": null
         },
         {
+          "factor_id": "ol_pass_block_rank",
+          "source": "nflverse:pbp:proxy",
+          "benchmark": {
+            "std": 14.727,
+            "half": 14.667,
+            "ppr": 14.848
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 5.684,
+            "se": 1.714,
+            "relative_se": 0.117
+          },
+          "note": null
+        },
+        {
+          "factor_id": "neutral_pace_rank",
+          "source": "nflverse:pbp",
+          "benchmark": {
+            "std": 14.939,
+            "half": 14.667,
+            "ppr": 15.485
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 7.098,
+            "se": 2.14,
+            "relative_se": 0.146
+          },
+          "note": null
+        },
+        {
           "factor_id": "inline_pct",
           "source": "licensed:PFF",
           "benchmark": null,
@@ -973,8 +1041,8 @@
           "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
-      "computed": 9,
-      "total": 12
+      "computed": 11,
+      "total": 14
     }
   }
 }

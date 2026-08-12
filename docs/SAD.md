@@ -63,20 +63,25 @@ ITEM-005 adds public nflverse sources for WR ceiling factors:
 | WR | `yprr` | nflverse participation data (`receiving_yards / on_pass` routes; FTN attribution, CC-BY-SA) |
 | WR | `reception_perception` | nflverse Next Gen Stats receiving (`catch_percentage`, week 0) |
 
-Remaining gaps are blocked on licensed data, not an engineering gap:
+ITEM-006 replaces the previously licensed OL rank gaps with public,
+team-level nflverse play-by-play outcome proxies:
 
-**Blocked — licensed data:**
-- QB: ol_pass_block_rank (PFF), pass_dvoa_rank (FTN)
-- RB: ol_run_block_rank (PFF)
-- WR: ol_pass_block_rank (PFF)
-- TE: inline_pct, yprr_rank (PFF)
+| Position | Factor | Source |
+|---|---|---|
+| QB/WR/TE | `ol_pass_block_rank` | Pressure-rate rank (lowest rate = 1), `nflverse:pbp:proxy` |
+| RB | `ol_run_block_rank` | Stuff-rate rank (lowest rate = 1), `nflverse:pbp:proxy` |
+| WR/TE | `neutral_pace_rank` | Team neutral-pace rank from nflverse play-by-play |
 
-Every blocked factor already has a real DraftLab benchmark waiting; only
-the per-player input is missing, and no pipeline work closes that without
-a license.
+These are team outcome proxies, not PFF film grades. They are measured in
+the generated artifacts and explicitly labelled as proxies downstream.
 
-Also still unsourced on the DraftLab side (not sleeperMCP buildables):
-QB `adp` as a ceiling factor input.
+**Still blocked — licensed data:**
+- QB: `pass_dvoa_rank` (FTN)
+- TE: `inline_pct`, `yprr_rank` (PFF)
+
+QB `adp` has been removed from ceiling factors to avoid double-counting the
+market signal already used by ValueScore. The MCP `get_adp` tool and player
+market fields remain unchanged.
 
 ## MCP tool surface
 
