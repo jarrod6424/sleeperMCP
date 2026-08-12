@@ -1214,19 +1214,18 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                     if "rate" in d:
                         a["route_participation"] = d["rate"]
                         matched += 1
-                    if pos in ("WR", "TE"):
-                        yprr = compute_yprr(
-                            a.get("receiving_yards") or 0.0, int(d.get("on_pass") or 0),
-                        )
-                        if yprr is not None:
-                            a["yprr"] = yprr
-                            yprr_matched += 1
+                    yprr = compute_yprr(
+                        a.get("receiving_yards") or 0.0, int(d.get("on_pass") or 0),
+                    )
+                    if yprr is not None:
+                        a["yprr"] = yprr
+                        yprr_matched += 1
                 msg = (f"  participation {season}: matched {matched}/{len(pos_rows)} "
                        f"{pos}s to route_participation, {yprr_matched} to yprr")
                 print(msg, file=sys.stderr)
             else:
                 print(f"  WARNING: no participation for {season} {pos}; "
-                      f"route_participation left unset", file=sys.stderr)
+                      f"route_participation and yprr left unset", file=sys.stderr)
 
         qbr = load_espn_qbr_season(season)
         if qbr:
