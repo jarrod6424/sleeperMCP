@@ -1,6 +1,6 @@
 {
  "schema_version": 4,
- "generated_at": "2026-08-11T19:49:00+00:00",
+ "generated_at": "2026-08-12T02:40:39+00:00",
  "basis": {
   "player_factors": "measured:2025",
   "universe": "FantasyFootballCalculator ADP 2026",
@@ -31,13 +31,13 @@
   "team_changed": 39,
   "recovered": 6,
   "provenance": {
-   "measured": 2265,
-   "unsourced": 472,
+   "measured": 2494,
+   "unsourced": 242,
    "missing:not_recorded": 67,
-   "stale:team_changed": 159,
-   "missing:no_prior_season": 274,
+   "stale:team_changed": 218,
+   "missing:no_prior_season": 309,
    "measured:2024": 15,
-   "missing:no_team_context": 24,
+   "missing:no_team_context": 33,
    "measured:2025": 8
   },
   "bio_provenance": {
@@ -127,9 +127,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 10,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.25,
@@ -145,11 +145,6 @@
      "value": 6.5,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 21,
@@ -231,9 +226,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 24,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 5.033,
@@ -345,9 +340,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 13,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 5.15,
@@ -455,9 +450,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 24,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.154,
@@ -473,11 +468,6 @@
      "value": 5.077,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 14,
@@ -584,9 +574,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 7,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 3.712,
@@ -666,9 +661,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 21,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 4.118,
@@ -684,11 +679,6 @@
      "value": 5.882,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 8,
@@ -771,9 +761,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 10,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.907,
@@ -880,9 +870,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 16,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.5,
@@ -898,11 +888,6 @@
      "value": 5.75,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 15,
@@ -1012,9 +997,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 16,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 15,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.288,
@@ -1100,9 +1090,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 15,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.882,
@@ -1118,11 +1108,6 @@
      "value": 6.941,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 17,
@@ -1207,9 +1192,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 22,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.865,
@@ -1314,9 +1299,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 19,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 2.571,
@@ -1332,11 +1317,6 @@
      "value": 4.429,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 29,
@@ -1421,9 +1401,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 5.195,
@@ -1560,9 +1540,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 6,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 3.799,
@@ -1646,9 +1631,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 5,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 4.062,
@@ -1664,11 +1649,6 @@
      "value": 5.188,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 12,
@@ -1745,9 +1725,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 4.412,
@@ -1763,11 +1743,6 @@
      "value": 6.706,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 19,
@@ -1842,9 +1817,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 13,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.889,
@@ -1860,11 +1835,6 @@
      "value": 7.444,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 9,
@@ -1943,9 +1913,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 5.294,
@@ -1961,11 +1931,6 @@
      "value": 6.765,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 11,
@@ -2047,9 +2012,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 27,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 4.714,
@@ -2065,11 +2030,6 @@
      "value": 7.714,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 5,
@@ -2178,9 +2138,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 25,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 24,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.493,
@@ -2267,9 +2232,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 5.246,
@@ -2374,9 +2339,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 4.824,
@@ -2392,11 +2357,6 @@
      "value": 5.765,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 7,
@@ -2475,9 +2435,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 30,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 4.0,
@@ -2493,11 +2453,6 @@
      "value": 6.312,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 18,
@@ -2577,9 +2532,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 25,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 2.294,
@@ -2595,11 +2550,6 @@
      "value": 5.882,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 24,
@@ -2680,9 +2630,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 31,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 5.672,
@@ -2818,9 +2768,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 12,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 2,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.406,
@@ -2898,9 +2853,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 28,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.214,
@@ -2916,11 +2871,6 @@
      "value": 5.5,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 13,
@@ -3003,9 +2953,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 30,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.071,
@@ -3143,9 +3093,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 15,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 17,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.493,
@@ -3230,9 +3185,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 32,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.665,
@@ -3338,9 +3293,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 4.235,
@@ -3356,11 +3311,6 @@
      "value": 6.412,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 1,
@@ -3469,9 +3419,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 32,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 26,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.992,
@@ -3559,9 +3514,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 9,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.97,
@@ -3697,9 +3652,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 15,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 17,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.447,
@@ -3813,9 +3773,14 @@
      "note": "describes PHI, player now on NE"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 5,
+     "provenance": "stale:team_changed",
+     "note": "describes PHI, player now on NE"
+    },
+    "neutral_pace_rank": {
+     "value": 12,
+     "provenance": "stale:team_changed",
+     "note": "describes PHI, player now on NE"
     },
     "yprr": {
      "value": 2.259,
@@ -3898,9 +3863,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 27,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.395,
@@ -4007,9 +3972,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 1,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 4.059,
@@ -4025,11 +3990,6 @@
      "value": 4.706,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 4,
@@ -4110,9 +4070,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 1,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.392,
@@ -4246,9 +4206,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 27,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 5,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.302,
@@ -4360,9 +4325,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 8,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 6,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.45,
@@ -4473,9 +4443,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 9,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 27,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.107,
@@ -4586,9 +4561,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 24,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.734,
@@ -4671,9 +4651,9 @@
      "note": "describes SEA, player now on KC"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 29,
+     "provenance": "stale:team_changed",
+     "note": "describes SEA, player now on KC"
     },
     "yards_per_carry": {
      "value": 4.647,
@@ -4785,9 +4765,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 5,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.834,
@@ -4897,9 +4877,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 18,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.383,
@@ -5008,8 +4988,8 @@
     },
     "ol_run_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yards_per_carry": {
      "value": null,
@@ -5112,9 +5092,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 9,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.545,
@@ -5130,11 +5110,6 @@
      "value": 3.545,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 27,
@@ -5214,9 +5189,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.766,
@@ -5350,9 +5325,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 16,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 15,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.636,
@@ -5432,9 +5412,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 6,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.118,
@@ -5450,11 +5430,6 @@
      "value": 4.412,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 23,
@@ -5529,9 +5504,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 20,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 4.133,
@@ -5547,11 +5522,6 @@
      "value": 4.933,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 3,
@@ -5655,9 +5625,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 1,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.88,
@@ -5740,9 +5715,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.059,
@@ -5876,9 +5851,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 18,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 20,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.95,
@@ -5996,9 +5976,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 7,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.943,
@@ -6109,9 +6094,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 5,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.1,
@@ -6194,9 +6184,9 @@
      "note": "describes ARI, player now on MIN"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 23,
+     "provenance": "stale:team_changed",
+     "note": "describes ARI, player now on MIN"
     },
     "deep_ball_attempts": {
      "value": 3.2,
@@ -6212,11 +6202,6 @@
      "value": 5.0,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 25,
@@ -6322,9 +6307,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 25,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 24,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.89,
@@ -6435,9 +6425,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 28,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 13,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.203,
@@ -6548,9 +6543,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 29,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 32,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.995,
@@ -6636,9 +6636,9 @@
      "note": "describes JAX, player now on NO"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 19,
+     "provenance": "stale:team_changed",
+     "note": "describes JAX, player now on NO"
     },
     "yards_per_carry": {
      "value": 4.258,
@@ -6746,9 +6746,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 8,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.874,
@@ -6882,9 +6882,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 4,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.708,
@@ -6995,9 +7000,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 19,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 29,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.541,
@@ -7097,6 +7107,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 26,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 28,
+     "provenance": "measured",
+     "note": null
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -7173,9 +7193,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 28,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.596,
@@ -7283,9 +7303,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 21,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.399,
@@ -7390,9 +7410,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 8,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": null,
@@ -7408,11 +7428,6 @@
      "value": null,
      "provenance": "missing:not_recorded",
      "note": "player matched but factor absent from source"
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 6,
@@ -7505,6 +7520,16 @@
     },
     "route_participation": {
      "value": 93.944,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_pass_block_rank": {
+     "value": 23,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 25,
      "provenance": "measured",
      "note": null
     },
@@ -7610,9 +7635,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 30,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 18,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.517,
@@ -7695,9 +7725,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 19,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.699,
@@ -7802,9 +7832,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 17,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 2.846,
@@ -7820,11 +7850,6 @@
      "value": 6.231,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 16,
@@ -7928,9 +7953,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 17,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 16,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.214,
@@ -8042,9 +8072,14 @@
      "note": "describes MIA, player now on DEN"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 11,
+     "provenance": "stale:team_changed",
+     "note": "describes MIA, player now on DEN"
+    },
+    "neutral_pace_rank": {
+     "value": 31,
+     "provenance": "stale:team_changed",
+     "note": "describes MIA, player now on DEN"
     },
     "yprr": {
      "value": 2.316,
@@ -8128,8 +8163,8 @@
     },
     "ol_run_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yards_per_carry": {
      "value": null,
@@ -8237,9 +8272,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 5.061,
@@ -8342,9 +8377,9 @@
      "note": "describes GB, player now on MIA"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 20,
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on MIA"
     },
     "deep_ball_attempts": {
      "value": 2.0,
@@ -8360,11 +8395,6 @@
      "value": 3.25,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 3,
@@ -8444,9 +8474,9 @@
      "note": "describes DET, player now on HOU"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 24,
+     "provenance": "stale:team_changed",
+     "note": "describes DET, player now on HOU"
     },
     "yards_per_carry": {
      "value": 4.532,
@@ -8580,9 +8610,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 4,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.872,
@@ -8693,9 +8728,14 @@
      "note": "describes CHI, player now on BUF"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 4,
+     "provenance": "stale:team_changed",
+     "note": "describes CHI, player now on BUF"
+    },
+    "neutral_pace_rank": {
+     "value": 7,
+     "provenance": "stale:team_changed",
+     "note": "describes CHI, player now on BUF"
     },
     "yprr": {
      "value": null,
@@ -8810,9 +8850,14 @@
      "note": "describes TB, player now on SF"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 1,
+     "provenance": "stale:team_changed",
+     "note": "describes TB, player now on SF"
+    },
+    "neutral_pace_rank": {
+     "value": 4,
+     "provenance": "stale:team_changed",
+     "note": "describes TB, player now on SF"
     },
     "yprr": {
      "value": 1.736,
@@ -8921,9 +8966,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 20,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.692,
@@ -9034,9 +9084,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 2,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 10,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.876,
@@ -9132,6 +9187,16 @@
     },
     "route_participation": {
      "value": 67.38,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_pass_block_rank": {
+     "value": 4,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 7,
      "provenance": "measured",
      "note": null
     },
@@ -9237,9 +9302,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 3,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 1,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.724,
@@ -9324,9 +9394,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.471,
@@ -9460,9 +9530,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 23,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 25,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.698,
@@ -9540,9 +9615,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 18,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 2.438,
@@ -9558,11 +9633,6 @@
      "value": 5.188,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 20,
@@ -9653,6 +9723,16 @@
     },
     "route_participation": {
      "value": 89.31,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_pass_block_rank": {
+     "value": 17,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 16,
      "provenance": "measured",
      "note": null
     },
@@ -9760,9 +9840,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 14,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 19,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.622,
@@ -9871,9 +9956,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 14,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 19,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.229,
@@ -9983,8 +10073,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -10067,9 +10162,9 @@
      "note": "describes CAR, player now on PIT"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 6,
+     "provenance": "stale:team_changed",
+     "note": "describes CAR, player now on PIT"
     },
     "yards_per_carry": {
      "value": 4.559,
@@ -10172,9 +10267,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 22,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.235,
@@ -10190,11 +10285,6 @@
      "value": 3.882,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 30,
@@ -10272,9 +10362,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 15,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 5.046,
@@ -10384,9 +10474,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.638,
@@ -10494,9 +10584,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 17,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.54,
@@ -10604,9 +10694,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 6,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.813,
@@ -10674,7 +10764,7 @@
    "matched": false,
    "recovered_from_season": null,
    "bio": {
-    "age": 21,
+    "age": 22,
     "seasons_in_league": 0,
     "draft_year": 2026,
     "status": "Active",
@@ -10741,8 +10831,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -10851,9 +10946,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 30,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 18,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.659,
@@ -10962,9 +11062,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 32,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 26,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.442,
@@ -11073,9 +11178,14 @@
      "note": "describes LV, player now on JAX"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 26,
+     "provenance": "stale:team_changed",
+     "note": "describes LV, player now on JAX"
+    },
+    "neutral_pace_rank": {
+     "value": 28,
+     "provenance": "stale:team_changed",
+     "note": "describes LV, player now on JAX"
     },
     "yprr": {
      "value": 1.677,
@@ -11184,9 +11294,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 20,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.01,
@@ -11282,6 +11397,16 @@
     },
     "route_participation": {
      "value": 85.496,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_pass_block_rank": {
+     "value": 20,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 3,
      "provenance": "measured",
      "note": null
     },
@@ -11389,9 +11514,14 @@
      "note": "describes WAS, player now on SF"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 19,
+     "provenance": "stale:team_changed",
+     "note": "describes WAS, player now on SF"
+    },
+    "neutral_pace_rank": {
+     "value": 29,
+     "provenance": "stale:team_changed",
+     "note": "describes WAS, player now on SF"
     },
     "yprr": {
      "value": 1.879,
@@ -11500,9 +11630,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 27,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 5,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.4,
@@ -11582,9 +11717,9 @@
      "note": "describes LV, player now on NYJ"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 26,
+     "provenance": "stale:team_changed",
+     "note": "describes LV, player now on NYJ"
     },
     "deep_ball_attempts": {
      "value": 2.933,
@@ -11600,11 +11735,6 @@
      "value": 4.867,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 28,
@@ -11695,6 +11825,16 @@
     },
     "route_participation": {
      "value": 75.731,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_pass_block_rank": {
+     "value": 31,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 22,
      "provenance": "measured",
      "note": null
     },
@@ -11802,9 +11942,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 1,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.481,
@@ -11915,9 +12060,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 23,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 25,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.671,
@@ -11995,9 +12145,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.286,
@@ -12013,11 +12163,6 @@
      "value": 7.214,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 25,
@@ -12109,6 +12254,16 @@
     },
     "route_participation": {
      "value": 92.177,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_pass_block_rank": {
+     "value": 25,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 24,
      "provenance": "measured",
      "note": null
     },
@@ -12214,9 +12369,14 @@
      "note": "describes IND, player now on PIT"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 17,
+     "provenance": "stale:team_changed",
+     "note": "describes IND, player now on PIT"
+    },
+    "neutral_pace_rank": {
+     "value": 16,
+     "provenance": "stale:team_changed",
+     "note": "describes IND, player now on PIT"
     },
     "yprr": {
      "value": 1.516,
@@ -12316,6 +12476,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 12,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 2,
+     "provenance": "measured",
+     "note": null
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -12392,9 +12562,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 8,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.633,
@@ -12529,8 +12699,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -12615,9 +12790,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 2,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.0,
@@ -12633,11 +12808,6 @@
      "value": 5.25,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 10,
@@ -12747,9 +12917,14 @@
      "note": "describes NE, player now on WAS"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 21,
+     "provenance": "stale:team_changed",
+     "note": "describes NE, player now on WAS"
+    },
+    "neutral_pace_rank": {
+     "value": 8,
+     "provenance": "stale:team_changed",
+     "note": "describes NE, player now on WAS"
     },
     "yprr": {
      "value": 2.783,
@@ -12832,9 +13007,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 20,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.6,
@@ -12942,9 +13117,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 15,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.699,
@@ -13057,9 +13232,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.152,
@@ -13119,7 +13294,7 @@
    "adp": 116.9,
    "adp_round_pick": "10.09",
    "adp_source": "2qb",
-   "projected_rank": 1164,
+   "projected_rank": 1163,
    "projected_points": 0.0,
    "team_position_rank": 2,
    "team_position_rank_provenance": "measured",
@@ -13193,9 +13368,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 13,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 9,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.97,
@@ -13294,6 +13474,16 @@
     },
     "route_participation": {
      "value": 88.817,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_pass_block_rank": {
+     "value": 5,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 12,
      "provenance": "measured",
      "note": null
     },
@@ -13399,9 +13589,14 @@
      "note": "describes GB, player now on NE"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 20,
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on NE"
+    },
+    "neutral_pace_rank": {
+     "value": 3,
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on NE"
     },
     "yprr": {
      "value": 1.866,
@@ -13484,9 +13679,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 5,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 5.145,
@@ -13620,9 +13815,14 @@
      "note": "describes NYG, player now on TEN"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 28,
+     "provenance": "stale:team_changed",
+     "note": "describes NYG, player now on TEN"
+    },
+    "neutral_pace_rank": {
+     "value": 13,
+     "provenance": "stale:team_changed",
+     "note": "describes NYG, player now on TEN"
     },
     "yprr": {
      "value": 2.032,
@@ -13723,6 +13923,16 @@
     },
     "route_participation": {
      "value": 84.986,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_pass_block_rank": {
+     "value": 13,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 9,
      "provenance": "measured",
      "note": null
     },
@@ -13828,9 +14038,14 @@
      "note": "describes NO, player now on SEA"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 9,
+     "provenance": "stale:team_changed",
+     "note": "describes NO, player now on SEA"
+    },
+    "neutral_pace_rank": {
+     "value": 27,
+     "provenance": "stale:team_changed",
+     "note": "describes NO, player now on SEA"
     },
     "yprr": {
      "value": 1.5,
@@ -13913,9 +14128,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.767,
@@ -14043,6 +14258,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 24,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 14,
+     "provenance": "measured",
+     "note": null
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -14121,9 +14346,9 @@
      "note": "describes TB, player now on WAS"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 21,
+     "provenance": "stale:team_changed",
+     "note": "describes TB, player now on WAS"
     },
     "yards_per_carry": {
      "value": 4.333,
@@ -14227,8 +14452,8 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "deep_ball_attempts": {
      "value": null,
@@ -14244,11 +14469,6 @@
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": null,
@@ -14352,9 +14572,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 20,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.438,
@@ -14451,6 +14676,16 @@
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
     },
+    "ol_pass_block_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -14487,7 +14722,7 @@
    "matched": true,
    "recovered_from_season": null,
    "bio": {
-    "age": 24,
+    "age": 25,
     "seasons_in_league": 3,
     "draft_year": 2023,
     "status": "Active",
@@ -14553,9 +14788,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 17,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 16,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.705,
@@ -14638,9 +14878,9 @@
      "note": "describes PIT, player now on TB"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 17,
+     "provenance": "stale:team_changed",
+     "note": "describes PIT, player now on TB"
     },
     "yards_per_carry": {
      "value": 4.711,
@@ -14775,8 +15015,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -14859,8 +15104,8 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
     },
     "deep_ball_attempts": {
      "value": null,
@@ -14876,11 +15121,6 @@
      "value": null,
      "provenance": "missing:not_recorded",
      "note": "player matched but factor absent from source"
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": null,
@@ -14984,9 +15224,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 8,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 6,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.526,
@@ -15095,6 +15340,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 27,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 5,
+     "provenance": "measured",
+     "note": null
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -15174,9 +15429,9 @@
      "note": "describes ATL, player now on LV"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 12,
+     "provenance": "stale:team_changed",
+     "note": "describes ATL, player now on LV"
     },
     "deep_ball_attempts": {
      "value": 2.5,
@@ -15192,11 +15447,6 @@
      "value": 3.8,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 2,
@@ -15300,9 +15550,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 10,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 21,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.014,
@@ -15382,9 +15637,9 @@
      "note": "describes MIA, player now on ATL"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 11,
+     "provenance": "stale:team_changed",
+     "note": "describes MIA, player now on ATL"
     },
     "deep_ball_attempts": {
      "value": 2.357,
@@ -15400,11 +15655,6 @@
      "value": 4.571,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 31,
@@ -15508,9 +15758,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 18,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 20,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.454,
@@ -15588,9 +15843,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.889,
@@ -15606,11 +15861,6 @@
      "value": 4.0,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 2,
@@ -15689,8 +15939,8 @@
     },
     "ol_run_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
     },
     "yards_per_carry": {
      "value": null,
@@ -15798,9 +16048,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 29,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.967,
@@ -15936,9 +16186,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 22,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 30,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.98,
@@ -16021,9 +16276,9 @@
      "note": "describes SF, player now on ATL"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 22,
+     "provenance": "stale:team_changed",
+     "note": "describes SF, player now on ATL"
     },
     "yards_per_carry": {
      "value": 4.348,
@@ -16157,9 +16412,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 26,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 28,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.247,
@@ -16237,9 +16497,9 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 31,
+     "provenance": "measured",
+     "note": null
     },
     "deep_ball_attempts": {
      "value": 3.5,
@@ -16255,11 +16515,6 @@
      "value": 2.375,
      "provenance": "measured",
      "note": null
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": 22,
@@ -16337,9 +16592,9 @@
      "note": "describes ARI, player now on KC"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 25,
+     "provenance": "stale:team_changed",
+     "note": "describes ARI, player now on KC"
     },
     "yards_per_carry": {
      "value": 7.091,
@@ -16473,9 +16728,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 11,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 31,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 3.861,
@@ -16574,6 +16834,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 10,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 21,
+     "provenance": "measured",
+     "note": null
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -16669,6 +16939,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 21,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 8,
+     "provenance": "measured",
+     "note": null
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -16759,6 +17039,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 14,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 19,
+     "provenance": "measured",
+     "note": null
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -16831,8 +17121,8 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "deep_ball_attempts": {
      "value": null,
@@ -16848,11 +17138,6 @@
      "value": null,
      "provenance": "missing:no_prior_season",
      "note": "no measured season for this player"
-    },
-    "adp": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "use get_adp from the MCP server"
     },
     "neutral_pace_rank": {
      "value": null,
@@ -16943,6 +17228,16 @@
      "value": 63.13,
      "provenance": "measured",
      "note": null
+    },
+    "ol_pass_block_rank": {
+     "value": 24,
+     "provenance": "stale:team_changed",
+     "note": "describes BAL, player now on NYG"
+    },
+    "neutral_pace_rank": {
+     "value": 14,
+     "provenance": "stale:team_changed",
+     "note": "describes BAL, player now on NYG"
     },
     "inline_pct": {
      "value": null,
@@ -17046,9 +17341,14 @@
      "note": "describes PHI, player now on CAR"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 5,
+     "provenance": "stale:team_changed",
+     "note": "describes PHI, player now on CAR"
+    },
+    "neutral_pace_rank": {
+     "value": 12,
+     "provenance": "stale:team_changed",
+     "note": "describes PHI, player now on CAR"
     },
     "yprr": {
      "value": 1.156,
@@ -17145,6 +17445,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 22,
+     "provenance": "stale:team_changed",
+     "note": "describes TEN, player now on WAS"
+    },
+    "neutral_pace_rank": {
+     "value": 30,
+     "provenance": "stale:team_changed",
+     "note": "describes TEN, player now on WAS"
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -17238,6 +17548,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 15,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 17,
+     "provenance": "measured",
+     "note": null
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -17314,9 +17634,9 @@
      "note": "describes KC, player now on DET"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 2,
+     "provenance": "stale:team_changed",
+     "note": "describes KC, player now on DET"
     },
     "yards_per_carry": {
      "value": 3.915,
@@ -17424,9 +17744,9 @@
      "note": "describes ATL, player now on ARI"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 13,
+     "provenance": "stale:team_changed",
+     "note": "describes ATL, player now on ARI"
     },
     "yards_per_carry": {
      "value": 3.594,
@@ -17534,9 +17854,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 12,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.931,
@@ -17671,8 +17991,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -17763,9 +18088,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 16,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.595,
@@ -17901,9 +18226,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 31,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 22,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.081,
@@ -18012,9 +18342,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 1,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 2.312,
@@ -18124,8 +18459,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -18234,9 +18574,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 24,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 14,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 0.759,
@@ -18346,8 +18691,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
     },
     "yprr": {
      "value": null,
@@ -18456,9 +18806,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 15,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 17,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.827,
@@ -18541,9 +18896,9 @@
      "note": "describes WAS, player now on JAX"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 20,
+     "provenance": "stale:team_changed",
+     "note": "describes WAS, player now on JAX"
     },
     "yards_per_carry": {
      "value": 4.464,
@@ -18651,9 +19006,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 26,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.587,
@@ -18788,8 +19143,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -18899,8 +19259,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2025; team context for that season describes a different situation"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2025; team context for that season describes a different situation"
     },
     "yprr": {
      "value": null,
@@ -19009,9 +19374,14 @@
      "note": "describes MIN, player now on LV"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 32,
+     "provenance": "stale:team_changed",
+     "note": "describes MIN, player now on LV"
+    },
+    "neutral_pace_rank": {
+     "value": 26,
+     "provenance": "stale:team_changed",
+     "note": "describes MIN, player now on LV"
     },
     "yprr": {
      "value": 1.118,
@@ -19123,9 +19493,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 6,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.464,
@@ -19235,8 +19610,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -19345,9 +19725,14 @@
      "note": "describes SF, player now on MIN"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 13,
+     "provenance": "stale:team_changed",
+     "note": "describes SF, player now on MIN"
+    },
+    "neutral_pace_rank": {
+     "value": 9,
+     "provenance": "stale:team_changed",
+     "note": "describes SF, player now on MIN"
     },
     "yprr": {
      "value": 1.458,
@@ -19430,9 +19815,9 @@
      "note": "describes BAL, player now on LAC"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 11,
+     "provenance": "stale:team_changed",
+     "note": "describes BAL, player now on LAC"
     },
     "yards_per_carry": {
      "value": 5.78,
@@ -19566,9 +19951,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 25,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 24,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 0.821,
@@ -19678,8 +20068,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2024; team context for that season describes a different situation"
     },
     "yprr": {
      "value": null,
@@ -19762,9 +20157,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 7,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.205,
@@ -19892,6 +20287,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 8,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 6,
+     "provenance": "measured",
+     "note": null
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -19994,9 +20399,14 @@
      "note": "describes IND, player now on NYJ"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 17,
+     "provenance": "stale:team_changed",
+     "note": "describes IND, player now on NYJ"
+    },
+    "neutral_pace_rank": {
+     "value": 16,
+     "provenance": "stale:team_changed",
+     "note": "describes IND, player now on NYJ"
     },
     "yprr": {
      "value": 1.546,
@@ -20106,8 +20516,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -20190,9 +20605,9 @@
      "note": "describes JAX, player now on PHI"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 19,
+     "provenance": "stale:team_changed",
+     "note": "describes JAX, player now on PHI"
     },
     "yards_per_carry": {
      "value": 5.651,
@@ -20301,8 +20716,8 @@
     },
     "ol_run_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yards_per_carry": {
      "value": null,
@@ -20410,9 +20825,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 4,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 3.395,
@@ -20538,6 +20953,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 32,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 26,
+     "provenance": "measured",
+     "note": null
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -20625,6 +21050,16 @@
     },
     "route_participation": {
      "value": 68.157,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_pass_block_rank": {
+     "value": 30,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 18,
      "provenance": "measured",
      "note": null
     },
@@ -20731,8 +21166,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -20841,9 +21281,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 11,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 31,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 0.932,
@@ -20942,6 +21387,16 @@
      "provenance": "measured",
      "note": null
     },
+    "ol_pass_block_rank": {
+     "value": 9,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 27,
+     "provenance": "measured",
+     "note": null
+    },
     "inline_pct": {
      "value": null,
      "provenance": "unsourced",
@@ -21018,9 +21473,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.741,
@@ -21129,8 +21584,8 @@
     },
     "ol_run_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yards_per_carry": {
      "value": null,
@@ -21239,8 +21694,8 @@
     },
     "ol_run_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_team_context",
+     "note": "player recovered from 2025; team context for that season describes a different situation"
     },
     "yards_per_carry": {
      "value": null,
@@ -21348,9 +21803,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 28,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 2.692,
@@ -21459,8 +21914,8 @@
     },
     "ol_run_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yards_per_carry": {
      "value": null,
@@ -21595,8 +22050,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -21680,8 +22140,8 @@
     },
     "ol_run_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yards_per_carry": {
      "value": null,
@@ -21789,9 +22249,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 11,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 5.167,
@@ -21899,9 +22359,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 1,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.548,
@@ -22009,9 +22469,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 27,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.148,
@@ -22071,7 +22531,7 @@
    "adp": 166.4,
    "adp_round_pick": "14.10",
    "adp_source": "ppr-backfill",
-   "projected_rank": 2979,
+   "projected_rank": 2978,
    "projected_points": 0.0,
    "team_position_rank": null,
    "team_position_rank_provenance": "stale:team_changed",
@@ -22119,9 +22579,9 @@
      "note": "describes PHI, player now on CAR"
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 30,
+     "provenance": "stale:team_changed",
+     "note": "describes PHI, player now on CAR"
     },
     "yards_per_carry": {
      "value": 5.0,
@@ -22229,9 +22689,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 3,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 4.0,
@@ -22365,9 +22825,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 6,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 23,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.184,
@@ -22454,9 +22919,9 @@
      "note": null
     },
     "ol_run_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 25,
+     "provenance": "measured",
+     "note": null
     },
     "yards_per_carry": {
      "value": 2.969,
@@ -22565,8 +23030,8 @@
     },
     "ol_run_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yards_per_carry": {
      "value": null,
@@ -22701,8 +23166,13 @@
     },
     "ol_pass_block_rank": {
      "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
+    },
+    "neutral_pace_rank": {
+     "value": null,
+     "provenance": "missing:no_prior_season",
+     "note": "no measured season for this player"
     },
     "yprr": {
      "value": null,
@@ -22811,9 +23281,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 21,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 8,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.65,
@@ -22907,6 +23382,16 @@
     },
     "route_participation": {
      "value": 51.799,
+     "provenance": "measured",
+     "note": null
+    },
+    "ol_pass_block_rank": {
+     "value": 11,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 31,
      "provenance": "measured",
      "note": null
     },
@@ -23012,9 +23497,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 28,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 13,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.355,
@@ -23125,9 +23615,14 @@
      "note": "describes HOU, player now on SF"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 8,
+     "provenance": "stale:team_changed",
+     "note": "describes HOU, player now on SF"
+    },
+    "neutral_pace_rank": {
+     "value": 6,
+     "provenance": "stale:team_changed",
+     "note": "describes HOU, player now on SF"
     },
     "yprr": {
      "value": 0.892,
@@ -23236,9 +23731,14 @@
      "note": "describes ATL, player now on NYG"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 12,
+     "provenance": "stale:team_changed",
+     "note": "describes ATL, player now on NYG"
+    },
+    "neutral_pace_rank": {
+     "value": 2,
+     "provenance": "stale:team_changed",
+     "note": "describes ATL, player now on NYG"
     },
     "yprr": {
      "value": 0.996,
@@ -23347,9 +23847,14 @@
      "note": "describes GB, player now on PHI"
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 20,
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on PHI"
+    },
+    "neutral_pace_rank": {
+     "value": 3,
+     "provenance": "stale:team_changed",
+     "note": "describes GB, player now on PHI"
     },
     "yprr": {
      "value": 1.482,
@@ -23458,9 +23963,14 @@
      "note": null
     },
     "ol_pass_block_rank": {
-     "value": null,
-     "provenance": "unsourced",
-     "note": "not freely redistributable (PFF); manual import"
+     "value": 27,
+     "provenance": "measured",
+     "note": null
+    },
+    "neutral_pace_rank": {
+     "value": 5,
+     "provenance": "measured",
+     "note": null
     },
     "yprr": {
      "value": 1.88,
