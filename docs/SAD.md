@@ -62,6 +62,7 @@ ITEM-005 adds public nflverse sources for WR ceiling factors:
 | WR | `target_share` | nflverse weekly stats (mean weekly target share) |
 | WR | `yprr` | nflverse participation data (`receiving_yards / on_pass` routes; FTN attribution, CC-BY-SA) |
 | WR | `reception_perception` | nflverse Next Gen Stats receiving (`catch_percentage`, week 0) |
+| TE | `yprr` | nflverse participation data (`receiving_yards / on_pass` routes; FTN attribution, CC-BY-SA) |
 
 ITEM-006 replaces the previously licensed OL rank gaps with public,
 team-level nflverse play-by-play outcome proxies:
@@ -71,13 +72,13 @@ team-level nflverse play-by-play outcome proxies:
 | QB/WR/TE | `ol_pass_block_rank` | Pressure-rate rank (lowest rate = 1), `nflverse:pbp:proxy` |
 | RB | `ol_run_block_rank` | Stuff-rate rank (lowest rate = 1), `nflverse:pbp:proxy` |
 | WR/TE | `neutral_pace_rank` | Team neutral-pace rank from nflverse play-by-play |
+| QB | `pass_epa_rank` | Team pass EPA mean rank from nflverse play-by-play (`nflverse:pbp:proxy`) |
 
 These are team outcome proxies, not PFF film grades. They are measured in
 the generated artifacts and explicitly labelled as proxies downstream.
 
-**Still blocked — licensed data:**
-- QB: `pass_dvoa_rank` (FTN)
-- TE: `inline_pct`, `yprr_rank` (PFF)
+All ceiling factors are now COMPUTABLE from public nflverse sources; no
+licensed ceiling gaps remain.
 
 QB `adp` has been removed from ceiling factors to avoid double-counting the
 market signal already used by ValueScore. The MCP `get_adp` tool and player

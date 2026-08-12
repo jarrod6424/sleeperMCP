@@ -1,6 +1,6 @@
 {
   "schema_version": 2,
-  "generated_at": "2026-08-12T02:37:21+00:00",
+  "generated_at": "2026-08-12T16:01:58+00:00",
   "source": "nflverse stats_player_week + snap_counts",
   "seasons": [
     2015,
@@ -320,11 +320,20 @@
           "note": null
         },
         {
-          "factor_id": "pass_dvoa_rank",
-          "source": "licensed:FTN",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "not freely redistributable (FTN); manual import"
+          "factor_id": "pass_epa_rank",
+          "source": "nflverse:pbp:proxy",
+          "benchmark": {
+            "std": 5.03,
+            "half": 5.03,
+            "ppr": 5.03
+          },
+          "dispersion": {
+            "seasons": 11,
+            "sd": 2.1,
+            "se": 0.633,
+            "relative_se": 0.126
+          },
+          "note": null
         },
         {
           "factor_id": "injury_concern",
@@ -334,7 +343,7 @@
           "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
-      "computed": 10,
+      "computed": 11,
       "total": 12
     },
     "RB": {
@@ -1020,18 +1029,20 @@
           "note": null
         },
         {
-          "factor_id": "inline_pct",
-          "source": "licensed:PFF",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "not freely redistributable (PFF); manual import"
-        },
-        {
-          "factor_id": "yprr_rank",
-          "source": "licensed:PFF",
-          "benchmark": null,
-          "dispersion": null,
-          "note": "not freely redistributable (PFF); manual import"
+          "factor_id": "yprr",
+          "source": "nflverse:participation",
+          "benchmark": {
+            "std": 1.958,
+            "half": 1.956,
+            "ppr": 1.975
+          },
+          "dispersion": {
+            "seasons": 10,
+            "sd": 0.25,
+            "se": 0.079,
+            "relative_se": 0.041
+          },
+          "note": null
         },
         {
           "factor_id": "injury_concern",
@@ -1041,8 +1052,8 @@
           "note": "categorical; sourced via nflverse injuries, not cohort-benchmarked"
         }
       ],
-      "computed": 11,
-      "total": 14
+      "computed": 12,
+      "total": 13
     }
   }
 }

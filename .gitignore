@@ -42,3 +42,7 @@ tests/_diff.txt
 .DS_Store
 Thumbs.db
 desktop.ini
+
+.worktrees/
+.superpowers/
+
