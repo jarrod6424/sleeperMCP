@@ -197,6 +197,7 @@ FACTOR_KIND = {
     "neutral_run_rate": "rate",
     "ol_pass_block_rank": "rank",
     "ol_run_block_rank": "rank",
+    "pass_epa_rank": "rank",
     "target_share": "rate",
     "yprr": "rate",
     "reception_perception": "rate",
@@ -212,7 +213,7 @@ FACTORS = {
         ("off_ppg_rank", "nflverse"), ("ol_pass_block_rank", "nflverse:pbp:proxy"),
         ("deep_ball_attempts", "nflverse:pbp"), ("qbr_rank", "nflverse:espn_qbr"),
         ("red_zone_attempts", "nflverse:pbp"),
-        ("neutral_pace_rank", "nflverse:pbp"), ("pass_dvoa_rank", "licensed:FTN"),
+        ("neutral_pace_rank", "nflverse:pbp"), ("pass_epa_rank", "nflverse:pbp:proxy"),
         ("injury_concern", "nflverse:injuries"),
     ],
     "RB": [
@@ -275,7 +276,9 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               # RB-only, from play-by-play (see load_rb_pbp_season)
               "rz_touch_share", "gl_carry_share", "neutral_run_rate",
               # OL proxies from play-by-play (see load_ol_proxy_season)
-              "ol_pass_block_rank", "ol_run_block_rank"}
+              "ol_pass_block_rank", "ol_run_block_rank",
+              # QB-only, team pass EPA rank proxy (see load_pass_epa_ranks)
+              "pass_epa_rank"}
 
 
 _POINTS_CACHE: dict[int, dict] = {}
@@ -599,6 +602,42 @@ def rank_teams_ascending(rate_by_team: dict[str, float]) -> dict[str, int]:
     """Lowest rate = rank 1. Ties broken by team abbreviation ascending."""
     order = sorted(rate_by_team.keys(), key=lambda t: (rate_by_team[t], t))
     return {t: i + 1 for i, t in enumerate(order)}
+
+
+def pass_epa_mean_from_rows(rows: list[dict]) -> dict[str, float]:
+    sums: dict[str, float] = defaultdict(float)
+    n: dict[str, int] = defaultdict(int)
+    for r in rows:
+        if (r.get("season_type") or "REG") not in ("REG",):
+            continue
+        if not _truthy(r.get("pass")) and (r.get("play_type") or "") != "pass":
+            continue
+        team = to_nflverse_team(r.get("posteam"))
+        epa = r.get("epa")
+        if not team or epa in (None, ""):
+            continue
+        sums[team] += safe_float(epa)
+        n[team] += 1
+    return {t: sums[t] / n[t] for t in n if n[t] > 0}
+
+
+def rank_teams_descending(value_by_team: dict[str, float]) -> dict[str, int]:
+    order = sorted(value_by_team.keys(), key=lambda t: (-value_by_team[t], t))
+    return {t: i + 1 for i, t in enumerate(order)}
+
+
+def load_pass_epa_ranks(season: int) -> dict[str, int]:
+    def keep(row):
+        st = row.get("season_type")
+        if st and st != "REG":
+            return False
+        return _truthy(row.get("pass")) or (row.get("play_type") or "") == "pass"
+
+    rows = nflverse_csv("pbp", f"play_by_play_{season}.csv", row_filter=keep,
+                        ttl=STATS_CACHE_TTL)
+    if not rows:
+        return {}
+    return rank_teams_descending(pass_epa_mean_from_rows(rows))
 
 
 def load_ol_proxy_season(season: int) -> tuple[dict[str, int], dict[str, int]]:
@@ -1131,6 +1170,12 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
         else:
             print(f"  WARNING: no ol proxy for {season}; ol_*_block_rank left unset",
                   file=sys.stderr)
+
+        epa_ranks = load_pass_epa_ranks(season)
+        if epa_ranks:
+            for a in agg.values():
+                if a["position"] == "QB" and a.get("team") in epa_ranks:
+                    a["pass_epa_rank"] = epa_ranks[a["team"]]
 
         # RB-only play-by-play enrichment, TDD-001. Same best-effort contract
         # as the QB block above: an empty fetch must leave these three unset
