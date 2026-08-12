@@ -544,6 +544,76 @@ def neutral_pace_ranks(team_neutral_plays: dict) -> dict[str, int]:
     return {t: i + 1 for i, t in enumerate(order)}
 
 
+def _truthy(v) -> bool:
+    if v in (None, ""):
+        return False
+    try:
+        return float(v) != 0.0
+    except (TypeError, ValueError):
+        return bool(v)
+
+
+def pressure_rates_from_rows(rows: list[dict]) -> dict[str, float]:
+    """Team pressure_rate = pressured / dropbacks from pbp-like dict rows."""
+    dropbacks: dict[str, int] = defaultdict(int)
+    pressured: dict[str, int] = defaultdict(int)
+    for r in rows:
+        team = to_nflverse_team(r.get("posteam"))
+        if not team:
+            continue
+        is_dropback = _truthy(r.get("pass_attempt")) or _truthy(r.get("sack"))
+        if not is_dropback:
+            continue
+        dropbacks[team] += 1
+        if _truthy(r.get("sack")) or _truthy(r.get("qb_hit")) or _truthy(r.get("qb_scramble")):
+            pressured[team] += 1
+    return {t: pressured[t] / dropbacks[t] for t in dropbacks if dropbacks[t]}
+
+
+def stuff_rates_from_rows(rows: list[dict]) -> dict[str, float]:
+    """Team stuff_rate = (rush yards <= 0) / rush attempts."""
+    rushes: dict[str, int] = defaultdict(int)
+    stuffed: dict[str, int] = defaultdict(int)
+    for r in rows:
+        team = to_nflverse_team(r.get("posteam"))
+        if not team or not _truthy(r.get("rush_attempt")):
+            continue
+        rushes[team] += 1
+        yd = r.get("rushing_yards")
+        if yd in (None, ""):
+            continue
+        if safe_float(yd) <= 0:
+            stuffed[team] += 1
+    return {t: stuffed[t] / rushes[t] for t in rushes if rushes[t]}
+
+
+def rank_teams_ascending(rate_by_team: dict[str, float]) -> dict[str, int]:
+    """Lowest rate = rank 1. Ties broken by team abbreviation ascending."""
+    order = sorted(rate_by_team.keys(), key=lambda t: (rate_by_team[t], t))
+    return {t: i + 1 for i, t in enumerate(order)}
+
+
+def load_ol_proxy_season(season: int) -> tuple[dict[str, int], dict[str, int]]:
+    """Team OL pass (pressure) and run (stuff) block ranks from one season pbp.
+
+    Returns (ol_pass_block_rank, ol_run_block_rank) keyed by nflverse team.
+    Best-effort: ({}, {}) on empty fetch — never fabricate ranks.
+    """
+    def keep(row):
+        st = row.get("season_type")
+        if st and st != "REG":
+            return False
+        return (row.get("play_type") or "") in ("pass", "run")
+
+    rows = nflverse_csv("pbp", f"play_by_play_{season}.csv", row_filter=keep,
+                        ttl=STATS_CACHE_TTL)
+    if not rows:
+        return {}, {}
+    pass_ranks = rank_teams_ascending(pressure_rates_from_rows(rows))
+    run_ranks = rank_teams_ascending(stuff_rates_from_rows(rows))
+    return pass_ranks, run_ranks
+
+
 def load_rb_pbp_season(season: int) -> tuple[dict, dict, dict, dict]:
     """RB red-zone touch share, goal-line carry share, and team neutral-script
     run rate, from one season's play-by-play. TDD-001.
