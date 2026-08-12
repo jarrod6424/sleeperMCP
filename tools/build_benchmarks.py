@@ -195,6 +195,8 @@ FACTOR_KIND = {
     "rz_touch_share": "rate",      # already a percentage, see load_rb_pbp_season
     "gl_carry_share": "rate",
     "neutral_run_rate": "rate",
+    "ol_pass_block_rank": "rank",
+    "ol_run_block_rank": "rank",
     "target_share": "rate",
     "yprr": "rate",
     "reception_perception": "rate",
@@ -207,9 +209,9 @@ FACTORS = {
     "QB": [
         ("pass_attempts", "nflverse"), ("passing_tds", "nflverse"),
         ("rush_attempts", "nflverse"), ("rushing_tds", "nflverse"),
-        ("off_ppg_rank", "nflverse"), ("ol_pass_block_rank", "licensed:PFF"),
+        ("off_ppg_rank", "nflverse"), ("ol_pass_block_rank", "nflverse:pbp:proxy"),
         ("deep_ball_attempts", "nflverse:pbp"), ("qbr_rank", "nflverse:espn_qbr"),
-        ("red_zone_attempts", "nflverse:pbp"), ("adp", "fantasyfootballcalculator"),
+        ("red_zone_attempts", "nflverse:pbp"),
         ("neutral_pace_rank", "nflverse:pbp"), ("pass_dvoa_rank", "licensed:FTN"),
         ("injury_concern", "nflverse:injuries"),
     ],
@@ -217,7 +219,7 @@ FACTORS = {
         ("touches", "nflverse"), ("rush_attempts", "nflverse"),
         ("targets", "nflverse"), ("receptions", "nflverse"),
         ("touchdowns", "nflverse"),
-        ("off_ppg_rank", "nflverse"), ("ol_run_block_rank", "licensed:PFF"),
+        ("off_ppg_rank", "nflverse"), ("ol_run_block_rank", "nflverse:pbp:proxy"),
         ("yards_per_carry", "nflverse"), ("yards_per_touch", "nflverse"),
         ("team_wins", "nflverse:schedules"),
         ("rz_touch_share", "nflverse:pbp"), ("snap_share", "nflverse"),
@@ -231,7 +233,8 @@ FACTORS = {
         ("touchdowns", "nflverse"), ("off_ppg_rank", "nflverse"),
         ("qb_pff_rank", "nflverse:espn_qbr"), ("team_pass_attempts", "nflverse"),
         ("route_participation", "nflverse:participation"),
-        ("secondary_target", "nflverse"), ("ol_pass_block_rank", "licensed:PFF"),
+        ("secondary_target", "nflverse"), ("ol_pass_block_rank", "nflverse:pbp:proxy"),
+        ("neutral_pace_rank", "nflverse:pbp"),
         ("yprr", "nflverse:participation"), ("reception_perception", "nflverse:ngs"),
         ("archetype", "categorical"), ("injury_concern", "nflverse:injuries"),
     ],
@@ -240,7 +243,10 @@ FACTORS = {
         ("touchdowns", "nflverse"), ("off_ppg_rank", "nflverse"),
         ("qb_qbr_rank", "nflverse:espn_qbr"), ("team_pass_att_rank", "nflverse"),
         ("team_target_rank", "nflverse"), ("rec_td_rank", "nflverse"),
-        ("route_participation", "nflverse:participation"), ("inline_pct", "licensed:PFF"),
+        ("route_participation", "nflverse:participation"),
+        ("ol_pass_block_rank", "nflverse:pbp:proxy"),
+        ("neutral_pace_rank", "nflverse:pbp"),
+        ("inline_pct", "licensed:PFF"),
         ("yprr_rank", "licensed:PFF"), ("injury_concern", "nflverse:injuries"),
     ],
 }
@@ -267,7 +273,9 @@ COMPUTABLE = {"pass_attempts", "passing_tds", "rush_attempts", "rushing_tds",
               # RB-only efficiency + team context (see per_game / load_team_wins_season)
               "yards_per_carry", "yards_per_touch", "team_wins",
               # RB-only, from play-by-play (see load_rb_pbp_season)
-              "rz_touch_share", "gl_carry_share", "neutral_run_rate"}
+              "rz_touch_share", "gl_carry_share", "neutral_run_rate",
+              # OL proxies from play-by-play (see load_ol_proxy_season)
+              "ol_pass_block_rank", "ol_run_block_rank"}
 
 
 _POINTS_CACHE: dict[int, dict] = {}
@@ -1084,12 +1092,12 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
         # zero out deep_ball_attempts/red_zone_attempts/neutral_pace_rank for
         # every QB -- it leaves them unset, same as any other unsourced factor.
         qb_stats, team_neutral = load_qb_pbp_season(season)
-        if qb_stats:
-            pace_rank = neutral_pace_ranks(team_neutral)
+        if qb_stats or team_neutral:
+            pace_rank = neutral_pace_ranks(team_neutral) if team_neutral else {}
             qb_rows = [a for a in agg.values() if a["position"] == "QB"]
             matched = 0
             for a in qb_rows:
-                stats = qb_stats.get(_qb_name_key(a["name"]))
+                stats = qb_stats.get(_qb_name_key(a["name"])) if qb_stats else None
                 if stats and stats["weeks"]:
                     a["deep_ball_count"] = stats["deep"]
                     a["rz_count"] = stats["rz"]
@@ -1097,11 +1105,32 @@ def load_player_seasons(seasons: list[int]) -> list[dict]:
                     matched += 1
                 if a["team"] in pace_rank:
                     a["neutral_pace_rank"] = pace_rank[a["team"]]
+            for a in agg.values():
+                if a["position"] in ("WR", "TE") and a["team"] in pace_rank:
+                    a["neutral_pace_rank"] = pace_rank[a["team"]]
             print(f"  play-by-play {season}: matched {matched}/{len(qb_rows)} QBs "
-                  f"to deep_ball_attempts/red_zone_attempts", file=sys.stderr)
+                  f"to deep_ball_attempts/red_zone_attempts; "
+                  f"pace ranks for QB/WR/TE", file=sys.stderr)
         else:
             print(f"  WARNING: no play-by-play for {season}; deep_ball_attempts/"
                   f"red_zone_attempts/neutral_pace_rank left unset", file=sys.stderr)
+
+        # OL proxies (separate call OK; same pbp file is disk-cached by nflverse_csv)
+        ol_pass, ol_run = load_ol_proxy_season(season)
+        if ol_pass or ol_run:
+            for a in agg.values():
+                team = a.get("team")
+                if not team:
+                    continue
+                if a["position"] in ("QB", "WR", "TE") and team in ol_pass:
+                    a["ol_pass_block_rank"] = ol_pass[team]
+                if a["position"] == "RB" and team in ol_run:
+                    a["ol_run_block_rank"] = ol_run[team]
+            print(f"  ol proxy {season}: pass ranks={len(ol_pass)} run ranks={len(ol_run)}",
+                  file=sys.stderr)
+        else:
+            print(f"  WARNING: no ol proxy for {season}; ol_*_block_rank left unset",
+                  file=sys.stderr)
 
         # RB-only play-by-play enrichment, TDD-001. Same best-effort contract
         # as the QB block above: an empty fetch must leave these three unset
