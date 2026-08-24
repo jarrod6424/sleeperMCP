@@ -51,7 +51,19 @@ from sleeper_core.config import (
     STATS_CACHE_TTL,
 )
 
+from yahoo_core import league as _yahoo_league
+
 mcp = FastMCP("sleeper-readonly")
+
+_PLATFORMS = ("sleeper", "yahoo")
+
+
+def _normalize_platform(platform: str | None) -> str:
+    return (platform or "sleeper").strip().lower()
+
+
+def _platform_error(platform: str) -> dict[str, Any]:
+    return {"error": f"unknown platform: {platform}", "supported_platforms": list(_PLATFORMS)}
 
 
 # --------------------------------------------------------------------------
@@ -84,10 +96,21 @@ _LEAGUE_DROP_FIELDS = {
 
 
 @mcp.tool()
-def get_league(league_id: str | None = None) -> dict:
+def get_league(
+    league_id: str | None = None,
+    platform: str = "sleeper",
+) -> dict:
     """League settings and metadata: name, status, scoring, roster slots,
     number of teams, season. Returns a trimmed view — use get_league_full for
-    all raw fields."""
+    all raw Sleeper fields.
+
+    platform: "sleeper" (default) or "yahoo". For Yahoo, pass league_id as the
+    league key (e.g. 461.l.12345) or set YAHOO_LEAGUE_KEY."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_league.compute_league(league_id)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     data = _http.get_json(f"/league/{lid}", cache=True)
     if not data:
@@ -138,17 +161,40 @@ def get_managers(league_id: str | None = None) -> list[dict]:
 
 
 @mcp.tool()
-def get_rosters(league_id: str | None = None, include_players: bool = True) -> list[dict]:
+def get_rosters(
+    league_id: str | None = None,
+    include_players: bool = True,
+    platform: str = "sleeper",
+) -> list[dict]:
     """All rosters in the league, joined with manager names and win/loss
     records. Set include_players=False for a lighter response that omits the
-    player lists."""
+    player lists.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.compute_rosters(league_id, include_players)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     return _league_mod.compute_rosters(_league_mod.resolve_league_id(league_id), include_players)
 
 
 @mcp.tool()
-def get_standings(league_id: str | None = None) -> list[dict]:
+def get_standings(
+    league_id: str | None = None,
+    platform: str = "sleeper",
+) -> list[dict]:
     """Current standings, sorted by wins then total points for. A derived view
-    built from the rosters endpoint."""
+    built from the rosters endpoint.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.compute_standings(league_id)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     return _league_mod.compute_standings(_league_mod.resolve_league_id(league_id))
 
 
@@ -158,7 +204,11 @@ def get_standings(league_id: str | None = None) -> list[dict]:
 
 
 @mcp.tool()
-def get_my_team(league_id: str | None = None, username: str | None = None) -> dict:
+def get_my_team(
+    league_id: str | None = None,
+    username: str | None = None,
+    platform: str = "sleeper",
+) -> dict:
     """Your own team: roster, record, standings rank, this week's matchup, and
     next week's matchup. Resolves you by the configured Sleeper username (with
     team name and display name as fallbacks), so no roster_id is needed. Use
@@ -166,7 +216,15 @@ def get_my_team(league_id: str | None = None, username: str | None = None) -> di
     question.
 
     Pass username to resolve a different manager instead — use this whenever
-    the person asking is not the configured default user."""
+    the person asking is not the configured default user.
+
+    platform: "sleeper" (default) or "yahoo". On Yahoo, username is treated as
+    team name (falls back to YAHOO_TEAM_NAME)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_league.compute_my_team(league_id, team_name=username)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     resolved = _league_mod.resolve_my_roster(lid, username=username)
     if not resolved:

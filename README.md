@@ -23,6 +23,12 @@ it.
 | [FantasyFootballCalculator](https://fantasyfootballcalculator.com) | ADP | Third party |
 | [nflverse](https://github.com/nflverse) | stats, snaps, depth charts, injuries | MIT licensed |
 
+**Yahoo Fantasy (phase 1):** `get_league`, `get_rosters`, `get_standings`, and
+`get_my_team` accept `platform="yahoo"` and read your redraft league via OAuth.
+Run `python tools/yahoo_auth.py` once to obtain tokens, then set
+`YAHOO_LEAGUE_KEY` and `YAHOO_TEAM_NAME` in `.env`. Sleeper remains the
+default when `platform` is omitted.
+
 Each source has its own HTTP client so a failure in one cannot take down tools
 that do not depend on it. Tools drawing on unofficial sources are marked
 `[UNOFFICIAL]` in their descriptions.
