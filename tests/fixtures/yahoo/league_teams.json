@@ -1,0 +1,123 @@
+{
+  "fantasy_content": {
+    "league": [
+      {
+        "league_key": "461.l.1000",
+        "league_id": "1000",
+        "name": "Sunday Sweat",
+        "current_week": 10
+      },
+      {
+        "teams": {
+          "0": {
+            "team": [
+              {
+                "team_key": "461.l.1000.t.1",
+                "team_id": "1",
+                "name": "Pine Bluff Escapees"
+              },
+              {
+                "managers": {
+                  "0": {
+                    "manager": {
+                      "nickname": "JarrodLee",
+                      "guid": "GUID1"
+                    }
+                  },
+                  "count": 1
+                }
+              },
+              {
+                "team_standings": {
+                  "rank": 1,
+                  "outcome_totals": {
+                    "wins": 7,
+                    "losses": 2,
+                    "ties": 0
+                  },
+                  "points_for": "1123.40",
+                  "points_against": "1044.10"
+                }
+              },
+              {
+                "roster": {
+                  "players": {
+                    "0": {
+                      "player": [
+                        {
+                          "player_key": "461.p.30123",
+                          "player_id": "30123",
+                          "name": { "full": "Justin Jefferson" },
+                          "display_position": "WR",
+                          "editorial_team_abbr": "MIN"
+                        },
+                        {
+                          "selected_position": { "position": "WR" }
+                        }
+                      ]
+                    },
+                    "1": {
+                      "player": [
+                        {
+                          "player_key": "461.p.30124",
+                          "player_id": "30124",
+                          "name": { "full": "Bench Guy" },
+                          "display_position": "RB",
+                          "editorial_team_abbr": "DET"
+                        },
+                        {
+                          "selected_position": { "position": "BN" }
+                        }
+                      ]
+                    },
+                    "count": 2
+                  }
+                }
+              }
+            ]
+          },
+          "1": {
+            "team": [
+              {
+                "team_key": "461.l.1000.t.2",
+                "team_id": "2",
+                "name": "Rival Squad"
+              },
+              {
+                "managers": {
+                  "0": {
+                    "manager": {
+                      "nickname": "rival",
+                      "guid": "GUID2"
+                    }
+                  },
+                  "count": 1
+                }
+              },
+              {
+                "team_standings": {
+                  "rank": 2,
+                  "outcome_totals": {
+                    "wins": 5,
+                    "losses": 4,
+                    "ties": 0
+                  },
+                  "points_for": "1088.20",
+                  "points_against": "1099.50"
+                }
+              },
+              {
+                "roster": {
+                  "players": {
+                    "count": 0
+                  }
+                }
+              }
+            ]
+          },
+          "count": 2
+        }
+      }
+    ]
+  }
+}

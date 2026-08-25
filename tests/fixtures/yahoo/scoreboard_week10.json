@@ -1,0 +1,45 @@
+{
+  "fantasy_content": {
+    "league": [
+      {
+        "league_key": "461.l.1000",
+        "current_week": 10
+      },
+      {
+        "scoreboard": {
+          "0": {
+            "matchup": {
+              "week": 10,
+              "teams": {
+                "0": {
+                  "team": [
+                    {
+                      "team_key": "461.l.1000.t.1",
+                      "name": "Pine Bluff Escapees"
+                    },
+                    {
+                      "team_points": { "total": "121.34" }
+                    }
+                  ]
+                },
+                "1": {
+                  "team": [
+                    {
+                      "team_key": "461.l.1000.t.2",
+                      "name": "Rival Squad"
+                    },
+                    {
+                      "team_points": { "total": "108.20" }
+                    }
+                  ]
+                },
+                "count": 2
+              }
+            }
+          },
+          "count": 1
+        }
+      }
+    ]
+  }
+}

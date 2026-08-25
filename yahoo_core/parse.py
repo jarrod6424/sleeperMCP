@@ -1,0 +1,148 @@
+"""
+Helpers for Yahoo's nested JSON: numbered dicts, list-of-dict resources, counts.
+
+Yahoo's fantasy API returns JSON that mirrors its XML tree. Collections are
+objects with keys "0", "1", … plus "count". Resources are often a list where
+index 0 is metadata and later entries hold sub-resources.
+"""
+
+from __future__ import annotations
+
+from typing import Any
+
+
+def fantasy_root(payload: dict[str, Any]) -> dict[str, Any]:
+    """Return the fantasy_content object or {}."""
+    return payload.get("fantasy_content") or {}
+
+
+def as_list(value: Any) -> list[Any]:
+    if value is None:
+        return []
+    if isinstance(value, list):
+        return value
+    return [value]
+
+
+def indexed_items(node: Any) -> list[Any]:
+    """Expand a Yahoo numbered collection into a list of values."""
+    if not isinstance(node, dict):
+        return as_list(node)
+    out: list[Any] = []
+    count = node.get("count")
+    if count is not None:
+        for i in range(int(count)):
+            key = str(i)
+            if key in node:
+                out.append(node[key])
+        return out
+    for key, value in node.items():
+        if key == "count":
+            continue
+        if key.isdigit():
+            out.append(value)
+    out.sort(key=lambda item: 0)
+    return out
+
+
+def merge_dicts(*dicts: dict[str, Any]) -> dict[str, Any]:
+    merged: dict[str, Any] = {}
+    for d in dicts:
+        if isinstance(d, dict):
+            merged.update(d)
+    return merged
+
+
+def league_blocks(payload: dict[str, Any]) -> list[Any]:
+    return as_list(fantasy_root(payload).get("league"))
+
+
+def league_metadata(payload: dict[str, Any]) -> dict[str, Any]:
+    blocks = league_blocks(payload)
+    if not blocks:
+        return {}
+    first = blocks[0]
+    return first if isinstance(first, dict) else {}
+
+
+def league_subresource(payload: dict[str, Any], name: str) -> Any:
+    for block in league_blocks(payload):
+        if isinstance(block, dict) and name in block:
+            return block[name]
+    return None
+
+
+def team_entries(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    """Flatten team list entries from a teams sub-resource."""
+    teams_node = league_subresource(payload, "teams")
+    entries: list[dict[str, Any]] = []
+    for item in indexed_items(teams_node):
+        team_list = item.get("team") if isinstance(item, dict) else None
+        if team_list is None and isinstance(item, dict) and "team_key" in item:
+            entries.append(item)
+            continue
+        blocks = as_list(team_list)
+        meta = merge_dicts(*(b for b in blocks if isinstance(b, dict) and "team_key" in b))
+        extras: dict[str, Any] = {}
+        for block in blocks:
+            if not isinstance(block, dict):
+                continue
+            for key in ("roster", "team_standings", "managers"):
+                if key in block:
+                    extras[key] = block[key]
+        if meta or extras:
+            entries.append({**meta, **extras})
+    return entries
+
+
+def roster_players(roster_node: Any) -> list[dict[str, Any]]:
+    if not isinstance(roster_node, dict):
+        return []
+    players_node = roster_node.get("players") or roster_node.get("player")
+    out: list[dict[str, Any]] = []
+    for item in indexed_items(players_node):
+        player_blocks = as_list(item.get("player") if isinstance(item, dict) else item)
+        player: dict[str, Any] = {}
+        selected_position = None
+        for block in player_blocks:
+            if not isinstance(block, dict):
+                continue
+            if "player_id" in block or "name" in block:
+                player.update(block)
+            if "selected_position" in block:
+                selected_position = block["selected_position"]
+        if selected_position is not None:
+            player["selected_position"] = selected_position
+        if player:
+            out.append(player)
+    return out
+
+
+def player_display_name(player: dict[str, Any]) -> str:
+    if player.get("name"):
+        if isinstance(player["name"], dict):
+            return player["name"].get("full") or player["name"].get("ascii_first", "")
+        return str(player["name"])
+    first = player.get("editorial_player_key", "")
+    return str(first or player.get("player_id", "unknown"))
+
+
+def selected_slot(player: dict[str, Any]) -> str:
+    pos = player.get("selected_position")
+    if isinstance(pos, dict):
+        return str(pos.get("position") or "BN")
+    return str(pos or "BN")
+
+
+def to_int(value: Any, default: int = 0) -> int:
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return default
+
+
+def to_float(value: Any, default: float = 0.0) -> float:
+    try:
+        return float(value)
+    except (TypeError, ValueError):
+        return default

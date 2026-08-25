@@ -1,0 +1,37 @@
+{
+  "fantasy_content": {
+    "league": [
+      {
+        "league_key": "461.l.1000",
+        "league_id": "1000",
+        "name": "Sunday Sweat",
+        "season": "2025",
+        "num_teams": 2,
+        "current_week": 10,
+        "is_finished": 0,
+        "url": "https://football.fantasysports.yahoo.com/f1/1000"
+      },
+      {
+        "settings": [
+          {
+            "draft_type": "live",
+            "scoring_type": "head",
+            "waiver_type": "FR",
+            "trade_end_date": "2025-11-26",
+            "playoff_start_week": "14",
+            "num_playoff_teams": "4",
+            "roster_positions": {
+              "0": { "roster_position": { "position": "QB", "count": 1 } },
+              "1": { "roster_position": { "position": "RB", "count": 2 } },
+              "2": { "roster_position": { "position": "WR", "count": 2 } },
+              "3": { "roster_position": { "position": "TE", "count": 1 } },
+              "4": { "roster_position": { "position": "FLEX", "count": 1 } },
+              "5": { "roster_position": { "position": "BN", "count": 3 } },
+              "count": 6
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
