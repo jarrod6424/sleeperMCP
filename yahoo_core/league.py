@@ -23,6 +23,7 @@ from .parse import (
     team_entries,
     to_float,
     to_int,
+    user_game_leagues,
 )
 
 
@@ -309,3 +310,46 @@ def compute_my_team(
     entry["this_week"] = _matchup_for(lid, week, team_key)
     entry["next_week"] = _matchup_for(lid, week + 1, team_key)
     return entry
+
+
+def list_user_leagues(season: str | None = None) -> dict[str, Any]:
+    """Leagues the authenticated Yahoo user belongs to (NFL by default).
+
+    Uses users;use_login=1/games/leagues. Optional season filters to leagues
+    whose game season matches (string year, e.g. "2025").
+    """
+    try:
+        payload = get_json("users;use_login=1/games/leagues")
+    except YahooConfigError as exc:
+        return _config_error(str(exc))
+
+    default_key = resolve_league_key(None)
+    year = (season or "").strip() or None
+    leagues: list[dict[str, Any]] = []
+    for raw in user_game_leagues(payload):
+        game_code = (raw.get("game_code") or "").lower()
+        if game_code and game_code != "nfl":
+            continue
+        league_season = str(raw.get("season") or raw.get("game_season") or "")
+        if year and league_season and league_season != year:
+            continue
+        league_key = raw.get("league_key")
+        leagues.append(
+            {
+                "platform": "yahoo",
+                "league_id": league_key,
+                "league_key": league_key,
+                "name": raw.get("name"),
+                "season": league_season or None,
+                "status": raw.get("draft_status"),
+                "num_teams": to_int(raw.get("num_teams")) or None,
+                "is_default": bool(default_key and league_key == default_key),
+                "scoring_type": raw.get("scoring_type"),
+                "league_type": raw.get("league_type"),
+            }
+        )
+    return {
+        "platform": "yahoo",
+        "season": year,
+        "leagues": leagues,
+    }

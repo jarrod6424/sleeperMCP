@@ -7,6 +7,7 @@ from unittest.mock import patch
 import pytest
 
 import yahoo_core.league as yahoo_league
+from yahoo_core.parse import user_game_leagues
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures" / "yahoo"
 
@@ -84,3 +85,70 @@ def test_server_platform_routing_unknown():
     result = server.get_league(platform="espn")
     assert "error" in result
     assert "supported_platforms" in result
+
+
+def test_user_game_leagues_parser_skips_non_nfl_when_listed():
+    raw = user_game_leagues(_load("user_leagues.json"))
+    keys = {row["league_key"] for row in raw}
+    assert "461.l.1000" in keys
+    assert "461.l.2000" in keys
+    assert "458.l.9" in keys  # parser returns all; list_user_leagues filters NFL
+
+
+def test_list_user_leagues_filters_nfl_and_marks_default():
+    with patch("yahoo_core.league.get_json", return_value=_load("user_leagues.json")):
+        result = yahoo_league.list_user_leagues(season="2025")
+    assert result["platform"] == "yahoo"
+    assert len(result["leagues"]) == 2
+    assert {row["name"] for row in result["leagues"]} == {"Sunday Sweat", "Work League"}
+    default = next(row for row in result["leagues"] if row["is_default"])
+    assert default["league_id"] == "461.l.1000"
+
+
+def test_list_my_leagues_merges_platforms():
+    import server
+
+    sleeper = {
+        "platform": "sleeper",
+        "leagues": [
+            {
+                "platform": "sleeper",
+                "league_id": "1312218810614300672",
+                "name": "Gridiron Time Machine",
+                "season": "2025",
+                "status": "in_season",
+                "num_teams": 12,
+                "is_default": True,
+            }
+        ],
+    }
+    yahoo = {
+        "platform": "yahoo",
+        "leagues": [
+            {
+                "platform": "yahoo",
+                "league_id": "461.l.1000",
+                "name": "Sunday Sweat",
+                "season": "2025",
+                "is_default": True,
+            }
+        ],
+    }
+    with patch("server._league_mod.list_user_leagues", return_value=sleeper):
+        with patch("server._yahoo_league.list_user_leagues", return_value=yahoo):
+            result = server.list_my_leagues(season="2025")
+    assert result["platforms_queried"] == ["sleeper", "yahoo"]
+    assert len(result["leagues"]) == 2
+    assert result["errors"] == []
+
+
+def test_list_my_leagues_yahoo_only_surfaces_config_error():
+    import server
+
+    with patch(
+        "server._yahoo_league.list_user_leagues",
+        return_value={"error": "Yahoo is not configured", "platform": "yahoo"},
+    ):
+        result = server.list_my_leagues(platform="yahoo")
+    assert result["leagues"] == []
+    assert result["errors"][0]["platform"] == "yahoo"

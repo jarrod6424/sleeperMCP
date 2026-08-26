@@ -1,0 +1,87 @@
+{
+  "fantasy_content": {
+    "users": {
+      "0": {
+        "user": [
+          {
+            "guid": "YAHOO_GUID_1"
+          },
+          {
+            "games": {
+              "0": {
+                "game": [
+                  {
+                    "game_key": "461",
+                    "game_id": "461",
+                    "name": "Football",
+                    "code": "nfl",
+                    "season": "2025"
+                  },
+                  {
+                    "leagues": {
+                      "0": {
+                        "league": [
+                          {
+                            "league_key": "461.l.1000",
+                            "league_id": "1000",
+                            "name": "Sunday Sweat",
+                            "num_teams": 12,
+                            "draft_status": "postdraft",
+                            "scoring_type": "head",
+                            "league_type": "private",
+                            "season": "2025"
+                          }
+                        ]
+                      },
+                      "1": {
+                        "league": [
+                          {
+                            "league_key": "461.l.2000",
+                            "league_id": "2000",
+                            "name": "Work League",
+                            "num_teams": 10,
+                            "draft_status": "predraft",
+                            "scoring_type": "head",
+                            "league_type": "private",
+                            "season": "2025"
+                          }
+                        ]
+                      },
+                      "count": 2
+                    }
+                  }
+                ]
+              },
+              "1": {
+                "game": [
+                  {
+                    "game_key": "458",
+                    "code": "mlb",
+                    "season": "2025"
+                  },
+                  {
+                    "leagues": {
+                      "0": {
+                        "league": [
+                          {
+                            "league_key": "458.l.9",
+                            "name": "Baseball League",
+                            "num_teams": 8,
+                            "season": "2025"
+                          }
+                        ]
+                      },
+                      "count": 1
+                    }
+                  }
+                ]
+              },
+              "count": 2
+            }
+          }
+        ]
+      },
+      "count": 1
+    }
+  }
+}

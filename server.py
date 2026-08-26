@@ -78,6 +78,50 @@ def get_nfl_state() -> dict:
     return _http.get_json(f"/state/{SPORT}", cache=True) or {}
 
 
+@mcp.tool()
+def list_my_leagues(
+    platform: str | None = None,
+    season: str | None = None,
+    username: str | None = None,
+) -> dict:
+    """List fantasy leagues you belong to across platforms — the starting
+    point for a multi-league portfolio.
+
+    platform: omit or pass "all" for both Sleeper and Yahoo; or "sleeper" /
+    "yahoo" for one platform. season defaults to the current NFL season for
+    Sleeper (and filters Yahoo when provided). username only applies to
+    Sleeper (defaults to SLEEPER_USERNAME).
+
+    Returns {leagues, platforms_queried, errors}. Each league has platform,
+    league_id, name, season, status, num_teams, and is_default."""
+    requested = (platform or "all").strip().lower()
+    if requested in {"", "all", "both"}:
+        platforms = list(_PLATFORMS)
+    elif requested in _PLATFORMS:
+        platforms = [requested]
+    else:
+        return _platform_error(requested)
+
+    leagues: list[dict] = []
+    errors: list[dict] = []
+    for plat in platforms:
+        if plat == "sleeper":
+            result = _league_mod.list_user_leagues(username=username, season=season)
+        else:
+            result = _yahoo_league.list_user_leagues(season=season)
+        if isinstance(result, dict) and result.get("error"):
+            errors.append(result)
+            continue
+        leagues.extend(result.get("leagues") or [])
+
+    return {
+        "leagues": leagues,
+        "platforms_queried": platforms,
+        "errors": errors,
+        "season": season,
+    }
+
+
 _LEAGUE_KEEP_SETTINGS = {
     "num_teams", "playoff_teams", "playoff_week_start", "trade_deadline",
     "waiver_type", "waiver_budget", "max_keepers", "type", "best_ball",

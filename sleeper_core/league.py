@@ -26,6 +26,80 @@ def resolve_league_id(league_id: str | None) -> str:
     return league_id or DEFAULT_LEAGUE_ID
 
 
+def resolve_user_id(username: str | None = None) -> dict[str, Any] | None:
+    """Resolve a Sleeper username to {user_id, username, display_name}."""
+    query = (username or DEFAULT_USERNAME or "").strip()
+    if not query:
+        return None
+    user = get_json(f"/user/{query}", cache=True)
+    if not user or not user.get("user_id"):
+        return None
+    return {
+        "user_id": user.get("user_id"),
+        "username": user.get("username"),
+        "display_name": user.get("display_name"),
+    }
+
+
+def current_season() -> str:
+    """Live NFL season year from Sleeper state."""
+    state = get_json(f"/state/{SPORT}", cache=True) or {}
+    season = state.get("league_season") or state.get("season")
+    return str(season) if season is not None else ""
+
+
+def list_user_leagues(
+    username: str | None = None,
+    season: str | None = None,
+) -> dict[str, Any]:
+    """Leagues the configured (or named) user belongs to for one NFL season.
+
+    Returns {platform, username, season, leagues} or an error dict.
+    """
+    resolved = resolve_user_id(username)
+    if not resolved:
+        return {
+            "error": "could not resolve Sleeper user",
+            "platform": "sleeper",
+            "tried_username": username or DEFAULT_USERNAME,
+        }
+
+    year = (season or current_season() or "").strip()
+    if not year:
+        return {
+            "error": "could not determine NFL season",
+            "platform": "sleeper",
+            "username": resolved["username"],
+        }
+
+    raw = get_json(
+        f"/user/{resolved['user_id']}/leagues/{SPORT}/{year}",
+        cache=True,
+    ) or []
+    default_id = DEFAULT_LEAGUE_ID
+    leagues = []
+    for league in raw:
+        lid = league.get("league_id")
+        leagues.append(
+            {
+                "platform": "sleeper",
+                "league_id": lid,
+                "name": league.get("name"),
+                "season": league.get("season") or year,
+                "status": league.get("status"),
+                "num_teams": league.get("total_rosters"),
+                "is_default": lid == default_id,
+            }
+        )
+    return {
+        "platform": "sleeper",
+        "username": resolved["username"],
+        "display_name": resolved["display_name"],
+        "season": year,
+        "leagues": leagues,
+    }
+
+
 def user_map(league_id: str) -> dict[str, dict]:
     """Map user_id -> {display_name, team_name, is_commissioner}."""
     users = get_json(f"/league/{league_id}/users", cache=True) or []
