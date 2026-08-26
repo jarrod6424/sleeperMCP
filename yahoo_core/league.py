@@ -169,6 +169,13 @@ def compute_league(league_key: str | None = None) -> dict[str, Any]:
             if abbr:
                 roster_positions.extend([abbr] * count)
 
+    # Reception points (stat_id 11) drive PPR / half-PPR / standard for projections
+    # and FantasyCalc format selection.
+    from .scoring import ppr_from_reception_points, reception_points as _reception_points
+
+    reception_pts = _reception_points(settings)
+    ppr_value, ppr_label = ppr_from_reception_points(reception_pts)
+
     return {
         "platform": "yahoo",
         "league_key": meta.get("league_key") or lid,
@@ -182,11 +189,18 @@ def compute_league(league_key: str | None = None) -> dict[str, Any]:
         "scoring_type": settings.get("scoring_type"),
         "draft_type": settings.get("draft_type"),
         "roster_positions": roster_positions,
+        "reception_points": reception_pts,
+        "scoring_format_label": ppr_label,
+        "raw_settings": settings,
         "settings": {
             "waiver_type": settings.get("waiver_type"),
             "trade_end_date": settings.get("trade_end_date"),
             "playoff_start_week": settings.get("playoff_start_week"),
             "num_playoff_teams": settings.get("num_playoff_teams"),
+            "uses_faab": settings.get("uses_faab"),
+            "is_auction_draft": settings.get("is_auction_draft"),
+            "reception_points": reception_pts,
+            "scoring_format_label": ppr_label,
         },
     }
 
@@ -337,6 +351,18 @@ def _matchup_nodes(scoreboard_node: Any) -> list[dict[str, Any]]:
     return nodes
 
 
+def _teams_from_matchup(matchup: dict[str, Any]) -> list[dict[str, Any]]:
+    teams_node = matchup.get("teams") if isinstance(matchup, dict) else None
+    teams: list[dict[str, Any]] = []
+    for team_item in indexed_items(teams_node):
+        team_list = team_item.get("team") if isinstance(team_item, dict) else team_item
+        blocks = team_list if isinstance(team_list, list) else [team_list]
+        team_meta = merge_dicts(*(b for b in blocks if isinstance(b, dict)))
+        if team_meta:
+            teams.append(team_meta)
+    return teams
+
+
 def _matchup_for(league_key: str, week: int, team_key: str) -> dict[str, Any] | None:
     try:
         payload = get_json(f"league/{league_key}/scoreboard;week={week}")
@@ -344,14 +370,7 @@ def _matchup_for(league_key: str, week: int, team_key: str) -> dict[str, Any] | 
         return None
 
     for matchup in _matchup_nodes(league_subresource(payload, "scoreboard")):
-        teams_node = matchup.get("teams") if isinstance(matchup, dict) else None
-        teams: list[dict[str, Any]] = []
-        for team_item in indexed_items(teams_node):
-            team_list = team_item.get("team") if isinstance(team_item, dict) else team_item
-            blocks = team_list if isinstance(team_list, list) else [team_list]
-            team_meta = merge_dicts(*(b for b in blocks if isinstance(b, dict)))
-            if team_meta:
-                teams.append(team_meta)
+        teams = _teams_from_matchup(matchup)
         if not any(t.get("team_key") == team_key for t in teams):
             continue
         me = next(t for t in teams if t.get("team_key") == team_key)
@@ -366,6 +385,83 @@ def _matchup_for(league_key: str, week: int, team_key: str) -> dict[str, Any] | 
             "opponent_team_key": (opp or {}).get("team_key"),
         }
     return None
+
+
+def compute_matchups(
+    league_key: str | None = None,
+    week: int | None = None,
+) -> dict[str, Any]:
+    """Full weekly scoreboard, shaped like Sleeper's get_matchups."""
+    lid = resolve_league_key(league_key)
+    if not lid:
+        return _config_error("YAHOO_LEAGUE_KEY is not configured")
+
+    if week is None:
+        league = compute_league(lid)
+        if isinstance(league, dict) and league.get("error"):
+            return league
+        week = to_int(league.get("current_week"), 1)
+
+    try:
+        payload = get_json(f"league/{lid}/scoreboard;week={int(week)}")
+    except YahooConfigError as exc:
+        return _config_error(str(exc))
+
+    matchups: list[dict[str, Any]] = []
+    for index, matchup in enumerate(
+        _matchup_nodes(league_subresource(payload, "scoreboard")), start=1
+    ):
+        teams_raw = _teams_from_matchup(matchup)
+        teams = []
+        for team in teams_raw:
+            points = team.get("team_points") or {}
+            team_key = str(team.get("team_key") or "")
+            teams.append(
+                {
+                    "roster_id": team_key.split(".t.")[-1] if ".t." in team_key else team_key,
+                    "team_key": team_key,
+                    "team": team.get("name") or "unknown",
+                    "points": round(to_float(points.get("total")), 2) if points else None,
+                }
+            )
+        matchups.append(
+            {
+                "matchup_id": to_int(matchup.get("week"), week) * 100 + index
+                if matchup.get("week") is not None
+                else index,
+                "week": to_int(matchup.get("week"), week),
+                "teams": teams,
+            }
+        )
+    return {
+        "platform": "yahoo",
+        "league_id": lid,
+        "league_key": lid,
+        "week": int(week),
+        "matchups": matchups,
+    }
+
+
+def compute_managers(league_key: str | None = None) -> list[dict] | dict:
+    """Managers / team owners in a Yahoo league."""
+    rosters = compute_rosters(league_key, include_players=False)
+    if isinstance(rosters, dict):
+        return rosters
+    managers: list[dict[str, Any]] = []
+    for row in rosters:
+        managers.append(
+            {
+                "platform": "yahoo",
+                "user_id": row.get("team_key"),
+                "username": row.get("manager"),
+                "display_name": row.get("manager"),
+                "team_name": row.get("owner"),
+                "roster_id": row.get("roster_id"),
+                "team_key": row.get("team_key"),
+                "is_commissioner": None,
+            }
+        )
+    return managers
 
 
 def compute_my_team(

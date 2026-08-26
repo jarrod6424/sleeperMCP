@@ -32,3 +32,13 @@ TOKEN_CACHE_FILE = Path(
 )
 
 YAHOO_USER_AGENT = f"{USER_AGENT} yahoo"
+
+# Scoring format used when projecting Yahoo lineups with Sleeper projection
+# fields. Prefer parsed Yahoo reception modifiers when available; this is the
+# fallback: ppr | half_ppr | std
+YAHOO_SCORING_FORMAT = os.environ.get("YAHOO_SCORING_FORMAT", "ppr").strip().lower()
+
+# Auction budget for get_auction_budgets(platform="yahoo"). Yahoo settings do
+# not always expose a budget; default $200 when unset.
+_raw_auction = os.environ.get("YAHOO_AUCTION_BUDGET", "").strip()
+YAHOO_AUCTION_BUDGET = int(_raw_auction) if _raw_auction.isdigit() else None

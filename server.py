@@ -53,6 +53,8 @@ from sleeper_core.config import (
 )
 
 from yahoo_core import league as _yahoo_league
+from yahoo_core import start_sit as _yahoo_start_sit
+from yahoo_core import values as _yahoo_values
 
 mcp = FastMCP("sleeper-readonly")
 
@@ -181,9 +183,17 @@ def get_league_full(league_id: str | None = None) -> dict:
 
 
 @mcp.tool()
-def get_managers(league_id: str | None = None) -> list[dict]:
+def get_managers(league_id: str | None = None, platform: str = "sleeper") -> list[dict]:
     """List the managers (users) in the league with display names, team names,
-    and who the commissioner is."""
+    and who the commissioner is.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.compute_managers(league_id)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     users = _http.get_json(f"/league/{_league_mod.resolve_league_id(league_id)}/users") or []
     result = []
     for u in users:
@@ -322,11 +332,36 @@ def scout_team(
 
 
 @mcp.tool()
-def get_my_roster_id(league_id: str | None = None, username: str | None = None) -> dict:
+def get_my_roster_id(
+    league_id: str | None = None,
+    username: str | None = None,
+    platform: str = "sleeper",
+) -> dict:
     """Resolve the configured user to their roster_id and team name in the
     league. Useful when another tool needs an explicit roster_id.
 
-    Pass username to resolve a different manager instead."""
+    Pass username to resolve a different manager instead.
+    platform: "sleeper" (default) or "yahoo" (username is treated as team name)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        lid = _yahoo_league.resolve_league_key(league_id)
+        resolved = _yahoo_league.resolve_my_team(lid, team_name=username)
+        if not resolved:
+            return {
+                "error": "could not resolve that team",
+                "platform": "yahoo",
+                "tried_team_name": username or _yahoo_league.resolve_team_name(None),
+                "league_id": lid,
+            }
+        return {
+            "platform": "yahoo",
+            "roster_id": resolved.get("roster_id"),
+            "team_key": resolved.get("team_key"),
+            "matched_by": resolved.get("matched_by"),
+            "league_id": lid,
+        }
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     resolved = _league_mod.resolve_my_roster(lid, username=username)
     if not resolved:
@@ -350,9 +385,21 @@ def get_my_roster_id(league_id: str | None = None, username: str | None = None) 
 
 
 @mcp.tool()
-def get_matchups(league_id: str | None = None, week: int | None = None) -> dict:
+def get_matchups(
+    league_id: str | None = None,
+    week: int | None = None,
+    platform: str = "sleeper",
+) -> dict:
     """Matchups for a given week, paired up by opponent and labeled with team
-    names and scores. If week is omitted, the current NFL week is used."""
+    names and scores. If week is omitted, the current week is used (NFL week
+    on Sleeper; Yahoo league current_week on Yahoo).
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_league.compute_matchups(league_id, week=week)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     return _league_mod.compute_matchups(lid, week if week is not None else _league_mod.current_week())
 
@@ -414,14 +461,35 @@ def recent_moves(
 
 
 @mcp.tool()
-def get_traded_picks(league_id: str | None = None) -> list[dict]:
-    """All traded draft picks in the league, including future picks."""
+def get_traded_picks(league_id: str | None = None, platform: str = "sleeper") -> list[dict]:
+    """All traded draft picks in the league, including future picks.
+
+    platform: "sleeper" (default) or "yahoo". Yahoo has no equivalent feed —
+    returns an explicit unsupported error row rather than inventing data."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.traded_picks_unavailable(league_id)
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     return _http.get_json(f"/league/{_league_mod.resolve_league_id(league_id)}/traded_picks") or []
 
 
 @mcp.tool()
-def get_playoff_bracket(league_id: str | None = None, bracket: str = "winners") -> list[dict]:
-    """Playoff bracket. bracket is "winners" or "losers"."""
+def get_playoff_bracket(
+    league_id: str | None = None,
+    bracket: str = "winners",
+    platform: str = "sleeper",
+) -> list[dict] | dict:
+    """Playoff bracket. On Sleeper, bracket is "winners" or "losers". On Yahoo,
+    there is no bracket resource — returns playoff-week scoreboards instead
+    (bracket is ignored).
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.playoff_bracket(league_id)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     which = "losers_bracket" if bracket.lower().startswith("los") else "winners_bracket"
     return _http.get_json(f"/league/{lid}/{which}") or []
@@ -498,10 +566,17 @@ def get_draft_picks(draft_id: str, platform: str = "sleeper") -> list[dict]:
 
 
 @mcp.tool()
-def get_draft_traded_picks(draft_id: str) -> list[dict]:
+def get_draft_traded_picks(draft_id: str, platform: str = "sleeper") -> list[dict]:
     """Draft picks that were traded within a specific draft. Useful in keeper
     and dynasty formats where picks change hands. Use get_drafts to find the
-    draft_id."""
+    draft_id.
+
+    platform: "sleeper" (default) or "yahoo". Yahoo has no equivalent feed."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.traded_picks_unavailable(draft_id)
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     return _http.get_json(f"/draft/{draft_id}/traded_picks") or []
 
 
@@ -666,11 +741,23 @@ def get_projections(
     position: str | None = None,
     limit: int = 50,
     league_id: str | None = None,
+    platform: str = "sleeper",
 ) -> dict:
     """[UNOFFICIAL] Weekly fantasy point projections, ranked highest first in
     your league's scoring format. Optionally filter by position. Uses Sleeper's
     undocumented projections endpoint (api.sleeper.com), which is not part of
-    the supported API and may change or break without notice."""
+    the supported API and may change or break without notice.
+
+    platform: "sleeper" (default) or "yahoo". On Yahoo, scoring format comes
+    from Yahoo reception modifiers (else YAHOO_SCORING_FORMAT); projection
+    numbers still come from Sleeper."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.weekly_projections(
+            league_id, week=week, position=position, limit=limit
+        )
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     state = _http.get_json(f"/state/{SPORT}", cache=True) or {}
     week = week or state.get("week") or 1
@@ -713,12 +800,27 @@ def start_sit_advice(
     week: int | None = None,
     team_name_or_manager: str | None = None,
     league_id: str | None = None,
+    platform: str = "sleeper",
+    scoring_format: str | None = None,
 ) -> dict:
     """[UNOFFICIAL] Start/sit help for a team. Compares the current starters to
-    the highest-projected legal lineup and suggests swaps, using your league's
-    scoring format. Defaults to your own team; pass a team name or manager to
-    check someone else. Relies on Sleeper's undocumented projections endpoint,
-    which is unsupported and may break without notice."""
+    the highest-projected legal lineup and suggests swaps. Relies on Sleeper's
+    undocumented projections endpoint, which is unsupported and may break
+    without notice.
+
+    platform: "sleeper" (default) or "yahoo". On Yahoo, the roster comes from
+    Yahoo and projections are joined via sleeper_id; scoring_format may be
+    ppr, half_ppr, or std (defaults to YAHOO_SCORING_FORMAT / ppr)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_start_sit.start_sit_advice(
+            week=week,
+            team_name_or_manager=team_name_or_manager,
+            league_key=league_id,
+            scoring_format=scoring_format,
+        )
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     resolved = (
         _league_mod.resolve_roster(lid, team_name_or_manager)
@@ -808,12 +910,22 @@ def start_sit_advice(
 
 @mcp.tool()
 def get_trade_values(
-    limit: int = 50, position: str | None = None, league_id: str | None = None
+    limit: int = 50,
+    position: str | None = None,
+    league_id: str | None = None,
+    platform: str = "sleeper",
 ) -> dict:
     """[UNOFFICIAL] FantasyCalc trade values for your league's exact format
     (PPR, superflex, team count, dynasty/redraft all detected automatically),
     ranked highest first. Optionally filter by position. Source is the
-    third-party FantasyCalc API, which may change without notice."""
+    third-party FantasyCalc API, which may change without notice.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.trade_values(league_id, limit=limit, position=position)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     fmt = _values.league_format(lid)
     values = _values.fc_values(fmt)
@@ -834,12 +946,26 @@ def get_auction_budgets(
     position: str | None = None,
     league_id: str | None = None,
     ceiling_pct: float = 0.12,
+    platform: str = "sleeper",
 ) -> dict:
     """[UNOFFICIAL] Convert FantasyCalc trade values into auction-dollar bid
     targets for your league. Returns fair and max ($) for each player, scaled
     to the league's auction budget when one exists (otherwise assumes $200).
     Superflex / PPR / team count are detected from league settings. Optionally
-    filter by position. Source is the third-party FantasyCalc API."""
+    filter by position. Source is the third-party FantasyCalc API.
+
+    platform: "sleeper" (default) or "yahoo". On Yahoo, set YAHOO_AUCTION_BUDGET
+    when the league is not flagged as auction (defaults to $200)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.auction_budgets(
+            league_id,
+            limit=limit,
+            ceiling_pct=ceiling_pct,
+            position=position,
+        )
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     return _auction.auction_budgets(
         lid,
@@ -851,12 +977,21 @@ def get_auction_budgets(
 
 @mcp.tool()
 def value_my_roster(
-    team_name_or_manager: str | None = None, league_id: str | None = None
+    team_name_or_manager: str | None = None,
+    league_id: str | None = None,
+    platform: str = "sleeper",
 ) -> dict:
     """[UNOFFICIAL] Total FantasyCalc trade value of a roster, with each player
     valued and ranked. Defaults to your team; pass a name to value another team.
     Joins on Sleeper player IDs, so matching is exact. Source is the third-party
-    FantasyCalc API."""
+    FantasyCalc API.
+
+    platform: "sleeper" (default) or "yahoo" (uses sleeper_id crosswalk)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.value_my_roster(team_name_or_manager, league_id)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     resolved = (
         _league_mod.resolve_roster(lid, team_name_or_manager)
@@ -907,13 +1042,24 @@ def value_my_roster(
 
 @mcp.tool()
 def analyze_trade(
-    give: list[str], get: list[str], league_id: str | None = None
+    give: list[str],
+    get: list[str],
+    league_id: str | None = None,
+    platform: str = "sleeper",
 ) -> dict:
     """[UNOFFICIAL] Compare two sides of a trade by FantasyCalc value. "give"
     is what you send away, "get" is what you receive; each is a list of player
     names (or Sleeper player IDs). Returns the totals, the difference, and a
     verdict, using your league's format. Source is the third-party FantasyCalc
-    API. Picks are not valued."""
+    API. Picks are not valued.
+
+    platform: "sleeper" (default) or "yahoo" (format from Yahoo settings;
+    names/IDs still resolve through FantasyCalc sleeperIds / crosswalk)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.analyze_trade(give, get, league_id)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     fmt = _values.league_format(lid)
     values = _values.fc_values(fmt)
@@ -994,6 +1140,7 @@ def get_adp(
     position: str | None = None,
     limit: int = 50,
     league_id: str | None = None,
+    platform: str = "sleeper",
 ) -> dict:
     """[UNOFFICIAL] Average Draft Position from FantasyFootballCalculator,
     derived from real fantasy drafts and matched to your league's format
@@ -1002,7 +1149,14 @@ def get_adp(
     FantasyCalc trade value, so you can see where the market drafts a player
     versus what the market thinks he is worth. Optionally filter by position.
     Sources are the third-party FantasyFootballCalculator and FantasyCalc
-    APIs."""
+    APIs.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.adp(league_id, position=position, limit=limit)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     fmt = _values.league_format(lid)
     season = int(_stats.current_season())
@@ -1019,12 +1173,21 @@ def get_adp(
 def get_dynasty_tiers(
     position: str | None = None,
     league_id: str | None = None,
+    platform: str = "sleeper",
 ) -> dict:
     """[UNOFFICIAL] FantasyCalc dynasty player values grouped into market tiers.
     Tiers come directly from FantasyCalc's own tier algorithm. Each tier
     represents a meaningful value drop from the previous group. Optionally filter
     by position. Also includes redraft value and 30-day trend for context. Source
-    is the third-party FantasyCalc API."""
+    is the third-party FantasyCalc API.
+
+    platform: "sleeper" (default) or "yahoo" (uses Yahoo PPR / team count;
+    dynasty flag is forced on for this tool)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.dynasty_tiers(league_id, position=position)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     fmt = _values.league_format(lid)
     # Always pull dynasty values for this tool — that's what tiers are for.

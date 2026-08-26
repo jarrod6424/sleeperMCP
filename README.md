@@ -24,12 +24,17 @@ it.
 | [nflverse](https://github.com/nflverse) | stats, snaps, depth charts, injuries | MIT licensed |
 
 **Yahoo Fantasy:** League tools accept `platform="yahoo"` — including
-`list_my_leagues`, `scout_team`, transactions, drafts (`get_drafts` /
-`get_draft_picks`), and `get_available_players`. Yahoo roster/draft/FA rows
-also attach a `sleeper_id` via `resolve_player_crosswalk` when the join is
-known. Run `python tools/yahoo_auth.py` once to obtain tokens, then set
-`YAHOO_LEAGUE_KEY` and `YAHOO_TEAM_NAME` in `.env`. Sleeper remains the
-default when `platform` is omitted.
+`list_my_leagues`, `scout_team`, `get_matchups`, `get_managers`, transactions,
+drafts, `get_available_players`, `start_sit_advice`, `get_projections`,
+`get_trade_values`, `get_auction_budgets`, `value_my_roster`, `analyze_trade`,
+`get_adp`, `get_dynasty_tiers`, and `get_playoff_bracket` (Yahoo returns
+playoff-week scoreboards; no Sleeper-style bracket). Yahoo roster/draft/FA
+rows also attach a `sleeper_id` via `resolve_player_crosswalk` when the join
+is known. Reception scoring is read from Yahoo `stat_modifiers` when present
+(else `YAHOO_SCORING_FORMAT`). Set `YAHOO_AUCTION_BUDGET` for auction $
+targets when Yahoo does not expose a budget. Run `python tools/yahoo_auth.py`
+once to obtain tokens, then set `YAHOO_LEAGUE_KEY` and `YAHOO_TEAM_NAME` in
+`.env`. Sleeper remains the default when `platform` is omitted.
 
 Each source has its own HTTP client so a failure in one cannot take down tools
 that do not depend on it. Tools drawing on unofficial sources are marked
