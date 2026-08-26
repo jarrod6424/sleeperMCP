@@ -219,8 +219,89 @@ def resolve_my_team(
         manager = (row.get("manager") or "").strip().lower()
         if target in {owner, manager}:
             matched_by = "team_name" if target == owner else "manager"
-            return {"team_key": row.get("team_key"), "roster_id": row.get("roster_id"), "matched_by": matched_by}
+            return {
+                "team_key": row.get("team_key"),
+                "roster_id": row.get("roster_id"),
+                "matched_by": matched_by,
+            }
     return None
+
+
+def resolve_roster(
+    league_key: str | None,
+    query: str,
+) -> dict[str, Any] | None:
+    """Resolve any team by team name or manager. Exact match first, then partial."""
+    lid = resolve_league_key(league_key)
+    q = (query or "").strip().lower()
+    if not lid or not q:
+        return None
+
+    rosters = compute_rosters(lid, include_players=False)
+    if isinstance(rosters, dict):
+        return None
+
+    def fields(row: dict[str, Any]) -> list[str]:
+        return [
+            (row.get("owner") or "").strip().lower(),
+            (row.get("manager") or "").strip().lower(),
+        ]
+
+    for row in rosters:
+        if q in [f for f in fields(row) if f]:
+            return {
+                "team_key": row.get("team_key"),
+                "roster_id": row.get("roster_id"),
+                "matched_by": "exact",
+                "owner": row.get("owner"),
+                "manager": row.get("manager"),
+            }
+
+    for row in rosters:
+        if any(q in f for f in fields(row) if f):
+            return {
+                "team_key": row.get("team_key"),
+                "roster_id": row.get("roster_id"),
+                "matched_by": "partial",
+                "owner": row.get("owner"),
+                "manager": row.get("manager"),
+            }
+    return None
+
+
+def available_team_names(league_key: str | None = None) -> list[str]:
+    rosters = compute_rosters(league_key, include_players=False)
+    if isinstance(rosters, dict):
+        return []
+    return [str(r.get("owner") or r.get("manager") or "") for r in rosters if r.get("owner") or r.get("manager")]
+
+
+def _team_report(lid: str, team_key: str, matched_by: str) -> dict[str, Any]:
+    rosters = compute_rosters(lid, include_players=True)
+    if isinstance(rosters, dict):
+        return rosters
+
+    entry = next((r for r in rosters if r.get("team_key") == team_key), None)
+    if not entry:
+        return _config_error("team roster not found", league_key=lid, team_key=team_key)
+
+    entry = dict(entry)
+    entry["matched_by"] = matched_by
+
+    standings = compute_standings(lid)
+    if isinstance(standings, dict):
+        return standings
+    for row in standings:
+        if row.get("team_key") == team_key:
+            entry["rank"] = row["rank"]
+            entry["teams_in_league"] = len(standings)
+            break
+
+    league = compute_league(lid)
+    week = to_int(league.get("current_week"), 1) if isinstance(league, dict) else 1
+    entry["this_week"] = _matchup_for(lid, week, str(team_key))
+    entry["next_week"] = _matchup_for(lid, week + 1, str(team_key))
+    return entry
 
 
 def _matchup_nodes(scoreboard_node: Any) -> list[dict[str, Any]]:
@@ -283,33 +364,168 @@ def compute_my_team(
             league_key=lid,
             tried_team_name=resolve_team_name(team_name),
         )
+    return _team_report(lid, str(resolved["team_key"]), resolved["matched_by"])
 
-    rosters = compute_rosters(lid, include_players=True)
-    if isinstance(rosters, dict):
-        return rosters
 
-    entry = next((r for r in rosters if r.get("team_key") == resolved["team_key"]), None)
-    if not entry:
-        return _config_error("team roster not found", league_key=lid, **resolved)
+def scout_team(
+    team_name_or_manager: str,
+    league_key: str | None = None,
+) -> dict[str, Any]:
+    lid = resolve_league_key(league_key)
+    if not lid:
+        return _config_error(
+            "YAHOO_LEAGUE_KEY is not configured",
+            query=team_name_or_manager,
+        )
 
-    entry = dict(entry)
-    entry["matched_by"] = resolved["matched_by"]
+    resolved = resolve_roster(lid, team_name_or_manager)
+    if not resolved:
+        return {
+            "error": "no team matched",
+            "platform": "yahoo",
+            "query": team_name_or_manager,
+            "available_teams": available_team_names(lid),
+            "league_key": lid,
+        }
+    return _team_report(lid, str(resolved["team_key"]), resolved["matched_by"])
 
-    standings = compute_standings(lid)
-    if isinstance(standings, dict):
-        return standings
-    for row in standings:
-        if row.get("team_key") == resolved["team_key"]:
-            entry["rank"] = row["rank"]
-            entry["teams_in_league"] = len(standings)
-            break
 
-    league = compute_league(lid)
-    week = to_int(league.get("current_week"), 1) if isinstance(league, dict) else 1
-    team_key = str(resolved["team_key"])
-    entry["this_week"] = _matchup_for(lid, week, team_key)
-    entry["next_week"] = _matchup_for(lid, week + 1, team_key)
-    return entry
+def _transaction_entries(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    node = league_subresource(payload, "transactions")
+    entries: list[dict[str, Any]] = []
+    for item in indexed_items(node):
+        blocks = item.get("transaction") if isinstance(item, dict) else item
+        if isinstance(blocks, dict) and "transaction_key" in blocks:
+            entries.append(blocks)
+            continue
+        meta = merge_dicts(
+            *(b for b in (blocks if isinstance(blocks, list) else [blocks]) if isinstance(b, dict) and "transaction_key" in b)
+        )
+        players_node = None
+        for block in (blocks if isinstance(blocks, list) else [blocks]):
+            if isinstance(block, dict) and "players" in block:
+                players_node = block["players"]
+                break
+        if meta:
+            if players_node is not None:
+                meta = {**meta, "players": players_node}
+            entries.append(meta)
+    return entries
+
+
+def _transaction_players(players_node: Any) -> list[dict[str, Any]]:
+    out: list[dict[str, Any]] = []
+    for item in indexed_items(players_node):
+        player_blocks = item.get("player") if isinstance(item, dict) else item
+        blocks = player_blocks if isinstance(player_blocks, list) else [player_blocks]
+        player: dict[str, Any] = {}
+        txn_data = None
+        for block in blocks:
+            if not isinstance(block, dict):
+                continue
+            if "player_id" in block or "name" in block or "player_key" in block:
+                player.update(block)
+            if "transaction_data" in block:
+                txn_data = block["transaction_data"]
+        if txn_data is not None:
+            player["transaction_data"] = txn_data
+        if player:
+            out.append(player)
+    return out
+
+
+def _format_transaction(raw: dict[str, Any]) -> dict[str, Any]:
+    players = _transaction_players(raw.get("players"))
+    adds: list[dict[str, Any]] = []
+    drops: list[dict[str, Any]] = []
+    teams: list[str] = []
+    for player in players:
+        data = player.get("transaction_data") or {}
+        if isinstance(data, list):
+            data = data[0] if data else {}
+        action = (data.get("type") or "").lower()
+        rec = {
+            "player_id": str(player.get("player_id") or player.get("player_key") or ""),
+            "name": player_display_name(player),
+            "position": player.get("display_position"),
+            "team": player.get("editorial_team_abbr"),
+        }
+        if action == "add":
+            rec["to_team"] = data.get("destination_team_name")
+            adds.append(rec)
+            if data.get("destination_team_name"):
+                teams.append(data["destination_team_name"])
+        elif action == "drop":
+            rec["from_team"] = data.get("source_team_name")
+            drops.append(rec)
+            if data.get("source_team_name"):
+                teams.append(data["source_team_name"])
+        else:
+            # trades and other moves — attach both sides when present
+            if data.get("destination_team_name"):
+                rec["to_team"] = data.get("destination_team_name")
+                teams.append(data["destination_team_name"])
+                adds.append(rec)
+            if data.get("source_team_name"):
+                drop_rec = dict(rec)
+                drop_rec["from_team"] = data.get("source_team_name")
+                drops.append(drop_rec)
+                teams.append(data["source_team_name"])
+
+    # Trade metadata often sits on the transaction itself.
+    for key in ("trader_team_name", "tradee_team_name"):
+        if raw.get(key):
+            teams.append(str(raw[key]))
+
+    created = to_int(raw.get("timestamp"), 0)
+    return {
+        "platform": "yahoo",
+        "type": raw.get("type"),
+        "status": raw.get("status"),
+        "week": None,
+        "created": created,
+        "transaction_key": raw.get("transaction_key"),
+        "teams": sorted(set(t for t in teams if t)),
+        "adds": adds,
+        "drops": drops,
+        "faab_bid": to_int(raw.get("faab_bid"), 0) or None,
+    }
+
+
+def compute_transactions(
+    league_key: str | None = None,
+    *,
+    count: int = 40,
+) -> list[dict] | dict:
+    """Recent league transactions (adds/drops/trades), newest first.
+
+    Yahoo does not bucket transactions by NFL week the way Sleeper does, so
+    this returns the most recent `count` moves league-wide.
+    """
+    lid = resolve_league_key(league_key)
+    if not lid:
+        return _config_error("YAHOO_LEAGUE_KEY is not configured")
+    try:
+        # types filter keeps commissioner's notes out of the activity feed.
+        path = f"league/{lid}/transactions;types=add,drop,trade"
+        if count and count > 0:
+            path = f"{path};count={int(count)}"
+        payload = get_json(path)
+    except YahooConfigError as exc:
+        return _config_error(str(exc))
+
+    formatted = [_format_transaction(raw) for raw in _transaction_entries(payload)]
+    formatted.sort(key=lambda row: row.get("created") or 0, reverse=True)
+    return formatted
+
+
+def recent_moves(
+    league_key: str | None = None,
+    weeks: int = 3,
+) -> list[dict] | dict:
+    """Approximate Sleeper recent_moves: last N weeks of activity by count."""
+    count = max(10, int(weeks) * 12)
+    return compute_transactions(league_key, count=count)
 
 
 def list_user_leagues(season: str | None = None) -> dict[str, Any]:

@@ -5,7 +5,10 @@ from .league import (
     compute_my_team,
     compute_rosters,
     compute_standings,
+    compute_transactions,
     list_user_leagues,
+    recent_moves,
+    scout_team,
 )
 
 __all__ = [
@@ -13,5 +16,8 @@ __all__ = [
     "compute_my_team",
     "compute_rosters",
     "compute_standings",
+    "compute_transactions",
     "list_user_leagues",
+    "recent_moves",
+    "scout_team",
 ]

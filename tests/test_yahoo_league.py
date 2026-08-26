@@ -152,3 +152,53 @@ def test_list_my_leagues_yahoo_only_surfaces_config_error():
         result = server.list_my_leagues(platform="yahoo")
     assert result["leagues"] == []
     assert result["errors"][0]["platform"] == "yahoo"
+
+
+def test_scout_team_partial_match():
+    teams = _load("league_teams.json")
+    scoreboard = _load("scoreboard_week10.json")
+
+    def fake_fetch(league_key: str, out: str):
+        if out == "teams,standings,rosters":
+            return teams
+        if out == "metadata,settings":
+            return _load("league_metadata.json")
+        raise AssertionError(out)
+
+    with patch("yahoo_core.league._fetch_league", side_effect=fake_fetch):
+        with patch("yahoo_core.league.get_json", return_value=scoreboard):
+            report = yahoo_league.scout_team("Rival Sq")
+    assert report["owner"] == "Rival Squad"
+    assert report["matched_by"] == "partial"
+    assert report["this_week"]["opponent"] == "Pine Bluff Escapees"
+
+
+def test_scout_team_no_match_lists_available():
+    with patch("yahoo_core.league._fetch_league", return_value=_load("league_teams.json")):
+        result = yahoo_league.scout_team("Nobody")
+    assert result["error"] == "no team matched"
+    assert "Pine Bluff Escapees" in result["available_teams"]
+
+
+def test_compute_transactions_parses_add_drop_and_trade():
+    with patch("yahoo_core.league.get_json", return_value=_load("transactions.json")):
+        moves = yahoo_league.compute_transactions()
+    assert isinstance(moves, list)
+    assert len(moves) == 2
+    assert moves[0]["type"] == "add/drop"
+    assert moves[0]["adds"][0]["name"] == "Pickup Player"
+    assert moves[0]["drops"][0]["name"] == "Dropped Player"
+    assert moves[0]["faab_bid"] == 7
+    assert moves[1]["type"] == "trade"
+    assert "Rival Squad" in moves[1]["teams"]
+
+
+def test_server_yahoo_transactions_routing():
+    import server
+
+    with patch(
+        "server._yahoo_league.compute_transactions",
+        return_value=[{"type": "add", "platform": "yahoo"}],
+    ):
+        result = server.get_transactions(platform="yahoo")
+    assert result[0]["platform"] == "yahoo"

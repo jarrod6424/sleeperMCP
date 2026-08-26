@@ -285,11 +285,22 @@ def get_my_team(
 
 
 @mcp.tool()
-def scout_team(team_name_or_manager: str, league_id: str | None = None) -> dict:
+def scout_team(
+    team_name_or_manager: str,
+    league_id: str | None = None,
+    platform: str = "sleeper",
+) -> dict:
     """Scout any team in the league, chosen by team name or manager name.
     Returns their roster, record, standings rank, current matchup, and next
     week's matchup. Matching is case-insensitive and accepts partial names.
-    If nothing matches, the available team names are returned so you can retry."""
+    If nothing matches, the available team names are returned so you can retry.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_league.scout_team(team_name_or_manager, league_id)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     resolved = _league_mod.resolve_roster(lid, team_name_or_manager)
     if not resolved:
@@ -351,19 +362,45 @@ def get_matchups(league_id: str | None = None, week: int | None = None) -> dict:
 
 
 @mcp.tool()
-def get_transactions(league_id: str | None = None, week: int | None = None) -> list[dict]:
-    """Trades, waivers, and free-agent moves for a week (the Sleeper "round").
-    Adds and drops are resolved to player names. If week is omitted, the current
-    week is used."""
+def get_transactions(
+    league_id: str | None = None,
+    week: int | None = None,
+    platform: str = "sleeper",
+) -> list[dict]:
+    """Trades, waivers, and free-agent moves. On Sleeper this is for a week
+    (the Sleeper "round"); if week is omitted, the current week is used.
+    On Yahoo, week is ignored — Yahoo returns recent league-wide transactions
+    (not week-bucketed). Adds and drops are resolved to player names.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.compute_transactions(league_id)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     lid = _league_mod.resolve_league_id(league_id)
     return _league_mod.compute_transactions(lid, week if week is not None else _league_mod.current_week())
 
 
 @mcp.tool()
-def recent_moves(weeks: int = 3, league_id: str | None = None) -> list[dict]:
-    """Trades, waivers, and free-agent moves across the last N weeks combined
-    (default 3), newest first, with player names resolved. Saves querying each
-    week separately."""
+def recent_moves(
+    weeks: int = 3,
+    league_id: str | None = None,
+    platform: str = "sleeper",
+) -> list[dict]:
+    """Trades, waivers, and free-agent moves across recent activity, newest
+    first, with player names resolved. On Sleeper this is the last N weeks
+    combined (default 3). On Yahoo it returns a recent slice sized from weeks
+    (Yahoo is not week-bucketed).
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.recent_moves(league_id, weeks=weeks)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     lid = _league_mod.resolve_league_id(league_id)
     current = _league_mod.current_week()
     moves: list[dict] = []
