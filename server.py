@@ -54,6 +54,7 @@ from sleeper_core.config import (
 
 from yahoo_core import league as _yahoo_league
 from yahoo_core import start_sit as _yahoo_start_sit
+from yahoo_core import values as _yahoo_values
 
 mcp = FastMCP("sleeper-readonly")
 
@@ -912,12 +913,21 @@ def get_auction_budgets(
 
 @mcp.tool()
 def value_my_roster(
-    team_name_or_manager: str | None = None, league_id: str | None = None
+    team_name_or_manager: str | None = None,
+    league_id: str | None = None,
+    platform: str = "sleeper",
 ) -> dict:
     """[UNOFFICIAL] Total FantasyCalc trade value of a roster, with each player
     valued and ranked. Defaults to your team; pass a name to value another team.
     Joins on Sleeper player IDs, so matching is exact. Source is the third-party
-    FantasyCalc API."""
+    FantasyCalc API.
+
+    platform: "sleeper" (default) or "yahoo" (uses sleeper_id crosswalk)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.value_my_roster(team_name_or_manager, league_id)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     resolved = (
         _league_mod.resolve_roster(lid, team_name_or_manager)
@@ -968,13 +978,24 @@ def value_my_roster(
 
 @mcp.tool()
 def analyze_trade(
-    give: list[str], get: list[str], league_id: str | None = None
+    give: list[str],
+    get: list[str],
+    league_id: str | None = None,
+    platform: str = "sleeper",
 ) -> dict:
     """[UNOFFICIAL] Compare two sides of a trade by FantasyCalc value. "give"
     is what you send away, "get" is what you receive; each is a list of player
     names (or Sleeper player IDs). Returns the totals, the difference, and a
     verdict, using your league's format. Source is the third-party FantasyCalc
-    API. Picks are not valued."""
+    API. Picks are not valued.
+
+    platform: "sleeper" (default) or "yahoo" (format from Yahoo settings;
+    names/IDs still resolve through FantasyCalc sleeperIds / crosswalk)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_values.analyze_trade(give, get, league_id)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     fmt = _values.league_format(lid)
     values = _values.fc_values(fmt)

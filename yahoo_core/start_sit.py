@@ -76,6 +76,23 @@ def start_sit_advice(
         }
 
     field, fmt = scoring_field(scoring_format)
+    if scoring_format is None and league.get("scoring_format_label"):
+        label = str(league["scoring_format_label"]).lower()
+        if "half" in label:
+            field, fmt = "pts_half_ppr", "Half-PPR"
+        elif label == "ppr":
+            field, fmt = "pts_ppr", "PPR"
+        elif label == "standard":
+            field, fmt = "pts_std", "Standard"
+        scoring_format_note = "Detected from Yahoo settings.stat_modifiers (receptions)."
+    else:
+        scoring_format_note = (
+            "Yahoo scoring modifiers are not fully parsed yet; "
+            "set YAHOO_SCORING_FORMAT=ppr|half_ppr|std to match your league."
+            if league.get("reception_points") is None
+            else "Using explicit scoring_format override."
+        )
+
     proj = sleeper_proj.projections_for(season, int(week))
     if not proj:
         return {
@@ -159,10 +176,7 @@ def start_sit_advice(
         "team": report.get("owner"),
         "week": int(week),
         "scoring_format": fmt,
-        "scoring_format_note": (
-            "Yahoo scoring modifiers are not fully parsed yet; "
-            "set YAHOO_SCORING_FORMAT=ppr|half_ppr|std to match your league."
-        ),
+        "scoring_format_note": scoring_format_note,
         "source": "Yahoo roster + api.sleeper.com projections via sleeper_id crosswalk (UNDOCUMENTED)",
         "current_projected": current_proj,
         "optimal_projected": optimal_proj,

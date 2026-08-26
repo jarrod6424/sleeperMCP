@@ -28,6 +28,12 @@
               "4": { "roster_position": { "position": "FLEX", "count": 1 } },
               "5": { "roster_position": { "position": "BN", "count": 3 } },
               "count": 6
+            },
+            "stat_modifiers": {
+              "stats": {
+                "0": { "stat": { "stat_id": 11, "value": "0.5" } },
+                "count": 1
+              }
             }
           }
         ]

@@ -169,6 +169,13 @@ def compute_league(league_key: str | None = None) -> dict[str, Any]:
             if abbr:
                 roster_positions.extend([abbr] * count)
 
+    # Reception points (stat_id 11) drive PPR / half-PPR / standard for projections
+    # and FantasyCalc format selection.
+    from .scoring import ppr_from_reception_points, reception_points as _reception_points
+
+    reception_pts = _reception_points(settings)
+    ppr_value, ppr_label = ppr_from_reception_points(reception_pts)
+
     return {
         "platform": "yahoo",
         "league_key": meta.get("league_key") or lid,
@@ -182,11 +189,18 @@ def compute_league(league_key: str | None = None) -> dict[str, Any]:
         "scoring_type": settings.get("scoring_type"),
         "draft_type": settings.get("draft_type"),
         "roster_positions": roster_positions,
+        "reception_points": reception_pts,
+        "scoring_format_label": ppr_label,
+        "raw_settings": settings,
         "settings": {
             "waiver_type": settings.get("waiver_type"),
             "trade_end_date": settings.get("trade_end_date"),
             "playoff_start_week": settings.get("playoff_start_week"),
             "num_playoff_teams": settings.get("num_playoff_teams"),
+            "uses_faab": settings.get("uses_faab"),
+            "is_auction_draft": settings.get("is_auction_draft"),
+            "reception_points": reception_pts,
+            "scoring_format_label": ppr_label,
         },
     }
 
