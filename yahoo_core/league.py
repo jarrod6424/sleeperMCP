@@ -44,25 +44,44 @@ def _fetch_league(league_key: str, out: str) -> dict[str, Any]:
     return get_json(f"league/{league_key};out={out}")
 
 
-def _format_player(player: dict[str, Any]) -> dict[str, Any]:
+def _format_player(player: dict[str, Any], indexes: dict | None = None) -> dict[str, Any]:
     slot = selected_slot(player)
     team = player.get("editorial_team_abbr") or player.get("editorial_team_full_name")
     status = player.get("status") or player.get("injury_note")
-    return {
+    row = {
         "player_id": str(player.get("player_id") or player.get("player_key") or ""),
+        "player_key": player.get("player_key"),
         "name": player_display_name(player),
         "position": player.get("display_position") or player.get("primary_position"),
         "team": team,
         "selected_position": slot,
         "status": status or None,
     }
+    try:
+        from sleeper_core.crosswalk import yahoo_to_sleeper
+
+        resolved = yahoo_to_sleeper(
+            row.get("player_key") or row.get("player_id"),
+            name=row.get("name"),
+            position=row.get("position"),
+            indexes=indexes,
+        )
+        row["sleeper_id"] = resolved.get("sleeper_id")
+        row["crosswalk_matched_by"] = resolved.get("matched_by")
+    except Exception:
+        row["sleeper_id"] = None
+        row["crosswalk_matched_by"] = None
+    return row
 
 
-def _split_roster(players: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+def _split_roster(
+    players: list[dict[str, Any]],
+    indexes: dict | None = None,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
     starters: list[dict[str, Any]] = []
     bench: list[dict[str, Any]] = []
     for raw in players:
-        formatted = _format_player(raw)
+        formatted = _format_player(raw, indexes=indexes)
         if formatted["selected_position"] in {"BN", "IR"}:
             bench.append(formatted)
         else:
@@ -110,8 +129,11 @@ def _format_team_entry(team: dict[str, Any], include_players: bool) -> dict[str,
         **record,
     }
     if include_players:
+        from sleeper_core.crosswalk import build_indexes
+
+        indexes = build_indexes()
         players = roster_players(team.get("roster"))
-        starters, bench = _split_roster(players)
+        starters, bench = _split_roster(players, indexes=indexes)
         entry["starters"] = starters
         entry["bench"] = bench
     return entry
@@ -643,6 +665,14 @@ def compute_draft_picks(league_key: str | None = None) -> list[dict] | dict:
             }
         )
     picks.sort(key=lambda row: row.get("pick_no") or 0)
+    try:
+        from sleeper_core.crosswalk import enrich_with_sleeper_ids
+
+        picks = enrich_with_sleeper_ids(
+            picks, yahoo_id_key="player_id", name_key="player", position_key="position"
+        )
+    except Exception:
+        pass
     return picks
 
 
@@ -687,24 +717,29 @@ def compute_available_players(
         if not page_players:
             break
         for player in page_players:
-            out.append(
-                {
-                    "platform": "yahoo",
-                    "player_id": str(player.get("player_id") or player.get("player_key") or ""),
-                    "player_key": player.get("player_key"),
-                    "name": player_display_name(player),
-                    "position": player.get("display_position") or player.get("primary_position"),
-                    "team": player.get("editorial_team_abbr"),
-                    "status": player.get("status"),
-                    "search_rank": None,
-                }
-            )
+            row = {
+                "platform": "yahoo",
+                "player_id": str(player.get("player_id") or player.get("player_key") or ""),
+                "player_key": player.get("player_key"),
+                "name": player_display_name(player),
+                "position": player.get("display_position") or player.get("primary_position"),
+                "team": player.get("editorial_team_abbr"),
+                "status": player.get("status"),
+                "search_rank": None,
+            }
+            out.append(row)
             if len(out) >= wanted:
                 break
         if len(page_players) < page:
             break
         start += len(page_players)
 
+    try:
+        from sleeper_core.crosswalk import enrich_with_sleeper_ids
+
+        out = enrich_with_sleeper_ids(out)
+    except Exception:
+        pass
     for index, row in enumerate(out, start=1):
         row["search_rank"] = index
     return out

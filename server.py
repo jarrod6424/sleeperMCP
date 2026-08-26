@@ -34,6 +34,7 @@ from fastmcp import FastMCP
 
 from sleeper_core import adp as _adp
 from sleeper_core import auction as _auction
+from sleeper_core import crosswalk as _crosswalk
 from sleeper_core import http as _http
 from sleeper_core import league as _league_mod
 from sleeper_core import offense as _offense
@@ -591,6 +592,36 @@ def get_player(player_id: str) -> dict:
     if not info:
         return _players.player_name(player_id, players)
     return info
+
+
+@mcp.tool()
+def resolve_player_crosswalk(
+    sleeper_id: str | None = None,
+    yahoo_id: str | None = None,
+    player_name: str | None = None,
+    position: str | None = None,
+) -> dict:
+    """Map a player between Sleeper and Yahoo IDs.
+
+    Provide sleeper_id to look up yahoo_id, or yahoo_id / player_name (optional
+    position) to look up sleeper_id. Yahoo keys like 461.p.32692 are accepted.
+    Matching prefers yahoo_id, then name+position, then name."""
+    if sleeper_id:
+        return _crosswalk.sleeper_to_yahoo(sleeper_id)
+    if yahoo_id or player_name:
+        return _crosswalk.yahoo_to_sleeper(
+            yahoo_id, name=player_name, position=position
+        )
+    return {
+        "error": "provide sleeper_id, yahoo_id, and/or player_name",
+    }
+
+
+@mcp.tool()
+def player_crosswalk_stats() -> dict:
+    """Coverage of Sleeper→Yahoo ID joins on the player map. Use this to see
+    how many players have a yahoo_id before relying on cross-platform tools."""
+    return _crosswalk.crosswalk_stats()
 
 
 @mcp.tool()
