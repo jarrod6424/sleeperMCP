@@ -261,3 +261,41 @@ def test_server_yahoo_available_and_draft_routing():
     ):
         picks = server.get_draft_picks("461.l.1000", platform="yahoo")
     assert picks[0]["pick_no"] == 1
+
+
+def test_compute_matchups_pairs_teams():
+    with patch("yahoo_core.league.get_json", return_value=_load("scoreboard_week10.json")):
+        board = yahoo_league.compute_matchups(week=10)
+    assert board["platform"] == "yahoo"
+    assert board["week"] == 10
+    assert len(board["matchups"]) == 1
+    teams = {t["team"]: t["points"] for t in board["matchups"][0]["teams"]}
+    assert teams["Pine Bluff Escapees"] == 121.34
+    assert teams["Rival Squad"] == 108.2
+
+
+def test_compute_managers_from_rosters():
+    with patch("yahoo_core.league._fetch_league", return_value=_load("league_teams.json")):
+        managers = yahoo_league.compute_managers()
+    assert isinstance(managers, list)
+    assert {m["team_name"] for m in managers} == {"Pine Bluff Escapees", "Rival Squad"}
+    mine = next(m for m in managers if m["team_name"] == "Pine Bluff Escapees")
+    assert mine["display_name"] == "JarrodLee"
+
+
+def test_server_yahoo_matchups_and_managers_routing():
+    import server
+
+    with patch(
+        "server._yahoo_league.compute_matchups",
+        return_value={"platform": "yahoo", "matchups": []},
+    ):
+        board = server.get_matchups(platform="yahoo", week=10)
+    assert board["platform"] == "yahoo"
+
+    with patch(
+        "server._yahoo_league.compute_managers",
+        return_value=[{"team_name": "A", "platform": "yahoo"}],
+    ):
+        managers = server.get_managers(platform="yahoo")
+    assert managers[0]["team_name"] == "A"

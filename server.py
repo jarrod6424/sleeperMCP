@@ -181,9 +181,17 @@ def get_league_full(league_id: str | None = None) -> dict:
 
 
 @mcp.tool()
-def get_managers(league_id: str | None = None) -> list[dict]:
+def get_managers(league_id: str | None = None, platform: str = "sleeper") -> list[dict]:
     """List the managers (users) in the league with display names, team names,
-    and who the commissioner is."""
+    and who the commissioner is.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.compute_managers(league_id)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     users = _http.get_json(f"/league/{_league_mod.resolve_league_id(league_id)}/users") or []
     result = []
     for u in users:
@@ -322,11 +330,36 @@ def scout_team(
 
 
 @mcp.tool()
-def get_my_roster_id(league_id: str | None = None, username: str | None = None) -> dict:
+def get_my_roster_id(
+    league_id: str | None = None,
+    username: str | None = None,
+    platform: str = "sleeper",
+) -> dict:
     """Resolve the configured user to their roster_id and team name in the
     league. Useful when another tool needs an explicit roster_id.
 
-    Pass username to resolve a different manager instead."""
+    Pass username to resolve a different manager instead.
+    platform: "sleeper" (default) or "yahoo" (username is treated as team name)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        lid = _yahoo_league.resolve_league_key(league_id)
+        resolved = _yahoo_league.resolve_my_team(lid, team_name=username)
+        if not resolved:
+            return {
+                "error": "could not resolve that team",
+                "platform": "yahoo",
+                "tried_team_name": username or _yahoo_league.resolve_team_name(None),
+                "league_id": lid,
+            }
+        return {
+            "platform": "yahoo",
+            "roster_id": resolved.get("roster_id"),
+            "team_key": resolved.get("team_key"),
+            "matched_by": resolved.get("matched_by"),
+            "league_id": lid,
+        }
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     resolved = _league_mod.resolve_my_roster(lid, username=username)
     if not resolved:
@@ -350,9 +383,21 @@ def get_my_roster_id(league_id: str | None = None, username: str | None = None) 
 
 
 @mcp.tool()
-def get_matchups(league_id: str | None = None, week: int | None = None) -> dict:
+def get_matchups(
+    league_id: str | None = None,
+    week: int | None = None,
+    platform: str = "sleeper",
+) -> dict:
     """Matchups for a given week, paired up by opponent and labeled with team
-    names and scores. If week is omitted, the current NFL week is used."""
+    names and scores. If week is omitted, the current week is used (NFL week
+    on Sleeper; Yahoo league current_week on Yahoo).
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_league.compute_matchups(league_id, week=week)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     return _league_mod.compute_matchups(lid, week if week is not None else _league_mod.current_week())
 
