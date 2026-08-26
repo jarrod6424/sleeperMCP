@@ -9,7 +9,7 @@ from typing import Any
 from sleeper_core import values as sleeper_values
 from sleeper_core.config import FC_SOURCE
 
-from .config import YAHOO_SCORING_FORMAT
+from .config import YAHOO_AUCTION_BUDGET, YAHOO_SCORING_FORMAT
 from .league import (
     _config_error,
     compute_league,
@@ -17,6 +17,7 @@ from .league import (
     resolve_league_key,
     scout_team,
 )
+from .parse import to_int
 from .scoring import ppr_from_reception_points, reception_points
 from .start_sit import scoring_field
 
@@ -240,3 +241,299 @@ def analyze_trade(
         "verdict": verdict,
         "source": FC_SOURCE,
     }
+
+
+def trade_values(
+    league_key: str | None = None,
+    *,
+    limit: int = 50,
+    position: str | None = None,
+) -> dict[str, Any]:
+    """FantasyCalc board for a Yahoo league's inferred format."""
+    fmt = league_format(league_key)
+    if fmt.get("error"):
+        return fmt
+    raw = sleeper_values.fc_values(fmt)
+    if not raw:
+        return {"error": "no trade values returned", "format": fmt, "source": FC_SOURCE}
+    rows = [sleeper_values.fc_row(v) for v in raw]
+    if position:
+        pos = position.upper()
+        rows = [r for r in rows if r.get("position") == pos]
+    rows.sort(key=lambda r: r.get("value") or 0, reverse=True)
+    return {
+        "platform": "yahoo",
+        "format": fmt,
+        "source": FC_SOURCE,
+        "players": rows[:limit],
+    }
+
+
+def auction_budgets(
+    league_key: str | None = None,
+    *,
+    limit: int = 80,
+    ceiling_pct: float = 0.12,
+    position: str | None = None,
+    budget: int | None = None,
+) -> dict[str, Any]:
+    """Auction $ targets for a Yahoo league using FantasyCalc values."""
+    from sleeper_core import auction as sleeper_auction
+
+    league = compute_league(league_key)
+    if isinstance(league, dict) and league.get("error"):
+        return league
+
+    fmt = league_format(league.get("league_key"))
+    if fmt.get("error"):
+        return fmt
+
+    settings = league.get("settings") or {}
+    is_auction = str(settings.get("is_auction_draft") or "").strip() in {"1", "true", "True"}
+    resolved_budget = budget if budget is not None else YAHOO_AUCTION_BUDGET
+    if resolved_budget is None:
+        resolved_budget = 200
+
+    roster_positions = league.get("roster_positions") or []
+    roster_spots = len(roster_positions) or 15
+    k_def_spots = sum(1 for p in roster_positions if str(p).upper() in {"K", "DEF"})
+    num_teams = int(league.get("num_teams") or fmt.get("numTeams") or 12)
+
+    raw = sleeper_values.fc_values(fmt)
+    if not raw:
+        return {"error": "no trade values returned", "format": fmt, "source": FC_SOURCE}
+    rows = [sleeper_values.fc_row(v) for v in raw]
+    if position:
+        pos = position.upper()
+        rows = [r for r in rows if r.get("position") == pos]
+
+    priced = sleeper_auction.price_board(
+        rows,
+        budget=int(resolved_budget),
+        num_teams=num_teams,
+        roster_spots=roster_spots,
+        k_def_spots=k_def_spots,
+        ceiling_pct=ceiling_pct,
+        limit=limit,
+    )
+    return {
+        "platform": "yahoo",
+        "league_id": league.get("league_key"),
+        "league_name": league.get("name"),
+        "budget": int(resolved_budget),
+        "num_teams": num_teams,
+        "roster_spots": roster_spots,
+        "assumed_auction": not is_auction,
+        "is_auction_draft": is_auction,
+        "format": fmt,
+        "method": {
+            "source": "fantasycalc trade value scaled into auction pool",
+            "ceiling_pct": ceiling_pct,
+            "note": (
+                "fair = market share of discretionary dollars + $1 floor; "
+                "max ~= fair * (1 + ceiling_pct). Set YAHOO_AUCTION_BUDGET to override."
+            ),
+        },
+        "players": priced,
+        "sum_fair": sum(p["fair"] for p in priced),
+        "note": None
+        if is_auction
+        else (
+            "Yahoo league is not flagged as auction draft; using "
+            f"${resolved_budget} budget and roster size from settings."
+        ),
+    }
+
+
+def playoff_bracket(
+    league_key: str | None = None,
+    *,
+    weeks: int = 4,
+) -> dict[str, Any]:
+    """Yahoo has no Sleeper-style bracket resource — return playoff-week boards."""
+    from .league import compute_matchups
+
+    league = compute_league(league_key)
+    if isinstance(league, dict) and league.get("error"):
+        return league
+
+    settings = league.get("settings") or {}
+    start = to_int(settings.get("playoff_start_week"), 0) or None
+    if not start:
+        return {
+            "platform": "yahoo",
+            "league_key": league.get("league_key"),
+            "error": "playoff_start_week not found in Yahoo settings",
+            "hint": "Use get_matchups(platform='yahoo', week=N) for a specific week.",
+        }
+
+    boards = []
+    for week in range(int(start), int(start) + max(1, int(weeks))):
+        board = compute_matchups(league.get("league_key"), week=week)
+        if isinstance(board, dict) and board.get("error"):
+            boards.append({"week": week, "error": board.get("error")})
+        else:
+            boards.append(board)
+
+    return {
+        "platform": "yahoo",
+        "league_key": league.get("league_key"),
+        "playoff_start_week": int(start),
+        "num_playoff_teams": settings.get("num_playoff_teams"),
+        "note": (
+            "Yahoo Fantasy API has no winners/losers bracket resource like Sleeper. "
+            "This returns scoreboards for playoff weeks instead."
+        ),
+        "weeks": boards,
+    }
+
+
+def weekly_projections(
+    league_key: str | None = None,
+    *,
+    week: int | None = None,
+    position: str | None = None,
+    limit: int = 50,
+) -> dict[str, Any]:
+    """Sleeper weekly projections ranked in the Yahoo league's scoring format."""
+    from sleeper_core import players as sleeper_players
+    from sleeper_core import projections as sleeper_proj
+    from sleeper_core.http import get_json as sleeper_get_json
+
+    league = compute_league(league_key)
+    if isinstance(league, dict) and league.get("error"):
+        return league
+
+    state = sleeper_get_json("/state/nfl", cache=True) or {}
+    week = week or to_int(league.get("current_week"), 0) or state.get("week") or 1
+    season = str(state.get("season") or state.get("league_season") or league.get("season") or "")
+    if not season:
+        return {"error": "could not determine current season", "platform": "yahoo"}
+
+    fmt = league_format(league.get("league_key"))
+    if fmt.get("error"):
+        return fmt
+    label = str(fmt.get("scoring_format_label") or "PPR").lower()
+    if "half" in label:
+        field, scoring_label = "pts_half_ppr", "Half-PPR"
+    elif label in {"standard", "std"} or float(fmt.get("ppr") or 0) == 0:
+        field, scoring_label = "pts_std", "Standard"
+    else:
+        field, scoring_label = "pts_ppr", "PPR"
+
+    proj = sleeper_proj.projections_for(season, int(week))
+    if not proj:
+        return {
+            "error": "no projection data returned",
+            "week": week,
+            "season": season,
+            "platform": "yahoo",
+            "hint": "The undocumented projections endpoint may have changed or be unavailable.",
+            "source": "api.sleeper.com projections (UNDOCUMENTED, unsupported)",
+        }
+
+    players = sleeper_players.load_players()
+    pos = position.upper() if position else None
+    rows = []
+    for pid in proj:
+        rec = sleeper_players.player_name(pid, players)
+        if pos and rec["position"] != pos:
+            continue
+        rec["projected_points"] = sleeper_proj.proj_points(pid, proj, field)
+        rows.append(rec)
+    rows.sort(key=lambda r: r["projected_points"], reverse=True)
+
+    return {
+        "platform": "yahoo",
+        "league_key": league.get("league_key"),
+        "week": int(week),
+        "season": season,
+        "scoring_format": scoring_label,
+        "reception_points_source": fmt.get("reception_points_source"),
+        "source": "api.sleeper.com projections (UNDOCUMENTED, unsupported)",
+        "players": rows[:limit],
+    }
+
+
+def adp(
+    league_key: str | None = None,
+    *,
+    position: str | None = None,
+    limit: int = 50,
+) -> dict[str, Any]:
+    """FFC ADP for a Yahoo league's inferred FantasyCalc format."""
+    from sleeper_core import adp as sleeper_adp
+    from sleeper_core import stats as sleeper_stats
+
+    fmt = league_format(league_key)
+    if fmt.get("error"):
+        return fmt
+    season = int(sleeper_stats.current_season())
+    result = sleeper_adp.adp_rows(
+        fmt,
+        season,
+        position=position,
+        limit=limit,
+        fc_values=sleeper_values.fc_values(fmt),
+    )
+    if isinstance(result, dict):
+        result = {**result, "platform": "yahoo"}
+    return result
+
+
+def dynasty_tiers(
+    league_key: str | None = None,
+    *,
+    position: str | None = None,
+) -> dict[str, Any]:
+    """FantasyCalc dynasty tiers using Yahoo team-count / PPR context."""
+    fmt = league_format(league_key)
+    if fmt.get("error"):
+        return fmt
+    dynasty_fmt = {**fmt, "isDynasty": True}
+    raw = sleeper_values.fc_values(dynasty_fmt)
+    if not raw:
+        return {"error": "no trade values returned", "format": dynasty_fmt, "source": FC_SOURCE}
+
+    pos = position.upper() if position else None
+    rows = [sleeper_values.fc_row(v) for v in raw if v.get("value")]
+    if pos:
+        rows = [r for r in rows if r.get("position") == pos]
+    rows.sort(key=lambda r: r.get("overall_rank") or 9999)
+
+    groups: dict[int, list[dict]] = {}
+    for r in rows:
+        tier = r.get("tier") or 99
+        entry = {k: v for k, v in r.items() if k != "tier"}
+        groups.setdefault(tier, []).append(entry)
+
+    return {
+        "platform": "yahoo",
+        "format": dynasty_fmt,
+        "source": FC_SOURCE,
+        "tiers": [
+            {"tier": t, "players": players}
+            for t, players in sorted(groups.items(), key=lambda kv: kv[0])
+        ],
+        "note": (
+            "Yahoo dynasty flag is not auto-detected yet; this always pulls "
+            "FantasyCalc dynasty values using the Yahoo league's PPR / QB / team count."
+        ),
+    }
+
+
+def traded_picks_unavailable(league_key: str | None = None) -> list[dict[str, Any]]:
+    """Honest gap: Yahoo has no Sleeper-style traded-picks resource."""
+    lid = resolve_league_key(league_key)
+    return [
+        {
+            "platform": "yahoo",
+            "league_key": lid or None,
+            "error": "yahoo_traded_picks_unsupported",
+            "note": (
+                "Yahoo Fantasy API does not expose a Sleeper-style traded draft "
+                "picks feed. Use get_draft_picks(platform='yahoo') for completed "
+                "draft results, or inspect transactions for pick-related trades."
+            ),
+        }
+    ]
