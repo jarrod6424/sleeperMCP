@@ -23,9 +23,9 @@ it.
 | [FantasyFootballCalculator](https://fantasyfootballcalculator.com) | ADP | Third party |
 | [nflverse](https://github.com/nflverse) | stats, snaps, depth charts, injuries | MIT licensed |
 
-**Yahoo Fantasy:** `get_league`, `get_rosters`, `get_standings`, `get_my_team`,
-`scout_team`, `get_transactions`, and `recent_moves` accept `platform="yahoo"`.
-`list_my_leagues` discovers leagues across Sleeper and Yahoo. Run
+**Yahoo Fantasy:** League tools accept `platform="yahoo"` — including
+`list_my_leagues`, `scout_team`, transactions, drafts (`get_drafts` /
+`get_draft_picks`), and `get_available_players`. Run
 `python tools/yahoo_auth.py` once to obtain tokens, then set `YAHOO_LEAGUE_KEY`
 and `YAHOO_TEAM_NAME` in `.env`. Sleeper remains the default when `platform`
 is omitted.

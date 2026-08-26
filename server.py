@@ -432,21 +432,50 @@ def get_playoff_bracket(league_id: str | None = None, bracket: str = "winners") 
 
 
 @mcp.tool()
-def get_drafts(league_id: str | None = None) -> list[dict]:
+def get_drafts(league_id: str | None = None, platform: str = "sleeper") -> list[dict]:
     """All drafts for the league (most leagues have one; dynasty leagues may
-    have several), newest first."""
+    have several), newest first.
+
+    platform: "sleeper" (default) or "yahoo". On Yahoo, returns a single
+    synthetic draft whose draft_id is the league key (use with get_draft_picks)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.list_drafts(league_id)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     return _http.get_json(f"/league/{_league_mod.resolve_league_id(league_id)}/drafts") or []
 
 
 @mcp.tool()
-def get_draft(draft_id: str) -> dict:
-    """Details for a specific draft, including draft order and slot mapping."""
+def get_draft(draft_id: str, platform: str = "sleeper") -> dict:
+    """Details for a specific draft, including draft order and slot mapping.
+
+    platform: "sleeper" (default) or "yahoo". On Yahoo, draft_id is the league
+    key and this returns league draft metadata."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        drafts = _yahoo_league.list_drafts(draft_id)
+        if isinstance(drafts, dict):
+            return drafts
+        return drafts[0] if drafts else {"error": "draft not found", "draft_id": draft_id}
+    if plat != "sleeper":
+        return _platform_error(plat)
     return _http.get_json(f"/draft/{draft_id}") or {"error": "draft not found", "draft_id": draft_id}
 
 
 @mcp.tool()
-def get_draft_picks(draft_id: str) -> list[dict]:
-    """Every pick in a draft, in order, with player names resolved."""
+def get_draft_picks(draft_id: str, platform: str = "sleeper") -> list[dict]:
+    """Every pick in a draft, in order, with player names resolved.
+
+    platform: "sleeper" (default) or "yahoo". On Yahoo, pass the league key as
+    draft_id (from get_drafts)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.compute_draft_picks(draft_id)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     picks = _http.get_json(f"/draft/{draft_id}/picks") or []
     out = []
     for p in picks:
@@ -482,12 +511,26 @@ def get_draft_traded_picks(draft_id: str) -> list[dict]:
 
 @mcp.tool()
 def get_available_players(
-    position: str | None = None, limit: int = 25, league_id: str | None = None
+    position: str | None = None,
+    limit: int = 25,
+    league_id: str | None = None,
+    platform: str = "sleeper",
 ) -> list[dict]:
     """Free agents in the league: active players not on any roster. Optionally
-    filter by position (QB, RB, WR, TE, K, DEF). Results are sorted by Sleeper's
-    search rank, a rough popularity proxy, since the documented API has no
-    projections. Lower search rank means more widely rostered across Sleeper."""
+    filter by position (QB, RB, WR, TE, K, DEF).
+
+    On Sleeper, results are sorted by search rank (popularity proxy). On Yahoo,
+    results use overall rank (OR) and paginate in pages of 25.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.compute_available_players(
+            league_id, position=position, limit=limit
+        )
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     lid = _league_mod.resolve_league_id(league_id)
     rosters = _http.get_json(f"/league/{lid}/rosters", cache=True) or []
     rostered = {pid for r in rosters for pid in (r.get("players") or [])}

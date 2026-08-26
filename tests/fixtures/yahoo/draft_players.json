@@ -1,0 +1,36 @@
+{
+  "fantasy_content": {
+    "league": [
+      {
+        "league_key": "461.l.1000"
+      },
+      {
+        "players": {
+          "0": {
+            "player": [
+              {
+                "player_key": "461.p.30123",
+                "player_id": "30123",
+                "name": { "full": "Justin Jefferson" },
+                "display_position": "WR",
+                "editorial_team_abbr": "MIN"
+              }
+            ]
+          },
+          "1": {
+            "player": [
+              {
+                "player_key": "461.p.30124",
+                "player_id": "30124",
+                "name": { "full": "Bijan Robinson" },
+                "display_position": "RB",
+                "editorial_team_abbr": "ATL"
+              }
+            ]
+          },
+          "count": 2
+        }
+      }
+    ]
+  }
+}

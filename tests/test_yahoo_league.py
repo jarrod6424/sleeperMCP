@@ -202,3 +202,62 @@ def test_server_yahoo_transactions_routing():
     ):
         result = server.get_transactions(platform="yahoo")
     assert result[0]["platform"] == "yahoo"
+
+
+def test_compute_draft_picks_enriches_names():
+    draft = _load("draft_results.json")
+    players = _load("draft_players.json")
+    teams = _load("league_teams.json")
+
+    def fake_get(path: str):
+        if "draftresults" in path:
+            return draft
+        if "player_keys=" in path:
+            return players
+        raise AssertionError(path)
+
+    with patch("yahoo_core.league.get_json", side_effect=fake_get):
+        with patch("yahoo_core.league._fetch_league", return_value=teams):
+            picks = yahoo_league.compute_draft_picks()
+    assert picks[0]["pick_no"] == 1
+    assert picks[0]["player"] == "Justin Jefferson"
+    assert picks[0]["team"] == "Pine Bluff Escapees"
+    assert picks[1]["player"] == "Bijan Robinson"
+
+
+def test_list_drafts_uses_league_key_as_draft_id():
+    with patch("yahoo_core.league._fetch_league", return_value=_load("league_metadata.json")):
+        drafts = yahoo_league.list_drafts()
+    assert drafts[0]["draft_id"] == "461.l.1000"
+    assert drafts[0]["platform"] == "yahoo"
+
+
+def test_compute_available_players_ranks_page():
+    with patch(
+        "yahoo_core.league.get_json", return_value=_load("available_players.json")
+    ) as get_json:
+        players = yahoo_league.compute_available_players(position="WR", limit=2)
+    assert len(players) == 2
+    assert players[0]["name"] == "Available Ace"
+    assert players[0]["search_rank"] == 1
+    assert players[1]["search_rank"] == 2
+    assert "status=A" in get_json.call_args.args[0]
+    assert "position=WR" in get_json.call_args.args[0]
+
+
+def test_server_yahoo_available_and_draft_routing():
+    import server
+
+    with patch(
+        "server._yahoo_league.compute_available_players",
+        return_value=[{"name": "FA", "platform": "yahoo"}],
+    ):
+        available = server.get_available_players(platform="yahoo")
+    assert available[0]["name"] == "FA"
+
+    with patch(
+        "server._yahoo_league.compute_draft_picks",
+        return_value=[{"pick_no": 1, "platform": "yahoo"}],
+    ):
+        picks = server.get_draft_picks("461.l.1000", platform="yahoo")
+    assert picks[0]["pick_no"] == 1

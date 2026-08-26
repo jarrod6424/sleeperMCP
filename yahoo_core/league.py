@@ -528,6 +528,188 @@ def recent_moves(
     return compute_transactions(league_key, count=count)
 
 
+def _draft_result_entries(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    node = league_subresource(payload, "draft_results")
+    if node is None:
+        node = league_subresource(payload, "draftresults")
+    entries: list[dict[str, Any]] = []
+    for item in indexed_items(node):
+        result = item.get("draft_result") if isinstance(item, dict) else item
+        if isinstance(result, list):
+            result = merge_dicts(*(b for b in result if isinstance(b, dict)))
+        if isinstance(result, dict) and (result.get("pick") is not None or result.get("player_key")):
+            entries.append(result)
+    return entries
+
+
+def _players_collection(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    node = league_subresource(payload, "players")
+    # Some responses nest players under fantasy_content.league[1].players
+    # while others put a bare players collection on fantasy_content.
+    if node is None:
+        from .parse import fantasy_root
+
+        node = fantasy_root(payload).get("players")
+    out: list[dict[str, Any]] = []
+    for item in indexed_items(node):
+        player_blocks = item.get("player") if isinstance(item, dict) else item
+        blocks = player_blocks if isinstance(player_blocks, list) else [player_blocks]
+        player = merge_dicts(*(b for b in blocks if isinstance(b, dict)))
+        if player:
+            out.append(player)
+    return out
+
+
+def _fetch_players_by_keys(league_key: str, keys: list[str]) -> dict[str, dict[str, Any]]:
+    by_key: dict[str, dict[str, Any]] = {}
+    unique = [k for k in dict.fromkeys(keys) if k]
+    for i in range(0, len(unique), 25):
+        chunk = unique[i : i + 25]
+        path = f"league/{league_key}/players;player_keys={','.join(chunk)}"
+        try:
+            payload = get_json(path)
+        except YahooConfigError:
+            continue
+        for player in _players_collection(payload):
+            key = str(player.get("player_key") or "")
+            if key:
+                by_key[key] = player
+    return by_key
+
+
+def list_drafts(league_key: str | None = None) -> list[dict] | dict:
+    """Yahoo has one draft per league — return a synthetic draft entry."""
+    league = compute_league(league_key)
+    if isinstance(league, dict) and league.get("error"):
+        return league
+    lid = league.get("league_key") or resolve_league_key(league_key)
+    return [
+        {
+            "platform": "yahoo",
+            "draft_id": lid,
+            "league_id": lid,
+            "league_key": lid,
+            "name": league.get("name"),
+            "season": league.get("season"),
+            "status": league.get("draft_type"),
+            "draft_type": league.get("draft_type"),
+            "note": "Yahoo draft picks are keyed by league_key; pass this draft_id to get_draft_picks",
+        }
+    ]
+
+
+def compute_draft_picks(league_key: str | None = None) -> list[dict] | dict:
+    """Full draft board for a Yahoo league, ordered by pick number."""
+    lid = resolve_league_key(league_key)
+    if not lid:
+        return _config_error("YAHOO_LEAGUE_KEY is not configured")
+    try:
+        payload = get_json(f"league/{lid}/draftresults")
+    except YahooConfigError as exc:
+        return _config_error(str(exc))
+
+    results = _draft_result_entries(payload)
+    team_names: dict[str, str] = {}
+    rosters = compute_rosters(lid, include_players=False)
+    if isinstance(rosters, list):
+        for row in rosters:
+            if row.get("team_key"):
+                team_names[str(row["team_key"])] = str(row.get("owner") or row["team_key"])
+
+    player_keys = [str(r.get("player_key")) for r in results if r.get("player_key")]
+    players = _fetch_players_by_keys(lid, player_keys)
+
+    picks: list[dict[str, Any]] = []
+    for raw in results:
+        player_key = str(raw.get("player_key") or "")
+        player = players.get(player_key, {})
+        team_key = str(raw.get("team_key") or "")
+        picks.append(
+            {
+                "platform": "yahoo",
+                "pick_no": to_int(raw.get("pick")),
+                "round": to_int(raw.get("round")),
+                "draft_slot": None,
+                "roster_id": team_key.split(".t.")[-1] if ".t." in team_key else team_key,
+                "team_key": team_key,
+                "team": team_names.get(team_key),
+                "player": player_display_name(player) if player else player_key,
+                "player_id": str(player.get("player_id") or player_key),
+                "player_key": player_key,
+                "position": player.get("display_position") or player.get("primary_position"),
+                "nfl_team": player.get("editorial_team_abbr"),
+                "cost": raw.get("cost"),
+                "is_keeper": None,
+            }
+        )
+    picks.sort(key=lambda row: row.get("pick_no") or 0)
+    return picks
+
+
+def compute_available_players(
+    league_key: str | None = None,
+    position: str | None = None,
+    limit: int = 25,
+) -> list[dict] | dict:
+    """Available / free-agent players in a Yahoo league, ranked by overall rank.
+
+    Yahoo caps each page at 25; this paginates with `start` until `limit`.
+    """
+    lid = resolve_league_key(league_key)
+    if not lid:
+        return _config_error("YAHOO_LEAGUE_KEY is not configured")
+
+    pos = position.upper().strip() if position else None
+    if pos == "DEF":
+        pos = "DEF"
+    wanted = max(1, min(int(limit), 200))
+    out: list[dict[str, Any]] = []
+    start = 0
+    while len(out) < wanted:
+        page = min(25, wanted - len(out))
+        parts = [
+            f"league/{lid}/players",
+            "status=A",
+            "sort=OR",
+            f"count={page}",
+            f"start={start}",
+        ]
+        if pos:
+            parts.insert(1, f"position={pos}")
+        # Yahoo uses semicolon-delimited filters after the resource.
+        path = parts[0] + ";" + ";".join(parts[1:])
+        try:
+            payload = get_json(path)
+        except YahooConfigError as exc:
+            return _config_error(str(exc))
+
+        page_players = _players_collection(payload)
+        if not page_players:
+            break
+        for player in page_players:
+            out.append(
+                {
+                    "platform": "yahoo",
+                    "player_id": str(player.get("player_id") or player.get("player_key") or ""),
+                    "player_key": player.get("player_key"),
+                    "name": player_display_name(player),
+                    "position": player.get("display_position") or player.get("primary_position"),
+                    "team": player.get("editorial_team_abbr"),
+                    "status": player.get("status"),
+                    "search_rank": None,
+                }
+            )
+            if len(out) >= wanted:
+                break
+        if len(page_players) < page:
+            break
+        start += len(page_players)
+
+    for index, row in enumerate(out, start=1):
+        row["search_rank"] = index
+    return out
+
+
 def list_user_leagues(season: str | None = None) -> dict[str, Any]:
     """Leagues the authenticated Yahoo user belongs to (NFL by default).
 
