@@ -1,0 +1,38 @@
+{
+  "fantasy_content": {
+    "league": [
+      {
+        "league_key": "461.l.1000"
+      },
+      {
+        "players": {
+          "0": {
+            "player": [
+              {
+                "player_key": "461.p.9001",
+                "player_id": "9001",
+                "name": { "full": "Available Ace" },
+                "display_position": "WR",
+                "editorial_team_abbr": "GB",
+                "status": "A"
+              }
+            ]
+          },
+          "1": {
+            "player": [
+              {
+                "player_key": "461.p.9002",
+                "player_id": "9002",
+                "name": { "full": "Available Backup" },
+                "display_position": "WR",
+                "editorial_team_abbr": "SEA",
+                "status": "A"
+              }
+            ]
+          },
+          "count": 2
+        }
+      }
+    ]
+  }
+}

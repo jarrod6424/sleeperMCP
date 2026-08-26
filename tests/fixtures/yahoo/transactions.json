@@ -1,0 +1,110 @@
+{
+  "fantasy_content": {
+    "league": [
+      {
+        "league_key": "461.l.1000"
+      },
+      {
+        "transactions": {
+          "0": {
+            "transaction": [
+              {
+                "transaction_key": "461.l.1000.tr.10",
+                "transaction_id": "10",
+                "type": "add/drop",
+                "status": "successful",
+                "timestamp": "1700000010",
+                "faab_bid": "7"
+              },
+              {
+                "players": {
+                  "0": {
+                    "player": [
+                      {
+                        "player_key": "461.p.100",
+                        "player_id": "100",
+                        "name": { "full": "Pickup Player" },
+                        "display_position": "WR",
+                        "editorial_team_abbr": "CHI"
+                      },
+                      {
+                        "transaction_data": {
+                          "type": "add",
+                          "source_type": "waivers",
+                          "destination_type": "team",
+                          "destination_team_key": "461.l.1000.t.1",
+                          "destination_team_name": "Pine Bluff Escapees"
+                        }
+                      }
+                    ]
+                  },
+                  "1": {
+                    "player": [
+                      {
+                        "player_key": "461.p.101",
+                        "player_id": "101",
+                        "name": { "full": "Dropped Player" },
+                        "display_position": "RB",
+                        "editorial_team_abbr": "NYJ"
+                      },
+                      {
+                        "transaction_data": {
+                          "type": "drop",
+                          "source_type": "team",
+                          "source_team_key": "461.l.1000.t.1",
+                          "source_team_name": "Pine Bluff Escapees",
+                          "destination_type": "waivers"
+                        }
+                      }
+                    ]
+                  },
+                  "count": 2
+                }
+              }
+            ]
+          },
+          "1": {
+            "transaction": [
+              {
+                "transaction_key": "461.l.1000.tr.9",
+                "transaction_id": "9",
+                "type": "trade",
+                "status": "successful",
+                "timestamp": "1700000009",
+                "trader_team_key": "461.l.1000.t.1",
+                "trader_team_name": "Pine Bluff Escapees",
+                "tradee_team_key": "461.l.1000.t.2",
+                "tradee_team_name": "Rival Squad"
+              },
+              {
+                "players": {
+                  "0": {
+                    "player": [
+                      {
+                        "player_key": "461.p.200",
+                        "player_id": "200",
+                        "name": { "full": "Trade Away" },
+                        "display_position": "TE"
+                      },
+                      {
+                        "transaction_data": {
+                          "type": "trade",
+                          "source_team_key": "461.l.1000.t.1",
+                          "source_team_name": "Pine Bluff Escapees",
+                          "destination_team_key": "461.l.1000.t.2",
+                          "destination_team_name": "Rival Squad"
+                        }
+                      }
+                    ]
+                  },
+                  "count": 1
+                }
+              }
+            ]
+          },
+          "count": 2
+        }
+      }
+    ]
+  }
+}

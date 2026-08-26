@@ -7,6 +7,7 @@ from unittest.mock import patch
 import pytest
 
 import yahoo_core.league as yahoo_league
+from yahoo_core.parse import user_game_leagues
 
 FIXTURES = Path(__file__).resolve().parent / "fixtures" / "yahoo"
 
@@ -84,3 +85,179 @@ def test_server_platform_routing_unknown():
     result = server.get_league(platform="espn")
     assert "error" in result
     assert "supported_platforms" in result
+
+
+def test_user_game_leagues_parser_skips_non_nfl_when_listed():
+    raw = user_game_leagues(_load("user_leagues.json"))
+    keys = {row["league_key"] for row in raw}
+    assert "461.l.1000" in keys
+    assert "461.l.2000" in keys
+    assert "458.l.9" in keys  # parser returns all; list_user_leagues filters NFL
+
+
+def test_list_user_leagues_filters_nfl_and_marks_default():
+    with patch("yahoo_core.league.get_json", return_value=_load("user_leagues.json")):
+        result = yahoo_league.list_user_leagues(season="2025")
+    assert result["platform"] == "yahoo"
+    assert len(result["leagues"]) == 2
+    assert {row["name"] for row in result["leagues"]} == {"Sunday Sweat", "Work League"}
+    default = next(row for row in result["leagues"] if row["is_default"])
+    assert default["league_id"] == "461.l.1000"
+
+
+def test_list_my_leagues_merges_platforms():
+    import server
+
+    sleeper = {
+        "platform": "sleeper",
+        "leagues": [
+            {
+                "platform": "sleeper",
+                "league_id": "1312218810614300672",
+                "name": "Gridiron Time Machine",
+                "season": "2025",
+                "status": "in_season",
+                "num_teams": 12,
+                "is_default": True,
+            }
+        ],
+    }
+    yahoo = {
+        "platform": "yahoo",
+        "leagues": [
+            {
+                "platform": "yahoo",
+                "league_id": "461.l.1000",
+                "name": "Sunday Sweat",
+                "season": "2025",
+                "is_default": True,
+            }
+        ],
+    }
+    with patch("server._league_mod.list_user_leagues", return_value=sleeper):
+        with patch("server._yahoo_league.list_user_leagues", return_value=yahoo):
+            result = server.list_my_leagues(season="2025")
+    assert result["platforms_queried"] == ["sleeper", "yahoo"]
+    assert len(result["leagues"]) == 2
+    assert result["errors"] == []
+
+
+def test_list_my_leagues_yahoo_only_surfaces_config_error():
+    import server
+
+    with patch(
+        "server._yahoo_league.list_user_leagues",
+        return_value={"error": "Yahoo is not configured", "platform": "yahoo"},
+    ):
+        result = server.list_my_leagues(platform="yahoo")
+    assert result["leagues"] == []
+    assert result["errors"][0]["platform"] == "yahoo"
+
+
+def test_scout_team_partial_match():
+    teams = _load("league_teams.json")
+    scoreboard = _load("scoreboard_week10.json")
+
+    def fake_fetch(league_key: str, out: str):
+        if out == "teams,standings,rosters":
+            return teams
+        if out == "metadata,settings":
+            return _load("league_metadata.json")
+        raise AssertionError(out)
+
+    with patch("yahoo_core.league._fetch_league", side_effect=fake_fetch):
+        with patch("yahoo_core.league.get_json", return_value=scoreboard):
+            report = yahoo_league.scout_team("Rival Sq")
+    assert report["owner"] == "Rival Squad"
+    assert report["matched_by"] == "partial"
+    assert report["this_week"]["opponent"] == "Pine Bluff Escapees"
+
+
+def test_scout_team_no_match_lists_available():
+    with patch("yahoo_core.league._fetch_league", return_value=_load("league_teams.json")):
+        result = yahoo_league.scout_team("Nobody")
+    assert result["error"] == "no team matched"
+    assert "Pine Bluff Escapees" in result["available_teams"]
+
+
+def test_compute_transactions_parses_add_drop_and_trade():
+    with patch("yahoo_core.league.get_json", return_value=_load("transactions.json")):
+        moves = yahoo_league.compute_transactions()
+    assert isinstance(moves, list)
+    assert len(moves) == 2
+    assert moves[0]["type"] == "add/drop"
+    assert moves[0]["adds"][0]["name"] == "Pickup Player"
+    assert moves[0]["drops"][0]["name"] == "Dropped Player"
+    assert moves[0]["faab_bid"] == 7
+    assert moves[1]["type"] == "trade"
+    assert "Rival Squad" in moves[1]["teams"]
+
+
+def test_server_yahoo_transactions_routing():
+    import server
+
+    with patch(
+        "server._yahoo_league.compute_transactions",
+        return_value=[{"type": "add", "platform": "yahoo"}],
+    ):
+        result = server.get_transactions(platform="yahoo")
+    assert result[0]["platform"] == "yahoo"
+
+
+def test_compute_draft_picks_enriches_names():
+    draft = _load("draft_results.json")
+    players = _load("draft_players.json")
+    teams = _load("league_teams.json")
+
+    def fake_get(path: str):
+        if "draftresults" in path:
+            return draft
+        if "player_keys=" in path:
+            return players
+        raise AssertionError(path)
+
+    with patch("yahoo_core.league.get_json", side_effect=fake_get):
+        with patch("yahoo_core.league._fetch_league", return_value=teams):
+            picks = yahoo_league.compute_draft_picks()
+    assert picks[0]["pick_no"] == 1
+    assert picks[0]["player"] == "Justin Jefferson"
+    assert picks[0]["team"] == "Pine Bluff Escapees"
+    assert picks[1]["player"] == "Bijan Robinson"
+
+
+def test_list_drafts_uses_league_key_as_draft_id():
+    with patch("yahoo_core.league._fetch_league", return_value=_load("league_metadata.json")):
+        drafts = yahoo_league.list_drafts()
+    assert drafts[0]["draft_id"] == "461.l.1000"
+    assert drafts[0]["platform"] == "yahoo"
+
+
+def test_compute_available_players_ranks_page():
+    with patch(
+        "yahoo_core.league.get_json", return_value=_load("available_players.json")
+    ) as get_json:
+        players = yahoo_league.compute_available_players(position="WR", limit=2)
+    assert len(players) == 2
+    assert players[0]["name"] == "Available Ace"
+    assert players[0]["search_rank"] == 1
+    assert players[1]["search_rank"] == 2
+    assert "status=A" in get_json.call_args.args[0]
+    assert "position=WR" in get_json.call_args.args[0]
+
+
+def test_server_yahoo_available_and_draft_routing():
+    import server
+
+    with patch(
+        "server._yahoo_league.compute_available_players",
+        return_value=[{"name": "FA", "platform": "yahoo"}],
+    ):
+        available = server.get_available_players(platform="yahoo")
+    assert available[0]["name"] == "FA"
+
+    with patch(
+        "server._yahoo_league.compute_draft_picks",
+        return_value=[{"pick_no": 1, "platform": "yahoo"}],
+    ):
+        picks = server.get_draft_picks("461.l.1000", platform="yahoo")
+    assert picks[0]["pick_no"] == 1

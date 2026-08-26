@@ -34,6 +34,7 @@ from fastmcp import FastMCP
 
 from sleeper_core import adp as _adp
 from sleeper_core import auction as _auction
+from sleeper_core import crosswalk as _crosswalk
 from sleeper_core import http as _http
 from sleeper_core import league as _league_mod
 from sleeper_core import offense as _offense
@@ -76,6 +77,50 @@ def get_nfl_state() -> dict:
     """Current NFL state: active week, season, season type. Use this to learn
     the current week before asking for matchups or transactions."""
     return _http.get_json(f"/state/{SPORT}", cache=True) or {}
+
+
+@mcp.tool()
+def list_my_leagues(
+    platform: str | None = None,
+    season: str | None = None,
+    username: str | None = None,
+) -> dict:
+    """List fantasy leagues you belong to across platforms — the starting
+    point for a multi-league portfolio.
+
+    platform: omit or pass "all" for both Sleeper and Yahoo; or "sleeper" /
+    "yahoo" for one platform. season defaults to the current NFL season for
+    Sleeper (and filters Yahoo when provided). username only applies to
+    Sleeper (defaults to SLEEPER_USERNAME).
+
+    Returns {leagues, platforms_queried, errors}. Each league has platform,
+    league_id, name, season, status, num_teams, and is_default."""
+    requested = (platform or "all").strip().lower()
+    if requested in {"", "all", "both"}:
+        platforms = list(_PLATFORMS)
+    elif requested in _PLATFORMS:
+        platforms = [requested]
+    else:
+        return _platform_error(requested)
+
+    leagues: list[dict] = []
+    errors: list[dict] = []
+    for plat in platforms:
+        if plat == "sleeper":
+            result = _league_mod.list_user_leagues(username=username, season=season)
+        else:
+            result = _yahoo_league.list_user_leagues(season=season)
+        if isinstance(result, dict) and result.get("error"):
+            errors.append(result)
+            continue
+        leagues.extend(result.get("leagues") or [])
+
+    return {
+        "leagues": leagues,
+        "platforms_queried": platforms,
+        "errors": errors,
+        "season": season,
+    }
 
 
 _LEAGUE_KEEP_SETTINGS = {
@@ -241,11 +286,22 @@ def get_my_team(
 
 
 @mcp.tool()
-def scout_team(team_name_or_manager: str, league_id: str | None = None) -> dict:
+def scout_team(
+    team_name_or_manager: str,
+    league_id: str | None = None,
+    platform: str = "sleeper",
+) -> dict:
     """Scout any team in the league, chosen by team name or manager name.
     Returns their roster, record, standings rank, current matchup, and next
     week's matchup. Matching is case-insensitive and accepts partial names.
-    If nothing matches, the available team names are returned so you can retry."""
+    If nothing matches, the available team names are returned so you can retry.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_league.scout_team(team_name_or_manager, league_id)
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     resolved = _league_mod.resolve_roster(lid, team_name_or_manager)
     if not resolved:
@@ -307,19 +363,45 @@ def get_matchups(league_id: str | None = None, week: int | None = None) -> dict:
 
 
 @mcp.tool()
-def get_transactions(league_id: str | None = None, week: int | None = None) -> list[dict]:
-    """Trades, waivers, and free-agent moves for a week (the Sleeper "round").
-    Adds and drops are resolved to player names. If week is omitted, the current
-    week is used."""
+def get_transactions(
+    league_id: str | None = None,
+    week: int | None = None,
+    platform: str = "sleeper",
+) -> list[dict]:
+    """Trades, waivers, and free-agent moves. On Sleeper this is for a week
+    (the Sleeper "round"); if week is omitted, the current week is used.
+    On Yahoo, week is ignored — Yahoo returns recent league-wide transactions
+    (not week-bucketed). Adds and drops are resolved to player names.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.compute_transactions(league_id)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     lid = _league_mod.resolve_league_id(league_id)
     return _league_mod.compute_transactions(lid, week if week is not None else _league_mod.current_week())
 
 
 @mcp.tool()
-def recent_moves(weeks: int = 3, league_id: str | None = None) -> list[dict]:
-    """Trades, waivers, and free-agent moves across the last N weeks combined
-    (default 3), newest first, with player names resolved. Saves querying each
-    week separately."""
+def recent_moves(
+    weeks: int = 3,
+    league_id: str | None = None,
+    platform: str = "sleeper",
+) -> list[dict]:
+    """Trades, waivers, and free-agent moves across recent activity, newest
+    first, with player names resolved. On Sleeper this is the last N weeks
+    combined (default 3). On Yahoo it returns a recent slice sized from weeks
+    (Yahoo is not week-bucketed).
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.recent_moves(league_id, weeks=weeks)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     lid = _league_mod.resolve_league_id(league_id)
     current = _league_mod.current_week()
     moves: list[dict] = []
@@ -351,21 +433,50 @@ def get_playoff_bracket(league_id: str | None = None, bracket: str = "winners") 
 
 
 @mcp.tool()
-def get_drafts(league_id: str | None = None) -> list[dict]:
+def get_drafts(league_id: str | None = None, platform: str = "sleeper") -> list[dict]:
     """All drafts for the league (most leagues have one; dynasty leagues may
-    have several), newest first."""
+    have several), newest first.
+
+    platform: "sleeper" (default) or "yahoo". On Yahoo, returns a single
+    synthetic draft whose draft_id is the league key (use with get_draft_picks)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.list_drafts(league_id)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     return _http.get_json(f"/league/{_league_mod.resolve_league_id(league_id)}/drafts") or []
 
 
 @mcp.tool()
-def get_draft(draft_id: str) -> dict:
-    """Details for a specific draft, including draft order and slot mapping."""
+def get_draft(draft_id: str, platform: str = "sleeper") -> dict:
+    """Details for a specific draft, including draft order and slot mapping.
+
+    platform: "sleeper" (default) or "yahoo". On Yahoo, draft_id is the league
+    key and this returns league draft metadata."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        drafts = _yahoo_league.list_drafts(draft_id)
+        if isinstance(drafts, dict):
+            return drafts
+        return drafts[0] if drafts else {"error": "draft not found", "draft_id": draft_id}
+    if plat != "sleeper":
+        return _platform_error(plat)
     return _http.get_json(f"/draft/{draft_id}") or {"error": "draft not found", "draft_id": draft_id}
 
 
 @mcp.tool()
-def get_draft_picks(draft_id: str) -> list[dict]:
-    """Every pick in a draft, in order, with player names resolved."""
+def get_draft_picks(draft_id: str, platform: str = "sleeper") -> list[dict]:
+    """Every pick in a draft, in order, with player names resolved.
+
+    platform: "sleeper" (default) or "yahoo". On Yahoo, pass the league key as
+    draft_id (from get_drafts)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.compute_draft_picks(draft_id)
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     picks = _http.get_json(f"/draft/{draft_id}/picks") or []
     out = []
     for p in picks:
@@ -401,12 +512,26 @@ def get_draft_traded_picks(draft_id: str) -> list[dict]:
 
 @mcp.tool()
 def get_available_players(
-    position: str | None = None, limit: int = 25, league_id: str | None = None
+    position: str | None = None,
+    limit: int = 25,
+    league_id: str | None = None,
+    platform: str = "sleeper",
 ) -> list[dict]:
     """Free agents in the league: active players not on any roster. Optionally
-    filter by position (QB, RB, WR, TE, K, DEF). Results are sorted by Sleeper's
-    search rank, a rough popularity proxy, since the documented API has no
-    projections. Lower search rank means more widely rostered across Sleeper."""
+    filter by position (QB, RB, WR, TE, K, DEF).
+
+    On Sleeper, results are sorted by search rank (popularity proxy). On Yahoo,
+    results use overall rank (OR) and paginate in pages of 25.
+
+    platform: "sleeper" (default) or "yahoo"."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        result = _yahoo_league.compute_available_players(
+            league_id, position=position, limit=limit
+        )
+        return result if isinstance(result, list) else [result]
+    if plat != "sleeper":
+        return [_platform_error(plat)]
     lid = _league_mod.resolve_league_id(league_id)
     rosters = _http.get_json(f"/league/{lid}/rosters", cache=True) or []
     rostered = {pid for r in rosters for pid in (r.get("players") or [])}
@@ -467,6 +592,36 @@ def get_player(player_id: str) -> dict:
     if not info:
         return _players.player_name(player_id, players)
     return info
+
+
+@mcp.tool()
+def resolve_player_crosswalk(
+    sleeper_id: str | None = None,
+    yahoo_id: str | None = None,
+    player_name: str | None = None,
+    position: str | None = None,
+) -> dict:
+    """Map a player between Sleeper and Yahoo IDs.
+
+    Provide sleeper_id to look up yahoo_id, or yahoo_id / player_name (optional
+    position) to look up sleeper_id. Yahoo keys like 461.p.32692 are accepted.
+    Matching prefers yahoo_id, then name+position, then name."""
+    if sleeper_id:
+        return _crosswalk.sleeper_to_yahoo(sleeper_id)
+    if yahoo_id or player_name:
+        return _crosswalk.yahoo_to_sleeper(
+            yahoo_id, name=player_name, position=position
+        )
+    return {
+        "error": "provide sleeper_id, yahoo_id, and/or player_name",
+    }
+
+
+@mcp.tool()
+def player_crosswalk_stats() -> dict:
+    """Coverage of Sleeper→Yahoo ID joins on the player map. Use this to see
+    how many players have a yahoo_id before relying on cross-platform tools."""
+    return _crosswalk.crosswalk_stats()
 
 
 @mcp.tool()

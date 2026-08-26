@@ -95,6 +95,66 @@ def team_entries(payload: dict[str, Any]) -> list[dict[str, Any]]:
     return entries
 
 
+def _resource_blocks(node: Any, resource_name: str) -> list[Any]:
+    """Normalize a Yahoo resource that may be a dict or a list of blocks."""
+    if node is None:
+        return []
+    if isinstance(node, dict) and resource_name in node:
+        return as_list(node[resource_name])
+    if isinstance(node, dict) and any(
+        k in node for k in ("league_key", "game_key", "guid", "team_key")
+    ):
+        return [node]
+    return as_list(node)
+
+
+def user_game_leagues(payload: dict[str, Any]) -> list[dict[str, Any]]:
+    """Flatten leagues from users;use_login=1/games/leagues responses."""
+    users_node = fantasy_root(payload).get("users")
+    leagues: list[dict[str, Any]] = []
+    for user_item in indexed_items(users_node):
+        user_blocks = _resource_blocks(user_item, "user")
+        games_node = None
+        for block in user_blocks:
+            if isinstance(block, dict) and "games" in block:
+                games_node = block["games"]
+                break
+        for game_item in indexed_items(games_node):
+            game_blocks = _resource_blocks(game_item, "game")
+            game_meta = merge_dicts(
+                *(
+                    b
+                    for b in game_blocks
+                    if isinstance(b, dict) and ("game_key" in b or "code" in b)
+                )
+            )
+            leagues_node = None
+            for block in game_blocks:
+                if isinstance(block, dict) and "leagues" in block:
+                    leagues_node = block["leagues"]
+                    break
+            for league_item in indexed_items(leagues_node):
+                league_blocks = _resource_blocks(league_item, "league")
+                league_meta = merge_dicts(
+                    *(
+                        b
+                        for b in league_blocks
+                        if isinstance(b, dict) and "league_key" in b
+                    )
+                )
+                if not league_meta:
+                    continue
+                leagues.append(
+                    {
+                        **league_meta,
+                        "game_key": game_meta.get("game_key"),
+                        "game_code": game_meta.get("code"),
+                        "game_season": game_meta.get("season"),
+                    }
+                )
+    return leagues
+
+
 def roster_players(roster_node: Any) -> list[dict[str, Any]]:
     if not isinstance(roster_node, dict):
         return []

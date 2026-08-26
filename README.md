@@ -23,9 +23,11 @@ it.
 | [FantasyFootballCalculator](https://fantasyfootballcalculator.com) | ADP | Third party |
 | [nflverse](https://github.com/nflverse) | stats, snaps, depth charts, injuries | MIT licensed |
 
-**Yahoo Fantasy (phase 1):** `get_league`, `get_rosters`, `get_standings`, and
-`get_my_team` accept `platform="yahoo"` and read your redraft league via OAuth.
-Run `python tools/yahoo_auth.py` once to obtain tokens, then set
+**Yahoo Fantasy:** League tools accept `platform="yahoo"` — including
+`list_my_leagues`, `scout_team`, transactions, drafts (`get_drafts` /
+`get_draft_picks`), and `get_available_players`. Yahoo roster/draft/FA rows
+also attach a `sleeper_id` via `resolve_player_crosswalk` when the join is
+known. Run `python tools/yahoo_auth.py` once to obtain tokens, then set
 `YAHOO_LEAGUE_KEY` and `YAHOO_TEAM_NAME` in `.env`. Sleeper remains the
 default when `platform` is omitted.
 
@@ -40,6 +42,7 @@ that do not depend on it. Tools drawing on unofficial sources are marked
 | Tool | What it returns |
 | --- | --- |
 | `get_nfl_state` | Current NFL week, season, season type |
+| `list_my_leagues` | Leagues across Sleeper and/or Yahoo (portfolio view) |
 | `get_league` | Settings, scoring, roster slots, team count |
 | `get_league_full` | Unfiltered league data including internal Sleeper fields |
 | `get_managers` | Managers with team names and commissioner flag |
@@ -75,6 +78,8 @@ that do not depend on it. Tools drawing on unofficial sources are marked
 | `get_player` | Full detail for one player_id |
 | `get_available_players` | Free agents not on any roster |
 | `get_trending_players` | Most added or dropped league-wide |
+| `resolve_player_crosswalk` | Map Sleeper ↔ Yahoo player IDs |
+| `player_crosswalk_stats` | Coverage of yahoo_id joins on the player map |
 | `get_user` | Look up a Sleeper user |
 
 ### Analysis
