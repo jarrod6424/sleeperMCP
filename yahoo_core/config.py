@@ -32,3 +32,8 @@ TOKEN_CACHE_FILE = Path(
 )
 
 YAHOO_USER_AGENT = f"{USER_AGENT} yahoo"
+
+# Scoring format used when projecting Yahoo lineups with Sleeper projection
+# fields. Yahoo modifiers are not fully parsed yet — set this to match your
+# redraft league: ppr | half_ppr | std
+YAHOO_SCORING_FORMAT = os.environ.get("YAHOO_SCORING_FORMAT", "ppr").strip().lower()

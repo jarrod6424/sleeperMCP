@@ -25,11 +25,11 @@ it.
 
 **Yahoo Fantasy:** League tools accept `platform="yahoo"` — including
 `list_my_leagues`, `scout_team`, `get_matchups`, `get_managers`, transactions,
-drafts, and `get_available_players`. Yahoo roster/draft/FA rows also attach a
-`sleeper_id` via `resolve_player_crosswalk` when the join is known. Run
-`python tools/yahoo_auth.py` once to obtain tokens, then set `YAHOO_LEAGUE_KEY`
-and `YAHOO_TEAM_NAME` in `.env`. Sleeper remains the default when `platform`
-is omitted.
+drafts, `get_available_players`, and `start_sit_advice`. Yahoo roster/draft/FA
+rows also attach a `sleeper_id` via `resolve_player_crosswalk` when the join is
+known. Run `python tools/yahoo_auth.py` once to obtain tokens, then set
+`YAHOO_LEAGUE_KEY` and `YAHOO_TEAM_NAME` in `.env`. Sleeper remains the
+default when `platform` is omitted.
 
 Each source has its own HTTP client so a failure in one cannot take down tools
 that do not depend on it. Tools drawing on unofficial sources are marked

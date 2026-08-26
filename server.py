@@ -53,6 +53,7 @@ from sleeper_core.config import (
 )
 
 from yahoo_core import league as _yahoo_league
+from yahoo_core import start_sit as _yahoo_start_sit
 
 mcp = FastMCP("sleeper-readonly")
 
@@ -758,12 +759,27 @@ def start_sit_advice(
     week: int | None = None,
     team_name_or_manager: str | None = None,
     league_id: str | None = None,
+    platform: str = "sleeper",
+    scoring_format: str | None = None,
 ) -> dict:
     """[UNOFFICIAL] Start/sit help for a team. Compares the current starters to
-    the highest-projected legal lineup and suggests swaps, using your league's
-    scoring format. Defaults to your own team; pass a team name or manager to
-    check someone else. Relies on Sleeper's undocumented projections endpoint,
-    which is unsupported and may break without notice."""
+    the highest-projected legal lineup and suggests swaps. Relies on Sleeper's
+    undocumented projections endpoint, which is unsupported and may break
+    without notice.
+
+    platform: "sleeper" (default) or "yahoo". On Yahoo, the roster comes from
+    Yahoo and projections are joined via sleeper_id; scoring_format may be
+    ppr, half_ppr, or std (defaults to YAHOO_SCORING_FORMAT / ppr)."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_start_sit.start_sit_advice(
+            week=week,
+            team_name_or_manager=team_name_or_manager,
+            league_key=league_id,
+            scoring_format=scoring_format,
+        )
+    if plat != "sleeper":
+        return _platform_error(plat)
     lid = _league_mod.resolve_league_id(league_id)
     resolved = (
         _league_mod.resolve_roster(lid, team_name_or_manager)
