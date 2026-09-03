@@ -35,13 +35,16 @@ from fastmcp import FastMCP
 from sleeper_core import adp as _adp
 from sleeper_core import auction as _auction
 from sleeper_core import crosswalk as _crosswalk
+from sleeper_core import grade as _grade
 from sleeper_core import http as _http
 from sleeper_core import league as _league_mod
 from sleeper_core import offense as _offense
 from sleeper_core import players as _players
 from sleeper_core import projections as _proj
 from sleeper_core import stats as _stats
+from sleeper_core import trade as _trade
 from sleeper_core import values as _values
+from sleeper_core import waiver as _waiver
 from sleeper_core.config import (
     DEFAULT_TEAM_NAME,
     DEFAULT_USERNAME,
@@ -52,9 +55,11 @@ from sleeper_core.config import (
     STATS_CACHE_TTL,
 )
 
+from yahoo_core import grade as _yahoo_grade
 from yahoo_core import league as _yahoo_league
 from yahoo_core import start_sit as _yahoo_start_sit
 from yahoo_core import values as _yahoo_values
+from yahoo_core import waiver as _yahoo_waiver
 
 mcp = FastMCP("sleeper-readonly")
 
@@ -593,10 +598,13 @@ def get_available_players(
     platform: str = "sleeper",
 ) -> list[dict]:
     """Free agents in the league: active players not on any roster. Optionally
-    filter by position (QB, RB, WR, TE, K, DEF).
+    filter by position (QB, RB, WR, TE, K, DEF). Sorted by search rank
+    (popularity proxy) — this is the raw wire, not a recommendation.
 
-    On Sleeper, results are sorted by search rank (popularity proxy). On Yahoo,
-    results use overall rank (OR) and paginate in pages of 25.
+    For ranked claims tied to roster holes, dynasty value, trending, and
+    drop suggestions, use waiver_advice instead.
+
+    On Yahoo, results use overall rank (OR) and paginate in pages of 25.
 
     platform: "sleeper" (default) or "yahoo"."""
     plat = _normalize_platform(platform)
@@ -608,39 +616,7 @@ def get_available_players(
     if plat != "sleeper":
         return [_platform_error(plat)]
     lid = _league_mod.resolve_league_id(league_id)
-    rosters = _http.get_json(f"/league/{lid}/rosters", cache=True) or []
-    rostered = {pid for r in rosters for pid in (r.get("players") or [])}
-
-    players = _players.load_players()
-    pos = position.upper() if position else None
-    standard = {"QB", "RB", "WR", "TE", "K", "DEF"}
-    UNRANKED = 10**9
-
-    candidates = []
-    for pid, info in players.items():
-        if pid in rostered:
-            continue
-        p = info.get("position")
-        if pos:
-            if p != pos:
-                continue
-        elif p not in standard:
-            continue
-        # Team defenses have no "active" flag; keep them. Otherwise require active.
-        if p != "DEF" and not info.get("active"):
-            continue
-        rank = info.get("search_rank")
-        rank = UNRANKED if rank is None else rank
-        candidates.append((rank, pid, info))
-
-    candidates.sort(key=lambda x: x[0])
-    out = []
-    for rank, pid, info in candidates[:limit]:
-        rec = _players.player_name(pid, players)
-        rec["search_rank"] = None if rank >= UNRANKED else rank
-        rec["status"] = info.get("status")
-        out.append(rec)
-    return out
+    return _league_mod.list_free_agents(lid, position=position, limit=limit)
 
 
 @mcp.tool()
@@ -1046,88 +1022,146 @@ def analyze_trade(
     get: list[str],
     league_id: str | None = None,
     platform: str = "sleeper",
+    pick_value_model: str = "schedule",
+    include_roster_fit: bool = True,
+    slot_estimate: str = "auto",
+    pick_overrides: dict | None = None,
+    team_name_or_manager: str | None = None,
 ) -> dict:
-    """[UNOFFICIAL] Compare two sides of a trade by FantasyCalc value. "give"
-    is what you send away, "get" is what you receive; each is a list of player
-    names (or Sleeper player IDs). Returns the totals, the difference, and a
-    verdict, using your league's format. Source is the third-party FantasyCalc
-    API. Picks are not valued.
+    """[UNOFFICIAL] Compare two sides of a trade. "give" is what you send,
+    "get" is what you receive. Each list may mix player names, Sleeper IDs,
+    and draft-pick tokens.
 
-    platform: "sleeper" (default) or "yahoo" (format from Yahoo settings;
-    names/IDs still resolve through FantasyCalc sleeperIds / crosswalk)."""
+    Pick token examples: "2027 1st", "2027 Round 1", "2027 1st from IDAHO SPUD
+    REAPERS", "2027 1st (roster 11)". pick_value_model is "schedule" (default
+    heuristic: in-repo Superflex/1QB table, plus FantasyCalc rank-band means
+    when dense enough) or "manual" (use pick_overrides for listed tokens).
+    slot_estimate is early|mid|late|auto (auto uses standings when the pick's
+    original roster is known).
+
+    Player-only trades still return give/get/give_total/get_total/verdict.
+    Picks are heuristic — never FantasyCalc quotes — and anything that cannot
+    be parsed or priced is listed in unpriced_assets rather than invented.
+
+    Prefer this over get_trade_values when you need a verdict on a specific
+    package. Yahoo: players price as usual; pick tokens are unpriced_assets
+    (no Sleeper-style pick feed)."""
     plat = _normalize_platform(platform)
     if plat == "yahoo":
-        return _yahoo_values.analyze_trade(give, get, league_id)
+        return _yahoo_values.analyze_trade(
+            give,
+            get,
+            league_id,
+            pick_value_model=pick_value_model,
+            include_roster_fit=include_roster_fit,
+            slot_estimate=slot_estimate,
+            pick_overrides=pick_overrides,
+            team_name_or_manager=team_name_or_manager,
+        )
     if plat != "sleeper":
         return _platform_error(plat)
-    lid = _league_mod.resolve_league_id(league_id)
-    fmt = _values.league_format(lid)
-    values = _values.fc_values(fmt)
-    if not values:
-        return {"error": "no trade values returned", "format": fmt, "source": FC_SOURCE}
+    return _trade.analyze_trade(
+        give,
+        get,
+        league_id,
+        pick_value_model=pick_value_model,
+        include_roster_fit=include_roster_fit,
+        slot_estimate=slot_estimate,
+        pick_overrides=pick_overrides,
+        team_name_or_manager=team_name_or_manager,
+    )
 
-    by_name: dict[str, dict] = {}
-    by_sid: dict[str, dict] = {}
-    for v in values:
-        p = v.get("player") or {}
-        nm = (p.get("name") or "").strip().lower()
-        if nm:
-            by_name[nm] = v
-        sid = p.get("sleeperId")
-        if sid:
-            by_sid[str(sid)] = v
 
-    def resolve(item: str) -> dict | None:
-        raw = str(item).strip()
-        key = raw.lower()
-        v = by_sid.get(raw) or by_name.get(key)
-        if v:
-            return v
-        partial = [vv for nm, vv in by_name.items() if key in nm]
-        if len(partial) == 1:
-            return partial[0]
-        return None, [((vv.get("player") or {}).get("name") or nm) for nm, vv in by_name.items() if key in nm]
+@mcp.tool()
+def waiver_advice(
+    league_id: str | None = None,
+    platform: str = "sleeper",
+    team_name_or_manager: str | None = None,
+    week: int | None = None,
+    position: str | None = None,
+    faab_remaining: float | None = None,
+    max_adds: int = 5,
+    mode: str = "auto",
+) -> dict:
+    """[UNOFFICIAL] Ranked waiver/FAAB claims for a roster, with drop
+    candidates and heuristic bid bands.
 
-    def side(items: list[str]) -> tuple[list[dict], int, list[dict]]:
-        out, total, missing = [], 0, []
-        for it in items:
-            result = resolve(it)
-            if isinstance(result, tuple):
-                _, candidates = result
-                missing.append({"query": it, "reason": "ambiguous", "matches": candidates})
-            elif result:
-                out.append(_values.fc_row(result))
-                total += result.get("value") or 0
-            else:
-                missing.append({"query": it, "reason": "not found"})
-        return out, total, missing
+    Use this instead of get_available_players when you want a recommendation
+    tied to roster holes, FantasyCalc dynasty value, trending adds, and
+    near-term projections. get_available_players remains the raw free-agent
+    list (search-rank order, no scoring).
 
-    give_rows, give_total, give_missing = side(give or [])
-    get_rows, get_total, get_missing = side(get or [])
-    diff = get_total - give_total
+    Dynasty leagues (auto-detected, or mode="dynasty") weight rest-of-career
+    trade value above weekly projection. Redraft (mode="redraft") flips that.
+    Superflex QB depth counts as a need. Never recommends a player already
+    rostered in the league. Drop suggestions prefer taxi/bench over starters;
+    elite drops are flagged risk=high.
 
-    larger = max(give_total, get_total, 1)
-    ratio = abs(diff) / larger
-    if ratio < 0.05:
-        verdict = "roughly even"
-    elif diff > 0:
-        verdict = "you come out ahead"
-    else:
-        verdict = "you give up more value"
+    FAAB bands are heuristics, not league-market truth — pass faab_remaining
+    or the tool will use Sleeper waiver_budget minus budget used when present.
 
-    return {
-        "format": fmt,
-        "source": FC_SOURCE,
-        "give": give_rows,
-        "give_total": give_total,
-        "get": get_rows,
-        "get_total": get_total,
-        "difference": diff,
-        "percent_vs_larger_side": round(ratio * 100, 1),
-        "verdict": verdict,
-        "unmatched": {"give": give_missing, "get": get_missing},
-        "note": "Values are FantasyCalc estimates and exclude draft picks.",
-    }
+    platform: "sleeper" (default) or "yahoo" (best-effort via sleeper_id
+    crosswalk; Yahoo dynasty is not auto-detected — pass mode="dynasty")."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_waiver.waiver_advice(
+            league_id,
+            team_name_or_manager=team_name_or_manager,
+            week=week,
+            position=position,
+            faab_remaining=faab_remaining,
+            max_adds=max_adds,
+            mode=mode,
+        )
+    if plat != "sleeper":
+        return _platform_error(plat)
+    return _waiver.waiver_advice(
+        league_id,
+        team_name_or_manager=team_name_or_manager,
+        week=week,
+        position=position,
+        faab_remaining=faab_remaining,
+        max_adds=max_adds,
+        mode=mode,
+    )
+
+
+@mcp.tool()
+def grade_team(
+    league_id: str | None = None,
+    platform: str = "sleeper",
+    team_name_or_manager: str | None = None,
+    horizon: str = "dynasty",
+) -> dict:
+    """[UNOFFICIAL] Contender vs rebuilder grade for a roster, with positional
+    letter grades and up to three next moves.
+
+    Classification (primary): championship_contender, playoff_hopeful,
+    mid_pack, rebuilder, tank. Letter grade is secondary. Built from
+    FantasyCalc roster totals vs the league, starter-value rank, youth, and
+    owned future picks (Sleeper traded_picks + original picks; pick capital
+    uses the same heuristic schedule as analyze_trade).
+
+    horizon="dynasty" (default) weights rest-of-career value, youth, and picks.
+    horizon="win_now" weights two-year starter quality. Suggestions only —
+    call waiver_advice for the actual wire, analyze_trade for a specific deal.
+
+    Yahoo: best-effort from roster values via sleeper_id; pick capital is
+    omitted (unpriced), never invented."""
+    plat = _normalize_platform(platform)
+    if plat == "yahoo":
+        return _yahoo_grade.grade_team(
+            league_id,
+            team_name_or_manager=team_name_or_manager,
+            horizon=horizon,
+        )
+    if plat != "sleeper":
+        return _platform_error(plat)
+    return _grade.grade_team(
+        league_id,
+        team_name_or_manager=team_name_or_manager,
+        horizon=horizon,
+    )
 
 
 # --------------------------------------------------------------------------

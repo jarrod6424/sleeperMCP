@@ -6,6 +6,7 @@ from __future__ import annotations
 
 from typing import Any
 
+from sleeper_core import picks as sleeper_picks
 from sleeper_core import values as sleeper_values
 from sleeper_core.config import FC_SOURCE
 
@@ -155,6 +156,11 @@ def analyze_trade(
     give: list[str],
     get: list[str],
     league_key: str | None = None,
+    pick_value_model: str = "schedule",
+    include_roster_fit: bool = True,
+    slot_estimate: str = "auto",
+    pick_overrides: dict[str, Any] | None = None,
+    team_name_or_manager: str | None = None,
 ) -> dict[str, Any]:
     lid = resolve_league_key(league_key)
     if not lid:
@@ -165,9 +171,12 @@ def analyze_trade(
         return fmt
 
     by_sid, by_name = _value_index(fmt)
+    unpriced: list[dict[str, Any]] = []
 
     def resolve(item: str) -> tuple[dict | None, list[str]]:
         raw = str(item).strip()
+        if sleeper_picks.looks_like_pick(raw):
+            return None, []
         key = raw.lower()
         v = by_sid.get(raw) or by_name.get(key)
         if v:
@@ -188,14 +197,34 @@ def analyze_trade(
         names = [((vv.get("player") or {}).get("name") or nm) for nm, vv in by_name.items() if key in nm]
         return None, names[:8]
 
-    def side(items: list[str]) -> dict[str, Any]:
+    def side(items: list[str], label: str) -> dict[str, Any]:
         resolved_rows = []
         missing = []
         total = 0.0
         for item in items:
+            raw = str(item).strip()
+            if sleeper_picks.looks_like_pick(raw):
+                parsed = sleeper_picks.parse_pick_token(raw)
+                unpriced.append(
+                    {
+                        "query": item,
+                        "side": label,
+                        "kind": "pick",
+                        "reason": "yahoo_picks_unsupported",
+                        "normalized": (
+                            {"season": parsed.get("season"), "round": parsed.get("round")}
+                            if parsed.get("ok")
+                            else None
+                        ),
+                    }
+                )
+                continue
             v, suggestions = resolve(item)
             if not v:
                 missing.append({"query": item, "suggestions": suggestions})
+                unpriced.append(
+                    {"query": item, "side": label, "kind": "player", "reason": "not found"}
+                )
                 continue
             player = v.get("player") or {}
             val = v.get("value") or 0
@@ -214,8 +243,8 @@ def analyze_trade(
             "missing": missing,
         }
 
-    give_side = side(give)
-    get_side = side(get)
+    give_side = side(give, "give")
+    get_side = side(get, "get")
     delta = round(get_side["total"] - give_side["total"], 2)
     if delta > 5:
         verdict = "favor_get"
@@ -223,6 +252,8 @@ def analyze_trade(
         verdict = "favor_give"
     else:
         verdict = "roughly_even"
+
+    _ = (pick_value_model, include_roster_fit, slot_estimate, pick_overrides, team_name_or_manager)
 
     return {
         "platform": "yahoo",
@@ -237,8 +268,20 @@ def analyze_trade(
         },
         "give": give_side,
         "get": get_side,
+        "give_total": give_side["total"],
+        "get_total": get_side["total"],
+        "difference": delta,
         "delta_get_minus_give": delta,
         "verdict": verdict,
+        "picks": {"model": "unsupported", "give": [], "get": []},
+        "unpriced_assets": unpriced,
+        "roster_fit": None,
+        "limitations": [
+            "Yahoo Fantasy API does not expose Sleeper-style traded draft picks, "
+            "so pick tokens are listed in unpriced_assets rather than assigned a value.",
+        ],
+        "data_sources": ["fantasycalc", "yahoo"],
+        "unofficial": True,
         "source": FC_SOURCE,
     }
 

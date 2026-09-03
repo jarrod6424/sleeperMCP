@@ -115,6 +115,16 @@
       "mode": "shape",
       "tool": "analyze_trade",
       "value": {
+        "as_of": {
+          "generated_at": "str",
+          "season": "str",
+          "week": "number"
+        },
+        "data_sources": [
+          [
+            "\"str\""
+          ]
+        ],
         "difference": "number",
         "format": {
           "isDynasty": "bool",
@@ -158,9 +168,88 @@
           }
         ],
         "give_total": "number",
+        "league_id": "str",
+        "limitations": [
+          [
+            "\"str\""
+          ]
+        ],
         "note": "str",
         "percent_vs_larger_side": "number",
+        "picks": {
+          "give": [
+            "<empty>"
+          ],
+          "get": [
+            "<empty>"
+          ],
+          "model": "str"
+        },
+        "platform": "str",
+        "players_get": [
+          {
+            "adp": "null",
+            "age": "number",
+            "name": "str",
+            "overall_rank": "number",
+            "position": "str",
+            "position_rank": "number",
+            "redraft_value": "number",
+            "sleeper_id": "str",
+            "team": "str",
+            "tier": "number",
+            "trade_frequency": "number",
+            "trend_30_day": "number",
+            "value": "number"
+          }
+        ],
+        "players_give": [
+          {
+            "adp": "null",
+            "age": "number",
+            "name": "str",
+            "overall_rank": "number",
+            "position": "str",
+            "position_rank": "number",
+            "redraft_value": "number",
+            "sleeper_id": "str",
+            "team": "str",
+            "tier": "number",
+            "trade_frequency": "number",
+            "trend_30_day": "number",
+            "value": "number"
+          }
+        ],
+        "reasons": [
+          [
+            "\"str\""
+          ]
+        ],
+        "recommendations": [
+          "<empty>"
+        ],
+        "roster_fit": {
+          "counterparty_team": "str",
+          "notes": [
+            [
+              "\"str\""
+            ]
+          ],
+          "positional_delta": {
+            "QB": "number",
+            "RB": "number",
+            "TE": "number",
+            "WR": "number"
+          },
+          "subject_team": "str",
+          "summary": "str"
+        },
         "source": "str",
+        "subject": {
+          "manager": "str",
+          "roster_id": "number",
+          "team_name": "str"
+        },
         "unmatched": {
           "get": [
             "<empty>"
@@ -169,6 +258,10 @@
             "<empty>"
           ]
         },
+        "unofficial": "bool",
+        "unpriced_assets": [
+          "<empty>"
+        ],
         "verdict": "str"
       }
     },

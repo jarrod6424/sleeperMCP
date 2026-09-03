@@ -1,0 +1,9 @@
+{
+  "league_id": "fixture-sf-dynasty",
+  "name": "Gridiron-like 12-team SF",
+  "total_rosters": 12,
+  "roster_positions": ["QB", "RB", "RB", "WR", "WR", "WR", "TE", "FLEX", "SUPER_FLEX", "BN", "BN", "BN", "TAXI"],
+  "settings": {"type": 2, "waiver_budget": 100},
+  "scoring_settings": {"rec": 1.0},
+  "note": "Anonymized 12-team Superflex dynasty shape for classification tests. Not live Gridiron data."
+}
