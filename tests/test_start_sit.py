@@ -81,6 +81,11 @@ def test_every_swap_has_reasons_and_reason_codes():
         assert all(isinstance(s, str) and s for s in row["reasons"])
     assert "current_projected" in out
     assert out["consider_starting"][0]["name"] == "Start WR"
+    sit = out["consider_benching"][0]
+    assert sit["name"] == "Sit WR"
+    assert any("sit behind Start WR" in r for r in sit["reasons"])
+    # Sit rows must not inherit the starter's matchup line.
+    assert not any(r.startswith("plays ") for r in sit["reasons"])
 
 
 def test_projection_failure_does_not_invent_a_lineup():
@@ -171,6 +176,16 @@ def test_injury_on_sit_flags_injury_risk():
     assert start_sit.REASON_INJURY_RISK in start["reason_codes"]
     assert start_sit.REASON_INJURY_RISK in sit["reason_codes"]
     assert any("injury_risk" in r for r in start["reasons"])
+
+
+def test_injury_risk_skips_when_both_are_equally_dinged():
+    pool = [
+        _player("sit", "Q Sit", "WR", 9.0, injury="QUESTIONABLE"),
+        _player("start", "Q Start", "WR", 13.0, injury="QUESTIONABLE"),
+    ]
+    out = _build(["WR"], pool, starters=["sit"])
+    assert start_sit.REASON_INJURY_RISK not in out["consider_starting"][0]["reason_codes"]
+    assert start_sit.REASON_HIGHER_PROJECTION in out["consider_starting"][0]["reason_codes"]
 
 
 def test_spread_favorite_sets_favorable_matchup():

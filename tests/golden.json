@@ -11619,38 +11619,136 @@
       "mode": "shape",
       "tool": "start_sit_advice",
       "value": {
+        "as_of": {
+          "generated_at": "str",
+          "season": "str",
+          "week": "number"
+        },
         "consider_benching": [
           {
-            "name": "str",
-            "player_id": "str",
-            "position": "str",
-            "proj": "number"
-          }
-        ],
-        "consider_starting": [
-          {
+            "floor_proj": "number",
+            "injury_status": "str",
+            "lineup_score": "number",
             "name": "str",
             "player_id": "str",
             "position": "str",
             "proj": "number",
-            "slot": "str"
+            "reason_codes": [
+              [
+                "\"str\""
+              ]
+            ],
+            "reasons": [
+              [
+                "\"str\""
+              ]
+            ],
+            "team": "str"
+          }
+        ],
+        "consider_starting": [
+          {
+            "floor_proj": "number",
+            "injury_status": "str",
+            "lineup_score": "number",
+            "name": "str",
+            "player_id": "str",
+            "position": "str",
+            "proj": "number",
+            "reason_codes": [
+              [
+                "\"str\""
+              ]
+            ],
+            "reasons": [
+              [
+                "\"str\""
+              ]
+            ],
+            "slot": "str",
+            "swap_for": {
+              "name": "str",
+              "player_id": "str",
+              "proj": "number"
+            },
+            "team": "str"
           }
         ],
         "current_projected": "number",
+        "data_sources": [
+          [
+            "\"str\""
+          ]
+        ],
+        "format": {
+          "is_dynasty": "bool",
+          "num_qbs": "number",
+          "num_teams": "number",
+          "ppr": "number"
+        },
+        "league_id": "str",
+        "limitations": [
+          [
+            "\"str\""
+          ]
+        ],
         "note": "str",
         "optimal_lineup": [
           {
             "name": "str",
+            "player_id": "str",
             "position": "str",
             "proj": "number",
             "slot": "str"
           }
         ],
         "optimal_projected": "number",
+        "platform": "str",
         "potential_point_gain": "number",
+        "reasons": [
+          [
+            "\"str\""
+          ]
+        ],
+        "recommendations": [
+          {
+            "floor_proj": "number",
+            "injury_status": "str",
+            "lineup_score": "number",
+            "name": "str",
+            "player_id": "str",
+            "position": "str",
+            "proj": "number",
+            "reason_codes": [
+              [
+                "\"str\""
+              ]
+            ],
+            "reasons": [
+              [
+                "\"str\""
+              ]
+            ],
+            "slot": "str",
+            "swap_for": {
+              "name": "str",
+              "player_id": "str",
+              "proj": "number"
+            },
+            "team": "str"
+          }
+        ],
         "scoring_format": "str",
         "source": "str",
+        "strategy": "str",
+        "subject": {
+          "manager": "str",
+          "roster_id": "number",
+          "team_name": "str"
+        },
         "team": "str",
+        "unofficial": "bool",
+        "verdict": "str",
         "week": "number"
       }
     },

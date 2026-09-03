@@ -50,6 +50,18 @@ FAVORITE_THRESHOLD = -3.0  # home spread: more negative = home more favored
 UNDERDOG_SCRIPT = 6.5
 
 
+def injury_rank(injury_status: str | None) -> int:
+    """Higher = more likely to miss. Used so injury_risk means the sit is worse."""
+    inj = (injury_status or "").upper()
+    if inj in INJURED_OUT:
+        return 3
+    if inj == "DOUBTFUL":
+        return 2
+    if inj == "QUESTIONABLE":
+        return 1
+    return 0
+
+
 def normalize_strategy(strategy: str | None) -> str:
     s = (strategy or "balanced").strip().lower()
     return s if s in STRATEGIES else "balanced"
@@ -213,7 +225,7 @@ def _codes_and_strings(
             )
         sit_inj = (sit.get("injury_status") or "").upper()
         start_inj = (start.get("injury_status") or "").upper()
-        if sit_inj in INJURED_RISK and start_inj not in INJURED_OUT:
+        if injury_rank(sit_inj) > injury_rank(start_inj):
             codes.append(REASON_INJURY_RISK)
             strings.append(f"injury_risk: sitting {sit.get('name')} ({sit_inj or 'flagged'})")
         if abs(start_proj - sit_proj) <= CLOSE_CALL_PTS and strategy == "floor":
@@ -297,26 +309,24 @@ def annotate_swaps(
             }
 
     for b in sit:
-        if "reasons" in b:
-            continue
-        partner = next((s for s in start if (s.get("swap_for") or {}).get("player_id") == b["player_id"]), None)
+        partner = next(
+            (s for s in start if (s.get("swap_for") or {}).get("player_id") == b["player_id"]),
+            None,
+        )
+        sit_proj = float(b.get("proj") or 0)
         if partner:
-            b["reason_codes"] = list(partner.get("reason_codes") or [])
+            start_proj = float(partner.get("proj") or 0)
+            b["reason_codes"] = [REASON_HIGHER_PROJECTION]
             b["reasons"] = [
-                f"sit behind {partner.get('name')} ({partner.get('proj'):.1f} vs {b.get('proj'):.1f})"
-            ] + [r for r in (partner.get("reasons") or []) if not r.startswith("higher_projection")]
-            if not b["reasons"]:
-                b["reasons"] = ["lower projected points than the optimal lineup"]
-            if REASON_HIGHER_PROJECTION not in b["reason_codes"]:
-                b["reason_codes"].insert(0, REASON_HIGHER_PROJECTION)
-                b["reasons"].insert(0, "lower projected points than the optimal lineup")
+                f"sit behind {partner.get('name')} ({start_proj:.1f} vs {sit_proj:.1f})"
+            ]
         else:
             b["reason_codes"] = [REASON_HIGHER_PROJECTION]
             b["reasons"] = [
-                f"lower projected points ({float(b.get('proj') or 0):.1f}) than the optimal lineup"
+                f"lower projected points ({sit_proj:.1f}) than the optimal lineup"
             ]
         inj = (b.get("injury_status") or "").upper()
-        if inj in INJURED_RISK and REASON_INJURY_RISK not in b["reason_codes"]:
+        if inj in INJURED_RISK:
             b["reason_codes"].append(REASON_INJURY_RISK)
             b["reasons"].append(f"injury_risk: {b.get('name')} is {inj}")
 
