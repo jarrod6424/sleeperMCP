@@ -62,14 +62,28 @@ def test_yahoo_start_sit_uses_sleeper_projections():
         with patch("yahoo_core.start_sit.compute_my_team", return_value=report):
             with patch("yahoo_core.start_sit.compute_league", return_value=league):
                 with patch(
-                    "yahoo_core.start_sit.sleeper_get_json",
-                    return_value={"week": 10, "season": "2025"},
+                    "yahoo_core.values.league_format",
+                    return_value={"isDynasty": False, "numQbs": 1, "ppr": 1, "numTeams": 12},
                 ):
                     with patch(
-                        "yahoo_core.start_sit.sleeper_proj.projections_for",
-                        return_value=proj,
+                        "yahoo_core.start_sit.sleeper_get_json",
+                        return_value={"week": 10, "season": "2025"},
                     ):
-                        advice = start_sit.start_sit_advice(week=10, scoring_format="ppr")
+                        with patch(
+                            "yahoo_core.start_sit.sleeper_proj.projections_for",
+                            return_value=proj,
+                        ):
+                            with patch(
+                                "sleeper_core.start_sit.week_matchups",
+                                return_value={},
+                            ):
+                                with patch(
+                                    "sleeper_core.start_sit.recent_floor_map",
+                                    return_value={},
+                                ):
+                                    advice = start_sit.start_sit_advice(
+                                        week=10, scoring_format="ppr"
+                                    )
 
     assert advice["platform"] == "yahoo"
     assert advice["team"] == "Pine Bluff Escapees"
@@ -77,6 +91,8 @@ def test_yahoo_start_sit_uses_sleeper_projections():
     assert advice["potential_point_gain"] > 0
     assert any(p["name"] == "Bench RB" for p in advice["consider_starting"])
     assert any(p["name"] == "Unmatched" for p in advice["unmatched_players"])
+    for row in advice["consider_starting"]:
+        assert row["reasons"] and row["reason_codes"]
 
 
 def test_server_yahoo_start_sit_routing():
@@ -89,3 +105,24 @@ def test_server_yahoo_start_sit_routing():
         result = server.start_sit_advice(platform="yahoo", week=10)
     assert result["platform"] == "yahoo"
     fn.assert_called_once()
+    assert fn.call_args.kwargs.get("strategy") == "balanced"
+
+
+def test_yahoo_empty_projections_structured_error():
+    report = {"owner": "X", "starters": [], "bench": []}
+    league = {"current_week": 1, "season": "2026", "roster_positions": ["RB"]}
+    with patch("yahoo_core.start_sit.resolve_league_key", return_value="461.l.1000"):
+        with patch("yahoo_core.start_sit.compute_my_team", return_value=report):
+            with patch("yahoo_core.start_sit.compute_league", return_value=league):
+                with patch(
+                    "yahoo_core.start_sit.sleeper_get_json",
+                    return_value={"week": 1, "season": "2026"},
+                ):
+                    with patch(
+                        "yahoo_core.start_sit.sleeper_proj.projections_for",
+                        return_value={},
+                    ):
+                        err = start_sit.start_sit_advice(week=1)
+    assert err["error"] == "no projection data returned"
+    assert "guidance" in err["fallback"]
+    assert "optimal_lineup" not in err

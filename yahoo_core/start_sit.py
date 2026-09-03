@@ -10,7 +10,9 @@ from __future__ import annotations
 
 from typing import Any
 
+from sleeper_core import advice as sleeper_advice
 from sleeper_core import projections as sleeper_proj
+from sleeper_core import start_sit as sleeper_start_sit
 from sleeper_core.http import get_json as sleeper_get_json
 
 from .config import YAHOO_SCORING_FORMAT
@@ -49,6 +51,7 @@ def start_sit_advice(
     team_name_or_manager: str | None = None,
     league_key: str | None = None,
     scoring_format: str | None = None,
+    strategy: str = "balanced",
 ) -> dict[str, Any]:
     lid = resolve_league_key(league_key)
     if not lid:
@@ -75,15 +78,15 @@ def start_sit_advice(
             "league_key": lid,
         }
 
-    field, fmt = scoring_field(scoring_format)
+    field, scoring_label = scoring_field(scoring_format)
     if scoring_format is None and league.get("scoring_format_label"):
         label = str(league["scoring_format_label"]).lower()
         if "half" in label:
-            field, fmt = "pts_half_ppr", "Half-PPR"
+            field, scoring_label = "pts_half_ppr", "Half-PPR"
         elif label == "ppr":
-            field, fmt = "pts_ppr", "PPR"
+            field, scoring_label = "pts_ppr", "PPR"
         elif label == "standard":
-            field, fmt = "pts_std", "Standard"
+            field, scoring_label = "pts_std", "Standard"
         scoring_format_note = "Detected from Yahoo settings.stat_modifiers (receptions)."
     else:
         scoring_format_note = (
@@ -95,13 +98,14 @@ def start_sit_advice(
 
     proj = sleeper_proj.projections_for(season, int(week))
     if not proj:
-        return {
-            "error": "no projection data returned",
-            "platform": "yahoo",
-            "team": report.get("owner"),
-            "week": week,
-            "source": "api.sleeper.com projections (UNDOCUMENTED, unsupported)",
-        }
+        return sleeper_start_sit.projection_failure(
+            league_id=lid,
+            platform="yahoo",
+            team_name=report.get("owner"),
+            week=week,
+            season=season,
+            extra={"scoring_format_note": scoring_format_note},
+        )
 
     starters_raw = report.get("starters") or []
     bench_raw = report.get("bench") or []
@@ -130,6 +134,8 @@ def start_sit_advice(
                 "name": row.get("name"),
                 "position": position,
                 "selected_position": row.get("selected_position"),
+                "team": row.get("team") or row.get("editorial_team_abbr"),
+                "injury_status": row.get("status"),
                 "proj": sleeper_proj.proj_points(str(sleeper_id), proj, field),
             }
         )
@@ -153,53 +159,40 @@ def start_sit_advice(
         if sid and str(sid) in pool_by_id:
             current_starter_ids.append(str(sid))
 
-    optimal = sleeper_proj.optimal_lineup(slots, pool)
-    optimal_ids = {p["player_id"] for p in optimal}
-    current_ids = set(current_starter_ids)
+    from .values import league_format
 
-    current_proj = round(
-        sum(pool_by_id.get(pid, {}).get("proj", 0.0) for pid in current_starter_ids), 2
-    )
-    optimal_proj = round(sum(p["proj"] for p in optimal), 2)
+    league_fmt = league_format(lid)
+    if isinstance(league_fmt, dict) and league_fmt.get("error"):
+        league_fmt = {"isDynasty": False, "numQbs": 1, "ppr": 1, "numTeams": 12}
 
-    sit = [
-        pool_by_id[pid]
-        for pid in current_starter_ids
-        if pid not in optimal_ids and pid in pool_by_id
-    ]
-    start = [p for p in optimal if p["player_id"] not in current_ids]
-    sit.sort(key=lambda p: p["proj"], reverse=True)
-    start.sort(key=lambda p: p["proj"], reverse=True)
-
-    return {
-        "platform": "yahoo",
-        "team": report.get("owner"),
-        "week": int(week),
-        "scoring_format": fmt,
-        "scoring_format_note": scoring_format_note,
-        "source": "Yahoo roster + api.sleeper.com projections via sleeper_id crosswalk (UNDOCUMENTED)",
-        "current_projected": current_proj,
-        "optimal_projected": optimal_proj,
-        "potential_point_gain": round(optimal_proj - current_proj, 2),
-        "consider_starting": start,
-        "consider_benching": sit,
-        "optimal_lineup": [
-            {
-                "slot": p["slot"],
-                "name": p["name"],
-                "position": p["position"],
-                "proj": p["proj"],
-                "sleeper_id": p["player_id"],
-            }
-            for p in optimal
-        ],
-        "unmatched_players": unmatched,
-        "note": (
+    result = sleeper_start_sit.build_from_pool(
+        league_id=lid,
+        platform="yahoo",
+        fmt=league_fmt,
+        season=season,
+        week=int(week),
+        subject=sleeper_advice.subject_block(
+            team_name=report.get("owner"),
+            manager=report.get("manager"),
+            roster_id=report.get("roster_id") or report.get("team_key"),
+        ),
+        scoring_label=scoring_label,
+        slots=slots,
+        pool=pool,
+        current_starter_ids=current_starter_ids,
+        strategy=strategy,
+        source="Yahoo roster + api.sleeper.com projections via sleeper_id crosswalk (UNDOCUMENTED)",
+        extra={
+            "scoring_format_note": scoring_format_note,
+            "unmatched_players": unmatched,
+        },
+        note=(
             "Projections come from an undocumented Sleeper endpoint and are "
             "estimates. Lineup is a greedy heuristic, not a guaranteed optimum. "
             "Players without a Sleeper ID join are listed in unmatched_players."
         ),
-    }
+    )
+    return result
 
 
 def to_int_safe(value: Any) -> int | None:

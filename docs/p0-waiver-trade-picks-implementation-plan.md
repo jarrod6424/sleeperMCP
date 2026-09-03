@@ -3,7 +3,7 @@
 **Status:** Implemented (P0 + P1 grade_team / envelope)  
 **Date:** 2026-09-03  
 **FRD:** Feature requirements doc (2026-09-03)  
-**Scope this plan:** F1 `waiver_advice`, F2 pick-aware `analyze_trade`, plus P1 `grade_team` and shared `AdviceEnvelope`. F4b start/sit reasons and F5 FantasyPros overlay are out of scope.
+**Scope this plan:** F1 `waiver_advice`, F2 pick-aware `analyze_trade`, plus P1 `grade_team` and shared `AdviceEnvelope`. F4b start/sit reasons shipped in the same PR (see CHANGELOG P2); F5 FantasyPros overlay remains out of scope.
 
 ## Decisions (FRD open items)
 
@@ -39,6 +39,7 @@ Logic lives in `sleeper_core` (no MCP imports). `server.py` stays a thin wrapper
 | `sleeper_core/waiver.py` | `waiver_advice` scoring |
 | `sleeper_core/grade.py` | `grade_team` classification |
 | `sleeper_core/league.py` | `list_free_agents` extracted from `server.py` (same output) |
+| `sleeper_core/start_sit.py` | P2 richer start/sit (reasons, strategy, projection fallback) |
 
 Yahoo: best-effort waivers/grades via existing roster + FA + sleeper_id crosswalk. Yahoo pick pricing always returns `unpriced_assets` with `yahoo_picks_unsupported` — never invented numbers.
 
@@ -68,5 +69,6 @@ Waiver situation uses Sleeper player-map fields (`injury_status`, `depth_chart_o
 
 - FlexFantasy / Scoreline
 - Write actions
-- FantasyPros overlay
-- Richer start/sit reason codes (P2)
+- FantasyPros overlay (P3)
+
+P2 richer `start_sit_advice` (reason codes, `strategy`, projection-failure fallback) is implemented in `sleeper_core/start_sit.py`.

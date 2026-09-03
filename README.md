@@ -97,7 +97,7 @@ that do not depend on it. Tools drawing on unofficial sources are marked
 | Tool | What it returns |
 | --- | --- |
 | `get_projections` | Weekly projections in your league's scoring format |
-| `start_sit_advice` | Optimal lineup versus current, with the point gap |
+| `start_sit_advice` | Optimal lineup versus current, with a reason on every suggested swap. `strategy`: `balanced` (default) / `floor` / `ceiling`. Empty projections return a structured error instead of a guessed lineup. Superflex may start a second QB in `SUPER_FLEX`. |
 | `get_trade_values` | FantasyCalc values for your exact format |
 | `get_auction_budgets` | FantasyCalc values scaled into auction $ fair/max bids |
 | `value_my_roster` | Total roster value, each player valued and ranked |

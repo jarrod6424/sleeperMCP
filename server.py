@@ -41,6 +41,7 @@ from sleeper_core import league as _league_mod
 from sleeper_core import offense as _offense
 from sleeper_core import players as _players
 from sleeper_core import projections as _proj
+from sleeper_core import start_sit as _start_sit
 from sleeper_core import stats as _stats
 from sleeper_core import trade as _trade
 from sleeper_core import values as _values
@@ -778,11 +779,22 @@ def start_sit_advice(
     league_id: str | None = None,
     platform: str = "sleeper",
     scoring_format: str | None = None,
+    strategy: str = "balanced",
 ) -> dict:
     """[UNOFFICIAL] Start/sit help for a team. Compares the current starters to
-    the highest-projected legal lineup and suggests swaps. Relies on Sleeper's
-    undocumented projections endpoint, which is unsupported and may break
-    without notice.
+    the highest-scoring legal lineup and suggests swaps, each with at least
+    one reason. Relies on Sleeper's undocumented projections endpoint, which
+    is unsupported and may break without notice.
+
+    strategy: "balanced" (default), "floor" (prefer safer players in close
+    calls via injury haircut + optional 10-PPR hit rate), or "ceiling"
+    (raw projection). Reason codes include higher_projection, injury_risk,
+    favorable_matchup and negative_game_script_risk when nflverse schedule
+    spreads exist — those two are heuristics, not opponent D/ST ranks.
+
+    If projections are down, returns a structured error with fallback
+    guidance (get_player_stats / manual) rather than guessing a lineup.
+    Superflex: the SUPER_FLEX slot can hold a second QB.
 
     platform: "sleeper" (default) or "yahoo". On Yahoo, the roster comes from
     Yahoo and projections are joined via sleeper_id; scoring_format may be
@@ -794,85 +806,16 @@ def start_sit_advice(
             team_name_or_manager=team_name_or_manager,
             league_key=league_id,
             scoring_format=scoring_format,
+            strategy=strategy,
         )
     if plat != "sleeper":
         return _platform_error(plat)
-    lid = _league_mod.resolve_league_id(league_id)
-    resolved = (
-        _league_mod.resolve_roster(lid, team_name_or_manager)
-        if team_name_or_manager
-        else _league_mod.resolve_my_roster(lid)
+    return _start_sit.start_sit_advice(
+        league_id,
+        week=week,
+        team_name_or_manager=team_name_or_manager,
+        strategy=strategy,
     )
-    if not resolved:
-        return {"error": "could not resolve team", "query": team_name_or_manager}
-
-    roster = resolved["roster"]
-    owner = resolved["owner"]
-    state = _http.get_json(f"/state/{SPORT}", cache=True) or {}
-    week = week or state.get("week") or 1
-    season = str(state.get("season") or state.get("league_season") or "")
-    if not season:
-        return {"error": "could not determine current season from NFL state"}
-    field, fmt = _proj.scoring_field(lid)
-    proj = _proj.projections_for(season, week)
-    if not proj:
-        return {
-            "error": "no projection data returned",
-            "team": owner.get("team_name"),
-            "week": week,
-            "hint": "The undocumented projections endpoint may have changed or be unavailable.",
-            "source": "api.sleeper.com projections (UNDOCUMENTED, unsupported)",
-        }
-    players = _players.load_players()
-    league = _http.get_json(f"/league/{lid}", cache=True) or {}
-
-    starters = roster.get("starters") or []
-    all_ids = roster.get("players") or []
-
-    def make(pid: str) -> dict:
-        rec = _players.player_name(pid, players)
-        return {
-            "player_id": str(pid),
-            "name": rec["name"],
-            "position": rec["position"],
-            "proj": _proj.proj_points(pid, proj, field),
-        }
-
-    pool = [make(pid) for pid in all_ids]
-    pool_by_id = {p["player_id"]: p for p in pool}
-    slots = [s for s in (league.get("roster_positions") or []) if s not in _proj.SKIP_SLOTS]
-
-    optimal = _proj.optimal_lineup(slots, pool)
-    optimal_ids = {p["player_id"] for p in optimal}
-    current_ids = {str(p) for p in starters}
-
-    current_proj = round(sum(pool_by_id.get(str(pid), {}).get("proj", 0.0) for pid in starters), 2)
-    optimal_proj = round(sum(p["proj"] for p in optimal), 2)
-
-    sit = [pool_by_id[str(pid)] for pid in starters if str(pid) not in optimal_ids and str(pid) in pool_by_id]
-    start = [p for p in optimal if p["player_id"] not in current_ids]
-    sit.sort(key=lambda p: p["proj"], reverse=True)
-    start.sort(key=lambda p: p["proj"], reverse=True)
-
-    return {
-        "team": owner.get("team_name"),
-        "week": week,
-        "scoring_format": fmt,
-        "source": "api.sleeper.com projections (UNDOCUMENTED, unsupported)",
-        "current_projected": current_proj,
-        "optimal_projected": optimal_proj,
-        "potential_point_gain": round(optimal_proj - current_proj, 2),
-        "consider_starting": start,
-        "consider_benching": sit,
-        "optimal_lineup": [
-            {"slot": p["slot"], "name": p["name"], "position": p["position"], "proj": p["proj"]}
-            for p in optimal
-        ],
-        "note": (
-            "Projections come from an undocumented Sleeper endpoint and are "
-            "estimates. Lineup is a greedy heuristic, not a guaranteed optimum."
-        ),
-    }
 
 
 # --------------------------------------------------------------------------
