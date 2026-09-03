@@ -112,18 +112,23 @@ def proj_points(pid: str, proj: dict, field: str) -> float:
     return round(float(val), 2) if val is not None else 0.0
 
 
-def optimal_lineup(slots: list[str], pool: list[dict]) -> list[dict]:
+def optimal_lineup(slots: list[str], pool: list[dict], score_key: str = "proj") -> list[dict]:
     """Greedy best-ball lineup: fill the most restrictive slots first, each
-    with the highest-projected eligible player still available.
+    with the highest-scored eligible player still available.
 
     Restrictive-first matters. Filling FLEX before QB could hand your only
     quarterback to a SUPER_FLEX and leave QB empty. Sorting slots by how few
     positions they accept avoids that.
 
-    A heuristic, not a provably optimal assignment, but reliable for start/sit
-    guidance where the goal is spotting an obvious mistake.
+    score_key lets start/sit tilt the greedy order (projection vs floor)
+    without changing eligibility. A heuristic, not a provably optimal
+    assignment, but reliable for spotting an obvious mistake.
     """
-    ranked = sorted(pool, key=lambda p: p["proj"], reverse=True)
+    ranked = sorted(
+        pool,
+        key=lambda p: p.get(score_key) if p.get(score_key) is not None else p.get("proj", 0.0),
+        reverse=True,
+    )
     used: set = set()
     assigned: list[dict] = []
     order = sorted(

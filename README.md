@@ -9,9 +9,12 @@ It is **read-only by construction**. The Sleeper API
 write paths, and this server only ever issues those reads. It cannot set
 lineups, make trades, drop players, or change anything in your league.
 
-37 tools across five data sources. See [docs/BUILD_NOTES.md](docs/BUILD_NOTES.md)
-for architecture, deployment details, and a record of what broke while building
-it.
+39 tools across five data sources (`waiver_advice` and `grade_team` added
+2026-09-03; `analyze_trade` now prices dynasty picks). See
+[docs/BUILD_NOTES.md](docs/BUILD_NOTES.md)
+for architecture, [CHANGELOG.md](CHANGELOG.md) for the advice-tool release, and
+[docs/p0-waiver-trade-picks-implementation-plan.md](docs/p0-waiver-trade-picks-implementation-plan.md)
+for pick-curve constants.
 
 ## Data sources
 
@@ -27,8 +30,10 @@ it.
 `list_my_leagues`, `scout_team`, `get_matchups`, `get_managers`, transactions,
 drafts, `get_available_players`, `start_sit_advice`, `get_projections`,
 `get_trade_values`, `get_auction_budgets`, `value_my_roster`, `analyze_trade`,
-`get_adp`, `get_dynasty_tiers`, and `get_playoff_bracket` (Yahoo returns
-playoff-week scoreboards; no Sleeper-style bracket). Yahoo roster/draft/FA
+`get_adp`, `get_dynasty_tiers`, `waiver_advice`, `grade_team`, and
+`get_playoff_bracket` (Yahoo returns playoff-week scoreboards; no Sleeper-style
+bracket). Yahoo pick tokens in `analyze_trade` are listed in `unpriced_assets`
+rather than invented. Yahoo roster/draft/FA
 rows also attach a `sleeper_id` via `resolve_player_crosswalk` when the join
 is known. Reception scoring is read from Yahoo `stat_modifiers` when present
 (else `YAHOO_SCORING_FORMAT`). Set `YAHOO_AUCTION_BUDGET` for auction $
@@ -81,7 +86,7 @@ that do not depend on it. Tools drawing on unofficial sources are marked
 | --- | --- |
 | `search_player` | Find players by partial name |
 | `get_player` | Full detail for one player_id |
-| `get_available_players` | Free agents not on any roster |
+| `get_available_players` | Free agents not on any roster (raw wire; use `waiver_advice` for ranked claims) |
 | `get_trending_players` | Most added or dropped league-wide |
 | `resolve_player_crosswalk` | Map Sleeper ↔ Yahoo player IDs |
 | `player_crosswalk_stats` | Coverage of yahoo_id joins on the player map |
@@ -92,11 +97,13 @@ that do not depend on it. Tools drawing on unofficial sources are marked
 | Tool | What it returns |
 | --- | --- |
 | `get_projections` | Weekly projections in your league's scoring format |
-| `start_sit_advice` | Optimal lineup versus current, with the point gap |
+| `start_sit_advice` | Optimal lineup versus current, with a reason on every suggested swap. `strategy`: `balanced` (default) / `floor` / `ceiling`. Empty projections return a structured error instead of a guessed lineup. Superflex may start a second QB in `SUPER_FLEX`. |
 | `get_trade_values` | FantasyCalc values for your exact format |
 | `get_auction_budgets` | FantasyCalc values scaled into auction $ fair/max bids |
 | `value_my_roster` | Total roster value, each player valued and ranked |
-| `analyze_trade` | Compare two sides of a trade |
+| `analyze_trade` | Compare two sides of a trade, including dynasty pick tokens (`2027 1st`, `2027 Round 1`, `2027 1st from TEAM`). Picks are heuristic schedule values, not FantasyCalc quotes; unpriceable assets go in `unpriced_assets`. |
+| `waiver_advice` | Ranked waiver/FAAB claims for a roster (dynasty weights trade value above weekly projection), with drop suggestions. Prefer this over `get_available_players` when you want a recommendation. |
+| `grade_team` | Contender vs rebuilder classification (`championship_contender` / `playoff_hopeful` / `mid_pack` / `rebuilder` / `tank`), positional grades, and up to three next moves. |
 | `get_adp` | ADP joined to trade value — where the market drafts a player versus what it thinks he is worth |
 | `get_dynasty_tiers` | Dynasty values grouped into market tiers |
 | `custom_score_player` | A custom, opinionated 0-100 score with a component breakdown. Not a projection — see [docs/SCORING_COMPARISON.md](docs/SCORING_COMPARISON.md) |
@@ -118,14 +125,19 @@ guidance.
 ## Layout
 
 ```
-server.py          37 @mcp.tool() definitions — thin wrappers, no logic
+server.py          @mcp.tool() definitions — thin wrappers, no logic
 sleeper_core/      the data layer. No MCP imports anywhere, by design
   config.py        endpoints, identity defaults, cache paths, TTLs
   http.py          HTTP clients, caching, conditional GET
   players.py       player map and name enrichment
-  league.py        rosters, standings, identity, matchups, transactions
+  league.py        rosters, standings, identity, matchups, transactions, free agents
   projections.py   projections and lineup optimization
   values.py        FantasyCalc trade values
+  picks.py         draft-pick token parse + schedule heuristic
+  trade.py         pick-aware analyze_trade
+  waiver.py        waiver_advice scoring
+  grade.py         grade_team classification
+  advice.py        shared advice envelope
   auction.py       FantasyCalc → auction $ fair/max bid targets
   adp.py           FantasyFootballCalculator ADP
   stats.py         nflverse stats and depth charts

@@ -415,3 +415,54 @@ def compute_transactions(lid: str, week: int) -> list[dict]:
             }
         )
     return result
+
+
+# --------------------------------------------------------------------------
+# Free agents
+# --------------------------------------------------------------------------
+
+
+def list_free_agents(
+    lid: str,
+    position: str | None = None,
+    limit: int = 25,
+) -> list[dict]:
+    """Active players not on any roster, sorted by Sleeper search_rank.
+
+    Same output shape as the original get_available_players tool. Callers that
+    need a bigger candidate pool (waiver_advice) pass a higher limit rather
+    than re-implementing the rostered-id filter.
+    """
+    rosters = get_json(f"/league/{lid}/rosters", cache=True) or []
+    rostered = {pid for r in rosters for pid in (r.get("players") or [])}
+
+    players = load_players()
+    pos = position.upper() if position else None
+    standard = {"QB", "RB", "WR", "TE", "K", "DEF"}
+    unranked = 10**9
+
+    candidates = []
+    for pid, info in players.items():
+        if pid in rostered:
+            continue
+        p = info.get("position")
+        if pos:
+            if p != pos:
+                continue
+        elif p not in standard:
+            continue
+        # Team defenses have no "active" flag; keep them. Otherwise require active.
+        if p != "DEF" and not info.get("active"):
+            continue
+        rank = info.get("search_rank")
+        rank = unranked if rank is None else rank
+        candidates.append((rank, pid, info))
+
+    candidates.sort(key=lambda x: x[0])
+    out = []
+    for rank, pid, info in candidates[:limit]:
+        rec = player_name(pid, players)
+        rec["search_rank"] = None if rank >= unranked else rank
+        rec["status"] = info.get("status")
+        out.append(rec)
+    return out

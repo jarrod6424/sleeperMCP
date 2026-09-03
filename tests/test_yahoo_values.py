@@ -208,6 +208,16 @@ def test_server_yahoo_value_and_trade_routing():
     ):
         assert server.analyze_trade(["A"], ["B"], platform="yahoo")["verdict"] == "roughly_even"
     with patch(
+        "server._yahoo_waiver.waiver_advice",
+        return_value={"platform": "yahoo", "verdict": "ok"},
+    ):
+        assert server.waiver_advice(platform="yahoo")["platform"] == "yahoo"
+    with patch(
+        "server._yahoo_grade.grade_team",
+        return_value={"platform": "yahoo", "classification": "mid_pack"},
+    ):
+        assert server.grade_team(platform="yahoo")["classification"] == "mid_pack"
+    with patch(
         "server._yahoo_values.trade_values",
         return_value={"platform": "yahoo", "players": []},
     ):
