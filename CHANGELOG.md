@@ -4,7 +4,7 @@
 
 ### Added
 
-- `get_week_usage` — one NFL week's offensive usage grouped by team: snap share, rushes, targets, target share, team dropback rate from play-by-play, and a route proxy (on-field for dropbacks from nflverse participation, not PFF). Headlines surface patterns like `PHI: 2 WRs over 90% snap share`. Logic lives in `sleeper_core/usage.py`; `server.py` is a thin wrapper.
+- `get_week_usage` — one NFL week's offensive usage grouped by team: snap share, rushes, targets, target share, team dropback rate from play-by-play, and a route proxy (on-field for dropbacks from nflverse participation, not PFF). QBs get dropback share, designed vs scramble rushes, and starter/backup snap or dropback split headlines when two QBs both clear 15%. Headlines also surface patterns like `PHI: 2 WRs over 90% snap share`. Logic lives in `sleeper_core/usage.py`; `server.py` is a thin wrapper.
 
 ### Notes
 

@@ -81,13 +81,91 @@ def test_headlines_two_wrs_over_90() -> None:
         {"name": "A.J. Brown", "position": "WR", "snap_share": 95.0, "route_proxy": 94.0},
         {"name": "DeVonta Smith", "position": "WR", "snap_share": 91.0, "route_proxy": 92.0},
         {"name": "Dallas Goedert", "position": "TE", "snap_share": 80.0, "route_proxy": 70.0},
+        {"name": "Jalen Hurts", "position": "QB", "snap_share": 100.0, "route_proxy": 100.0},
     ]
     notes = usage.position_notes(players)
     assert "2 WRs over 90% snap share" in notes
     assert "2 WRs over 90% route proxy" in notes
-    headlines = usage.headlines_for_team("PHI", players)
-    assert "PHI: 2 WRs over 90% snap share" in headlines
-    assert "PHI: 2 WRs over 90% route proxy" in headlines
+    assert not any("QBs over 90%" in n for n in notes)
+
+
+def test_qb_play_stats_splits_dropbacks_and_rush_types() -> None:
+    rows = [
+        _pbp("PHI", "1", dropback=True, passer_id="00-QB1"),
+        _pbp("PHI", "2", dropback=True, sack=True, passer_id="00-QB1"),
+        _pbp("PHI", "3", dropback=True, scramble=True, rusher_id="00-QB1"),
+        _pbp("PHI", "4", dropback=False, rusher_id="00-QB1"),
+        _pbp("PHI", "5", dropback=False, rusher_id="00-RB1"),
+        _pbp("PHI", "6", dropback=True, passer_id="00-QB2"),
+    ]
+    stats = usage.qb_play_stats(rows)
+    assert stats["00-QB1"]["dropbacks"] == 3
+    assert stats["00-QB1"]["scramble_rushes"] == 1
+    assert stats["00-QB1"]["designed_rushes"] == 1
+    assert stats["00-QB2"]["dropbacks"] == 1
+    assert stats["00-QB2"]["designed_rushes"] == 0
+    assert "00-RB1" not in stats or stats["00-RB1"]["dropbacks"] == 0
+
+
+def test_qb_dropback_share_and_rush_split_on_player() -> None:
+    stats_rows = [
+        _stat("00-QB1", "Starter QB", "QB", "PHI", carries="5"),
+        _stat("00-QB2", "Backup QB", "QB", "PHI", carries="1"),
+        _stat("00-WR1", "A.J. Brown", "WR", "PHI", targets="6", share="0.3"),
+    ]
+    snap_rows = [
+        _snap("Starter QB", "QB", "PHI", pct="0.62", snaps="40"),
+        _snap("Backup QB", "QB", "PHI", pct="0.38", snaps="25"),
+        _snap("A.J. Brown", "WR", "PHI", pct="0.95", snaps="60"),
+    ]
+    pbp_rows = [
+        _pbp("PHI", "1", dropback=True, passer_id="00-QB1"),
+        _pbp("PHI", "2", dropback=True, passer_id="00-QB1"),
+        _pbp("PHI", "3", dropback=True, scramble=True, rusher_id="00-QB1"),
+        _pbp("PHI", "4", dropback=False, rusher_id="00-QB1"),
+        _pbp("PHI", "5", dropback=True, passer_id="00-QB2"),
+        _pbp("PHI", "6", dropback=True, passer_id="00-QB2"),
+        _pbp("PHI", "7", dropback=False, rusher_id="00-RB1"),
+    ]
+    participation = [
+        _part("1", "00-QB1;00-WR1"),
+        _part("2", "00-QB1;00-WR1"),
+        _part("3", "00-QB1;00-WR1"),
+        _part("5", "00-QB2;00-WR1"),
+        _part("6", "00-QB2;00-WR1"),
+    ]
+    out = usage.assemble_week_usage(
+        season="2025", week=10, team="PHI",
+        stats_rows=stats_rows, snap_rows=snap_rows,
+        pbp_rows=pbp_rows, participation_rows=participation,
+        min_snap_share=0,
+    )
+    team = out["teams"][0]
+    starter = next(p for p in team["players"] if p["name"] == "Starter QB")
+    backup = next(p for p in team["players"] if p["name"] == "Backup QB")
+    wr = next(p for p in team["players"] if p["position"] == "WR")
+    assert starter["qb_dropbacks"] == 3
+    assert starter["dropback_share"] == 60.0  # 3/5
+    assert starter["scramble_rushes"] == 1
+    assert starter["designed_rushes"] == 1
+    assert starter["rushes"] == 5  # box-score carries stay
+    assert backup["qb_dropbacks"] == 2
+    assert backup["dropback_share"] == 40.0
+    assert backup["designed_rushes"] == 0
+    assert backup["scramble_rushes"] == 0
+    assert starter["qb_dropbacks"] + backup["qb_dropbacks"] == team["dropbacks"]
+    assert "dropback_share" not in wr
+    assert "qb_dropbacks" not in wr
+    assert "PHI: QB snap split: Starter QB 62%, Backup QB 38%" in out["headlines"]
+    assert "PHI: QB dropback split: Starter QB 60%, Backup QB 40%" in out["headlines"]
+    assert not any("QBs over 90%" in h for h in out["headlines"])
+
+
+def test_single_qb_does_not_get_a_split_headline() -> None:
+    notes = usage.qb_notes([
+        {"name": "Jalen Hurts", "position": "QB", "snap_share": 100.0, "dropback_share": 100.0},
+    ])
+    assert notes == []
 
 
 def test_name_key_strips_punctuation_not_substring() -> None:
@@ -177,11 +255,11 @@ def test_phi_two_wrs_end_to_end_from_rows() -> None:
         _snap("Jalen Hurts", "QB", "PHI", pct="1.0", snaps="65"),
     ]
     pbp_rows = [
-        _pbp("PHI", "1", dropback=True),
-        _pbp("PHI", "2", dropback=True),
-        _pbp("PHI", "3", dropback=True),
-        _pbp("PHI", "4", dropback=False),
-        _pbp("PHI", "5", dropback=False),
+        _pbp("PHI", "1", dropback=True, passer_id="00-QB1"),
+        _pbp("PHI", "2", dropback=True, passer_id="00-QB1"),
+        _pbp("PHI", "3", dropback=True, passer_id="00-QB1"),
+        _pbp("PHI", "4", dropback=False, rusher_id="00-QB1"),
+        _pbp("PHI", "5", dropback=False, rusher_id="00-RB"),
     ]
     participation = [
         _part("1", "00-WR1;00-WR2;00-TE1;00-QB1"),
@@ -215,6 +293,11 @@ def test_phi_two_wrs_end_to_end_from_rows() -> None:
     qb = next(p for p in team["players"] if p["position"] == "QB")
     assert qb["rushes"] == 8
     assert qb["route_proxy"] == 100.0
+    assert qb["qb_dropbacks"] == 3
+    assert qb["dropback_share"] == 100.0
+    assert qb["designed_rushes"] == 1
+    assert qb["scramble_rushes"] == 0
+    assert not any("QB snap split" in h for h in out["headlines"])
 
 
 def test_lar_alias_and_week_isolation() -> None:
@@ -349,7 +432,8 @@ def test_week_usage_filters_csv_during_parse() -> None:
 GAME = "2025_10_DAL_PHI"
 
 
-def _pbp(team, play_id, *, dropback, sack=False, scramble=False, week="10", game=GAME):
+def _pbp(team, play_id, *, dropback, sack=False, scramble=False, week="10",
+         game=GAME, passer_id="", rusher_id=""):
     row = {
         "posteam": team,
         "play_id": str(play_id),
@@ -362,9 +446,16 @@ def _pbp(team, play_id, *, dropback, sack=False, scramble=False, week="10", game
         "qb_scramble": "1" if scramble else "0",
         "rush_attempt": "1" if (scramble or not dropback) else "0",
         "season_type": "REG",
+        "passer_player_id": passer_id if dropback and not scramble else "",
+        "passer_id": passer_id if dropback and not scramble else "",
+        "rusher_player_id": rusher_id if (scramble or not dropback) else "",
+        "rusher_id": rusher_id if (scramble or not dropback) else "",
     }
     if scramble:
         row["play_type"] = "run"
+        if not rusher_id and passer_id:
+            row["rusher_player_id"] = passer_id
+            row["rusher_id"] = passer_id
     return row
 
 

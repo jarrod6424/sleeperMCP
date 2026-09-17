@@ -77,8 +77,29 @@ PHI: 2 WRs over 90% snap share
 PHI: 2 WRs over 90% route proxy
 ```
 
-Same pattern for any skill position, threshold 90 after rounding to one
-decimal. No start/sit verbs.
+Same pattern for RB/WR/TE, threshold 90 after rounding to one
+decimal. QBs are excluded from that 90% scan — a starter at 100% snaps
+is not news.
+
+**QB lens (same PBP + snaps).** On QB rows only:
+
+| Field | Definition |
+|---|---|
+| `dropback_share` | this QB's dropbacks / team dropbacks, 0–100 |
+| `qb_dropbacks` | dropbacks attributed to `passer_player_id`, or `rusher_player_id` on scrambles |
+| `designed_rushes` | run plays that are not dropbacks, rusher = this QB |
+| `scramble_rushes` | `qb_scramble` plays |
+| `rushes` | unchanged box-score `carries` (designed + scrambles) |
+
+Headlines when two QBs both clear 15% snaps or dropback share:
+
+```
+NYG: QB snap split: Jaxson Dart 71%, Russell Wilson 29%
+NYG: QB dropback split: Jaxson Dart 74%, Russell Wilson 26%
+```
+
+A single 100% starter is not a headline. `route_proxy` on a QB is still
+on-field for dropbacks (~100% for the starter) and is not dropback share.
 
 Bye / unpublished week, when a team is requested: structured
 `{"error": "no usage data", ...}` with a hint. When all teams are
@@ -89,3 +110,4 @@ requested, omit silent byes.
 - Grading, start/sit advice, or DraftLab artifact rebuilds
 - Official PFF route participation
 - Season-long crowding (`get_team_offense_crowding` already exists)
+- A separate QB-only tool — this is the same `get_week_usage` payload

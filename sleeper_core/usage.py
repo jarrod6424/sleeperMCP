@@ -1,8 +1,9 @@
 """One week's offensive usage, grouped by team.
 
 Snap share, rushes, targets, target share, team dropback rate, and a
-route proxy (on-field for dropbacks). Measurements only — no start/sit
-verdict. Route % is not PFF.
+route proxy (on-field for dropbacks). QBs reuse those sources as
+dropback share, designed vs scramble rushes, and a starter/backup split.
+Measurements only — no start/sit verdict. Route % is not PFF.
 
 PBP and participation files are filtered during parse. Loading a full
 season of play-by-play as Python dicts will OOM a small host.
@@ -31,6 +32,10 @@ _MISSING = ("", "NA", "NULL", "None")
 ROUTE_LIMITATION = (
     "route_proxy is offensive players on the field on dropbacks from "
     "nflverse participation (not official PFF routes)"
+)
+QB_LIMITATION = (
+    "QB dropback_share is the passer/scrambler share of team dropbacks, "
+    "not on-field route_proxy; designed_rushes exclude scrambles"
 )
 UNITS = "rates are 0-100 percentages"
 NO_DATA_HINT = "Bye week or nflverse has not published this week yet."
@@ -178,7 +183,7 @@ def position_notes(players: list[dict]) -> list[str]:
         pos = _headline_pos(player.get("position") or "")
         if pos in POS_LABEL:
             by_pos[pos].append(player)
-    for pos in ("QB", "RB", "WR", "TE"):
+    for pos in ("RB", "WR", "TE"):
         group = by_pos.get(pos) or []
         label = POS_LABEL[pos]
         for attr, metric in (("snap_share", "snap share"), ("route_proxy", "route proxy")):
@@ -192,8 +197,117 @@ def position_notes(players: list[dict]) -> list[str]:
     return notes
 
 
+QB_SPLIT_THRESHOLD = 15.0
+
+
+def _fmt_pct(value: float) -> str:
+    return f"{int(round(value))}%"
+
+
+def qb_notes(players: list[dict]) -> list[str]:
+    """Starter vs backup split. A single 100% QB is not news."""
+    qbs = [p for p in players if (p.get("position") or "").upper() == "QB"]
+    notes: list[str] = []
+    snap_split = [
+        p for p in qbs
+        if isinstance(p.get("snap_share"), (int, float)) and p["snap_share"] >= QB_SPLIT_THRESHOLD
+    ]
+    if len(snap_split) >= 2:
+        snap_split.sort(key=lambda p: (-p["snap_share"], p["name"]))
+        parts = ", ".join(f"{p['name']} {_fmt_pct(p['snap_share'])}" for p in snap_split)
+        notes.append(f"QB snap split: {parts}")
+    db_split = [
+        p for p in qbs
+        if isinstance(p.get("dropback_share"), (int, float)) and p["dropback_share"] >= QB_SPLIT_THRESHOLD
+    ]
+    if len(db_split) >= 2:
+        db_split.sort(key=lambda p: (-p["dropback_share"], p["name"]))
+        parts = ", ".join(f"{p['name']} {_fmt_pct(p['dropback_share'])}" for p in db_split)
+        notes.append(f"QB dropback split: {parts}")
+    return notes
+
+
 def headlines_for_team(team: str, players: list[dict]) -> list[str]:
-    return [f"{team}: {note}" for note in position_notes(players)]
+    notes = position_notes(players) + qb_notes(players)
+    return [f"{team}: {note}" for note in notes]
+
+
+def _pbp_id(row: dict, *keys: str) -> str:
+    for key in keys:
+        val = (row.get(key) or "").strip()
+        if val:
+            return val
+    return ""
+
+
+def dropback_qb_id(row: dict) -> str:
+    if not is_dropback(row):
+        return ""
+    if is_truthy(row.get("qb_scramble")):
+        return _pbp_id(row, "rusher_player_id", "rusher_id")
+    return _pbp_id(row, "passer_player_id", "passer_id")
+
+
+def qb_play_stats(pbp_rows: list[dict]) -> dict[str, dict]:
+    """Per-GSIS dropbacks, designed rushes, and scrambles from pbp.
+
+    Dropbacks attach to passer_player_id, except scrambles which attach to
+    rusher_player_id. Designed rushes are run plays that are not dropbacks.
+    """
+    out: dict[str, dict] = {}
+
+    def bucket(gsis: str, team: str) -> dict:
+        rec = out.setdefault(
+            gsis,
+            {"dropbacks": 0, "designed_rushes": 0, "scramble_rushes": 0, "team": team},
+        )
+        rec["team"] = team
+        return rec
+
+    for row in pbp_rows:
+        team = to_nflverse_team(row.get("posteam"))
+        qid = dropback_qb_id(row)
+        if qid:
+            rec = bucket(qid, team)
+            rec["dropbacks"] += 1
+            if is_truthy(row.get("qb_scramble")):
+                rec["scramble_rushes"] += 1
+        elif is_designed_run(row):
+            rid = _pbp_id(row, "rusher_player_id", "rusher_id")
+            if rid:
+                bucket(rid, team)["designed_rushes"] += 1
+    return out
+
+
+def apply_qb_usage(
+    player: dict,
+    gsis: str,
+    qb_stats: dict[str, dict],
+    team_dropbacks: int,
+    *,
+    has_pbp: bool,
+) -> None:
+    if (player.get("position") or "").upper() != "QB":
+        return
+    if not has_pbp:
+        for field in ("qb_dropbacks", "dropback_share", "designed_rushes", "scramble_rushes"):
+            player[field] = None
+            player[f"{field}_provenance"] = MISSING_NOT_RECORDED
+        return
+    rec = qb_stats.get(gsis) or {}
+    db = int(rec.get("dropbacks") or 0)
+    player["qb_dropbacks"] = db
+    player["qb_dropbacks_provenance"] = MEASURED
+    if team_dropbacks:
+        player["dropback_share"] = round(100.0 * db / team_dropbacks, 1)
+        player["dropback_share_provenance"] = MEASURED
+    else:
+        player["dropback_share"] = None
+        player["dropback_share_provenance"] = MISSING_NOT_RECORDED
+    player["designed_rushes"] = int(rec.get("designed_rushes") or 0)
+    player["designed_rushes_provenance"] = MEASURED
+    player["scramble_rushes"] = int(rec.get("scramble_rushes") or 0)
+    player["scramble_rushes_provenance"] = MEASURED
 
 
 def _filter_week_team(
@@ -301,6 +415,7 @@ def assemble_week_usage(
     drop_stats = team_dropback_stats(pbp_rows)
     drop_plays = {t: s["dropback_plays"] for t, s in drop_stats.items()}
     route_counts = route_on_dropbacks(participation_rows, drop_plays)
+    qb_stats = qb_play_stats(pbp_rows)
 
     joined_plays: dict[str, set[tuple[str, str]]] = defaultdict(set)
     play_team = {key: t for t, keys in drop_plays.items() for key in keys}
@@ -389,7 +504,7 @@ def assemble_week_usage(
         if not _player_has_usage(snap_share, offense_snaps, rushes, targets, on_out):
             continue
 
-        players_by_team[t].append({
+        player = {
             "name": name,
             "position": pos,
             "snap_share": snap_share,
@@ -404,7 +519,12 @@ def assemble_week_usage(
             "route_proxy": route_val,
             "route_proxy_provenance": route_prov,
             "on_dropbacks": on_out,
-        })
+        }
+        apply_qb_usage(
+            player, gsis, qb_stats, int((drop_stats.get(t) or {}).get("dropbacks") or 0),
+            has_pbp=t in drop_stats,
+        )
+        players_by_team[t].append(player)
 
     for snap, gsis, key in snap_identity:
         if id(snap) in used_snap_ids:
@@ -424,7 +544,7 @@ def assemble_week_usage(
             route_prov, on_out = MEASURED, on_db or 0
         else:
             route_val, route_prov, on_out = None, MISSING_NOT_RECORDED, None
-        players_by_team[t].append({
+        player = {
             "name": snap.get("player") or "",
             "position": (snap.get("position") or "").upper(),
             "snap_share": snap_share,
@@ -439,14 +559,19 @@ def assemble_week_usage(
             "route_proxy": route_val,
             "route_proxy_provenance": route_prov,
             "on_dropbacks": on_out,
-        })
+        }
+        apply_qb_usage(
+            player, gsis, qb_stats, int((drop_stats.get(t) or {}).get("dropbacks") or 0),
+            has_pbp=t in drop_stats,
+        )
+        players_by_team[t].append(player)
 
     headlines: list[str] = []
     teams_out: list[dict] = []
     for t in sorted(set(players_by_team) | set(drop_stats)):
         roster = players_by_team.get(t) or []
-        notes = position_notes(roster)
-        headlines.extend(headlines_for_team(t, roster))
+        notes = position_notes(roster) + qb_notes(roster)
+        headlines.extend(f"{t}: {n}" for n in notes)
         visible = [
             p for p in roster
             if p["snap_share"] is None or p["snap_share"] >= float(min_snap_share)
@@ -484,7 +609,7 @@ def assemble_week_usage(
         "week": week,
         "source": NFLVERSE_SOURCE,
         "units": UNITS,
-        "limitations": [ROUTE_LIMITATION],
+        "limitations": [ROUTE_LIMITATION, QB_LIMITATION],
         "headlines": headlines,
         "teams": teams_out,
     }

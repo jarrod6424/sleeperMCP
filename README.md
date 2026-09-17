@@ -113,7 +113,7 @@ that do not depend on it. Tools drawing on unofficial sources are marked
 | --- | --- |
 | `get_player_stats` | Weekly stats: targets, target share, WOPR, air yards, fantasy points |
 | `get_snap_counts` | Snap counts and participation percentages by week |
-| `get_week_usage` | One week of usage grouped by team: snap share, rushes, targets, target share, dropback rate, route proxy. Headlines like "PHI: 2 WRs over 90% snap share". |
+| `get_week_usage` | One week of usage grouped by team: snap share, rushes, targets, target share, dropback rate, route proxy. QBs add dropback share and designed vs scramble rushes. Headlines like "PHI: 2 WRs over 90% snap share" or a two-QB snap split. |
 | `get_depth_chart` | Team depth chart with personnel grouping |
 | `get_injuries` | Injury report with practice participation |
 | `get_team_offense_crowding` | How a team distributes touches, with a concentration index |

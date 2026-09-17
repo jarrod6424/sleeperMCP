@@ -12002,7 +12002,8 @@
         "source": "nflverse open data (MIT licensed, github.com/nflverse)",
         "units": "rates are 0-100 percentages",
         "limitations": [
-          "route_proxy is offensive players on the field on dropbacks from nflverse participation (not official PFF routes)"
+          "route_proxy is offensive players on the field on dropbacks from nflverse participation (not official PFF routes)",
+          "QB dropback_share is the passer/scrambler share of team dropbacks, not on-field route_proxy; designed_rushes exclude scrambles"
         ],
         "headlines": [],
         "teams": [
@@ -12029,7 +12030,15 @@
                 "target_share_provenance": "measured",
                 "route_proxy": 100.0,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 29
+                "on_dropbacks": 29,
+                "qb_dropbacks": 29,
+                "qb_dropbacks_provenance": "measured",
+                "dropback_share": 100.0,
+                "dropback_share_provenance": "measured",
+                "designed_rushes": 2,
+                "designed_rushes_provenance": "measured",
+                "scramble_rushes": 3,
+                "scramble_rushes_provenance": "measured"
               },
               {
                 "name": "Saquon Barkley",

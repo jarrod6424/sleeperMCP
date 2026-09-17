@@ -1292,10 +1292,16 @@ def get_week_usage(
     targets, target share, team dropback rate, and a route proxy (on-field
     for dropbacks from nflverse participation — not official PFF routes).
 
-    Headlines surface patterns like "PHI: 2 WRs over 90% snap share" so you
-    do not have to scan every player. Pass a team abbreviation (PHI, KC,
-    LAR) to zoom in. min_snap_share is 0–100; default 10 when listing all
-    teams, 0 when a team is set.
+    QBs use the same sources from a different angle: dropback share of the
+    team's dropbacks, designed rushes vs scrambles, and a starter/backup
+    snap or dropback split when two QBs both cleared 15%. A single 100%
+    starter is not a headline.
+
+    Headlines surface patterns like "PHI: 2 WRs over 90% snap share" or
+    "MIN: QB snap split: McCarthy 62%, Wentz 38%" so you do not have to
+    scan every player. Pass a team abbreviation (PHI, KC, LAR) to zoom in.
+    min_snap_share is 0–100; default 10 when listing all teams, 0 when a
+    team is set.
     Source: nflverse (MIT licensed). Participation via FTN (CC-BY-SA)."""
     return _usage.week_usage(
         week=week,
