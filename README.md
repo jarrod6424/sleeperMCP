@@ -9,8 +9,7 @@ It is **read-only by construction**. The Sleeper API
 write paths, and this server only ever issues those reads. It cannot set
 lineups, make trades, drop players, or change anything in your league.
 
-39 tools across five data sources (`waiver_advice` and `grade_team` added
-2026-09-03; `analyze_trade` now prices dynasty picks). See
+40 tools across five data sources (`get_week_usage` added 2026-09-17). See
 [docs/BUILD_NOTES.md](docs/BUILD_NOTES.md)
 for architecture, [CHANGELOG.md](CHANGELOG.md) for the advice-tool release, and
 [docs/p0-waiver-trade-picks-implementation-plan.md](docs/p0-waiver-trade-picks-implementation-plan.md)
@@ -114,6 +113,7 @@ that do not depend on it. Tools drawing on unofficial sources are marked
 | --- | --- |
 | `get_player_stats` | Weekly stats: targets, target share, WOPR, air yards, fantasy points |
 | `get_snap_counts` | Snap counts and participation percentages by week |
+| `get_week_usage` | One week of usage grouped by team: snap share, rushes, targets, target share, dropback rate, route proxy. Headlines like "PHI: 2 WRs over 90% snap share". |
 | `get_depth_chart` | Team depth chart with personnel grouping |
 | `get_injuries` | Injury report with practice participation |
 | `get_team_offense_crowding` | How a team distributes touches, with a concentration index |
@@ -141,6 +141,7 @@ sleeper_core/      the data layer. No MCP imports anywhere, by design
   auction.py       FantasyCalc → auction $ fair/max bid targets
   adp.py           FantasyFootballCalculator ADP
   stats.py         nflverse stats and depth charts
+  usage.py         one-week usage grouped by team (snaps, targets, dropbacks, route proxy)
   offense.py       usage concentration and OC tiers
 tools/             artifact generation + auction_budget.py CLI
 tests/             golden-output regression harness

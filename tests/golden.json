@@ -59,7 +59,8 @@
         "roster_spots": "number",
         "sum_fair": "number"
       }
-    },    "adp": {
+    },
+    "adp": {
       "kwargs": {
         "limit": 25
       },
@@ -11985,6 +11986,246 @@
         "source": "str",
         "team": "str",
         "total_value": "number"
+      }
+    },
+    "week_usage": {
+      "tool": "get_week_usage",
+      "kwargs": {
+        "week": 10,
+        "season": "2025",
+        "team": "PHI"
+      },
+      "mode": "strict",
+      "value": {
+        "season": "2025",
+        "week": 10,
+        "source": "nflverse open data (MIT licensed, github.com/nflverse)",
+        "units": "rates are 0-100 percentages",
+        "limitations": [
+          "route_proxy is offensive players on the field on dropbacks from nflverse participation (not official PFF routes)"
+        ],
+        "headlines": [],
+        "teams": [
+          {
+            "team": "PHI",
+            "dropback_rate": 48.3,
+            "dropback_rate_provenance": "measured",
+            "dropbacks": 29,
+            "designed_runs": 31,
+            "dropbacks_with_participation": 29,
+            "notes": [],
+            "players": [
+              {
+                "name": "Jalen Hurts",
+                "position": "QB",
+                "snap_share": 100.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 63,
+                "rushes": 5,
+                "rushes_provenance": "measured",
+                "targets": 0,
+                "targets_provenance": "measured",
+                "target_share": 0.0,
+                "target_share_provenance": "measured",
+                "route_proxy": 100.0,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 29
+              },
+              {
+                "name": "Saquon Barkley",
+                "position": "RB",
+                "snap_share": 70.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 44,
+                "rushes": 22,
+                "rushes_provenance": "measured",
+                "targets": 3,
+                "targets_provenance": "measured",
+                "target_share": 13.0,
+                "target_share_provenance": "measured",
+                "route_proxy": 62.1,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 18
+              },
+              {
+                "name": "Will Shipley",
+                "position": "RB",
+                "snap_share": 19.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 12,
+                "rushes": 4,
+                "rushes_provenance": "measured",
+                "targets": 2,
+                "targets_provenance": "measured",
+                "target_share": 8.7,
+                "target_share_provenance": "measured",
+                "route_proxy": 27.6,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 8
+              },
+              {
+                "name": "Tank Bigsby",
+                "position": "RB",
+                "snap_share": 13.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 8,
+                "rushes": 3,
+                "rushes_provenance": "measured",
+                "targets": 0,
+                "targets_provenance": "measured",
+                "target_share": 0.0,
+                "target_share_provenance": "measured",
+                "route_proxy": 10.3,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 3
+              },
+              {
+                "name": "DeVonta Smith",
+                "position": "WR",
+                "snap_share": 92.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 58,
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "targets": 7,
+                "targets_provenance": "measured",
+                "target_share": 30.4,
+                "target_share_provenance": "measured",
+                "route_proxy": 100.0,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 29
+              },
+              {
+                "name": "A.J. Brown",
+                "position": "WR",
+                "snap_share": 78.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 49,
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "targets": 3,
+                "targets_provenance": "measured",
+                "target_share": 13.0,
+                "target_share_provenance": "measured",
+                "route_proxy": 82.8,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 24
+              },
+              {
+                "name": "Jahan Dotson",
+                "position": "WR",
+                "snap_share": 30.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 19,
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "targets": 1,
+                "targets_provenance": "measured",
+                "target_share": 4.3,
+                "target_share_provenance": "measured",
+                "route_proxy": 44.8,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 13
+              },
+              {
+                "name": "Darius Cooper",
+                "position": "WR",
+                "snap_share": 17.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 11,
+                "rushes": null,
+                "rushes_provenance": "missing:not_recorded",
+                "targets": null,
+                "targets_provenance": "missing:not_recorded",
+                "target_share": null,
+                "target_share_provenance": "missing:not_recorded",
+                "route_proxy": 17.2,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 5
+              },
+              {
+                "name": "Xavier Gipson",
+                "position": "WR",
+                "snap_share": 2.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 1,
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "targets": 0,
+                "targets_provenance": "measured",
+                "target_share": 0.0,
+                "target_share_provenance": "measured",
+                "route_proxy": 3.4,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 1
+              },
+              {
+                "name": "Dallas Goedert",
+                "position": "TE",
+                "snap_share": 86.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 54,
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "targets": 6,
+                "targets_provenance": "measured",
+                "target_share": 26.1,
+                "target_share_provenance": "measured",
+                "route_proxy": 86.2,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 25
+              },
+              {
+                "name": "Grant Calcaterra",
+                "position": "TE",
+                "snap_share": 40.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 25,
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "targets": 1,
+                "targets_provenance": "measured",
+                "target_share": 4.3,
+                "target_share_provenance": "measured",
+                "route_proxy": 37.9,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 11
+              },
+              {
+                "name": "Kylen Granson",
+                "position": "TE",
+                "snap_share": 27.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 17,
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "targets": 0,
+                "targets_provenance": "measured",
+                "target_share": 0.0,
+                "target_share_provenance": "measured",
+                "route_proxy": 20.7,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 6
+              },
+              {
+                "name": "Cameron Latu",
+                "position": "TE",
+                "snap_share": 8.0,
+                "snap_share_provenance": "measured",
+                "offense_snaps": 5,
+                "rushes": null,
+                "rushes_provenance": "missing:not_recorded",
+                "targets": null,
+                "targets_provenance": "missing:not_recorded",
+                "target_share": null,
+                "target_share_provenance": "missing:not_recorded",
+                "route_proxy": 6.9,
+                "route_proxy_provenance": "measured",
+                "on_dropbacks": 2
+              }
+            ]
+          }
+        ]
       }
     }
   }

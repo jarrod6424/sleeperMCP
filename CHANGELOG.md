@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-09-17 — Week usage from nflverse
+
+### Added
+
+- `get_week_usage` — one NFL week's offensive usage grouped by team: snap share, rushes, targets, target share, team dropback rate from play-by-play, and a route proxy (on-field for dropbacks from nflverse participation, not PFF). Headlines surface patterns like `PHI: 2 WRs over 90% snap share`. Logic lives in `sleeper_core/usage.py`; `server.py` is a thin wrapper.
+
+### Notes
+
+- Rates are 0–100 percentages. A missing source row is `null` with `missing:not_recorded`, never a fabricated zero.
+- Snap counts are joined to weekly stats via nflverse roster PFR/GSIS ids (snap "Zonovan Knight" is stats "Bam Knight", not a committee).
+- PBP and participation are filtered during parse so the season files cannot OOM the host.
+
 ## 2026-09-03 — P2 richer start/sit
 
 ### Added
