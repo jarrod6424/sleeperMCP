@@ -44,6 +44,7 @@ from sleeper_core import projections as _proj
 from sleeper_core import start_sit as _start_sit
 from sleeper_core import stats as _stats
 from sleeper_core import trade as _trade
+from sleeper_core import usage as _usage
 from sleeper_core import values as _values
 from sleeper_core import waiver as _waiver
 from sleeper_core.config import (
@@ -1278,6 +1279,36 @@ def get_snap_counts(
         "source": NFLVERSE_SOURCE,
         "snaps": [_stats.coerce(r, snap_keep) for r in recent],
     }
+
+
+@mcp.tool()
+def get_week_usage(
+    week: int | None = None,
+    season: str | None = None,
+    team: str | None = None,
+    min_snap_share: float | None = None,
+) -> dict:
+    """One week's offensive usage grouped by team: snap share, rushes,
+    targets, target share, team dropback rate, and a route proxy (on-field
+    for dropbacks from nflverse participation — not official PFF routes).
+
+    QBs use the same sources from a different angle: dropback share of the
+    team's dropbacks, designed rushes vs scrambles, and a starter/backup
+    snap or dropback split when two QBs both cleared 15%. A single 100%
+    starter is not a headline.
+
+    Headlines surface patterns like "PHI: 2 WRs over 90% snap share" or
+    "MIN: QB snap split: McCarthy 62%, Wentz 38%" so you do not have to
+    scan every player. Pass a team abbreviation (PHI, KC, LAR) to zoom in.
+    min_snap_share is 0–100; default 10 when listing all teams, 0 when a
+    team is set.
+    Source: nflverse (MIT licensed). Participation via FTN (CC-BY-SA)."""
+    return _usage.week_usage(
+        week=week,
+        season=season,
+        team=team,
+        min_snap_share=min_snap_share,
+    )
 
 
 @mcp.tool()

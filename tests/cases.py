@@ -246,7 +246,7 @@ def resolve_fixtures() -> dict:
 
 
 def build_cases(fixtures: dict) -> list[tuple[str, str, dict, str]]:
-    """Return (case_id, tool_name, kwargs, mode) for all 37 tools.
+    """Return (case_id, tool_name, kwargs, mode) for all MCP tools.
 
     case_id is what pytest reports on failure, so it is kept readable.
     """
@@ -323,6 +323,12 @@ def build_cases(fixtures: dict) -> list[tuple[str, str, dict, str]]:
             "snap_counts",
             "get_snap_counts",
             {"player_name": PLAYER_A, "season": SEASON, "last_n_weeks": 8},
+            STRICT,
+        ),
+        (
+            "week_usage",
+            "get_week_usage",
+            {"week": WEEK, "season": SEASON, "team": "PHI"},
             STRICT,
         ),
         (
