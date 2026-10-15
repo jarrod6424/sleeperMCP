@@ -62,13 +62,16 @@ def _fmt(num_qbs=2, dynasty=True):
     return {"ppr": 1, "numQbs": num_qbs, "numTeams": 12, "isDynasty": dynasty}
 
 
-def _run(give, get, **kwargs):
+def _run(give, get, board=None, standings=None, **kwargs):
     with patch("sleeper_core.trade.resolve_league_id", return_value="L1"):
         with patch("sleeper_core.trade.league_format", return_value=_fmt()):
-            with patch("sleeper_core.trade.fc_values", return_value=FC):
+            with patch("sleeper_core.trade.fc_values", return_value=board if board is not None else FC):
                 with patch("sleeper_core.trade.get_json", return_value={"week": 1, "season": "2026"}):
                     with patch("sleeper_core.trade.user_map", return_value={}):
-                        with patch("sleeper_core.trade.compute_standings", return_value=[]):
+                        with patch(
+                            "sleeper_core.trade.compute_standings",
+                            return_value=standings if standings is not None else [],
+                        ):
                             with patch("sleeper_core.trade.resolve_my_roster", return_value=None):
                                 with patch("sleeper_core.trade.resolve_roster", return_value=None):
                                     return trade.analyze_trade(give, get, **kwargs)
@@ -124,6 +127,59 @@ def test_superflex_first_higher_than_1qb_in_trade_pricing():
     assert sf["picks"]["give"][0]["value"] > one["picks"]["give"][0]["value"]
     assert sf["picks"]["give"][0]["source"] == "static_schedule"
     assert one["picks"]["give"][0]["source"] == "static_schedule"
+
+
+def _pick_row(rank: int, value: int, name: str, sleeper_id: str) -> dict:
+    return {
+        "value": value,
+        "overallRank": rank,
+        "positionRank": 1,
+        "player": {"name": name, "position": "PICK", "sleeperId": sleeper_id},
+    }
+
+
+def _pick_board():
+    """Player rows plus the FantasyCalc pick quotes the analyzer must use."""
+    return list(FC) + [
+        _pick_row(29, 5043, "2027 1st (Early)", "FP_2027_early_0"),
+        _pick_row(61, 3321, "2027 1st (Mid)", "FP_2027_mid_0"),
+        _pick_row(86, 2560, "2027 1st (Late)", "FP_2027_late_0"),
+        _pick_row(146, 1463, "2027 2nd (Late)", "FP_2027_late_1"),
+    ]
+
+
+def test_trade_with_picks_uses_fantasycalc_quote():
+    result = _run(
+        ["2027 1st", "2027 2nd"],
+        ["Marvin Harrison"],
+        board=_pick_board(),
+        slot_estimate="late",
+    )
+    by_round = {row["normalized"]["round"]: row for row in result["picks"]["give"]}
+    assert by_round[1]["value"] == 2560
+    assert by_round[1]["source"] == "fantasycalc_pick"
+    assert by_round[1]["fantasycalc_name"] == "2027 1st (Late)"
+    assert by_round[1]["overall_rank"] == 86
+    assert by_round[2]["value"] == 1463
+    assert by_round[2]["source"] == "fantasycalc_pick"
+    assert result["give_total"] == 2560 + 1463
+    assert result["get_total"] == 8000
+    assert result["give_total"] != 6858 + 4950
+    assert any("fantasycalc_pick" in reason for reason in result["reasons"])
+
+
+def test_auto_slot_labels_a_top_third_team_late():
+    result = _run(
+        ["2027 1st (roster 3)"],
+        ["Marvin Harrison"],
+        board=_pick_board(),
+        standings=[{"roster_id": 3, "rank": 3, "owner": "Zach"}],
+        slot_estimate="auto",
+    )
+    pick = result["picks"]["give"][0]
+    assert pick["slot_assumption"] == "late"
+    assert pick["value"] == 2560
+    assert pick["source"] == "fantasycalc_pick"
 
 
 def test_manual_override():

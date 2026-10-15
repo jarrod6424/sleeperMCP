@@ -1,5 +1,18 @@
 # Changelog
 
+## 2026-10-15 — Draft picks use FantasyCalc's own pick prices
+
+### Fixed
+
+- `analyze_trade` was pricing dynasty picks as the average FantasyCalc value of veteran players at the same startup-draft slot. On a 12-team superflex board that made a late 2027 1st the mean of overall ranks 4–8 (8364), times 0.82 (**6858**), and a late 2027 2nd the mean of ranks 16–20 (6037), times 0.82 (**4950**). FantasyCalc's own pick rows are **2560** (late 2027 1st, overall rank 86) and **1463** (late 2027 2nd, overall rank 146).
+- The schedule model now uses the `position: PICK` row for that season, round, and early/mid/late tier. The quote is not multiplied by the slot factor again. A year FantasyCalc publishes as a single price (for example `2028 1st`) uses that price with `slot_matched: false`. No matching row falls back to the static Superflex/1QB table (`static_schedule`), which is still a heuristic.
+
+### Not changed
+
+- Player-only trades still use FantasyCalc player values.
+- `pick_value_model=manual` still replaces listed tokens with `pick_overrides`.
+- `grade_team` pick capital still uses the static mid-round table. Its note no longer claims that table is what `analyze_trade` uses.
+
 ## 2026-09-17 — Week usage from nflverse
 
 ### Added

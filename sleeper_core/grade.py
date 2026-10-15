@@ -511,7 +511,8 @@ def grade_team(
         limitations=[
             "Classification is a heuristic from FantasyCalc totals, starter value, "
             "youth, and in-repo pick-schedule capital — not a projection.",
-            "Pick capital uses the same static schedule as analyze_trade, not FantasyCalc pick quotes.",
+            "Pick capital uses the in-repo static mid-round table, not FantasyCalc pick quotes. "
+            "analyze_trade prices an individual pick from FantasyCalc when that row exists.",
             "next_moves are suggestions; use waiver_advice / analyze_trade for the actual claim or trade math.",
         ],
         recommendations=next_moves,

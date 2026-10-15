@@ -22,10 +22,15 @@ from .league import compute_standings, resolve_league_id, resolve_my_roster, res
 from .players import load_players, player_name
 from .values import fc_row, fc_values, league_format
 
-PICK_LIMITATION = (
-    "Pick values are heuristic schedule estimates, not FantasyCalc market quotes. "
-    "See sleeper_core/picks.py for the curve (static Superflex/1QB table, with "
-    "FantasyCalc rank-band means when the board is dense enough)."
+PICK_LIMITATION_QUOTE = (
+    "Draft picks use the FantasyCalc pick quote when the board has that season, "
+    "round, and early/mid/late tier. The quote is not the average value of "
+    "veteran players at the same startup-draft slot, and it is not scaled again "
+    "by a slot multiplier."
+)
+PICK_LIMITATION_STATIC = (
+    "Picks with no matching FantasyCalc row use the in-repo Superflex/1QB table "
+    "in sleeper_core/picks.py. That table is a heuristic, not a market quote."
 )
 
 ELITE_OVERALL_RANK = 36
@@ -442,9 +447,12 @@ def analyze_trade(
         f"Give total {give_side['total']} vs get total {get_side['total']} "
         f"({round(ratio * 100, 1)}% vs larger side).",
     ]
-    if give_side["picks"] or get_side["picks"]:
+    priced_picks = give_side["picks"] + get_side["picks"]
+    if priced_picks:
+        sources = sorted({p.get("source") for p in priced_picks if p.get("source")})
+        via = ", ".join(sources) if sources else model
         reasons.append(
-            f"Picks priced with the {model} model "
+            f"Picks priced with the {model} model via {via} "
             f"(give pick value {give_side['pick_total']}, get pick value {get_side['pick_total']})."
         )
     else:
@@ -475,11 +483,14 @@ def analyze_trade(
         pass
 
     limitations = [
-        PICK_LIMITATION,
+        PICK_LIMITATION_QUOTE,
+        PICK_LIMITATION_STATIC,
         "Player values are FantasyCalc estimates for this league's format and move daily.",
     ]
     if model == "manual":
-        limitations.append("manual model: listed pick_overrides replace schedule values for those tokens only.")
+        limitations.append(
+            "manual model: listed pick_overrides replace the pick quote for those tokens only."
+        )
 
     return {
         "league_id": lid,
@@ -511,7 +522,8 @@ def analyze_trade(
         "limitations": limitations,
         "unofficial": True,
         "note": (
-            "Player values are FantasyCalc estimates. Draft picks use the in-repo "
-            "schedule heuristic (not FantasyCalc quotes)."
+            "Player values are FantasyCalc estimates. Draft picks use the "
+            "FantasyCalc pick quote for that season, round, and tier when the "
+            "board has one; otherwise the in-repo Superflex/1QB table."
         ),
     }

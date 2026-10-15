@@ -1,19 +1,26 @@
 """
-Draft-pick token parsing and heuristic schedule values.
-
-Picks are not a FantasyCalc product. Values here are a documented in-repo
-schedule so dynasty trade analysis can include the asset that often decides
-the deal. They are labelled heuristic in every tool response.
+Draft-pick token parsing and values.
 
 Valuation models
 ----------------
 schedule (default)
-    Hybrid of (A) static Superflex / 1QB tables and (B) FantasyCalc rank-band
-    means from the *same* board the league already uses. When the board has
-    enough ranked players, a 12-team first is the mean value of overall ranks
-    4–9 (mid-round), then slot-adjusted. Superflex vs 1QB is then whatever
-    FantasyCalc already priced into that board — we do not apply a second SF
-    multiplier on top of (B). If the band is empty, fall back to (A).
+    FantasyCalc already publishes draft picks on the same board as players
+    (``position == "PICK"``, names like ``2027 1st (Late)``). A pick token
+    uses that quote when the season, round, and early/mid/late tier match.
+    The quote is not scaled again: FantasyCalc's late price already is the
+    late price.
+
+    If that year only has one published price (``2028 1st``, no tier), that
+    single quote is used and the slot multiplier is not applied.
+
+    If the board has no row for that season and round, fall back to the
+    static Superflex / 1QB table below. That fallback is a heuristic. It is
+    labelled ``static_schedule`` and is not a market quote.
+
+    Do not price a pick as the average of veteran players at the same
+    startup-draft slot. A 12-team late 1st is not the 4th–8th best player
+    in the league (that mistake priced a late 2027 1st at 6858). FantasyCalc
+    ranks the pick itself around overall 86.
 
 manual
     Caller passes pick_overrides {token: value}. Those tokens use the
@@ -22,7 +29,7 @@ manual
 Static fallback (FantasyCalc-like points, 12-team dynasty)
 ----------------------------------------------------------
 Calibrated so a Superflex mid 1st is 2800 and a mid 2nd is 1100, matching
-the FRD examples.
+the FRD examples. Used only when the FantasyCalc board has no matching pick.
 
     Round  SF early / mid / late     1QB early / mid / late
     1      3360 / 2800 / 2296        2520 / 2100 / 1722
@@ -31,9 +38,9 @@ the FRD examples.
     4       252 /  196 / 140          189 /  147 /  105
     5+     mid *= 0.55 each round, same slot ratios
 
-Slot multipliers applied to a mid value: early 1.20, mid 1.00, late 0.82.
-`slot_estimate=auto` maps a team's standings third to those slots
-(bottom third = early, top third = late). Unknown origin → mid.
+Slot multipliers apply to the static table only: early 1.20, mid 1.00,
+late 0.82. ``slot_estimate=auto`` maps a team's standings third to those
+slots (bottom third = early, top third = late). Unknown origin → mid.
 """
 
 from __future__ import annotations
@@ -206,57 +213,114 @@ def static_pick_value(round_n: int, slot: str, num_qbs: int) -> int | None:
     return int(round(mid * mult))
 
 
-def _fc_ranked_values(fc_rows: list[dict] | None) -> list[int]:
-    """Sorted player values, best first. Prefers overallRank, else value."""
-    if not fc_rows:
-        return []
-    decorated = []
-    for row in fc_rows:
-        player = row.get("player") if isinstance(row.get("player"), dict) else {}
-        val = row.get("value")
-        if val is None:
-            continue
-        try:
-            val_n = int(round(float(val)))
-        except (TypeError, ValueError):
-            continue
-        rank = row.get("overallRank")
-        if rank is None:
-            rank = row.get("overall_rank")
-        try:
-            rank_n = int(rank) if rank is not None else None
-        except (TypeError, ValueError):
-            rank_n = None
-        decorated.append((rank_n, -val_n, val_n, player))
-    # overallRank ascending when present; otherwise value descending.
-    has_rank = any(r[0] is not None for r in decorated)
-    if has_rank:
-        decorated.sort(key=lambda t: (t[0] is None, t[0] if t[0] is not None else 10**9))
+_FC_PICK_NAME = re.compile(
+    r"^(?P<season>20\d{2})\s+(?P<ord>1st|2nd|3rd|4th|5th|6th)"
+    r"(?:\s+\((?P<slot>early|mid|late)\))?\s*$",
+    re.IGNORECASE,
+)
+# FantasyCalc sleeper ids: FP_2027_late_0 is the late 1st (round index 0);
+# FP_2028_1 is the unslotted 2028 1st (round number, not an index).
+_FC_PICK_ID_SLOT = re.compile(
+    r"^FP_(?P<season>20\d{2})_(?P<slot>early|mid|late)_(?P<round0>\d+)$",
+    re.IGNORECASE,
+)
+_FC_PICK_ID_PLAIN = re.compile(
+    r"^FP_(?P<season>20\d{2})_(?P<round>\d+)$",
+    re.IGNORECASE,
+)
+
+
+def _fc_pick_identity(row: dict) -> dict[str, Any] | None:
+    """Parse one FantasyCalc value row if it is a draft pick. Else None."""
+    player = row.get("player") if isinstance(row.get("player"), dict) else {}
+    if (player.get("position") or "").upper() != "PICK":
+        return None
+    try:
+        value = int(round(float(row.get("value"))))
+    except (TypeError, ValueError):
+        return None
+
+    name = (player.get("name") or "").strip()
+    season = None
+    round_n = None
+    slot = None
+    match = _FC_PICK_NAME.match(name)
+    if match:
+        season = match.group("season")
+        round_n = ORDINALS[match.group("ord").lower()]
+        slot = (match.group("slot") or "").lower() or None
     else:
-        decorated.sort(key=lambda t: t[1])
-    return [t[2] for t in decorated]
+        sid = str(player.get("sleeperId") or player.get("sleeper_id") or "")
+        slotted = _FC_PICK_ID_SLOT.match(sid)
+        plain = _FC_PICK_ID_PLAIN.match(sid)
+        if slotted:
+            season = slotted.group("season")
+            round_n = int(slotted.group("round0")) + 1
+            slot = slotted.group("slot").lower()
+        elif plain:
+            season = plain.group("season")
+            round_n = int(plain.group("round"))
+            slot = None
+        else:
+            return None
+
+    rank = row.get("overallRank")
+    if rank is None:
+        rank = row.get("overall_rank")
+    try:
+        overall_rank = int(rank) if rank is not None else None
+    except (TypeError, ValueError):
+        overall_rank = None
+    return {
+        "season": str(season),
+        "round": int(round_n),
+        "slot": slot,
+        "value": value,
+        "name": name or None,
+        "overall_rank": overall_rank,
+        "sleeper_id": player.get("sleeperId") or player.get("sleeper_id"),
+    }
 
 
-def fc_band_mid(fc_rows: list[dict] | None, round_n: int, num_teams: int) -> int | None:
-    """Mean FantasyCalc value of the mid-round ADP/rank band for `round_n`.
+def lookup_fc_pick(
+    fc_rows: list[dict] | None,
+    *,
+    season: str,
+    round_n: int,
+    slot: str,
+) -> dict[str, Any] | None:
+    """FantasyCalc's own price for this pick, or None if the board lacks it.
 
-    For a 12-team league, round 1 mid is ranks 4–9, round 2 is 16–21, etc.
-    Needs at least three values in the band or we fall back to static.
+    Exact early/mid/late wins. If FantasyCalc publishes only one price for
+    that season and round, that row is returned with ``slot_matched`` False.
+    A different year or round is never substituted.
     """
-    ranked = _fc_ranked_values(fc_rows)
-    if not ranked or round_n < 1 or num_teams < 1:
+    if not fc_rows or not season or round_n < 1:
         return None
-    # Need a full round of ranked players or the "mid 1st" window is just
-    # "average of whoever we have", which silently inflates sparse test boards
-    # and offseason slices into first-round values.
-    if len(ranked) < num_teams:
+    want_slot = slot if slot in SLOT_MULT else "mid"
+    exact = None
+    generic = None
+    for row in fc_rows:
+        ident = _fc_pick_identity(row)
+        if not ident:
+            continue
+        if ident["season"] != str(season) or ident["round"] != int(round_n):
+            continue
+        if ident["slot"] == want_slot:
+            exact = ident
+            break
+        if ident["slot"] is None and generic is None:
+            generic = ident
+    chosen = exact or generic
+    if not chosen:
         return None
-    start = (round_n - 1) * num_teams + max(1, num_teams // 3)  # 4 in a 12-team
-    end = (round_n - 1) * num_teams + (num_teams - max(1, num_teams // 3))  # 9
-    sl = ranked[start - 1 : end]
-    if len(sl) < 3:
-        return None
-    return int(round(sum(sl) / len(sl)))
+    return {
+        "value": chosen["value"],
+        "name": chosen["name"],
+        "overall_rank": chosen["overall_rank"],
+        "sleeper_id": chosen["sleeper_id"],
+        "slot_matched": exact is not None,
+    }
 
 
 def schedule_pick_value(
@@ -266,15 +330,22 @@ def schedule_pick_value(
     num_qbs: int = 2,
     num_teams: int = 12,
     fc_rows: list[dict] | None = None,
+    season: str | None = None,
 ) -> tuple[int | None, str]:
-    """Return (value, source) where source is 'fantasycalc_band' or 'static_schedule'.
+    """Return (value, source).
 
-    Value is None only for nonsense rounds (round < 1).
+    Source is ``fantasycalc_pick`` when the board has that pick, else
+    ``static_schedule``. Value is None only for a round we refuse to invent
+    (round < 1). ``num_teams`` is accepted for callers that already pass the
+    league size; a FantasyCalc quote is not rescaled by it, because the board
+    was already fetched for that format.
     """
+    del num_teams  # league size is already baked into the FantasyCalc board
     slot = slot if slot in SLOT_MULT else "mid"
-    band = fc_band_mid(fc_rows, round_n, num_teams)
-    if band is not None:
-        return int(round(band * SLOT_MULT[slot])), "fantasycalc_band"
+    if season:
+        quote = lookup_fc_pick(fc_rows, season=str(season), round_n=round_n, slot=slot)
+        if quote is not None:
+            return quote["value"], "fantasycalc_pick"
     static = static_pick_value(round_n, slot, num_qbs)
     if static is None:
         return None, "unpriced_round"
@@ -309,18 +380,32 @@ def price_parsed_pick(
             "source": source,
         }
 
+    season = parsed.get("season")
     value, source = schedule_pick_value(
         round_n=int(parsed["round"]),
         slot=slot,
         num_qbs=num_qbs,
         num_teams=num_teams,
         fc_rows=fc_rows,
+        season=str(season) if season else None,
     )
-    return {
+    row = {
         "token": token,
-        "normalized": {"season": parsed.get("season"), "round": parsed.get("round")},
+        "normalized": {"season": season, "round": parsed.get("round")},
         "origin": parsed.get("origin") or {},
         "value": value,
         "slot_assumption": slot,
         "source": source,
     }
+    if source == "fantasycalc_pick" and season:
+        quote = lookup_fc_pick(
+            fc_rows,
+            season=str(season),
+            round_n=int(parsed["round"]),
+            slot=slot,
+        )
+        if quote:
+            row["fantasycalc_name"] = quote["name"]
+            row["overall_rank"] = quote["overall_rank"]
+            row["slot_matched"] = quote["slot_matched"]
+    return row
