@@ -977,15 +977,17 @@ def analyze_trade(
     and draft-pick tokens.
 
     Pick token examples: "2027 1st", "2027 Round 1", "2027 1st from IDAHO SPUD
-    REAPERS", "2027 1st (roster 11)". pick_value_model is "schedule" (default
-    heuristic: in-repo Superflex/1QB table, plus FantasyCalc rank-band means
-    when dense enough) or "manual" (use pick_overrides for listed tokens).
-    slot_estimate is early|mid|late|auto (auto uses standings when the pick's
-    original roster is known).
+    REAPERS", "2027 1st (roster 11)". pick_value_model is "schedule" (default:
+    the FantasyCalc pick row for that season, round, and early/mid/late tier,
+    else the in-repo Superflex/1QB table) or "manual" (use pick_overrides for
+    listed tokens). slot_estimate is early|mid|late|auto (auto uses standings
+    when the pick's original roster is known; top third of the standings is a
+    late pick).
 
     Player-only trades still return give/get/give_total/get_total/verdict.
-    Picks are heuristic — never FantasyCalc quotes — and anything that cannot
-    be parsed or priced is listed in unpriced_assets rather than invented.
+    A matched pick is the FantasyCalc quote. An unmatched pick is the static
+    table and is labelled static_schedule. Anything that cannot be parsed or
+    priced is listed in unpriced_assets rather than invented.
 
     Prefer this over get_trade_values when you need a verdict on a specific
     package. Yahoo: players price as usual; pick tokens are unpriced_assets
@@ -1084,7 +1086,8 @@ def grade_team(
     mid_pack, rebuilder, tank. Letter grade is secondary. Built from
     FantasyCalc roster totals vs the league, starter-value rank, youth, and
     owned future picks (Sleeper traded_picks + original picks; pick capital
-    uses the same heuristic schedule as analyze_trade).
+    uses the in-repo static mid-round table, not the FantasyCalc pick quotes
+    analyze_trade uses).
 
     horizon="dynasty" (default) weights rest-of-career value, youth, and picks.
     horizon="win_now" weights two-year starter quality. Suggestions only —

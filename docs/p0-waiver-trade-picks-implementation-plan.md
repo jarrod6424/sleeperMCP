@@ -2,6 +2,7 @@
 
 **Status:** Implemented (P0 + P1 grade_team / envelope)  
 **Date:** 2026-09-03  
+**Correction (2026-10-15):** The rank-band half of the pick curve was retired. It averaged veteran values at the startup-draft slot (a 12-team late 1st became ranks 4–8 times 0.82, 6858) instead of FantasyCalc's own pick row (late 2027 1st = 2560, overall rank 86). `analyze_trade` now reads `position: PICK` rows from the same board and uses the static table only when that row is absent.  
 **FRD:** Feature requirements doc (2026-09-03)  
 **Scope this plan:** F1 `waiver_advice`, F2 pick-aware `analyze_trade`, plus P1 `grade_team` and shared `AdviceEnvelope`. F4b start/sit reasons shipped in the same PR (see CHANGELOG P2); F5 FantasyPros overlay remains out of scope.
 

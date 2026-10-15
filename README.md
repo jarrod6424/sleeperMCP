@@ -100,7 +100,7 @@ that do not depend on it. Tools drawing on unofficial sources are marked
 | `get_trade_values` | FantasyCalc values for your exact format |
 | `get_auction_budgets` | FantasyCalc values scaled into auction $ fair/max bids |
 | `value_my_roster` | Total roster value, each player valued and ranked |
-| `analyze_trade` | Compare two sides of a trade, including dynasty pick tokens (`2027 1st`, `2027 Round 1`, `2027 1st from TEAM`). Picks are heuristic schedule values, not FantasyCalc quotes; unpriceable assets go in `unpriced_assets`. |
+| `analyze_trade` | Compare two sides of a trade, including dynasty pick tokens (`2027 1st`, `2027 Round 1`, `2027 1st from TEAM`). A pick uses the FantasyCalc pick quote for that season, round, and early/mid/late tier when the board has one; otherwise the in-repo Superflex/1QB table (`static_schedule`). Unpriceable assets go in `unpriced_assets`. |
 | `waiver_advice` | Ranked waiver/FAAB claims for a roster (dynasty weights trade value above weekly projection), with drop suggestions. Prefer this over `get_available_players` when you want a recommendation. |
 | `grade_team` | Contender vs rebuilder classification (`championship_contender` / `playoff_hopeful` / `mid_pack` / `rebuilder` / `tank`), positional grades, and up to three next moves. |
 | `get_adp` | ADP joined to trade value — where the market drafts a player versus what it thinks he is worth |
@@ -133,7 +133,7 @@ sleeper_core/      the data layer. No MCP imports anywhere, by design
   league.py        rosters, standings, identity, matchups, transactions, free agents
   projections.py   projections and lineup optimization
   values.py        FantasyCalc trade values
-  picks.py         draft-pick token parse + schedule heuristic
+  picks.py         draft-pick token parse + FantasyCalc pick quotes (static table fallback)
   trade.py         pick-aware analyze_trade
   waiver.py        waiver_advice scoring
   grade.py         grade_team classification
