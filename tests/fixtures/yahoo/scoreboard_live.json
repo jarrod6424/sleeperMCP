@@ -1,0 +1,209 @@
+{
+ "fantasy_content": {
+  "league": [
+   {
+    "league_key": "461.l.1000",
+    "league_id": "1000",
+    "name": "Sunday Sweat",
+    "current_week": 7,
+    "season": "2026"
+   },
+   {
+    "scoreboard": {
+     "week": 7,
+     "0": {
+      "matchups": {
+       "0": {
+        "matchup": {
+         "week": "7",
+         "week_start": "2026-10-20",
+         "week_end": "2026-10-26",
+         "status": "postevent",
+         "is_playoffs": "0",
+         "is_consolation": "0",
+         "is_matchup_of_the_week": "0",
+         "is_matchup_recap_available": 1,
+         "is_tied": 0,
+         "winner_team_key": "461.l.1000.t.1",
+         "0": {
+          "teams": {
+           "0": {
+            "team": [
+             [
+              {
+               "team_key": "461.l.1000.t.2"
+              },
+              {
+               "team_id": "2"
+              },
+              {
+               "name": "Rival Squad"
+              },
+              [],
+              {},
+              {},
+              {
+               "previous_season_team_rank": 4
+              },
+              [],
+              {
+               "waiver_priority": 4
+              },
+              {
+               "faab_balance": "36"
+              },
+              {
+               "number_of_moves": 8
+              },
+              {
+               "number_of_trades": 0
+              },
+              {
+               "roster_adds": {
+                "coverage_type": "week",
+                "coverage_value": 8,
+                "value": "0"
+               }
+              },
+              [],
+              {
+               "league_scoring_type": "head"
+              },
+              [],
+              {
+               "draft_position": 8
+              },
+              {
+               "has_draft_grade": 1,
+               "draft_grade": "B"
+              },
+              [],
+              [],
+              [],
+              [],
+              [],
+              {
+               "managers": [
+                {
+                 "manager": {
+                  "manager_id": "2",
+                  "nickname": "rival",
+                  "guid": "GUID2"
+                 }
+                }
+               ]
+              }
+             ],
+             {
+              "win_probability": 0,
+              "team_points": {
+               "coverage_type": "week",
+               "week": "7",
+               "total": "128.72"
+              },
+              "team_projected_points": {
+               "coverage_type": "week",
+               "week": "7",
+               "total": "130.57"
+              }
+             }
+            ]
+           },
+           "1": {
+            "team": [
+             [
+              {
+               "team_key": "461.l.1000.t.1"
+              },
+              {
+               "team_id": "1"
+              },
+              {
+               "name": "Pine Bluff Escapees"
+              },
+              {
+               "is_owned_by_current_login": 1
+              },
+              {},
+              {},
+              {
+               "previous_season_team_rank": 6
+              },
+              [],
+              {
+               "waiver_priority": 12
+              },
+              {
+               "faab_balance": "45"
+              },
+              {
+               "number_of_moves": 15
+              },
+              {
+               "number_of_trades": 0
+              },
+              {
+               "roster_adds": {
+                "coverage_type": "week",
+                "coverage_value": 8,
+                "value": "1"
+               }
+              },
+              [],
+              {
+               "league_scoring_type": "head"
+              },
+              [],
+              {
+               "draft_position": 12
+              },
+              {
+               "has_draft_grade": 1,
+               "draft_grade": "D-"
+              },
+              [],
+              [],
+              [],
+              [],
+              [],
+              {
+               "managers": [
+                {
+                 "manager": {
+                  "manager_id": "1",
+                  "nickname": "JarrodLee",
+                  "guid": "GUID1",
+                  "is_current_login": "1"
+                 }
+                }
+               ]
+              }
+             ],
+             {
+              "win_probability": 1,
+              "team_points": {
+               "coverage_type": "week",
+               "week": "7",
+               "total": "133.32"
+              },
+              "team_projected_points": {
+               "coverage_type": "week",
+               "week": "7",
+               "total": "128.37"
+              }
+             }
+            ]
+           },
+           "count": 2
+          }
+         }
+        }
+       },
+       "count": 1
+      }
+     }
+    }
+   }
+  ]
+ }
+}

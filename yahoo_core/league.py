@@ -13,6 +13,7 @@ from typing import Any
 from .config import DEFAULT_LEAGUE_KEY, DEFAULT_TEAM_NAME
 from .http import YahooConfigError, get_json
 from .parse import (
+    dict_blocks,
     indexed_items,
     league_metadata,
     league_subresource,
@@ -348,6 +349,10 @@ def _team_report(lid: str, team_key: str, matched_by: str) -> dict[str, Any]:
 def _matchup_nodes(scoreboard_node: Any) -> list[dict[str, Any]]:
     nodes: list[dict[str, Any]] = []
     for item in indexed_items(scoreboard_node):
+        if isinstance(item, dict) and "matchups" in item:
+            # Live shape: scoreboard -> "0" -> matchups -> "n" -> matchup.
+            nodes.extend(_matchup_nodes(item["matchups"]))
+            continue
         matchup = item.get("matchup") if isinstance(item, dict) else item
         if isinstance(matchup, dict):
             nodes.append(matchup)
@@ -358,11 +363,16 @@ def _matchup_nodes(scoreboard_node: Any) -> list[dict[str, Any]]:
 
 def _teams_from_matchup(matchup: dict[str, Any]) -> list[dict[str, Any]]:
     teams_node = matchup.get("teams") if isinstance(matchup, dict) else None
+    if teams_node is None and isinstance(matchup, dict):
+        # Live shape: matchup -> "0" -> teams.
+        for block in indexed_items(matchup):
+            if isinstance(block, dict) and "teams" in block:
+                teams_node = block["teams"]
+                break
     teams: list[dict[str, Any]] = []
     for team_item in indexed_items(teams_node):
         team_list = team_item.get("team") if isinstance(team_item, dict) else team_item
-        blocks = team_list if isinstance(team_list, list) else [team_list]
-        team_meta = merge_dicts(*(b for b in blocks if isinstance(b, dict)))
+        team_meta = merge_dicts(*dict_blocks(team_list))
         if team_meta:
             teams.append(team_meta)
     return teams
