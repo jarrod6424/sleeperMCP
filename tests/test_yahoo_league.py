@@ -330,6 +330,41 @@ def test_matchup_for_live_shape():
     }
 
 
+def test_compute_available_players_parses_live_shape():
+    # Real players;status=A page: player metadata is a nested list of one-key
+    # dicts. Before the fix every page parsed to [] and the tool returned nothing.
+    sleeper_defs = {
+        abbr: {"player_id": abbr, "last_name": nick, "position": "DEF", "team": abbr}
+        for abbr, nick in (("KC", "Chiefs"), ("LAR", "Rams"))
+    }
+    with patch(
+        "yahoo_core.league.get_json", return_value=_load("available_players_live.json")
+    ), patch("sleeper_core.crosswalk.load_players", return_value=sleeper_defs):
+        players = yahoo_league.compute_available_players(position="DEF", limit=2)
+    assert [(p["name"], p["team"], p["player_key"]) for p in players] == [
+        ("Chiefs", "KC", "461.p.100012"),
+        ("Rams", "LAR", "461.p.100014"),
+    ]
+    assert [(p["sleeper_id"], p["crosswalk_matched_by"]) for p in players] == [
+        ("KC", "team_abbr"),
+        ("LAR", "team_abbr"),
+    ]
+
+
+def test_compute_transactions_parses_live_shape():
+    with patch("yahoo_core.league.get_json", return_value=_load("transactions_live.json")):
+        moves = yahoo_league.compute_transactions()
+    assert len(moves) == 1
+    move = moves[0]
+    assert move["type"] == "add/drop"
+    assert [(r["player_id"], r["name"], r["to_team"]) for r in move["adds"]] == [
+        ("100003", "Bears", "Pine Bluff Escapees")
+    ]
+    assert [(r["player_id"], r["name"], r["from_team"]) for r in move["drops"]] == [
+        ("100005", "Browns", "Pine Bluff Escapees")
+    ]
+
+
 def test_compute_managers_from_rosters():
     with patch("yahoo_core.league._fetch_teams", return_value=_load("league_teams.json")):
         managers = yahoo_league.compute_managers()

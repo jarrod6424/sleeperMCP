@@ -550,17 +550,13 @@ def _transaction_entries(payload: dict[str, Any]) -> list[dict[str, Any]]:
 def _transaction_players(players_node: Any) -> list[dict[str, Any]]:
     out: list[dict[str, Any]] = []
     for item in indexed_items(players_node):
-        player_blocks = item.get("player") if isinstance(item, dict) else item
-        blocks = player_blocks if isinstance(player_blocks, list) else [player_blocks]
         player: dict[str, Any] = {}
         txn_data = None
-        for block in blocks:
-            if not isinstance(block, dict):
-                continue
-            if "player_id" in block or "name" in block or "player_key" in block:
-                player.update(block)
+        for block in dict_blocks(item.get("player") if isinstance(item, dict) else item):
             if "transaction_data" in block:
                 txn_data = block["transaction_data"]
+            else:
+                player.update(block)
         if txn_data is not None:
             player["transaction_data"] = txn_data
         if player:
@@ -686,9 +682,7 @@ def _players_collection(payload: dict[str, Any]) -> list[dict[str, Any]]:
         node = fantasy_root(payload).get("players")
     out: list[dict[str, Any]] = []
     for item in indexed_items(node):
-        player_blocks = item.get("player") if isinstance(item, dict) else item
-        blocks = player_blocks if isinstance(player_blocks, list) else [player_blocks]
-        player = merge_dicts(*(b for b in blocks if isinstance(b, dict)))
+        player = merge_dicts(*dict_blocks(item.get("player") if isinstance(item, dict) else item))
         if player:
             out.append(player)
     return out
