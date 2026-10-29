@@ -307,6 +307,29 @@ def test_compute_matchups_pairs_teams():
     assert teams["Rival Squad"] == 108.2
 
 
+def test_compute_matchups_parses_live_shape():
+    # Captured from a real scoreboard: matchups sit under scoreboard["0"]["matchups"],
+    # teams under matchup["0"], and team metadata is a nested list of one-key dicts.
+    with patch("yahoo_core.league.get_json", return_value=_load("scoreboard_live.json")):
+        board = yahoo_league.compute_matchups(week=7)
+    assert len(board["matchups"]) == 1
+    teams = {t["team"]: t["points"] for t in board["matchups"][0]["teams"]}
+    assert teams == {"Rival Squad": 128.72, "Pine Bluff Escapees": 133.32}
+    assert board["matchups"][0]["matchup_id"] == 701
+
+
+def test_matchup_for_live_shape():
+    with patch("yahoo_core.league.get_json", return_value=_load("scoreboard_live.json")):
+        result = yahoo_league._matchup_for("461.l.1000", 7, "461.l.1000.t.1")
+    assert result == {
+        "week": 7,
+        "points": 133.32,
+        "opponent": "Rival Squad",
+        "opponent_points": 128.72,
+        "opponent_team_key": "461.l.1000.t.2",
+    }
+
+
 def test_compute_managers_from_rosters():
     with patch("yahoo_core.league._fetch_teams", return_value=_load("league_teams.json")):
         managers = yahoo_league.compute_managers()
