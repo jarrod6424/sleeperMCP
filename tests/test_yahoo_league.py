@@ -33,7 +33,7 @@ def test_compute_league_parses_metadata():
 
 
 def test_compute_rosters_splits_starters_and_bench():
-    with patch("yahoo_core.league._fetch_league", return_value=_load("league_teams.json")):
+    with patch("yahoo_core.league._fetch_teams", return_value=_load("league_teams.json")):
         rosters = yahoo_league.compute_rosters()
     assert isinstance(rosters, list)
     mine = next(r for r in rosters if r["owner"] == "Pine Bluff Escapees")
@@ -45,8 +45,41 @@ def test_compute_rosters_splits_starters_and_bench():
     assert len(mine["bench"]) == 1
 
 
+def test_fetch_teams_requests_roster_as_team_subresource():
+    # league;out=teams,standings,rosters is a Yahoo 400 ("Invalid subresource rosters").
+    with patch("yahoo_core.league.get_json", return_value={}) as get_json:
+        yahoo_league._fetch_teams("461.l.1000")
+    assert get_json.call_args.args[0] == "league/461.l.1000/teams;out=standings,roster"
+
+
+def test_compute_rosters_parses_live_shape():
+    # Captured from a real league/{key}/teams;out=standings,roster response:
+    # team and player metadata arrive as nested lists of one-key dicts, players
+    # sit under roster["0"], and selected_position is a list of blocks.
+    with patch("yahoo_core.league._fetch_teams", return_value=_load("league_teams_live.json")):
+        rosters = yahoo_league.compute_rosters()
+    assert [r["team_key"] for r in rosters] == ["461.l.1000.t.1", "461.l.1000.t.2"]
+    mine = rosters[0]
+    assert mine["owner"] == "Pine Bluff Escapees"
+    assert mine["manager"] == "JarrodLee"
+    assert (mine["wins"], mine["losses"], mine["points_for"]) == (4, 3, 780.72)
+    assert [(p["name"], p["selected_position"]) for p in mine["starters"]] == [
+        ("Caleb Williams", "QB"),
+        ("Chase Brown", "RB"),
+    ]
+    assert [(p["name"], p["position"], p["team"]) for p in mine["bench"]] == [
+        ("Tony Pollard", "RB", "Ten"),
+    ]
+
+
+def test_resolve_my_team_live_shape():
+    with patch("yahoo_core.league._fetch_teams", return_value=_load("league_teams_live.json")):
+        resolved = yahoo_league.resolve_my_team()
+    assert resolved == {"team_key": "461.l.1000.t.1", "roster_id": "1", "matched_by": "team_name"}
+
+
 def test_compute_standings_ranks_by_wins():
-    with patch("yahoo_core.league._fetch_league", return_value=_load("league_teams.json")):
+    with patch("yahoo_core.league._fetch_teams", return_value=_load("league_teams.json")):
         standings = yahoo_league.compute_standings()
     assert standings[0]["owner"] == "Pine Bluff Escapees"
     assert standings[0]["rank"] == 1
@@ -58,13 +91,13 @@ def test_compute_my_team_includes_matchup():
     scoreboard = _load("scoreboard_week10.json")
 
     def fake_fetch(league_key: str, out: str):
-        if out == "teams,standings,rosters":
-            return teams
         if out == "metadata,settings":
             return _load("league_metadata.json")
         raise AssertionError(out)
 
-    with patch("yahoo_core.league._fetch_league", side_effect=fake_fetch):
+    with patch("yahoo_core.league._fetch_league", side_effect=fake_fetch), patch(
+        "yahoo_core.league._fetch_teams", return_value=teams
+    ):
         with patch("yahoo_core.league.get_json", return_value=scoreboard):
             report = yahoo_league.compute_my_team()
     assert report["owner"] == "Pine Bluff Escapees"
@@ -159,13 +192,13 @@ def test_scout_team_partial_match():
     scoreboard = _load("scoreboard_week10.json")
 
     def fake_fetch(league_key: str, out: str):
-        if out == "teams,standings,rosters":
-            return teams
         if out == "metadata,settings":
             return _load("league_metadata.json")
         raise AssertionError(out)
 
-    with patch("yahoo_core.league._fetch_league", side_effect=fake_fetch):
+    with patch("yahoo_core.league._fetch_league", side_effect=fake_fetch), patch(
+        "yahoo_core.league._fetch_teams", return_value=teams
+    ):
         with patch("yahoo_core.league.get_json", return_value=scoreboard):
             report = yahoo_league.scout_team("Rival Sq")
     assert report["owner"] == "Rival Squad"
@@ -174,7 +207,7 @@ def test_scout_team_partial_match():
 
 
 def test_scout_team_no_match_lists_available():
-    with patch("yahoo_core.league._fetch_league", return_value=_load("league_teams.json")):
+    with patch("yahoo_core.league._fetch_teams", return_value=_load("league_teams.json")):
         result = yahoo_league.scout_team("Nobody")
     assert result["error"] == "no team matched"
     assert "Pine Bluff Escapees" in result["available_teams"]
@@ -217,7 +250,7 @@ def test_compute_draft_picks_enriches_names():
         raise AssertionError(path)
 
     with patch("yahoo_core.league.get_json", side_effect=fake_get):
-        with patch("yahoo_core.league._fetch_league", return_value=teams):
+        with patch("yahoo_core.league._fetch_teams", return_value=teams):
             picks = yahoo_league.compute_draft_picks()
     assert picks[0]["pick_no"] == 1
     assert picks[0]["player"] == "Justin Jefferson"
@@ -275,7 +308,7 @@ def test_compute_matchups_pairs_teams():
 
 
 def test_compute_managers_from_rosters():
-    with patch("yahoo_core.league._fetch_league", return_value=_load("league_teams.json")):
+    with patch("yahoo_core.league._fetch_teams", return_value=_load("league_teams.json")):
         managers = yahoo_league.compute_managers()
     assert isinstance(managers, list)
     assert {m["team_name"] for m in managers} == {"Pine Bluff Escapees", "Rival Squad"}

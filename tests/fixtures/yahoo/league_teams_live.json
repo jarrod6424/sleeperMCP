@@ -1,0 +1,894 @@
+{
+ "fantasy_content": {
+  "league": [
+   {
+    "league_key": "461.l.1000",
+    "league_id": "1000",
+    "name": "Sunday Sweat",
+    "num_teams": 2,
+    "current_week": 8,
+    "season": "2026"
+   },
+   {
+    "teams": {
+     "0": {
+      "team": [
+       [
+        {
+         "team_key": "461.l.1000.t.1"
+        },
+        {
+         "team_id": "1"
+        },
+        {
+         "name": "Pine Bluff Escapees"
+        },
+        {
+         "is_owned_by_current_login": 1
+        },
+        {},
+        {},
+        {
+         "previous_season_team_rank": 6
+        },
+        [],
+        {
+         "waiver_priority": 12
+        },
+        {
+         "faab_balance": "45"
+        },
+        {
+         "number_of_moves": 15
+        },
+        {
+         "number_of_trades": 0
+        },
+        {
+         "roster_adds": {
+          "coverage_type": "week",
+          "coverage_value": 8,
+          "value": "1"
+         }
+        },
+        [],
+        {
+         "league_scoring_type": "head"
+        },
+        [],
+        {
+         "draft_position": 12
+        },
+        {
+         "has_draft_grade": 1,
+         "draft_grade": "D-"
+        },
+        [],
+        [],
+        [],
+        [],
+        [],
+        {
+         "managers": [
+          {
+           "manager": {
+            "manager_id": "1",
+            "nickname": "JarrodLee",
+            "guid": "GUID1",
+            "is_current_login": "1"
+           }
+          }
+         ]
+        }
+       ],
+       {
+        "team_standings": {
+         "rank": "6",
+         "playoff_seed": "6",
+         "outcome_totals": {
+          "wins": "4",
+          "losses": "3",
+          "ties": 0,
+          "percentage": ".571"
+         },
+         "streak": {
+          "type": "win",
+          "value": "2"
+         },
+         "points_for": "780.72",
+         "points_against": 786.8399999999999
+        }
+       },
+       {
+        "roster": {
+         "coverage_type": "week",
+         "week": 8,
+         "is_prescoring": 0,
+         "is_editable": 1,
+         "bye_week_sponsor": {
+          "sponsor_name": "fox_one_2026",
+          "light_theme_image_url_mobile": "https://s.yimg.com/cv/apiv2/default/icons/FOX_ONE_Primary_Black.png",
+          "dark_theme_image_url_mobile": "https://s.yimg.com/cv/apiv2/default/icons/FOX_ONE_Primary_White.png",
+          "light_theme_image_url_web": "https://s.yimg.com/cv/apiv2/default/icons/FOX_ONE_Primary_Black.png",
+          "dark_theme_image_url_web": "https://s.yimg.com/cv/apiv2/default/icons/FOX_ONE_Primary_White.png",
+          "bye_week_copy": "Your roster rests. FOX One doesn\u2019t."
+         },
+         "0": {
+          "players": {
+           "0": {
+            "player": [
+             [
+              {
+               "player_key": "470.p.40900"
+              },
+              {
+               "player_id": "40900"
+              },
+              {
+               "name": {
+                "full": "Caleb Williams",
+                "first": "Caleb",
+                "last": "Williams",
+                "ascii_first": "Caleb",
+                "ascii_last": "Williams"
+               }
+              },
+              {},
+              {
+               "editorial_player_key": "nfl.p.40900"
+              },
+              {
+               "editorial_team_key": "nfl.t.3"
+              },
+              {
+               "editorial_team_full_name": "Chicago Bears"
+              },
+              {
+               "editorial_team_abbr": "Chi"
+              },
+              {},
+              {
+               "bye_weeks": {
+                "week": "10"
+               }
+              },
+              {
+               "is_keeper": {
+                "status": false,
+                "cost": false,
+                "kept": false
+               }
+              },
+              {
+               "uniform_number": "18"
+              },
+              {
+               "display_position": "QB"
+              },
+              {},
+              {
+               "is_undroppable": "0"
+              },
+              {
+               "position_type": "O"
+              },
+              {
+               "primary_position": "QB"
+              },
+              {
+               "eligible_positions": [
+                {
+                 "position": "QB"
+                }
+               ]
+              },
+              {
+               "eligible_positions_to_add": [
+                {
+                 "position": "WR"
+                },
+                {
+                 "position": "RB"
+                },
+                {
+                 "position": "TE"
+                }
+               ]
+              },
+              [],
+              [],
+              {
+               "has_player_notes": 1
+              },
+              [],
+              {
+               "player_notes_last_timestamp": 1792728633
+              }
+             ],
+             {
+              "selected_position": [
+               {
+                "coverage_type": "week",
+                "week": "8"
+               },
+               {
+                "position": "QB"
+               },
+               {
+                "is_flex": 0
+               }
+              ]
+             },
+             {
+              "is_editable": 1
+             }
+            ]
+           },
+           "1": {
+            "player": [
+             [
+              {
+               "player_key": "470.p.40196"
+              },
+              {
+               "player_id": "40196"
+              },
+              {
+               "name": {
+                "full": "Chase Brown",
+                "first": "Chase",
+                "last": "Brown",
+                "ascii_first": "Chase",
+                "ascii_last": "Brown"
+               }
+              },
+              {},
+              {
+               "editorial_player_key": "nfl.p.40196"
+              },
+              {
+               "editorial_team_key": "nfl.t.4"
+              },
+              {
+               "editorial_team_full_name": "Cincinnati Bengals"
+              },
+              {
+               "editorial_team_abbr": "Cin"
+              },
+              {},
+              {
+               "bye_weeks": {
+                "week": "6"
+               }
+              },
+              {
+               "is_keeper": {
+                "status": false,
+                "cost": false,
+                "kept": false
+               }
+              },
+              {
+               "uniform_number": "30"
+              },
+              {
+               "display_position": "RB"
+              },
+              {},
+              {
+               "is_undroppable": "1"
+              },
+              {
+               "position_type": "O"
+              },
+              {
+               "primary_position": "RB"
+              },
+              {
+               "eligible_positions": [
+                {
+                 "position": "RB"
+                },
+                {
+                 "position": "W/R/T"
+                }
+               ]
+              },
+              {
+               "eligible_positions_to_add": [
+                {
+                 "position": "QB"
+                },
+                {
+                 "position": "WR"
+                },
+                {
+                 "position": "TE"
+                }
+               ]
+              },
+              [],
+              [],
+              {
+               "has_player_notes": 1
+              },
+              [],
+              {
+               "player_notes_last_timestamp": 1792972131
+              }
+             ],
+             {
+              "selected_position": [
+               {
+                "coverage_type": "week",
+                "week": "8"
+               },
+               {
+                "position": "RB"
+               },
+               {
+                "is_flex": 0
+               }
+              ]
+             },
+             {
+              "is_editable": 1
+             }
+            ]
+           },
+           "2": {
+            "player": [
+             [
+              {
+               "player_key": "470.p.31960"
+              },
+              {
+               "player_id": "31960"
+              },
+              {
+               "name": {
+                "full": "Tony Pollard",
+                "first": "Tony",
+                "last": "Pollard",
+                "ascii_first": "Tony",
+                "ascii_last": "Pollard"
+               }
+              },
+              {},
+              {
+               "editorial_player_key": "nfl.p.31960"
+              },
+              {
+               "editorial_team_key": "nfl.t.10"
+              },
+              {
+               "editorial_team_full_name": "Tennessee Titans"
+              },
+              {
+               "editorial_team_abbr": "Ten"
+              },
+              {},
+              {
+               "bye_weeks": {
+                "week": "9"
+               }
+              },
+              {
+               "is_keeper": {
+                "status": false,
+                "cost": false,
+                "kept": false
+               }
+              },
+              {
+               "uniform_number": "20"
+              },
+              {
+               "display_position": "RB"
+              },
+              {},
+              {
+               "is_undroppable": "0"
+              },
+              {
+               "position_type": "O"
+              },
+              {
+               "primary_position": "RB"
+              },
+              {
+               "eligible_positions": [
+                {
+                 "position": "RB"
+                },
+                {
+                 "position": "W/R/T"
+                }
+               ]
+              },
+              {
+               "eligible_positions_to_add": [
+                {
+                 "position": "QB"
+                },
+                {
+                 "position": "WR"
+                },
+                {
+                 "position": "TE"
+                }
+               ]
+              },
+              [],
+              [],
+              {
+               "has_player_notes": 1
+              },
+              [],
+              {
+               "player_notes_last_timestamp": 1792970861
+              }
+             ],
+             {
+              "selected_position": [
+               {
+                "coverage_type": "week",
+                "week": "8"
+               },
+               {
+                "position": "BN"
+               },
+               {
+                "is_flex": 0
+               }
+              ]
+             },
+             {
+              "is_editable": 1
+             }
+            ]
+           },
+           "count": 3
+          }
+         }
+        }
+       }
+      ]
+     },
+     "1": {
+      "team": [
+       [
+        {
+         "team_key": "461.l.1000.t.2"
+        },
+        {
+         "team_id": "2"
+        },
+        {
+         "name": "Rival Squad"
+        },
+        [],
+        {},
+        {},
+        {
+         "previous_season_team_rank": 3
+        },
+        [],
+        {
+         "waiver_priority": 11
+        },
+        {
+         "faab_balance": "90"
+        },
+        {
+         "number_of_moves": 14
+        },
+        {
+         "number_of_trades": 0
+        },
+        {
+         "roster_adds": {
+          "coverage_type": "week",
+          "coverage_value": 8,
+          "value": "1"
+         }
+        },
+        [],
+        {
+         "league_scoring_type": "head"
+        },
+        [],
+        {
+         "draft_position": 1
+        },
+        {
+         "has_draft_grade": 1,
+         "draft_grade": "A+"
+        },
+        [],
+        [],
+        [],
+        [],
+        [],
+        {
+         "managers": [
+          {
+           "manager": {
+            "manager_id": "2",
+            "nickname": "rival",
+            "guid": "GUID2",
+            "is_commissioner": "1"
+           }
+          }
+         ]
+        }
+       ],
+       {
+        "team_standings": {
+         "rank": "1",
+         "playoff_seed": "1",
+         "outcome_totals": {
+          "wins": "5",
+          "losses": "2",
+          "ties": 0,
+          "percentage": ".714"
+         },
+         "streak": {
+          "type": "loss",
+          "value": "1"
+         },
+         "points_for": "923.18",
+         "points_against": 896.9199999999998
+        }
+       },
+       {
+        "roster": {
+         "coverage_type": "week",
+         "week": 8,
+         "is_prescoring": 0,
+         "is_editable": 0,
+         "0": {
+          "players": {
+           "0": {
+            "player": [
+             [
+              {
+               "player_key": "470.p.31002"
+              },
+              {
+               "player_id": "31002"
+              },
+              {
+               "name": {
+                "full": "Lamar Jackson",
+                "first": "Lamar",
+                "last": "Jackson",
+                "ascii_first": "Lamar",
+                "ascii_last": "Jackson"
+               }
+              },
+              {},
+              {
+               "status": "Q",
+               "status_full": "Questionable"
+              },
+              {
+               "injury_note": "Ankle"
+              },
+              {
+               "editorial_player_key": "nfl.p.31002"
+              },
+              {
+               "editorial_team_key": "nfl.t.33"
+              },
+              {
+               "editorial_team_full_name": "Baltimore Ravens"
+              },
+              {
+               "editorial_team_abbr": "Bal"
+              },
+              {},
+              {
+               "bye_weeks": {
+                "week": "13"
+               }
+              },
+              {
+               "is_keeper": {
+                "status": false,
+                "cost": false,
+                "kept": false
+               }
+              },
+              {
+               "uniform_number": "8"
+              },
+              {
+               "display_position": "QB"
+              },
+              {},
+              {
+               "is_undroppable": "1"
+              },
+              {
+               "position_type": "O"
+              },
+              {
+               "primary_position": "QB"
+              },
+              {
+               "eligible_positions": [
+                {
+                 "position": "QB"
+                }
+               ]
+              },
+              {
+               "eligible_positions_to_add": [
+                {
+                 "position": "WR"
+                },
+                {
+                 "position": "RB"
+                },
+                {
+                 "position": "TE"
+                }
+               ]
+              },
+              [],
+              [],
+              {
+               "has_player_notes": 1
+              },
+              {
+               "has_recent_player_notes": 1
+              },
+              {
+               "player_notes_last_timestamp": 1793307349
+              }
+             ],
+             {
+              "selected_position": [
+               {
+                "coverage_type": "week",
+                "week": "8"
+               },
+               {
+                "position": "QB"
+               },
+               {
+                "is_flex": 0
+               }
+              ]
+             }
+            ]
+           },
+           "1": {
+            "player": [
+             [
+              {
+               "player_key": "470.p.34447"
+              },
+              {
+               "player_id": "34447"
+              },
+              {
+               "name": {
+                "full": "Jaylen Warren",
+                "first": "Jaylen",
+                "last": "Warren",
+                "ascii_first": "Jaylen",
+                "ascii_last": "Warren"
+               }
+              },
+              {},
+              {
+               "editorial_player_key": "nfl.p.34447"
+              },
+              {
+               "editorial_team_key": "nfl.t.23"
+              },
+              {
+               "editorial_team_full_name": "Pittsburgh Steelers"
+              },
+              {
+               "editorial_team_abbr": "Pit"
+              },
+              {},
+              {
+               "bye_weeks": {
+                "week": "9"
+               }
+              },
+              {
+               "is_keeper": {
+                "status": false,
+                "cost": false,
+                "kept": false
+               }
+              },
+              {
+               "uniform_number": "30"
+              },
+              {
+               "display_position": "RB"
+              },
+              {},
+              {
+               "is_undroppable": "0"
+              },
+              {
+               "position_type": "O"
+              },
+              {
+               "primary_position": "RB"
+              },
+              {
+               "eligible_positions": [
+                {
+                 "position": "RB"
+                },
+                {
+                 "position": "W/R/T"
+                }
+               ]
+              },
+              {
+               "eligible_positions_to_add": [
+                {
+                 "position": "QB"
+                },
+                {
+                 "position": "WR"
+                },
+                {
+                 "position": "TE"
+                }
+               ]
+              },
+              [],
+              [],
+              {
+               "has_player_notes": 1
+              },
+              [],
+              {
+               "player_notes_last_timestamp": 1792950322
+              }
+             ],
+             {
+              "selected_position": [
+               {
+                "coverage_type": "week",
+                "week": "8"
+               },
+               {
+                "position": "RB"
+               },
+               {
+                "is_flex": 0
+               }
+              ]
+             }
+            ]
+           },
+           "2": {
+            "player": [
+             [
+              {
+               "player_key": "470.p.9265"
+              },
+              {
+               "player_id": "9265"
+              },
+              {
+               "name": {
+                "full": "Matthew Stafford",
+                "first": "Matthew",
+                "last": "Stafford",
+                "ascii_first": "Matthew",
+                "ascii_last": "Stafford"
+               }
+              },
+              {},
+              {
+               "editorial_player_key": "nfl.p.9265"
+              },
+              {
+               "editorial_team_key": "nfl.t.14"
+              },
+              {
+               "editorial_team_full_name": "Los Angeles Rams"
+              },
+              {
+               "editorial_team_abbr": "LAR"
+              },
+              {},
+              {
+               "bye_weeks": {
+                "week": "11"
+               }
+              },
+              {
+               "is_keeper": {
+                "status": false,
+                "cost": false,
+                "kept": false
+               }
+              },
+              {
+               "uniform_number": "9"
+              },
+              {
+               "display_position": "QB"
+              },
+              {},
+              {
+               "is_undroppable": "0"
+              },
+              {
+               "position_type": "O"
+              },
+              {
+               "primary_position": "QB"
+              },
+              {
+               "eligible_positions": [
+                {
+                 "position": "QB"
+                }
+               ]
+              },
+              {
+               "eligible_positions_to_add": [
+                {
+                 "position": "WR"
+                },
+                {
+                 "position": "RB"
+                },
+                {
+                 "position": "TE"
+                }
+               ]
+              },
+              [],
+              [],
+              {
+               "has_player_notes": 1
+              },
+              [],
+              {
+               "player_notes_last_timestamp": 1792984307
+              }
+             ],
+             {
+              "selected_position": [
+               {
+                "coverage_type": "week",
+                "week": "8"
+               },
+               {
+                "position": "BN"
+               },
+               {
+                "is_flex": 0
+               }
+              ]
+             }
+            ]
+           },
+           "count": 3
+          }
+         }
+        }
+       }
+      ]
+     },
+     "count": 2
+    }
+   }
+  ]
+ }
+}
