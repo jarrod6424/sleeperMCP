@@ -40,6 +40,17 @@ def normalize_name(name: str | None) -> str:
     return re.sub(r"[^a-z0-9]", "", name.lower())
 
 
+_NAME_SUFFIXES = {"jr", "sr", "ii", "iii", "iv", "v"}
+
+
+def last_name_key(name: str | None) -> str:
+    """Normalized final surname token, ignoring Jr./Sr./II-style suffixes."""
+    tokens = (name or "").split()
+    while len(tokens) > 1 and normalize_name(tokens[-1]) in _NAME_SUFFIXES:
+        tokens.pop()
+    return normalize_name(tokens[-1]) if tokens else ""
+
+
 def _display_name(info: dict[str, Any]) -> str:
     full = info.get("full_name")
     if full:
@@ -50,10 +61,11 @@ def _display_name(info: dict[str, Any]) -> str:
 
 
 def build_indexes(players: dict[str, Any] | None = None) -> dict[str, Any]:
-    """Build yahoo_id → sleeper_id and name → [sleeper_id] indexes."""
+    """Build yahoo_id, full-name and (surname, position, team) → sleeper_id indexes."""
     players = players if players is not None else load_players()
     by_yahoo: dict[str, str] = {}
     by_name: dict[str, list[str]] = {}
+    by_last: dict[tuple[str, str, str], list[str]] = {}
     for sleeper_id, info in players.items():
         if not isinstance(info, dict):
             continue
@@ -64,7 +76,13 @@ def build_indexes(players: dict[str, Any] | None = None) -> dict[str, Any]:
         key = info.get("search_full_name") or normalize_name(_display_name(info))
         if key:
             by_name.setdefault(str(key), []).append(str(sleeper_id))
-    return {"by_yahoo": by_yahoo, "by_name": by_name, "players": players}
+
+        last = last_name_key(info.get("last_name"))
+        position = info.get("position")
+        team = info.get("team")
+        if last and position and team:
+            by_last.setdefault((last, str(position), str(team)), []).append(str(sleeper_id))
+    return {"by_yahoo": by_yahoo, "by_name": by_name, "by_last": by_last, "players": players}
 
 
 def _record(sleeper_id: str, info: dict[str, Any], matched_by: str) -> dict[str, Any]:
@@ -114,7 +132,8 @@ def yahoo_to_sleeper(
 ) -> dict[str, Any]:
     """Resolve a Yahoo player to a Sleeper id.
 
-    Preference order: yahoo_id exact → team defense → name+position → name only.
+    Preference order: yahoo_id exact → team defense → name+position → name only
+    → surname+position+team.
     """
     indexes = indexes or build_indexes()
     players: dict[str, Any] = indexes["players"]
@@ -172,6 +191,17 @@ def yahoo_to_sleeper(
             "candidates": [_record(sid, players[sid], "name") for sid in candidates[:5]],
             "matched_by": None,
         }
+
+    # Last resort for players a site lists under a nickname ("Bam Knight" is
+    # Sleeper's "Zonovan Knight"). Surnames alone collide, so all three of
+    # surname, position and NFL team must agree, and only a unique hit counts.
+    pos_primary = (position or "").upper().split(",")[0].strip()
+    if team and pos_primary:
+        hits = indexes.get("by_last", {}).get(
+            (last_name_key(name), pos_primary, str(team).strip().upper()), []
+        )
+        if len(hits) == 1:
+            return _record(hits[0], players[hits[0]], "last_name+position+team")
 
     return {
         "error": "no crosswalk match",

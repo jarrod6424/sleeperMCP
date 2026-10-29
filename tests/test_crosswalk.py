@@ -176,3 +176,86 @@ def test_enrich_with_sleeper_ids_team_defense():
         )
     assert rows[0]["sleeper_id"] == "LAR"
     assert rows[0]["crosswalk_matched_by"] == "team_abbr"
+
+
+# Sleeper lists Yahoo's "Bam Knight" under his legal name; Ty Knight is a
+# made-up teammate-elsewhere to prove the team and position gates.
+NICKNAME_PLAYERS = {
+    "8122": {
+        "player_id": "8122",
+        "full_name": "Zonovan Knight",
+        "first_name": "Zonovan",
+        "last_name": "Knight",
+        "search_full_name": "zonovanknight",
+        "position": "RB",
+        "team": "ARI",
+        "yahoo_id": None,
+    },
+    "9001": {
+        "player_id": "9001",
+        "full_name": "Ty Knight",
+        "last_name": "Knight",
+        "search_full_name": "tyknight",
+        "position": "WR",
+        "team": "ARI",
+        "yahoo_id": None,
+    },
+    "7547": {
+        "player_id": "7547",
+        "full_name": "Kenneth Walker",
+        "last_name": "Walker",
+        "search_full_name": "kennethwalker",
+        "position": "RB",
+        "team": "KC",
+        "yahoo_id": None,
+    },
+}
+
+
+def test_last_name_key_strips_suffixes():
+    assert crosswalk.last_name_key("Kenneth Walker III") == "walker"
+    assert crosswalk.last_name_key("Marvin Harrison Jr.") == "harrison"
+    assert crosswalk.last_name_key("Bam Knight") == "knight"
+    assert crosswalk.last_name_key(None) == ""
+
+
+def test_yahoo_to_sleeper_nickname_falls_back_to_surname_position_team():
+    indexes = crosswalk.build_indexes(NICKNAME_PLAYERS)
+    result = crosswalk.yahoo_to_sleeper(
+        "470.p.34357", name="Bam Knight", position="RB", team="Ari", indexes=indexes
+    )
+    assert result["sleeper_id"] == "8122"
+    assert result["matched_by"] == "last_name+position+team"
+
+
+def test_surname_fallback_requires_team_and_position_to_agree():
+    indexes = crosswalk.build_indexes(NICKNAME_PLAYERS)
+    wrong_team = crosswalk.yahoo_to_sleeper(
+        None, name="Bam Knight", position="RB", team="DEN", indexes=indexes
+    )
+    no_team = crosswalk.yahoo_to_sleeper(None, name="Bam Knight", position="RB", indexes=indexes)
+    wrong_pos = crosswalk.yahoo_to_sleeper(
+        None, name="Bam Knight", position="TE", team="Ari", indexes=indexes
+    )
+    assert [r["sleeper_id"] for r in (wrong_team, no_team, wrong_pos)] == [None, None, None]
+
+
+def test_surname_fallback_refuses_ambiguous_hits():
+    players = dict(NICKNAME_PLAYERS)
+    players["9002"] = {**NICKNAME_PLAYERS["8122"], "player_id": "9002", "full_name": "Other Knight",
+                       "search_full_name": "otherknight"}
+    indexes = crosswalk.build_indexes(players)
+    result = crosswalk.yahoo_to_sleeper(
+        None, name="Bam Knight", position="RB", team="Ari", indexes=indexes
+    )
+    assert result["sleeper_id"] is None
+
+
+def test_surname_fallback_handles_suffix_mismatch():
+    # Yahoo "Kenneth Walker III" vs Sleeper "Kenneth Walker": full names differ.
+    indexes = crosswalk.build_indexes(NICKNAME_PLAYERS)
+    result = crosswalk.yahoo_to_sleeper(
+        None, name="Kenneth Walker III", position="RB", team="KC", indexes=indexes
+    )
+    assert result["sleeper_id"] == "7547"
+    assert result["matched_by"] == "last_name+position+team"
