@@ -1,0 +1,172 @@
+{
+ "fantasy_content": {
+  "league": [
+   {
+    "league_key": "461.l.1000",
+    "league_id": "1000",
+    "name": "Sunday Sweat"
+   },
+   {
+    "players": {
+     "0": {
+      "player": [
+       [
+        {
+         "player_key": "461.p.100012"
+        },
+        {
+         "player_id": "100012"
+        },
+        {
+         "name": {
+          "full": "Chiefs",
+          "first": "Chiefs",
+          "last": "",
+          "ascii_first": "Chiefs",
+          "ascii_last": ""
+         }
+        },
+        {},
+        {
+         "editorial_player_key": "nfl.p.100012"
+        },
+        {
+         "editorial_team_key": "nfl.t.12"
+        },
+        {
+         "editorial_team_full_name": "Kansas City Chiefs"
+        },
+        {
+         "editorial_team_abbr": "KC"
+        },
+        {},
+        {
+         "bye_weeks": {
+          "week": "5"
+         }
+        },
+        {
+         "is_keeper": {
+          "status": false,
+          "cost": false,
+          "kept": false
+         }
+        },
+        {
+         "uniform_number": false
+        },
+        {
+         "display_position": "DEF"
+        },
+        {},
+        {
+         "is_undroppable": "0"
+        },
+        {
+         "position_type": "DT"
+        },
+        {
+         "primary_position": "DEF"
+        },
+        {
+         "eligible_positions": [
+          {
+           "position": "DEF"
+          }
+         ]
+        },
+        {
+         "eligible_positions_to_add": []
+        },
+        [],
+        [],
+        [],
+        [],
+        []
+       ]
+      ]
+     },
+     "1": {
+      "player": [
+       [
+        {
+         "player_key": "461.p.100014"
+        },
+        {
+         "player_id": "100014"
+        },
+        {
+         "name": {
+          "full": "Rams",
+          "first": "Rams",
+          "last": "",
+          "ascii_first": "Rams",
+          "ascii_last": ""
+         }
+        },
+        {},
+        {
+         "editorial_player_key": "nfl.p.100014"
+        },
+        {
+         "editorial_team_key": "nfl.t.14"
+        },
+        {
+         "editorial_team_full_name": "Los Angeles Rams"
+        },
+        {
+         "editorial_team_abbr": "LAR"
+        },
+        {},
+        {
+         "bye_weeks": {
+          "week": "11"
+         }
+        },
+        {
+         "is_keeper": {
+          "status": false,
+          "cost": false,
+          "kept": false
+         }
+        },
+        {
+         "uniform_number": false
+        },
+        {
+         "display_position": "DEF"
+        },
+        {},
+        {
+         "is_undroppable": "0"
+        },
+        {
+         "position_type": "DT"
+        },
+        {
+         "primary_position": "DEF"
+        },
+        {
+         "eligible_positions": [
+          {
+           "position": "DEF"
+          }
+         ]
+        },
+        {
+         "eligible_positions_to_add": []
+        },
+        [],
+        [],
+        [],
+        [],
+        []
+       ]
+      ]
+     },
+     "count": 2
+    }
+   }
+  ]
+ }
+}

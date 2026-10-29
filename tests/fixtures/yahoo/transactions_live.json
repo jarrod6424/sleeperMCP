@@ -1,0 +1,112 @@
+{
+ "fantasy_content": {
+  "league": [
+   {
+    "league_key": "461.l.1000",
+    "league_id": "1000",
+    "name": "Sunday Sweat"
+   },
+   {
+    "transactions": {
+     "0": {
+      "transaction": [
+       {
+        "transaction_key": "461.l.1000.tr.160",
+        "transaction_id": "160",
+        "type": "add/drop",
+        "status": "successful",
+        "timestamp": "1793284832"
+       },
+       {
+        "players": {
+         "0": {
+          "player": [
+           [
+            {
+             "player_key": "461.p.100003"
+            },
+            {
+             "player_id": "100003"
+            },
+            {
+             "name": {
+              "full": "Bears",
+              "first": "Bears",
+              "last": "",
+              "ascii_first": "Bears",
+              "ascii_last": ""
+             }
+            },
+            {
+             "editorial_team_abbr": "Chi"
+            },
+            {
+             "display_position": "DEF"
+            },
+            {
+             "position_type": "DT"
+            }
+           ],
+           {
+            "transaction_data": [
+             {
+              "type": "add",
+              "source_type": "freeagents",
+              "destination_type": "team",
+              "destination_team_key": "461.l.1000.t.1",
+              "destination_team_name": "Pine Bluff Escapees"
+             }
+            ]
+           }
+          ]
+         },
+         "1": {
+          "player": [
+           [
+            {
+             "player_key": "461.p.100005"
+            },
+            {
+             "player_id": "100005"
+            },
+            {
+             "name": {
+              "full": "Browns",
+              "first": "Browns",
+              "last": "",
+              "ascii_first": "Browns",
+              "ascii_last": ""
+             }
+            },
+            {
+             "editorial_team_abbr": "Cle"
+            },
+            {
+             "display_position": "DEF"
+            },
+            {
+             "position_type": "DT"
+            }
+           ],
+           {
+            "transaction_data": {
+             "type": "drop",
+             "source_type": "team",
+             "source_team_key": "461.l.1000.t.1",
+             "source_team_name": "Pine Bluff Escapees",
+             "destination_type": "waivers"
+            }
+           }
+          ]
+         },
+         "count": 2
+        }
+       }
+      ]
+     },
+     "count": 1
+    }
+   }
+  ]
+ }
+}
