@@ -70,6 +70,7 @@ def _format_player(player: dict[str, Any], indexes: dict | None = None) -> dict[
             row.get("player_key") or row.get("player_id"),
             name=row.get("name"),
             position=row.get("position"),
+            team=row.get("team"),
             indexes=indexes,
         )
         row["sleeper_id"] = resolved.get("sleeper_id")
@@ -780,7 +781,11 @@ def compute_draft_picks(league_key: str | None = None) -> list[dict] | dict:
         from sleeper_core.crosswalk import enrich_with_sleeper_ids
 
         picks = enrich_with_sleeper_ids(
-            picks, yahoo_id_key="player_id", name_key="player", position_key="position"
+            picks,
+            yahoo_id_key="player_id",
+            name_key="player",
+            position_key="position",
+            team_key="nfl_team",
         )
     except Exception:
         pass

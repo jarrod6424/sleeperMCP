@@ -119,3 +119,60 @@ def test_server_resolve_player_crosswalk():
         result = server.resolve_player_crosswalk(sleeper_id="6794")
     assert result["yahoo_id"] == "1"
     fn.assert_called_once_with("6794")
+
+
+# Shape of a real Sleeper defense record: keyed by team abbreviation, no yahoo_id.
+DEF_PLAYERS = {
+    "CHI": {
+        "player_id": "CHI",
+        "first_name": "Chicago",
+        "last_name": "Bears",
+        "position": "DEF",
+        "team": "CHI",
+        "active": True,
+    },
+    "LAR": {
+        "player_id": "LAR",
+        "first_name": "Los Angeles",
+        "last_name": "Rams",
+        "position": "DEF",
+        "team": "LAR",
+        "active": True,
+    },
+}
+
+
+def test_yahoo_to_sleeper_team_defense():
+    # Yahoo sends a defense as name "Bears", team "Chi", player_key 470.p.100003.
+    indexes = crosswalk.build_indexes(DEF_PLAYERS)
+    result = crosswalk.yahoo_to_sleeper(
+        "470.p.100003", name="Bears", position="DEF", team="Chi", indexes=indexes
+    )
+    assert result["sleeper_id"] == "CHI"
+    assert result["matched_by"] == "team_abbr"
+
+
+def test_yahoo_to_sleeper_team_defense_rejects_nickname_mismatch():
+    # A wrong abbreviation must not silently resolve to another team's defense.
+    indexes = crosswalk.build_indexes(DEF_PLAYERS)
+    result = crosswalk.yahoo_to_sleeper(
+        "470.p.100003", name="Bears", position="DEF", team="LAR", indexes=indexes
+    )
+    assert result["sleeper_id"] is None
+    assert result["matched_by"] is None
+
+
+def test_yahoo_to_sleeper_team_defense_needs_team():
+    indexes = crosswalk.build_indexes(DEF_PLAYERS)
+    result = crosswalk.yahoo_to_sleeper("470.p.100003", name="Bears", position="DEF", indexes=indexes)
+    assert result["sleeper_id"] is None
+
+
+def test_enrich_with_sleeper_ids_team_defense():
+    with patch("sleeper_core.crosswalk.load_players", return_value=DEF_PLAYERS):
+        rows = crosswalk.enrich_with_sleeper_ids(
+            [{"player_key": "470.p.100014", "name": "Rams", "position": "DEF", "nfl_team": "LAR"}],
+            team_key="nfl_team",
+        )
+    assert rows[0]["sleeper_id"] == "LAR"
+    assert rows[0]["crosswalk_matched_by"] == "team_abbr"
