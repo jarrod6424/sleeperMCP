@@ -109,11 +109,12 @@ def yahoo_to_sleeper(
     *,
     name: str | None = None,
     position: str | None = None,
+    team: str | None = None,
     indexes: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Resolve a Yahoo player to a Sleeper id.
 
-    Preference order: yahoo_id exact → name+position → name only.
+    Preference order: yahoo_id exact → team defense → name+position → name only.
     """
     indexes = indexes or build_indexes()
     players: dict[str, Any] = indexes["players"]
@@ -124,6 +125,16 @@ def yahoo_to_sleeper(
     if yid and yid in by_yahoo:
         sid = by_yahoo[yid]
         return _record(sid, players[sid], "yahoo_id")
+
+    # Sleeper keys team defenses by abbreviation ("CHI") and gives them no
+    # yahoo_id; Yahoo names them by nickname ("Bears", team "Chi"). All 32 Yahoo
+    # abbreviations uppercase to Sleeper's. Require the nickname to agree so a
+    # bad abbreviation falls through to "no match" instead of the wrong team.
+    if team and (position or "").upper().split(",")[0].strip() == "DEF":
+        sid = str(team).strip().upper()
+        info = players.get(sid) or {}
+        if info.get("position") == "DEF" and normalize_name(info.get("last_name")) == normalize_name(name):
+            return _record(sid, info, "team_abbr")
 
     key = normalize_name(name)
     if key and key in by_name:
@@ -178,6 +189,7 @@ def enrich_with_sleeper_ids(
     yahoo_id_key: str = "player_id",
     name_key: str = "name",
     position_key: str = "position",
+    team_key: str = "team",
 ) -> list[dict[str, Any]]:
     """Attach sleeper_id / crosswalk_matched_by onto Yahoo-shaped player rows."""
     indexes = build_indexes()
@@ -188,6 +200,7 @@ def enrich_with_sleeper_ids(
             row.get("player_key") or row.get(yahoo_id_key),
             name=row.get(name_key),
             position=row.get(position_key),
+            team=row.get(team_key),
             indexes=indexes,
         )
         enriched["sleeper_id"] = resolved.get("sleeper_id")
