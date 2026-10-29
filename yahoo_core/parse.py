@@ -45,6 +45,21 @@ def indexed_items(node: Any) -> list[Any]:
     return out
 
 
+def dict_blocks(node: Any) -> list[dict[str, Any]]:
+    """Collect the dicts in a resource's block list, descending into nested lists.
+
+    Live responses put team and player metadata in a nested list of one-key
+    dicts, e.g. team -> [[{"team_key": ...}, {"name": ...}, []], {"roster": ...}].
+    """
+    out: list[dict[str, Any]] = []
+    for item in as_list(node):
+        if isinstance(item, list):
+            out.extend(dict_blocks(item))
+        elif isinstance(item, dict):
+            out.append(item)
+    return out
+
+
 def merge_dicts(*dicts: dict[str, Any]) -> dict[str, Any]:
     merged: dict[str, Any] = {}
     for d in dicts:
@@ -81,17 +96,9 @@ def team_entries(payload: dict[str, Any]) -> list[dict[str, Any]]:
         if team_list is None and isinstance(item, dict) and "team_key" in item:
             entries.append(item)
             continue
-        blocks = as_list(team_list)
-        meta = merge_dicts(*(b for b in blocks if isinstance(b, dict) and "team_key" in b))
-        extras: dict[str, Any] = {}
-        for block in blocks:
-            if not isinstance(block, dict):
-                continue
-            for key in ("roster", "team_standings", "managers"):
-                if key in block:
-                    extras[key] = block[key]
-        if meta or extras:
-            entries.append({**meta, **extras})
+        team = merge_dicts(*dict_blocks(team_list))
+        if team:
+            entries.append(team)
     return entries
 
 
@@ -159,18 +166,24 @@ def roster_players(roster_node: Any) -> list[dict[str, Any]]:
     if not isinstance(roster_node, dict):
         return []
     players_node = roster_node.get("players") or roster_node.get("player")
+    if players_node is None:
+        # Live team rosters nest one level deeper: roster -> "0" -> players.
+        for block in indexed_items(roster_node):
+            if isinstance(block, dict) and "players" in block:
+                players_node = block["players"]
+                break
     out: list[dict[str, Any]] = []
     for item in indexed_items(players_node):
-        player_blocks = as_list(item.get("player") if isinstance(item, dict) else item)
         player: dict[str, Any] = {}
         selected_position = None
-        for block in player_blocks:
-            if not isinstance(block, dict):
-                continue
-            if "player_id" in block or "name" in block:
-                player.update(block)
+        for block in dict_blocks(item.get("player") if isinstance(item, dict) else item):
             if "selected_position" in block:
                 selected_position = block["selected_position"]
+            else:
+                player.update(block)
+        if isinstance(selected_position, list):
+            # Live shape: [{"coverage_type": ..., "week": ...}, {"position": "QB"}, ...]
+            selected_position = merge_dicts(*dict_blocks(selected_position))
         if selected_position is not None:
             player["selected_position"] = selected_position
         if player:

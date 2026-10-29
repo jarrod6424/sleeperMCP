@@ -44,6 +44,11 @@ def _fetch_league(league_key: str, out: str) -> dict[str, Any]:
     return get_json(f"league/{league_key};out={out}")
 
 
+def _fetch_teams(league_key: str) -> dict[str, Any]:
+    # Rosters are a team sub-resource; league;out=...,rosters is a Yahoo 400.
+    return get_json(f"league/{league_key}/teams;out=standings,roster")
+
+
 def _format_player(player: dict[str, Any], indexes: dict | None = None) -> dict[str, Any]:
     slot = selected_slot(player)
     team = player.get("editorial_team_abbr") or player.get("editorial_team_full_name")
@@ -210,7 +215,7 @@ def compute_rosters(league_key: str | None = None, include_players: bool = True)
     if not lid:
         return _config_error("YAHOO_LEAGUE_KEY is not configured")
     try:
-        payload = _fetch_league(lid, "teams,standings,rosters")
+        payload = _fetch_teams(lid)
     except YahooConfigError as exc:
         return _config_error(str(exc))
 
