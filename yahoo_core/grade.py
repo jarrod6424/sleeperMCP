@@ -63,7 +63,7 @@ def grade_team(
     league_key: str | None = None,
     *,
     team_name_or_manager: str | None = None,
-    horizon: str = "dynasty",
+    horizon: str | None = None,
 ) -> dict[str, Any]:
     lid = resolve_league_key(league_key)
     if not lid:
@@ -83,9 +83,17 @@ def grade_team(
     fmt = league_format(lid)
     if fmt.get("error"):
         return fmt
-    horizon_n = (horizon or "dynasty").strip().lower()
-    if horizon_n not in {"dynasty", "win_now"}:
-        horizon_n = "dynasty"
+    if horizon is None:
+        # Grade a redraft league on this season, not rest-of-career value.
+        horizon_n = "dynasty" if fmt.get("isDynasty") else "win_now"
+        horizon_source = "league_format"
+    else:
+        horizon_n = horizon.strip().lower()
+        horizon_source = "explicit"
+        if horizon_n not in {"dynasty", "win_now"}:
+            return _config_error(
+                "unknown horizon", horizon=horizon, valid_horizons=["dynasty", "win_now"]
+            )
 
     fc_raw = sleeper_values.fc_values(fmt) or []
     fc_by_sid: dict[str, dict] = {}
@@ -129,8 +137,11 @@ def grade_team(
             pick_rank=snap["pick_rank"],
             n=n,
             horizon=horizon_n,
+            # "tank" means a bottom team whose pick pile beats the league
+            # median. Yahoo pick capital is unknown, so it must never clear
+            # that bar; 0 >= 0 used to make every bottom-two team a "tank".
             pick_capital_value=0,
-            median_picks=0,
+            median_picks=float("inf"),
         )
         if horizon_n == "win_now":
             snap["composite"] = (
@@ -216,6 +227,7 @@ def grade_team(
             "league_value_rank": target["value_rank"],
             "teams_in_league": n,
             "horizon": horizon_n,
+            "horizon_source": horizon_source,
             "positional_grades": {
                 k: {"grade": v["grade"], "detail": v["detail"]}
                 for k, v in pos_grades.items()
