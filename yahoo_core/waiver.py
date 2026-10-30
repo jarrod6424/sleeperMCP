@@ -17,6 +17,7 @@ from .league import (
     compute_my_team,
     resolve_league_key,
     scout_team,
+    sleeper_roster_slots,
 )
 from .parse import to_int
 from .values import league_format
@@ -87,7 +88,7 @@ def waiver_advice(
         taxi=[],
         reserve=[],
         players_map=players_map,
-        roster_positions=league.get("roster_positions") or [],
+        roster_positions=sleeper_roster_slots(league.get("roster_positions")),
         fc_by_sid=fc_by_sid,
     )
 

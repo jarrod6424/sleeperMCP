@@ -37,6 +37,22 @@ def resolve_team_name(team_name: str | None) -> str:
     return (team_name or os.environ.get("YAHOO_TEAM_NAME", DEFAULT_TEAM_NAME) or "").strip()
 
 
+# Yahoo flex slot names -> the Sleeper names sleeper_core's lineup optimizer and
+# slot-demand counts understand. Unmapped, a Yahoo flex is a slot no player is
+# eligible for, so it silently goes unfilled.
+_YAHOO_TO_SLEEPER_SLOT = {
+    "W/R/T": "FLEX",
+    "W/R": "WRRB_FLEX",
+    "W/T": "REC_FLEX",
+    "Q/W/R/T": "SUPER_FLEX",
+}
+
+
+def sleeper_roster_slots(roster_positions: list[str] | None) -> list[str]:
+    """Yahoo roster_positions renamed to Sleeper slot names (others unchanged)."""
+    return [_YAHOO_TO_SLEEPER_SLOT.get(str(s).upper(), s) for s in roster_positions or []]
+
+
 def _config_error(message: str, **extra: Any) -> dict[str, Any]:
     return {"error": message, "platform": "yahoo", **extra}
 
