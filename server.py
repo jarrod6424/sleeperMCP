@@ -1077,7 +1077,7 @@ def grade_team(
     league_id: str | None = None,
     platform: str = "sleeper",
     team_name_or_manager: str | None = None,
-    horizon: str = "dynasty",
+    horizon: str | None = None,
 ) -> dict:
     """[UNOFFICIAL] Contender vs rebuilder grade for a roster, with positional
     letter grades and up to three next moves.
@@ -1089,12 +1089,25 @@ def grade_team(
     uses the in-repo static mid-round table, not the FantasyCalc pick quotes
     analyze_trade uses).
 
-    horizon="dynasty" (default) weights rest-of-career value, youth, and picks.
-    horizon="win_now" weights two-year starter quality. Suggestions only —
+    horizon="dynasty" weights rest-of-career value, youth, and picks.
+    horizon="win_now" weights two-year starter quality. Omitted: Sleeper uses
+    dynasty; Yahoo follows the league format (redraft -> win_now). Any other
+    value is an error, not a silent fallback. Suggestions only —
     call waiver_advice for the actual wire, analyze_trade for a specific deal.
 
     Yahoo: best-effort from roster values via sleeper_id; pick capital is
-    omitted (unpriced), never invented."""
+    omitted (unpriced), never invented. A Yahoo redraft league on win_now uses
+    the redraft model instead: each team's best legal lineup (IR/NA excluded),
+    values scaled by remaining positional strength of schedule and byes
+    (nflverse points allowed), blended with points-for and record weighted by
+    the share of the regular season played. Classification there is
+    contender / bubble / long_shot around the playoff line."""
+    if horizon is not None and horizon.strip().lower() not in {"dynasty", "win_now"}:
+        return {
+            "error": "unknown horizon",
+            "horizon": horizon,
+            "valid_horizons": ["dynasty", "win_now"],
+        }
     plat = _normalize_platform(platform)
     if plat == "yahoo":
         return _yahoo_grade.grade_team(
