@@ -1096,7 +1096,12 @@ def grade_team(
     call waiver_advice for the actual wire, analyze_trade for a specific deal.
 
     Yahoo: best-effort from roster values via sleeper_id; pick capital is
-    omitted (unpriced), never invented."""
+    omitted (unpriced), never invented. A Yahoo redraft league on win_now uses
+    the redraft model instead: each team's best legal lineup (IR/NA excluded),
+    values scaled by remaining positional strength of schedule and byes
+    (nflverse points allowed), blended with points-for and record weighted by
+    the share of the regular season played. Classification there is
+    contender / bubble / long_shot around the playoff line."""
     if horizon is not None and horizon.strip().lower() not in {"dynasty", "win_now"}:
         return {
             "error": "unknown horizon",

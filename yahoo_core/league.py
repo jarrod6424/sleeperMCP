@@ -207,6 +207,8 @@ def compute_league(league_key: str | None = None) -> dict[str, Any]:
         "season": meta.get("season"),
         "num_teams": to_int(meta.get("num_teams")),
         "current_week": to_int(meta.get("current_week")),
+        "start_week": to_int(meta.get("start_week")) or None,
+        "end_week": to_int(meta.get("end_week")) or None,
         "is_finished": meta.get("is_finished"),
         "url": meta.get("url"),
         "scoring_type": settings.get("scoring_type"),
