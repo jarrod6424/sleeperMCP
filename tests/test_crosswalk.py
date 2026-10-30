@@ -259,3 +259,31 @@ def test_surname_fallback_handles_suffix_mismatch():
     )
     assert result["sleeper_id"] == "7547"
     assert result["matched_by"] == "last_name+position+team"
+
+
+# Real shape: one active Kyle Williams WR on NE plus two retired namesakes.
+NAMESAKE_PLAYERS = {
+    sid: {"player_id": sid, "full_name": "Kyle Williams", "last_name": "Williams",
+          "search_full_name": "kylewilliams", "position": "WR", "team": team,
+          "yahoo_id": yahoo_id}
+    for sid, team, yahoo_id in (("12547", "NE", None), ("7437", None, 33350), ("638", None, 24182))
+}
+
+
+def test_name_position_tie_broken_by_team():
+    indexes = crosswalk.build_indexes(NAMESAKE_PLAYERS)
+    result = crosswalk.yahoo_to_sleeper(
+        "470.p.41864", name="Kyle Williams", position="WR", team="NE", indexes=indexes
+    )
+    assert result["sleeper_id"] == "12547"
+    assert result["matched_by"] == "name+position+team"
+
+
+def test_name_position_tie_stays_ambiguous_without_unique_team():
+    indexes = crosswalk.build_indexes(NAMESAKE_PLAYERS)
+    no_team = crosswalk.yahoo_to_sleeper(None, name="Kyle Williams", position="WR", indexes=indexes)
+    other_team = crosswalk.yahoo_to_sleeper(
+        None, name="Kyle Williams", position="WR", team="BUF", indexes=indexes
+    )
+    assert no_team["error"] == other_team["error"] == "ambiguous name+position match"
+    assert no_team["matched_by"] is other_team["matched_by"] is None

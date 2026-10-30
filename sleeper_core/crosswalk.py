@@ -132,8 +132,8 @@ def yahoo_to_sleeper(
 ) -> dict[str, Any]:
     """Resolve a Yahoo player to a Sleeper id.
 
-    Preference order: yahoo_id exact → team defense → name+position → name only
-    → surname+position+team.
+    Preference order: yahoo_id exact → team defense → name+position (team breaks
+    ties) → name only → surname+position+team.
     """
     indexes = indexes or build_indexes()
     players: dict[str, Any] = indexes["players"]
@@ -170,6 +170,17 @@ def yahoo_to_sleeper(
             if len(narrowed) == 1:
                 sid = narrowed[0]
                 return _record(sid, players[sid], "name+position")
+            if len(narrowed) > 1 and team:
+                # Namesakes are usually a current player plus retired ones with
+                # no team ("Kyle Williams" WR: one on NE, two inactive).
+                on_team = [
+                    sid
+                    for sid in narrowed
+                    if (players.get(sid) or {}).get("team") == str(team).strip().upper()
+                ]
+                if len(on_team) == 1:
+                    sid = on_team[0]
+                    return _record(sid, players[sid], "name+position+team")
             if len(narrowed) > 1:
                 return {
                     "error": "ambiguous name+position match",
