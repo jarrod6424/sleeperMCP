@@ -22,6 +22,7 @@ from .league import (
     resolve_league_key,
     scout_team,
     compute_my_team,
+    sleeper_roster_slots,
 )
 
 _SCORING_MAP = {
@@ -143,7 +144,7 @@ def start_sit_advice(
     pool_by_id = {p["player_id"]: p for p in pool}
     slots = [
         s
-        for s in (league.get("roster_positions") or [])
+        for s in sleeper_roster_slots(league.get("roster_positions"))
         if s not in sleeper_proj.SKIP_SLOTS
     ]
     if not slots:
@@ -192,6 +193,14 @@ def start_sit_advice(
             "Players without a Sleeper ID join are listed in unmatched_players."
         ),
     )
+    if isinstance(result, dict) and isinstance(result.get("optimal_lineup"), list):
+        # An empty slot drags optimal_projected below the current lineup, so
+        # name it rather than let the comparison quietly go wrong.
+        remaining = list(slots)
+        for row in result["optimal_lineup"]:
+            if row.get("slot") in remaining:
+                remaining.remove(row["slot"])
+        result["unfilled_slots"] = remaining
     return result
 
 
