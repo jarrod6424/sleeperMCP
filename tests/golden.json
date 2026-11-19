@@ -1,7 +1,7 @@
 {
   "_meta": {
     "captured_at": "2026-08-07 14:17:44",
-    "case_count": 63,
+    "case_count": 65,
     "fixtures": {
       "draft_id": "1312218810626887680",
       "league_season": "2026",
@@ -17,49 +17,6 @@
     "week": 10
   },
   "cases": {
-    "auction_budgets": {
-      "kwargs": {
-        "limit": 25
-      },
-      "mode": "shape",
-      "tool": "get_auction_budgets",
-      "value": {
-        "assumed_auction": "bool",
-        "budget": "number",
-        "draft_id": "null",
-        "format": {
-          "isDynasty": "bool",
-          "numQbs": "number",
-          "numTeams": "number",
-          "ppr": "number"
-        },
-        "league_id": "str",
-        "league_name": "str",
-        "method": {
-          "ceiling_pct": "number",
-          "note": "str",
-          "source": "str",
-          "tail_mass": "number"
-        },
-        "note": "str",
-        "num_teams": "number",
-        "players": [
-          {
-            "fair": "number",
-            "market_value": "number",
-            "max": "number",
-            "name": "str",
-            "overall_rank": "number",
-            "position": "str",
-            "position_rank": "number",
-            "sleeper_id": "str",
-            "team": "str"
-          }
-        ],
-        "roster_spots": "number",
-        "sum_fair": "number"
-      }
-    },
     "adp": {
       "kwargs": {
         "limit": 25
@@ -178,10 +135,10 @@
         "note": "str",
         "percent_vs_larger_side": "number",
         "picks": {
-          "give": [
+          "get": [
             "<empty>"
           ],
-          "get": [
+          "give": [
             "<empty>"
           ],
           "model": "str"
@@ -264,6 +221,49 @@
           "<empty>"
         ],
         "verdict": "str"
+      }
+    },
+    "auction_budgets": {
+      "kwargs": {
+        "limit": 25
+      },
+      "mode": "shape",
+      "tool": "get_auction_budgets",
+      "value": {
+        "assumed_auction": "bool",
+        "budget": "number",
+        "draft_id": "null",
+        "format": {
+          "isDynasty": "bool",
+          "numQbs": "number",
+          "numTeams": "number",
+          "ppr": "number"
+        },
+        "league_id": "str",
+        "league_name": "str",
+        "method": {
+          "ceiling_pct": "number",
+          "note": "str",
+          "source": "str",
+          "tail_mass": "number"
+        },
+        "note": "str",
+        "num_teams": "number",
+        "players": [
+          {
+            "fair": "number",
+            "market_value": "number",
+            "max": "number",
+            "name": "str",
+            "overall_rank": "number",
+            "position": "str",
+            "position_rank": "number",
+            "sleeper_id": "str",
+            "team": "str"
+          }
+        ],
+        "roster_spots": "number",
+        "sum_fair": "number"
       }
     },
     "available_players": {
@@ -477,6 +477,925 @@
         "warnings": [
           "<empty>"
         ]
+      }
+    },
+    "decline_risk": {
+      "kwargs": {
+        "include_values": false,
+        "limit": 15,
+        "season": 2025
+      },
+      "mode": "strict",
+      "tool": "get_decline_risk",
+      "value": {
+        "in_progress": false,
+        "model": {
+          "base_rate": {
+            "1yr": 0.293,
+            "2yr": 0.416
+          },
+          "calibration_2yr": [
+            {
+              "decline_rate": 0.323,
+              "quintile": 1
+            },
+            {
+              "decline_rate": 0.273,
+              "quintile": 2
+            },
+            {
+              "decline_rate": 0.439,
+              "quintile": 3
+            },
+            {
+              "decline_rate": 0.409,
+              "quintile": 4
+            },
+            {
+              "decline_rate": 0.636,
+              "quintile": 5
+            }
+          ],
+          "fitted_at": "2026-11-19",
+          "how_to_read": "risk scores rank players; they are not probabilities. Use risk_band_2yr.historical_decline_rate for what that band actually did.",
+          "loso_auc": {
+            "1yr": 0.649,
+            "2yr": 0.645
+          },
+          "predicts": "PPR PPG below 75% of the scored season, in a season with >= 4 games"
+        },
+        "players": [
+          {
+            "age": 26.5,
+            "best_prior_ppg": 5.92,
+            "flags": [
+              {
+                "detail": "13.0 PPG vs best prior 5.9",
+                "flag": "above his recent best at 25+",
+                "log_odds": 0.7
+              },
+              {
+                "detail": "target share +10.5 pts vs last season",
+                "flag": "target share jumped",
+                "log_odds": 0.49
+              },
+              {
+                "detail": "RB19 by PPG",
+                "flag": "fringe starter at his position",
+                "log_odds": 0.3
+              }
+            ],
+            "games": 17,
+            "gsis_id": "00-0036919",
+            "inputs": {
+              "epa_per_target": 0.044,
+              "expected_tds": 10.31,
+              "snap_pct": 0.496,
+              "target_share": 0.155,
+              "target_share_change": 0.105,
+              "targets_per_snap_change": 0.0913,
+              "td_share_of_points": 0.217,
+              "tds": 8,
+              "yac_over_expected": -0.21
+            },
+            "name": "Kenneth Gainwell",
+            "position": "RB",
+            "position_rank": 19,
+            "ppg": 13.02,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.663,
+            "risk_2yr": 0.844,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 1,
+            "sleeper_id": "7567",
+            "team": "PIT",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 32.7,
+            "best_prior_ppg": 17.09,
+            "flags": [
+              {
+                "detail": "age 32.7",
+                "flag": "age",
+                "log_odds": 0.83
+              },
+              {
+                "detail": "38% of points from TDs",
+                "flag": "TD-dependent",
+                "log_odds": 0.42
+              },
+              {
+                "detail": "age 32.7 vs peak 27.5",
+                "flag": "past his position's peak age",
+                "log_odds": 0.34
+              }
+            ],
+            "games": 14,
+            "gsis_id": "00-0031381",
+            "inputs": {
+              "epa_per_target": 0.191,
+              "expected_tds": 12.5,
+              "snap_pct": 0.714,
+              "target_share": 0.231,
+              "target_share_change": -0.051,
+              "targets_per_snap_change": 0.0015,
+              "td_share_of_points": 0.377,
+              "tds": 14,
+              "yac_over_expected": -1.68
+            },
+            "name": "Davante Adams",
+            "position": "WR",
+            "position_rank": 9,
+            "ppg": 15.92,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.452,
+            "risk_2yr": 0.703,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 2,
+            "sleeper_id": "2133",
+            "team": "LA",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 27.5,
+            "best_prior_ppg": 12.14,
+            "flags": [
+              {
+                "detail": "RB22 by PPG",
+                "flag": "fringe starter at his position",
+                "log_odds": 0.43
+              },
+              {
+                "detail": "age 27.5",
+                "flag": "age",
+                "log_odds": 0.41
+              },
+              {
+                "detail": "31% of points from TDs",
+                "flag": "TD-dependent",
+                "log_odds": 0.25
+              }
+            ],
+            "games": 14,
+            "gsis_id": "00-0036875",
+            "inputs": {
+              "epa_per_target": 0.292,
+              "expected_tds": 7.73,
+              "snap_pct": 0.594,
+              "target_share": 0.089,
+              "target_share_change": 0.002,
+              "targets_per_snap_change": 0.001,
+              "td_share_of_points": 0.309,
+              "tds": 9,
+              "yac_over_expected": 1.94
+            },
+            "name": "Rhamondre Stevenson",
+            "position": "RB",
+            "position_rank": 22,
+            "ppg": 12.49,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.447,
+            "risk_2yr": 0.655,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 3,
+            "sleeper_id": "7611",
+            "team": "NE",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 26.3,
+            "best_prior_ppg": 11.26,
+            "flags": [
+              {
+                "detail": "target share +6.6 pts vs last season",
+                "flag": "target share jumped",
+                "log_odds": 0.28
+              },
+              {
+                "detail": "13.2 PPG vs best prior 11.3",
+                "flag": "above his recent best at 25+",
+                "log_odds": 0.22
+              },
+              {
+                "detail": "27% of points from TDs",
+                "flag": "TD-dependent",
+                "log_odds": 0.15
+              }
+            ],
+            "games": 10,
+            "gsis_id": "00-0038124",
+            "inputs": {
+              "epa_per_target": 0.482,
+              "expected_tds": 2.6,
+              "snap_pct": 0.677,
+              "target_share": 0.191,
+              "target_share_change": 0.066,
+              "targets_per_snap_change": 0.0361,
+              "td_share_of_points": 0.272,
+              "tds": 6,
+              "yac_over_expected": -0.77
+            },
+            "name": "Christian Watson",
+            "position": "WR",
+            "position_rank": 17,
+            "ppg": 13.24,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.569,
+            "risk_2yr": 0.65,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 4,
+            "sleeper_id": "8167",
+            "team": "GB",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 31.7,
+            "best_prior_ppg": 19.79,
+            "flags": [
+              {
+                "detail": "age 31.7",
+                "flag": "age",
+                "log_odds": 0.96
+              },
+              {
+                "detail": "age 31.7 vs peak 25.5",
+                "flag": "past his position's peak age",
+                "log_odds": 0.34
+              },
+              {
+                "detail": "34% of points from TDs",
+                "flag": "TD-dependent",
+                "log_odds": 0.34
+              }
+            ],
+            "games": 17,
+            "gsis_id": "00-0032764",
+            "inputs": {
+              "epa_per_target": -0.105,
+              "expected_tds": 15.26,
+              "snap_pct": 0.545,
+              "target_share": 0.05,
+              "target_share_change": 0.004,
+              "targets_per_snap_change": 0.0032,
+              "td_share_of_points": 0.343,
+              "tds": 16,
+              "yac_over_expected": 2.81
+            },
+            "name": "Derrick Henry",
+            "position": "RB",
+            "position_rank": 7,
+            "ppg": 16.44,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.259,
+            "risk_2yr": 0.642,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 5,
+            "sleeper_id": "3198",
+            "team": "BAL",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 30.7,
+            "best_prior_ppg": 10.36,
+            "flags": [
+              {
+                "detail": "age 30.7",
+                "flag": "age",
+                "log_odds": 0.43
+              },
+              {
+                "detail": "36% of points from TDs",
+                "flag": "TD-dependent",
+                "log_odds": 0.37
+              },
+              {
+                "detail": "12.3 PPG vs best prior 10.4",
+                "flag": "above his recent best at 25+",
+                "log_odds": 0.22
+              }
+            ],
+            "games": 15,
+            "gsis_id": "00-0034351",
+            "inputs": {
+              "epa_per_target": 0.374,
+              "expected_tds": 6.4,
+              "snap_pct": 0.846,
+              "target_share": 0.187,
+              "target_share_change": -0.01,
+              "targets_per_snap_change": -0.0124,
+              "td_share_of_points": 0.357,
+              "tds": 11,
+              "yac_over_expected": -0.38
+            },
+            "name": "Dallas Goedert",
+            "position": "TE",
+            "position_rank": 6,
+            "ppg": 12.34,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.453,
+            "risk_2yr": 0.631,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 6,
+            "sleeper_id": "5022",
+            "team": "PHI",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 29.6,
+            "best_prior_ppg": 16.25,
+            "flags": [
+              {
+                "detail": "age 29.6",
+                "flag": "age",
+                "log_odds": 0.42
+              },
+              {
+                "detail": "WR31 by PPG",
+                "flag": "fringe starter at his position",
+                "log_odds": 0.37
+              },
+              {
+                "detail": "target share +5.2 pts vs last season",
+                "flag": "target share jumped",
+                "log_odds": 0.21
+              }
+            ],
+            "games": 16,
+            "gsis_id": "00-0035719",
+            "inputs": {
+              "epa_per_target": 0.196,
+              "expected_tds": 5.53,
+              "snap_pct": 0.722,
+              "target_share": 0.224,
+              "target_share_change": 0.052,
+              "targets_per_snap_change": 0.0201,
+              "td_share_of_points": 0.191,
+              "tds": 6,
+              "yac_over_expected": -0.15
+            },
+            "name": "Deebo Samuel Sr.",
+            "position": "WR",
+            "position_rank": 31,
+            "ppg": 11.76,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.311,
+            "risk_2yr": 0.626,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 7,
+            "sleeper_id": "5872",
+            "team": "WAS",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 29.0,
+            "best_prior_ppg": 7.52,
+            "flags": [
+              {
+                "detail": "TE12 by PPG",
+                "flag": "fringe starter at his position",
+                "log_odds": 0.37
+              },
+              {
+                "detail": "10.6 PPG vs best prior 7.5",
+                "flag": "above his recent best at 25+",
+                "log_odds": 0.32
+              },
+              {
+                "detail": "target share +5.3 pts vs last season",
+                "flag": "target share jumped",
+                "log_odds": 0.22
+              }
+            ],
+            "games": 17,
+            "gsis_id": "00-0036040",
+            "inputs": {
+              "epa_per_target": 0.288,
+              "expected_tds": 2.87,
+              "snap_pct": 0.75,
+              "target_share": 0.173,
+              "target_share_change": 0.053,
+              "targets_per_snap_change": 0.0253,
+              "td_share_of_points": 0.1,
+              "tds": 3,
+              "yac_over_expected": -0.39
+            },
+            "name": "Juwan Johnson",
+            "position": "TE",
+            "position_rank": 12,
+            "ppg": 10.58,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.424,
+            "risk_2yr": 0.616,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 8,
+            "sleeper_id": "7002",
+            "team": "NO",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 27.2,
+            "best_prior_ppg": 12.36,
+            "flags": [
+              {
+                "detail": "age 27.2",
+                "flag": "age",
+                "log_odds": 0.37
+              },
+              {
+                "detail": "RB20 by PPG",
+                "flag": "fringe starter at his position",
+                "log_odds": 0.34
+              }
+            ],
+            "games": 17,
+            "gsis_id": "00-0036139",
+            "inputs": {
+              "epa_per_target": -0.006,
+              "expected_tds": 7.34,
+              "snap_pct": 0.561,
+              "target_share": 0.097,
+              "target_share_change": 0.015,
+              "targets_per_snap_change": 0.0076,
+              "td_share_of_points": 0.194,
+              "tds": 7,
+              "yac_over_expected": 0.7
+            },
+            "name": "Rico Dowdle",
+            "position": "RB",
+            "position_rank": 20,
+            "ppg": 12.72,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.366,
+            "risk_2yr": 0.607,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 9,
+            "sleeper_id": "7021",
+            "team": "CAR",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 25.5,
+            "best_prior_ppg": 8.65,
+            "flags": [
+              {
+                "detail": "13.0 PPG vs best prior 8.7",
+                "flag": "above his recent best at 25+",
+                "log_odds": 0.44
+              },
+              {
+                "detail": "target share +5.5 pts vs last season",
+                "flag": "target share jumped",
+                "log_odds": 0.23
+              },
+              {
+                "detail": "targets per snap +0.050 vs last season",
+                "flag": "targets per snap jumped",
+                "log_odds": 0.19
+              }
+            ],
+            "games": 17,
+            "gsis_id": "00-0038559",
+            "inputs": {
+              "epa_per_target": 0.191,
+              "expected_tds": 4.52,
+              "snap_pct": 0.814,
+              "target_share": 0.194,
+              "target_share_change": 0.055,
+              "targets_per_snap_change": 0.0501,
+              "td_share_of_points": 0.19,
+              "tds": 7,
+              "yac_over_expected": -0.73
+            },
+            "name": "Michael Wilson",
+            "position": "WR",
+            "position_rank": 18,
+            "ppg": 12.98,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.384,
+            "risk_2yr": 0.597,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 10,
+            "sleeper_id": "10232",
+            "team": "ARI",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 30.7,
+            "best_prior_ppg": 9.09,
+            "flags": [
+              {
+                "detail": "TE13 by PPG",
+                "flag": "fringe starter at his position",
+                "log_odds": 0.44
+              },
+              {
+                "detail": "age 30.7",
+                "flag": "age",
+                "log_odds": 0.44
+              },
+              {
+                "detail": "10.5 PPG vs best prior 9.1",
+                "flag": "above his recent best at 25+",
+                "log_odds": 0.17
+              }
+            ],
+            "games": 17,
+            "gsis_id": "00-0033090",
+            "inputs": {
+              "epa_per_target": 0.379,
+              "expected_tds": 7.06,
+              "snap_pct": 0.794,
+              "target_share": 0.173,
+              "target_share_change": -0.022,
+              "targets_per_snap_change": -0.0161,
+              "td_share_of_points": 0.235,
+              "tds": 7,
+              "yac_over_expected": 1.34
+            },
+            "name": "Hunter Henry",
+            "position": "TE",
+            "position_rank": 13,
+            "ppg": 10.52,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.374,
+            "risk_2yr": 0.594,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 11,
+            "sleeper_id": "3214",
+            "team": "NE",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 24.6,
+            "best_prior_ppg": null,
+            "flags": [
+              {
+                "detail": "RB23 by PPG",
+                "flag": "fringe starter at his position",
+                "log_odds": 0.47
+              },
+              {
+                "detail": "35% of points from TDs",
+                "flag": "TD-dependent",
+                "log_odds": 0.35
+              },
+              {
+                "detail": "42% of offensive snaps",
+                "flag": "low snap share",
+                "log_odds": 0.22
+              }
+            ],
+            "games": 17,
+            "gsis_id": "00-0040730",
+            "inputs": {
+              "epa_per_target": 0.287,
+              "expected_tds": 8.85,
+              "snap_pct": 0.421,
+              "target_share": 0.095,
+              "target_share_change": 0.0,
+              "targets_per_snap_change": 0.0,
+              "td_share_of_points": 0.348,
+              "tds": 12,
+              "yac_over_expected": 0.72
+            },
+            "name": "RJ Harvey",
+            "position": "RB",
+            "position_rank": 23,
+            "ppg": 12.15,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "missing:no_prior_season",
+              "d_tps": "missing:no_prior_season",
+              "d_tshare": "missing:no_prior_season",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.411,
+            "risk_2yr": 0.592,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 12,
+            "sleeper_id": "12489",
+            "team": "DEN",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 30.0,
+            "best_prior_ppg": 15.75,
+            "flags": [
+              {
+                "detail": "age 30.0",
+                "flag": "age",
+                "log_odds": 0.47
+              },
+              {
+                "detail": "WR33 by PPG",
+                "flag": "fringe starter at his position",
+                "log_odds": 0.43
+              },
+              {
+                "detail": "age 30.0 vs peak 27.5",
+                "flag": "past his position's peak age",
+                "log_odds": 0.15
+              }
+            ],
+            "games": 10,
+            "gsis_id": "00-0035659",
+            "inputs": {
+              "epa_per_target": 0.47,
+              "expected_tds": 2.82,
+              "snap_pct": 0.704,
+              "target_share": 0.217,
+              "target_share_change": -0.005,
+              "targets_per_snap_change": 0.0134,
+              "td_share_of_points": 0.158,
+              "tds": 3,
+              "yac_over_expected": -1.68
+            },
+            "name": "Terry McLaurin",
+            "position": "WR",
+            "position_rank": 33,
+            "ppg": 11.42,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.437,
+            "risk_2yr": 0.586,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 13,
+            "sleeper_id": "5927",
+            "team": "WAS",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 26.6,
+            "best_prior_ppg": 12.5,
+            "flags": [
+              {
+                "detail": "age 26.6",
+                "flag": "age",
+                "log_odds": 0.29
+              },
+              {
+                "detail": "14.2 PPG vs best prior 12.5",
+                "flag": "above his recent best at 25+",
+                "log_odds": 0.2
+              },
+              {
+                "detail": "RB16 by PPG",
+                "flag": "fringe starter at his position",
+                "log_odds": 0.17
+              }
+            ],
+            "games": 16,
+            "gsis_id": "00-0036275",
+            "inputs": {
+              "epa_per_target": -0.019,
+              "expected_tds": 9.1,
+              "snap_pct": 0.579,
+              "target_share": 0.089,
+              "target_share_change": -0.003,
+              "targets_per_snap_change": 0.0081,
+              "td_share_of_points": 0.264,
+              "tds": 10,
+              "yac_over_expected": 1.72
+            },
+            "name": "D'Andre Swift",
+            "position": "RB",
+            "position_rank": 16,
+            "ppg": 14.23,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.369,
+            "risk_2yr": 0.578,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 14,
+            "sleeper_id": "6790",
+            "team": "CHI",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          },
+          {
+            "age": 25.2,
+            "best_prior_ppg": 14.33,
+            "flags": [
+              {
+                "detail": "target share +11.1 pts vs last season",
+                "flag": "target share jumped",
+                "log_odds": 0.51
+              },
+              {
+                "detail": "16.9 PPG vs best prior 14.3",
+                "flag": "above his recent best at 25+",
+                "log_odds": 0.27
+              },
+              {
+                "detail": "-2.0 YAC per catch vs expected",
+                "flag": "weak YAC vs expected",
+                "log_odds": 0.15
+              }
+            ],
+            "games": 16,
+            "gsis_id": "00-0037239",
+            "inputs": {
+              "epa_per_target": 0.187,
+              "expected_tds": 5.77,
+              "snap_pct": 0.843,
+              "target_share": 0.28,
+              "target_share_change": 0.111,
+              "targets_per_snap_change": 0.0362,
+              "td_share_of_points": 0.2,
+              "tds": 9,
+              "yac_over_expected": -1.97
+            },
+            "name": "Chris Olave",
+            "position": "WR",
+            "position_rank": 7,
+            "ppg": 16.88,
+            "provenance": {
+              "age": "measured",
+              "best_prior_ppg": "measured",
+              "d_tps": "measured",
+              "d_tshare": "measured",
+              "epa_t": "measured",
+              "snap_pct": "measured",
+              "yacoe": "measured"
+            },
+            "risk_1yr": 0.37,
+            "risk_2yr": 0.556,
+            "risk_band_2yr": {
+              "historical_decline_rate": 0.636,
+              "quintile": 5
+            },
+            "risk_rank": 15,
+            "sleeper_id": "8144",
+            "team": "NO",
+            "trade_value": null,
+            "trade_value_note": "not requested"
+          }
+        ],
+        "population": "producers: top 36 WR / 24 RB / 14 TE by PPR PPG with >= 7 games",
+        "scored": 74,
+        "season": 2025,
+        "source": "nflverse play-by-play, snap counts, rosters (MIT); FantasyCalc trade values (unofficial)",
+        "through_week": 18
       }
     },
     "depth_chart": {
@@ -11989,252 +12908,252 @@
       }
     },
     "week_usage": {
-      "tool": "get_week_usage",
       "kwargs": {
-        "week": 10,
         "season": "2025",
-        "team": "PHI"
+        "team": "PHI",
+        "week": 10
       },
       "mode": "strict",
+      "tool": "get_week_usage",
       "value": {
-        "season": "2025",
-        "week": 10,
-        "source": "nflverse open data (MIT licensed, github.com/nflverse)",
-        "units": "rates are 0-100 percentages",
+        "headlines": [],
         "limitations": [
           "route_proxy is offensive players on the field on dropbacks from nflverse participation (not official PFF routes)",
           "QB dropback_share is the passer/scrambler share of team dropbacks, not on-field route_proxy; designed_rushes exclude scrambles"
         ],
-        "headlines": [],
+        "season": "2025",
+        "source": "nflverse open data (MIT licensed, github.com/nflverse)",
         "teams": [
           {
-            "team": "PHI",
+            "designed_runs": 31,
             "dropback_rate": 48.3,
             "dropback_rate_provenance": "measured",
             "dropbacks": 29,
-            "designed_runs": 31,
             "dropbacks_with_participation": 29,
             "notes": [],
             "players": [
               {
-                "name": "Jalen Hurts",
-                "position": "QB",
-                "snap_share": 100.0,
-                "snap_share_provenance": "measured",
-                "offense_snaps": 63,
-                "rushes": 5,
-                "rushes_provenance": "measured",
-                "targets": 0,
-                "targets_provenance": "measured",
-                "target_share": 0.0,
-                "target_share_provenance": "measured",
-                "route_proxy": 100.0,
-                "route_proxy_provenance": "measured",
-                "on_dropbacks": 29,
-                "qb_dropbacks": 29,
-                "qb_dropbacks_provenance": "measured",
-                "dropback_share": 100.0,
-                "dropback_share_provenance": "measured",
                 "designed_rushes": 2,
                 "designed_rushes_provenance": "measured",
+                "dropback_share": 100.0,
+                "dropback_share_provenance": "measured",
+                "name": "Jalen Hurts",
+                "offense_snaps": 63,
+                "on_dropbacks": 29,
+                "position": "QB",
+                "qb_dropbacks": 29,
+                "qb_dropbacks_provenance": "measured",
+                "route_proxy": 100.0,
+                "route_proxy_provenance": "measured",
+                "rushes": 5,
+                "rushes_provenance": "measured",
                 "scramble_rushes": 3,
-                "scramble_rushes_provenance": "measured"
+                "scramble_rushes_provenance": "measured",
+                "snap_share": 100.0,
+                "snap_share_provenance": "measured",
+                "target_share": 0.0,
+                "target_share_provenance": "measured",
+                "targets": 0,
+                "targets_provenance": "measured"
               },
               {
                 "name": "Saquon Barkley",
-                "position": "RB",
-                "snap_share": 70.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 44,
-                "rushes": 22,
-                "rushes_provenance": "measured",
-                "targets": 3,
-                "targets_provenance": "measured",
-                "target_share": 13.0,
-                "target_share_provenance": "measured",
+                "on_dropbacks": 18,
+                "position": "RB",
                 "route_proxy": 62.1,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 18
+                "rushes": 22,
+                "rushes_provenance": "measured",
+                "snap_share": 70.0,
+                "snap_share_provenance": "measured",
+                "target_share": 13.0,
+                "target_share_provenance": "measured",
+                "targets": 3,
+                "targets_provenance": "measured"
               },
               {
                 "name": "Will Shipley",
-                "position": "RB",
-                "snap_share": 19.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 12,
-                "rushes": 4,
-                "rushes_provenance": "measured",
-                "targets": 2,
-                "targets_provenance": "measured",
-                "target_share": 8.7,
-                "target_share_provenance": "measured",
+                "on_dropbacks": 8,
+                "position": "RB",
                 "route_proxy": 27.6,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 8
+                "rushes": 4,
+                "rushes_provenance": "measured",
+                "snap_share": 19.0,
+                "snap_share_provenance": "measured",
+                "target_share": 8.7,
+                "target_share_provenance": "measured",
+                "targets": 2,
+                "targets_provenance": "measured"
               },
               {
                 "name": "Tank Bigsby",
-                "position": "RB",
-                "snap_share": 13.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 8,
-                "rushes": 3,
-                "rushes_provenance": "measured",
-                "targets": 0,
-                "targets_provenance": "measured",
-                "target_share": 0.0,
-                "target_share_provenance": "measured",
+                "on_dropbacks": 3,
+                "position": "RB",
                 "route_proxy": 10.3,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 3
+                "rushes": 3,
+                "rushes_provenance": "measured",
+                "snap_share": 13.0,
+                "snap_share_provenance": "measured",
+                "target_share": 0.0,
+                "target_share_provenance": "measured",
+                "targets": 0,
+                "targets_provenance": "measured"
               },
               {
                 "name": "DeVonta Smith",
-                "position": "WR",
-                "snap_share": 92.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 58,
-                "rushes": 0,
-                "rushes_provenance": "measured",
-                "targets": 7,
-                "targets_provenance": "measured",
-                "target_share": 30.4,
-                "target_share_provenance": "measured",
+                "on_dropbacks": 29,
+                "position": "WR",
                 "route_proxy": 100.0,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 29
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "snap_share": 92.0,
+                "snap_share_provenance": "measured",
+                "target_share": 30.4,
+                "target_share_provenance": "measured",
+                "targets": 7,
+                "targets_provenance": "measured"
               },
               {
                 "name": "A.J. Brown",
-                "position": "WR",
-                "snap_share": 78.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 49,
-                "rushes": 0,
-                "rushes_provenance": "measured",
-                "targets": 3,
-                "targets_provenance": "measured",
-                "target_share": 13.0,
-                "target_share_provenance": "measured",
+                "on_dropbacks": 24,
+                "position": "WR",
                 "route_proxy": 82.8,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 24
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "snap_share": 78.0,
+                "snap_share_provenance": "measured",
+                "target_share": 13.0,
+                "target_share_provenance": "measured",
+                "targets": 3,
+                "targets_provenance": "measured"
               },
               {
                 "name": "Jahan Dotson",
-                "position": "WR",
-                "snap_share": 30.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 19,
-                "rushes": 0,
-                "rushes_provenance": "measured",
-                "targets": 1,
-                "targets_provenance": "measured",
-                "target_share": 4.3,
-                "target_share_provenance": "measured",
+                "on_dropbacks": 13,
+                "position": "WR",
                 "route_proxy": 44.8,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 13
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "snap_share": 30.0,
+                "snap_share_provenance": "measured",
+                "target_share": 4.3,
+                "target_share_provenance": "measured",
+                "targets": 1,
+                "targets_provenance": "measured"
               },
               {
                 "name": "Darius Cooper",
-                "position": "WR",
-                "snap_share": 17.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 11,
-                "rushes": null,
-                "rushes_provenance": "missing:not_recorded",
-                "targets": null,
-                "targets_provenance": "missing:not_recorded",
-                "target_share": null,
-                "target_share_provenance": "missing:not_recorded",
+                "on_dropbacks": 5,
+                "position": "WR",
                 "route_proxy": 17.2,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 5
+                "rushes": null,
+                "rushes_provenance": "missing:not_recorded",
+                "snap_share": 17.0,
+                "snap_share_provenance": "measured",
+                "target_share": null,
+                "target_share_provenance": "missing:not_recorded",
+                "targets": null,
+                "targets_provenance": "missing:not_recorded"
               },
               {
                 "name": "Xavier Gipson",
-                "position": "WR",
-                "snap_share": 2.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 1,
-                "rushes": 0,
-                "rushes_provenance": "measured",
-                "targets": 0,
-                "targets_provenance": "measured",
-                "target_share": 0.0,
-                "target_share_provenance": "measured",
+                "on_dropbacks": 1,
+                "position": "WR",
                 "route_proxy": 3.4,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 1
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "snap_share": 2.0,
+                "snap_share_provenance": "measured",
+                "target_share": 0.0,
+                "target_share_provenance": "measured",
+                "targets": 0,
+                "targets_provenance": "measured"
               },
               {
                 "name": "Dallas Goedert",
-                "position": "TE",
-                "snap_share": 86.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 54,
-                "rushes": 0,
-                "rushes_provenance": "measured",
-                "targets": 6,
-                "targets_provenance": "measured",
-                "target_share": 26.1,
-                "target_share_provenance": "measured",
+                "on_dropbacks": 25,
+                "position": "TE",
                 "route_proxy": 86.2,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 25
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "snap_share": 86.0,
+                "snap_share_provenance": "measured",
+                "target_share": 26.1,
+                "target_share_provenance": "measured",
+                "targets": 6,
+                "targets_provenance": "measured"
               },
               {
                 "name": "Grant Calcaterra",
-                "position": "TE",
-                "snap_share": 40.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 25,
-                "rushes": 0,
-                "rushes_provenance": "measured",
-                "targets": 1,
-                "targets_provenance": "measured",
-                "target_share": 4.3,
-                "target_share_provenance": "measured",
+                "on_dropbacks": 11,
+                "position": "TE",
                 "route_proxy": 37.9,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 11
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "snap_share": 40.0,
+                "snap_share_provenance": "measured",
+                "target_share": 4.3,
+                "target_share_provenance": "measured",
+                "targets": 1,
+                "targets_provenance": "measured"
               },
               {
                 "name": "Kylen Granson",
-                "position": "TE",
-                "snap_share": 27.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 17,
-                "rushes": 0,
-                "rushes_provenance": "measured",
-                "targets": 0,
-                "targets_provenance": "measured",
-                "target_share": 0.0,
-                "target_share_provenance": "measured",
+                "on_dropbacks": 6,
+                "position": "TE",
                 "route_proxy": 20.7,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 6
+                "rushes": 0,
+                "rushes_provenance": "measured",
+                "snap_share": 27.0,
+                "snap_share_provenance": "measured",
+                "target_share": 0.0,
+                "target_share_provenance": "measured",
+                "targets": 0,
+                "targets_provenance": "measured"
               },
               {
                 "name": "Cameron Latu",
-                "position": "TE",
-                "snap_share": 8.0,
-                "snap_share_provenance": "measured",
                 "offense_snaps": 5,
-                "rushes": null,
-                "rushes_provenance": "missing:not_recorded",
-                "targets": null,
-                "targets_provenance": "missing:not_recorded",
-                "target_share": null,
-                "target_share_provenance": "missing:not_recorded",
+                "on_dropbacks": 2,
+                "position": "TE",
                 "route_proxy": 6.9,
                 "route_proxy_provenance": "measured",
-                "on_dropbacks": 2
+                "rushes": null,
+                "rushes_provenance": "missing:not_recorded",
+                "snap_share": 8.0,
+                "snap_share_provenance": "measured",
+                "target_share": null,
+                "target_share_provenance": "missing:not_recorded",
+                "targets": null,
+                "targets_provenance": "missing:not_recorded"
               }
-            ]
+            ],
+            "team": "PHI"
           }
-        ]
+        ],
+        "units": "rates are 0-100 percentages",
+        "week": 10
       }
     }
   }

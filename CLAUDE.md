@@ -1,7 +1,7 @@
 # Sleeper MCP — working notes for Claude
 
 Read-only MCP server exposing a Sleeper fantasy football league, plus a data
-pipeline that feeds DraftLab (a separate draft/trade app). 40 tools, five
+pipeline that feeds DraftLab (a separate draft/trade app). 44 tools, five
 upstreams, deployed on Prefect Horizon at `jlg-sleeper.fastmcp.app/mcp`.
 
 ## Environment
@@ -41,6 +41,7 @@ python tools/build_benchmarks.py --spread   # -> artifacts/benchmarks.json
 python tools/build_factors.py               # -> artifacts/player_factors.json
 python tools/check_artifact_count.py --new artifacts/player_factors.json
 python tools/auction_budget.py --league <id>  # FantasyCalc -> auction $ targets
+python tools/fit_decline_model.py         # refit get_decline_risk once a season (writes sleeper_core/data/decline_model.json)
 python tools/check_contract.py ../fantasy-football-draft-optimizer
 # Production publish: GitHub Actions → publish-artifacts (or workflow_dispatch)
 MCP_HTTP=1 python server.py             # local HTTP; then python tests/smoke_http.py
@@ -92,6 +93,12 @@ that side   what they MEAN           grading, archetypes, risk, scoring, strateg
 Nothing in `tools/` grades, scores or ranks. It reports measurements and says
 where each came from. DraftLab's repo lives at
 `C:\Code\fantasy-football-draft-optimizer\fantasy-football-draft-optimizer`.
+
+**The boundary covers the DraftLab pipeline only.** DraftLab is dormant, and
+new work is for the owner's own research inside the MCP. Research tools may
+score players (`get_decline_risk`, `sleeper_core/decline.py`) provided every
+score ships with its inputs, the flags behind it and the model's honest
+leave-one-season-out hit rate. Keep scoring out of the artifacts DraftLab reads.
 
 **DraftLab's published benchmarks are a reference, not ground truth.** They
 were transcribed by hand from screenshots of a video whose method is unknown.

@@ -313,6 +313,14 @@ def build_cases(fixtures: dict) -> list[tuple[str, str, dict, str]]:
         ("adp", "get_adp", {"limit": 25}, SHAPE),
         ("dynasty_tiers", "get_dynasty_tiers", {"position": "RB"}, SHAPE),
         # -- nflverse (completed season, so genuinely stable) ----------------
+        # Decline risk on a completed season with values off is fixed until
+        # the model is refit. A refit changes it on purpose: re-capture then.
+        (
+            "decline_risk",
+            "get_decline_risk",
+            {"season": int(SEASON), "include_values": False, "limit": 15},
+            STRICT,
+        ),
         (
             "player_stats",
             "get_player_stats",
