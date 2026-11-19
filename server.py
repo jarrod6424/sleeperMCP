@@ -35,6 +35,7 @@ from fastmcp import FastMCP
 from sleeper_core import adp as _adp
 from sleeper_core import auction as _auction
 from sleeper_core import crosswalk as _crosswalk
+from sleeper_core import decline as _decline
 from sleeper_core import grade as _grade
 from sleeper_core import http as _http
 from sleeper_core import league as _league_mod
@@ -1156,6 +1157,50 @@ def get_adp(
     season = int(_stats.current_season())
     return _adp.adp_rows(fmt, season, position=position, limit=limit,
                          fc_values=_values.fc_values(fmt))
+
+
+# --------------------------------------------------------------------------
+# Tools: dynasty decline risk  (research model on nflverse; values FantasyCalc)
+# --------------------------------------------------------------------------
+
+@mcp.tool()
+def get_decline_risk(
+    season: int | None = None,
+    position: str | None = None,
+    team: str | None = None,
+    player: str | None = None,
+    min_value: int | None = None,
+    sort: str = "risk",
+    limit: int = 30,
+    include_values: bool = True,
+    league_id: str | None = None,
+) -> dict:
+    """Dynasty sell-window finder: which players producing NOW are most likely
+    to decline (PPR PPG down 25%+) within one and two seasons.
+
+    Scores the top 36 WR / 24 RB / 14 TE by PPG. Each player gets risk_2yr and
+    risk_1yr, the historical decline rate of his risk band, up to three flags
+    explaining the score (age, TD dependence, scoring above his recent best at
+    25+, low snap share, etc.), the inputs behind them, and his FantasyCalc
+    dynasty value for your league format. Scores are rankings, not
+    probabilities; the model is modest (AUC ~0.64) and says so in the output.
+
+    player: name filter. A player who is not scored (already below the
+    producer line, or too few games) is explained under not_scored.
+    min_value: only players with at least this FantasyCalc value.
+    sort: "risk" (default) or "value". include_values=False skips FantasyCalc.
+    season defaults to the current season (partial seasons are flagged)."""
+    s = int(season or _stats.current_season())
+    seasons = {y: _decline.load_season(y) for y in (s - 2, s - 1, s)}
+    fc_rows = None
+    if include_values:
+        lid = _league_mod.resolve_league_id(league_id)
+        fc_rows = [_values.fc_row(v) for v in (_values.fc_values(_values.league_format(lid)) or [])]
+    return _decline.report(
+        s, _decline.load_model(), seasons, fc_rows,
+        position=position, team=team, player=player, min_value=min_value,
+        sort=sort, limit=limit,
+    )
 
 
 # --------------------------------------------------------------------------
